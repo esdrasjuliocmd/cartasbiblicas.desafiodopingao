@@ -1,379 +1,419 @@
 ﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quem Sou Eu? - Bíblico</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>🎮 Desafio Bíblico do Pingão - Cartas</title>
+  <style>
+    :root {
+      --jw-azul-principal: #4A6DA7;
+      --jw-azul-escuro: #1E3A5F;
+      --jw-azul-claro: #6B9BD1;
+      --jw-cinza-claro: #F5F5F5;
+      --jw-branco: #FFFFFF;
+      --jw-laranja: #F47920;
+      --jw-verde-sucesso: #5CB85C;
+      --jw-vermelho-erro: #D9534F;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 800px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--jw-azul-escuro) 0%, var(--jw-azul-principal) 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+      overflow-x: hidden;
+    }
 
-        h1 {
-            text-align: center;
-            color: #667eea;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
+    .container {
+      max-width: 500px;
+      width: 100%;
+    }
 
-        .subtitle {
-            text-align: center;
-            color: #666;
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-        }
+    .card {
+      background: var(--jw-branco);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      padding: 30px;
+      margin-bottom: 20px;
+      animation: fadeInUp 0.6s ease-out;
+    }
 
-        /* PÓDIO TOP 3 */
-        .podio-section {
-            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(253, 203, 110, 0.3);
-        }
+    .podio {
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      animation: fadeIn 1s;
+    }
 
-        .podio-title {
-            text-align: center;
-            font-size: 1.8rem;
-            color: #2d3436;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
+    .podio h3 {
+      text-align: center;
+      color: var(--jw-azul-escuro);
+      font-size: 1.4rem;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
 
-        .podio {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            gap: 20px;
-            margin-top: 20px;
-        }
+    .podio-item {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      animation: slideInLeft 0.5s ease-out forwards;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
 
-        .podio-item {
-            text-align: center;
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
-            position: relative;
-        }
+    .podio-item:nth-child(1) { animation-delay: 0.1s; }
+    .podio-item:nth-child(2) { animation-delay: 0.2s; }
+    .podio-item:nth-child(3) { animation-delay: 0.3s; }
+    .podio-item:nth-child(4) { animation-delay: 0.4s; }
+    .podio-item:nth-child(5) { animation-delay: 0.5s; }
 
-        .podio-item:hover {
-            transform: translateY(-10px);
-        }
+    .podio-item:last-child {
+      margin-bottom: 0;
+    }
 
-        .podio-item.primeiro {
-            order: 2;
-            flex: 1;
-            max-width: 200px;
-            animation: float 3s ease-in-out infinite;
-        }
+    .podio-posicao {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      min-width: 40px;
+      text-align: center;
+    }
 
-        .podio-item.segundo {
-            order: 1;
-            flex: 0.9;
-            max-width: 180px;
-            animation: float 3s ease-in-out 0.3s infinite;
-        }
+    .podio-posicao.numero {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--jw-azul-principal);
+    }
 
-        .podio-item.terceiro {
-            order: 3;
-            flex: 0.8;
-            max-width: 160px;
-            animation: float 3s ease-in-out 0.6s infinite;
-        }
+    .podio-nome {
+      flex: 1;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--jw-azul-escuro);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
+    .podio-pontos {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--jw-laranja);
+      flex-shrink: 0;
+      min-width: 70px;
+      text-align: right;
+    }
 
-        .medalha {
-            font-size: 4rem;
-            margin-bottom: 10px;
-            display: block;
-        }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-        .posicao {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-        }
+    .header h1 {
+      color: var(--jw-azul-escuro);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      animation: slideIn 0.5s ease-out;
+      line-height: 1.3;
+    }
 
-        .primeiro .posicao {
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-        }
+    .header p {
+      color: var(--jw-azul-principal);
+      font-size: 1rem;
+    }
 
-        .segundo .posicao {
-            background: linear-gradient(135deg, #C0C0C0, #808080);
-        }
+    .modos {
+      display: grid;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
 
-        .terceiro .posicao {
-            background: linear-gradient(135deg, #CD7F32, #8B4513);
-        }
+    .modo-btn {
+      background: linear-gradient(135deg, var(--jw-azul-principal), var(--jw-azul-escuro));
+      color: var(--jw-branco);
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: bold;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      line-height: 1.4;
+    }
 
-        .jogador-nome {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #2d3436;
-            margin-bottom: 5px;
-        }
+    .modo-btn:active {
+      transform: scale(0.98);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
 
-        .jogador-pontos {
-            font-size: 1rem;
-            color: #667eea;
-            font-weight: bold;
-        }
+    .modo-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 10px;
+    }
 
-        .podio-vazio {
-            text-align: center;
-            color: #2d3436;
-            font-size: 1.1rem;
-            padding: 20px;
-        }
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: var(--jw-azul-escuro);
+    }
 
-        /* BOTÕES PRINCIPAIS */
-        .menu-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
+    .loading-spinner {
+      font-size: 2rem;
+      animation: girar 1s linear infinite;
+    }
 
-        .menu-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 20px;
-            border-radius: 15px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
+    .empty-ranking {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--jw-azul-escuro);
+      font-size: 1rem;
+    }
 
-        .menu-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.6);
-        }
+    .empty-ranking-icon {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
 
-        .menu-btn:active {
-            transform: translateY(-2px);
-        }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
 
-        .btn-solo {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        .btn-amigos {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
 
-        .btn-ranking {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
 
-        /* ESTATÍSTICAS */
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 20px;
-        }
+    @keyframes girar {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
 
-        .stat-item {
-            text-align: center;
-        }
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.05);
+        opacity: 0.9;
+      }
+    }
 
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #667eea;
-        }
+    @media (max-width: 480px) {
+      .card {
+        padding: 20px;
+      }
 
-        .stat-label {
-            color: #666;
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
+      .podio {
+        padding: 15px;
+        margin-bottom: 15px;
+      }
 
-        /* RESPONSIVO */
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
+      .header h1 {
+        font-size: 1.5rem;
+      }
 
-            h1 {
-                font-size: 1.8rem;
-            }
+      .header p {
+        font-size: 0.9rem;
+      }
 
-            .podio {
-                flex-direction: column;
-                align-items: center;
-            }
+      .modo-btn {
+        padding: 18px;
+        font-size: 1rem;
+      }
 
-            .podio-item.primeiro,
-            .podio-item.segundo,
-            .podio-item.terceiro {
-                order: unset;
-                max-width: 100%;
-                width: 100%;
-            }
+      .modo-icon {
+        font-size: 2rem;
+      }
 
-            .menu-btn {
-                font-size: 1.1rem;
-                padding: 15px;
-            }
+      .podio h3 {
+        font-size: 1.2rem;
+      }
 
-            .stats {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-    </style>
+      .podio-item {
+        padding: 10px;
+        gap: 8px;
+      }
+
+      .podio-posicao {
+        font-size: 1.5rem;
+        min-width: 35px;
+      }
+
+      .podio-posicao.numero {
+        font-size: 1rem;
+      }
+
+      .podio-nome {
+        font-size: 0.9rem;
+      }
+
+      .podio-pontos {
+        font-size: 1rem;
+        min-width: 60px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🎮 Quem Sou Eu?</h1>
-        <p class="subtitle">Desafio Bíblico</p>
-
-        <!-- PÓDIO TOP 3 -->
-        <div class="podio-section">
-            <div class="podio-title">🏆 Pódio dos Campeões</div>
-            <div id="podio-container">
-                <div class="podio-vazio">Carregando ranking...</div>
-            </div>
+  <div class="container">
+    <!-- PÓDIO NO TOPO -->
+    <div class="podio">
+      <h3>🏆 Top 5 - Jogadores</h3>
+      <p style="text-align: center; color: var(--jw-azul-escuro); font-size: 0.85rem; margin-top: -8px; margin-bottom: 8px; font-weight: 500;">
+        Soma de todas as partidas jogadas
+      </p>
+      <p style="text-align: center; color: var(--jw-azul-escuro); font-size: 0.95rem; font-weight: bold; margin-bottom: 15px; animation: pulse 2s infinite;">
+        🔥 Entre para o time dos mestres! 🔥
+      </p>
+      <div id="ranking-lista">
+        <div class="loading">
+          <div class="loading-spinner">⏳</div>
+          <p>Carregando ranking...</p>
         </div>
-
-        <!-- MENU PRINCIPAL -->
-        <div class="menu-buttons">
-            <button class="menu-btn btn-solo" onclick="window.location.href='solo.html'">
-                🎮 JOGAR SOZINHO
-            </button>
-            <button class="menu-btn btn-amigos" onclick="window.location.href='multiplayer-competitivo.html'">
-                👥 JOGUE COM AMIGOS
-            </button>
-            <button class="menu-btn btn-ranking" onclick="window.location.href='recompensas.html'">
-                🏅 RANKING GLOBAL
-            </button>
-        </div>
-
-        <!-- ESTATÍSTICAS -->
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-number">500</div>
-                <div class="stat-label">Cartas</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">5</div>
-                <div class="stat-label">Categorias</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" id="jogadores-online">...</div>
-                <div class="stat-label">Jogadores</div>
-            </div>
-        </div>
+      </div>
     </div>
 
-    <script>
-        const BACKEND_URL = 'https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
+    <!-- CARD PRINCIPAL -->
+    <div class="card">
+      <div class="header">
+        <h1>🎮 Desafio Bíblico do Pingão</h1>
+        <p>Cartas</p>
+      </div>
 
-        // Carregar pódio
-        async function carregarPodio() {
-            try {
-                const response = await fetch(`${BACKEND_URL}/ranking`);
-                const data = await response.json();
-                
-                if (data.ranking && data.ranking.length > 0) {
-                    const top3 = data.ranking.slice(0, 3);
-                    
-                    let html = '<div class="podio">';
-                    
-                    const medalhas = ['🥇', '🥈', '🥉'];
-                    const classes = ['primeiro', 'segundo', 'terceiro'];
-                    
-                    top3.forEach((jogador, index) => {
-                        html += `
-                            <div class="podio-item ${classes[index]}">
-                                <div class="medalha">${medalhas[index]}</div>
-                                <div class="posicao">${index + 1}</div>
-                                <div class="jogador-nome">${jogador.nome}</div>
-                                <div class="jogador-pontos">${jogador.pontos} pts</div>
-                            </div>
-                        `;
-                    });
-                    
-                    html += '</div>';
-                    document.getElementById('podio-container').innerHTML = html;
-                } else {
-                    document.getElementById('podio-container').innerHTML = 
-                        '<div class="podio-vazio">🎯 Seja o primeiro a conquistar o pódio!</div>';
-                }
-            } catch (error) {
-                console.error('Erro ao carregar pódio:', error);
-                document.getElementById('podio-container').innerHTML = 
-                    '<div class="podio-vazio">⚠️ Erro ao carregar ranking</div>';
+      <div class="modos">
+        <a href="solo.html" class="modo-btn">
+          <span class="modo-icon">🎯</span>
+          Jogar e Estudar Sozinho
+        </a>
+        
+        <a href="multiplayer-competitivo.html" class="modo-btn">
+          <span class="modo-icon">⚔️</span>
+          Jogar e Estudar com os Amigos
+        </a>
+        
+        <a href="recompensas.html" class="modo-btn">
+          <span class="modo-icon">🏆</span>
+          Recompensas
+        </a>
+
+        <a href="regras.html" class="modo-btn">
+          <span class="modo-icon">📖</span>
+          Regras
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
+
+    async function carregarRanking() {
+      try {
+        const response = await fetch(`${API_BASE}/ranking`);
+        const data = await response.json();
+        
+        const rankingLista = document.getElementById('ranking-lista');
+
+        if (data.ranking && data.ranking.length > 0) {
+          const top5 = data.ranking.slice(0, 5);
+          
+          const rankingHTML = top5.map((jogador, index) => {
+            let posicao;
+            
+            if (index === 0) {
+              posicao = '🥇';
+            } else if (index === 1) {
+              posicao = '🥈';
+            } else if (index === 2) {
+              posicao = '🥉';
+            } else {
+              posicao = `<span class="podio-posicao numero">${index + 1}º</span>`;
             }
+
+            return `
+              <div class="podio-item">
+                <div class="podio-posicao">${posicao}</div>
+                <div class="podio-nome">${jogador.nome}</div>
+                <div class="podio-pontos">${jogador.pontos.toLocaleString('pt-BR')}</div>
+              </div>
+            `;
+          }).join('');
+
+          rankingLista.innerHTML = rankingHTML;
+        } else {
+          rankingLista.innerHTML = `
+            <div class="empty-ranking">
+              <div class="empty-ranking-icon">🎮</div>
+              <p>Nenhum recorde ainda.<br>Seja o primeiro!</p>
+            </div>
+          `;
         }
+      } catch (erro) {
+        console.error('❌ Erro ao carregar ranking:', erro);
+        document.getElementById('ranking-lista').innerHTML = `
+          <div class="empty-ranking">
+            <div class="empty-ranking-icon">⚠️</div>
+            <p>Erro ao carregar o ranking.<br>Tente novamente mais tarde.</p>
+          </div>
+        `;
+      }
+    }
 
-        // Carregar estatísticas
-        async function carregarEstatisticas() {
-            try {
-                const response = await fetch(`${BACKEND_URL}/ranking`);
-                const data = await response.json();
-                
-                const totalJogadores = data.ranking ? data.ranking.length : 0;
-                document.getElementById('jogadores-online').textContent = totalJogadores;
-            } catch (error) {
-                document.getElementById('jogadores-online').textContent = '?';
-            }
-        }
-
-        // Carregar ao iniciar
-        carregarPodio();
-        carregarEstatisticas();
-
-        // Atualizar a cada 1 minuto
-        setInterval(() => {
-            carregarPodio();
-            carregarEstatisticas();
-        }, 60000);
-    </script>
+    window.addEventListener('DOMContentLoaded', () => {
+      carregarRanking();
+    });
+  </script>
 </body>
 </html>

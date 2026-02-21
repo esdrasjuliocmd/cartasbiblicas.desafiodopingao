@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>ðŸŽ¯ Quem Sou Eu? - Modo Solo</title>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>🎯 Modo Solo - Quem Sou Eu?</title>
   <style>
     :root {
       --jw-azul-principal: #4A6DA7;
@@ -14,7 +17,6 @@
       --jw-laranja: #F47920;
       --jw-verde-sucesso: #5CB85C;
       --jw-vermelho-erro: #D9534F;
-      --jw-amarelo-aviso: #F0AD4E;
     }
 
     * {
@@ -31,1330 +33,1288 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 500px;
+      padding: 10px;
+      overflow-x: hidden;
+      position: fixed;
       width: 100%;
-      background: var(--jw-branco);
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-      overflow: hidden;
-    }
-
-    .header {
-      background: linear-gradient(135deg, var(--jw-azul-principal), var(--jw-azul-escuro));
-      color: var(--jw-branco);
-      padding: 20px;
-      text-align: center;
-    }
-
-    .header h1 {
-      font-size: 1.8rem;
-      margin-bottom: 5px;
-    }
-
-    .header p {
-      font-size: 1rem;
-      opacity: 0.9;
-    }
-
-    .user-info {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 8px 15px;
-      border-radius: 20px;
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 0.9rem;
-    }
-
-    .content {
-      padding: 20px;
-    }
-
-    .tela-nome,
-    .tela-inicial,
-    .tela-jogo,
-    .tela-resultado {
-      display: none;
-    }
-
-    .tela-nome.ativa,
-    .tela-inicial.ativa,
-    .tela-jogo.ativa,
-    .tela-resultado.ativa {
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* TELA DE NOME */
-    .tela-nome {
-      text-align: center;
-      padding: 20px;
-    }
-
-    .nome-icon {
-      font-size: 5rem;
-      margin-bottom: 20px;
-    }
-
-    .nome-titulo {
-      font-size: 1.5rem;
-      color: var(--jw-azul-escuro);
-      margin-bottom: 10px;
-    }
-
-    .nome-subtitulo {
-      font-size: 1rem;
-      color: var(--jw-azul-principal);
-      margin-bottom: 30px;
-    }
-
-    .input-nome {
-      width: 100%;
-      padding: 15px;
-      font-size: 1.1rem;
-      border: 3px solid var(--jw-azul-principal);
-      border-radius: 10px;
-      margin-bottom: 20px;
-      text-align: center;
-      outline: none;
-    }
-
-    .input-nome:focus {
-      border-color: var(--jw-laranja);
-    }
-
-    /* TELA INICIAL - CATEGORIAS */
-    .categorias-titulo {
-      text-align: center;
-      color: var(--jw-azul-escuro);
-      font-size: 1.3rem;
-      margin-bottom: 20px;
-    }
-
-    .categorias-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-
-    .categoria-card {
-      background: linear-gradient(135deg, var(--jw-cinza-claro), #FFFFFF);
-      border: 3px solid var(--jw-azul-principal);
-      border-radius: 15px;
-      padding: 25px 15px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s;
-      touch-action: manipulation;
-      user-select: none;
-    }
-
-    .categoria-card:active {
-      transform: scale(0.95);
-    }
-
-    .categoria-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-    }
-
-    .categoria-icon {
-      font-size: 3rem;
-      margin-bottom: 10px;
-    }
-
-    .categoria-nome {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: var(--jw-azul-escuro);
-      margin-bottom: 5px;
-    }
-
-    .categoria-info {
-      font-size: 0.85rem;
-      color: var(--jw-azul-principal);
-    }
-
-    /* BOTÃ•ES DE AÃ‡ÃƒO */
-    .acoes-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .btn-acao {
-      background: var(--jw-verde-sucesso);
-      color: white;
-      border: none;
-      padding: 15px 20px;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      touch-action: manipulation;
-      text-decoration: none;
-    }
-
-    .btn-acao:active {
-      transform: scale(0.98);
-    }
-
-    .btn-acao.laranja {
-      background: var(--jw-laranja);
-    }
-
-    .btn-acao.azul {
-      background: var(--jw-azul-principal);
-    }
-
-    .btn-acao:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    /* TELA DE JOGO */
-    .tela-jogo {
-      padding: 15px;
-    }
-
-    .info-jogo {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 15px;
-      background: var(--jw-cinza-claro);
-      border-radius: 10px;
-      margin-bottom: 15px;
-      font-size: 0.9rem;
-    }
-
-    .timer {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: var(--jw-laranja);
-    }
-
-    .timer.urgente {
-      color: var(--jw-vermelho-erro);
-      animation: pulsar 0.5s infinite;
-    }
-
-    @keyframes pulsar {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-
-    .pontos-possiveis {
-      font-size: 1rem;
-      font-weight: bold;
-      color: var(--jw-verde-sucesso);
-      transition: all 0.3s;
-    }
-
-    .pontos-possiveis.medio {
-      color: var(--jw-laranja);
-    }
-
-    .pontos-possiveis.baixo {
-      color: var(--jw-vermelho-erro);
-    }
-
-    .carta-container {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
       height: 100%;
     }
 
-    .pergunta {
+    .container {
+      max-width: 800px;
+      width: 100%;
+      position: relative;
+      overflow-y: auto;
+      max-height: 100vh;
+      padding: 5px;
+    }
+
+    .card {
+      background: var(--jw-branco);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      padding: 15px;
+      margin-bottom: 10px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      color: var(--jw-azul-escuro);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: var(--jw-azul-principal);
+      font-size: 0.95rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .stat-box {
       background: linear-gradient(135deg, var(--jw-azul-principal), var(--jw-azul-escuro));
       color: var(--jw-branco);
-      padding: 20px;
-      border-radius: 12px;
+      padding: 10px 6px;
+      border-radius: 10px;
       text-align: center;
-      font-size: 1.1rem;
+      transition: transform 0.3s;
+    }
+
+    .stat-box:active {
+      transform: scale(0.95);
+    }
+
+    .stat-label {
+      font-size: 0.65rem;
+      opacity: 0.9;
+      margin-bottom: 2px;
+    }
+
+    .stat-value {
+      font-size: 1.2rem;
       font-weight: bold;
-      line-height: 1.4;
-      min-height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    .alternativas {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .alternativa {
-      background: var(--jw-branco);
+    .categoria-select {
+      width: 100%;
+      padding: 14px;
       border: 3px solid var(--jw-azul-principal);
-      border-radius: 12px;
-      padding: 15px 20px;
+      border-radius: 10px;
+      font-size: 1rem;
+      margin-bottom: 12px;
+      background: var(--jw-branco);
+      color: var(--jw-azul-escuro);
       cursor: pointer;
       transition: all 0.3s;
-      font-size: 1rem;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      min-height: 60px;
-      touch-action: manipulation;
-      user-select: none;
     }
 
-    .alternativa:active {
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      touch-action: manipulation;
+    }
+
+    .btn-primary {
+      background: var(--jw-azul-principal);
+      color: var(--jw-branco);
+    }
+
+    .btn-primary:active {
+      background: var(--jw-azul-escuro);
       transform: scale(0.98);
     }
 
-    .alternativa:hover {
+    .btn-secondary {
       background: var(--jw-cinza-claro);
-      transform: translateX(5px);
+      color: var(--jw-azul-escuro);
+      margin-top: 10px;
     }
 
-    .alternativa.correta {
-      background: var(--jw-verde-sucesso);
-      border-color: var(--jw-verde-sucesso);
-      color: white;
-      animation: acertou 0.5s;
+    .btn-secondary:active {
+      background: #E0E0E0;
+      transform: scale(0.98);
     }
 
-    .alternativa.errada {
-      background: var(--jw-vermelho-erro);
-      border-color: var(--jw-vermelho-erro);
-      color: white;
-      animation: errou 0.5s;
+    .pergunta-container {
+      display: none;
     }
 
-    @keyframes acertou {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    @keyframes errou {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-10px); }
-      75% { transform: translateX(10px); }
-    }
-
-    .letra {
-      background: var(--jw-azul-principal);
-      color: white;
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
+    .pergunta-header {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .numero-pergunta {
+      font-size: 1rem;
+      color: var(--jw-azul-principal);
       font-weight: bold;
-      font-size: 1.1rem;
-      flex-shrink: 0;
+      animation: slideIn 0.5s ease-out;
     }
 
-    .alternativa.correta .letra,
-    .alternativa.errada .letra {
-      background: rgba(255, 255, 255, 0.3);
+    .timer {
+      font-size: 1.5rem;
+      color: var(--jw-laranja);
+      font-weight: bold;
+      min-width: 55px;
+      text-align: right;
     }
 
-    /* DICAS PROGRESSIVAS */
-    .dicas-container {
+    .super-bonus-indicator {
+      background: transparent;
+      color: var(--jw-azul-principal);
+      padding: 4px 8px;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: normal;
+      font-size: 0.7rem;
+      opacity: 0.7;
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    .bonus-indicator {
+      background: transparent;
+      color: var(--jw-azul-principal);
+      padding: 4px 8px;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: normal;
+      font-size: 0.7rem;
+      opacity: 0.7;
+      display: inline-block;
+    }
+
+    .bonus-container {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .dicas {
+      background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+      padding: 18px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      min-height: 120px;
+      border: 3px solid var(--jw-azul-principal);
+      box-shadow: 0 4px 15px rgba(74, 109, 167, 0.2);
     }
 
     .dica {
-      background: #FFF9E6;
-      border: 2px solid var(--jw-amarelo-aviso);
-      border-radius: 10px;
-      padding: 10px 12px;
-      font-size: 0.9rem;
-      line-height: 1.4;
+      font-size: 1.3rem;
+      color: var(--jw-azul-escuro);
+      margin-bottom: 12px;
+      padding-left: 38px;
+      position: relative;
       opacity: 0;
-      transform: translateY(-10px);
-      transition: all 0.5s;
+      animation: fadeInUp 0.5s ease-out forwards;
+      line-height: 1.7;
       display: none;
+      font-weight: 700;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.05);
     }
 
     .dica.visivel {
       display: block;
-      opacity: 1;
-      transform: translateY(0);
     }
 
-    .dica strong {
-      color: var(--jw-laranja);
+    .dica::before {
+      content: "💡";
+      position: absolute;
+      left: 0;
+      font-size: 1.6rem;
+      top: -2px;
     }
 
-    /* TELA DE RESULTADO */
-    .resultado-container {
+    .dica:last-child {
+      margin-bottom: 0;
+    }
+
+    .dica-timer {
       text-align: center;
-      padding: 20px 15px;
+      color: var(--jw-azul-principal);
+      font-size: 0.95rem;
+      font-weight: bold;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 2px solid rgba(74, 109, 167, 0.3);
     }
 
-    .resultado-icon {
-      font-size: 5rem;
-      margin-bottom: 15px;
-      animation: aparecer 0.5s;
+    .opcoes-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
     }
 
-    @keyframes aparecer {
-      from { opacity: 0; transform: scale(0); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .resultado-titulo {
-      font-size: 1.8rem;
+    .opcao {
+      background: var(--jw-branco);
+      border: 3px solid var(--jw-azul-principal);
+      padding: 14px 10px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: bold;
       color: var(--jw-azul-escuro);
-      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease-out forwards;
+      touch-action: manipulation;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      word-wrap: break-word;
     }
 
-    .resultado-stats {
-      background: var(--jw-cinza-claro);
-      border-radius: 15px;
-      padding: 20px;
+    .opcao:active {
+      transform: scale(0.97);
+    }
+
+    .opcao.correta {
+      background: var(--jw-verde-sucesso);
+      color: var(--jw-branco);
+      border-color: var(--jw-verde-sucesso);
+      animation: pulse 0.5s;
+    }
+
+    .opcao.errada {
+      background: var(--jw-vermelho-erro);
+      color: var(--jw-branco);
+      border-color: var(--jw-vermelho-erro);
+      animation: shake 0.5s;
+    }
+
+    .opcao.desabilitada {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    .feedback {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: bold;
+      display: none;
+      animation: bounceIn 0.5s;
+    }
+
+    .feedback.correto {
+      background: #d4edda;
+      color: #155724;
+      border: 2px solid var(--jw-verde-sucesso);
+    }
+
+    .feedback.errado {
+      background: #f8d7da;
+      color: #721c24;
+      border: 2px solid var(--jw-vermelho-erro);
+    }
+
+    .resultado-final {
+      display: none;
+      text-align: center;
+    }
+
+    .pontuacao-final {
+      font-size: 3rem;
+      color: var(--jw-laranja);
+      font-weight: bold;
+      margin: 20px 0;
+      animation: pulsar 1s infinite;
+    }
+
+    .resumo {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
       margin: 20px 0;
     }
 
-    .stat-item {
+    .resumo-item {
+      background: var(--jw-cinza-claro);
+      padding: 14px 8px;
+      border-radius: 10px;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease-out forwards;
+    }
+
+    .resumo-item:nth-child(1) { animation-delay: 0.1s; }
+    .resumo-item:nth-child(2) { animation-delay: 0.2s; }
+    .resumo-item:nth-child(3) { animation-delay: 0.3s; }
+
+    .resumo-label {
+      font-size: 0.8rem;
+      color: var(--jw-azul-principal);
+      margin-bottom: 5px;
+    }
+
+    .resumo-valor {
+      font-size: 1.6rem;
+      color: var(--jw-azul-escuro);
+      font-weight: bold;
+    }
+
+    .podio {
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      padding: 18px;
+      border-radius: 12px;
+      margin: 20px 0;
+      animation: fadeIn 1s;
+    }
+
+    .podio h3 {
+      text-align: center;
+      color: var(--jw-azul-escuro);
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+
+    .podio-item {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 8px;
+      border-radius: 8px;
+      margin-bottom: 8px;
       display: flex;
       justify-content: space-between;
-      padding: 10px 0;
-      border-bottom: 1px solid #ddd;
+      align-items: center;
+      opacity: 0;
+      animation: slideInLeft 0.5s ease-out forwards;
+      gap: 8px;
     }
 
-    .stat-item:last-child {
-      border-bottom: none;
+    .podio-item:nth-child(1) { animation-delay: 0.1s; }
+    .podio-item:nth-child(2) { animation-delay: 0.2s; }
+    .podio-item:nth-child(3) { animation-delay: 0.3s; }
+    .podio-item:nth-child(4) { animation-delay: 0.4s; }
+    .podio-item:nth-child(5) { animation-delay: 0.5s; }
+
+    .podio-posicao {
+      font-size: 1.5rem;
+      margin-right: 0;
+      flex-shrink: 0;
+      min-width: 35px;
+      text-align: center;
     }
 
-    .stat-label {
+    .podio-nome {
+      flex: 1;
+      font-size: 0.9rem;
       font-weight: bold;
       color: var(--jw-azul-escuro);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .stat-valor {
-      color: var(--jw-azul-principal);
+    .podio-pontos {
+      font-size: 1rem;
       font-weight: bold;
-    }
-
-    .pontos-total {
-      font-size: 2.5rem;
       color: var(--jw-laranja);
+      flex-shrink: 0;
+      min-width: 60px;
+      text-align: right;
+    }
+
+    .streak-indicator {
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      color: white;
+      padding: 6px 10px;
+      border-radius: 8px;
+      text-align: center;
       font-weight: bold;
-      margin: 20px 0;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+      animation: shake 0.5s;
     }
 
-    .botoes-resultado {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 20px;
+    .floating-points {
+      position: fixed;
+      font-size: 2.2rem;
+      font-weight: bold;
+      pointer-events: none;
+      z-index: 9999;
+      animation: floatUp 2s ease-out forwards;
     }
 
-    /* MOBILE OPTIMIZATIONS */
-    @media (max-width: 600px) {
-      body {
-        padding: 0;
-      }
+    .floating-points.bonus {
+      color: #FFD700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-size: 2.8rem;
+    }
 
-      .container {
-        border-radius: 0;
-        max-width: 100%;
-        min-height: 100vh;
-        min-height: 100dvh;
-        display: flex;
-        flex-direction: column;
-      }
+    .floating-points.normal {
+      color: var(--jw-verde-sucesso);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
 
-      .header {
-        padding: 8px;
-        flex-shrink: 0;
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
       }
-
-      .header h1 {
-        font-size: 1.2rem;
-        margin-bottom: 2px;
+      50% {
+        transform: translateY(-50px) scale(1.2);
       }
-
-      .header p {
-        display: none;
-      }
-
-      .user-info {
-        font-size: 0.8rem;
-        padding: 5px 12px;
-        margin-top: 4px;
-      }
-
-      .content {
-        padding: 5px;
-        flex: 1;
-        overflow-y: auto;
-      }
-
-      .tela-nome.ativa,
-      .tela-inicial.ativa {
-        display: flex;
-        flex-direction: column;
-        height: auto;
-        overflow-y: auto;
-        padding: 15px;
-      }
-
-      .nome-icon {
-        font-size: 4rem;
-      }
-
-      .nome-titulo {
-        font-size: 1.3rem;
-      }
-
-      .nome-subtitulo {
-        font-size: 0.9rem;
-      }
-
-      .input-nome {
-        font-size: 1rem;
-        padding: 12px;
-      }
-
-      .tela-jogo.ativa {
-        padding: 8px;
-        height: calc(100vh - 70px);
-        height: calc(100dvh - 70px);
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        overflow: hidden;
-      }
-
-      .tela-resultado.ativa {
-        display: flex;
-        flex-direction: column;
-        height: auto;
-        overflow-y: auto;
-      }
-
-      .info-jogo {
-        font-size: 0.9rem;
-        padding: 6px 10px;
-        margin-bottom: 0;
-        flex-shrink: 0;
-      }
-
-      .timer {
-        font-size: 1.1rem;
-        font-weight: bold;
-      }
-
-      .pontos-possiveis {
-        font-size: 0.95rem;
-      }
-
-      .carta-container {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        overflow: hidden;
-        min-height: 0;
-      }
-
-      .carta-container > .dicas-container {
-        order: 0;
-      }
-
-      .carta-container > .pergunta {
-        order: 1;
-      }
-
-      .carta-container > .alternativas {
-        order: 2;
-      }
-
-      .dicas-container {
-        gap: 5px;
-        flex-shrink: 0;
-      }
-
-      .dica {
-        font-size: 1rem;
-        padding: 10px 12px;
-        line-height: 1.4;
-        border-width: 2px;
-      }
-
-      .pergunta {
-        font-size: 1.1rem;
-        padding: 12px;
-        min-height: 50px;
-        max-height: 65px;
-        line-height: 1.4;
-        flex-shrink: 0;
-      }
-
-      .alternativas {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        overflow: hidden;
-        min-height: 0;
-      }
-
-      .alternativa {
-        font-size: 1.05rem;
-        padding: 12px 14px;
-        min-height: 48px;
-        max-height: 56px;
-        flex-shrink: 0;
-      }
-
-      .letra {
-        width: 32px;
-        height: 32px;
-        font-size: 1rem;
-      }
-
-      .categorias-grid {
-        gap: 8px;
-      }
-
-      .categoria-card {
-        padding: 12px 10px;
-      }
-
-      .categoria-icon {
-        font-size: 2rem;
-      }
-
-      .categoria-nome {
-        font-size: 0.9rem;
-      }
-
-      .categoria-info {
-        font-size: 0.75rem;
-      }
-
-      .btn-acao {
-        padding: 12px 14px;
-        font-size: 0.9rem;
-      }
-
-      .categorias-titulo {
-        font-size: 1.2rem;
-        margin-bottom: 15px;
+      100% {
+        opacity: 0;
+        transform: translateY(-150px) scale(0.8);
       }
     }
 
-    @media (max-width: 600px) and (min-height: 700px) {
-      .tela-jogo.ativa {
-        height: calc(100vh - 60px);
-        height: calc(100dvh - 60px);
-        padding: 10px;
-      }
+    @keyframes pulsar {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
 
-      .header {
-        padding: 6px;
-      }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
 
-      .header h1 {
-        font-size: 1.1rem;
-      }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
 
-      .pergunta {
-        font-size: 1.05rem;
-        padding: 12px;
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
       }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-      .alternativa {
-        font-size: 1rem;
-        padding: 12px 14px;
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
       }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
 
-      .dica {
-        font-size: 0.95rem;
-        padding: 8px 12px;
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
       }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
 
-      .info-jogo {
-        padding: 6px 10px;
-        font-size: 0.85rem;
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
       }
+      50% {
+        transform: scale(1.05);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
 
-      .timer {
-        font-size: 1rem;
-      }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
 
-      .letra {
-        width: 30px;
-        height: 30px;
-        font-size: 0.95rem;
-      }
+    @keyframes girar {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+    }
+
+    .loading-spinner {
+      font-size: 2.5rem;
+      animation: girar 1s linear infinite;
     }
 
     @media (max-width: 380px) {
+      .card {
+        padding: 12px;
+      }
+
       .header h1 {
-        font-size: 1rem;
+        font-size: 1.5rem;
       }
 
-      .pergunta {
-        font-size: 1rem;
-        min-height: 45px;
+      .stat-value {
+        font-size: 1.1rem;
       }
 
-      .alternativa {
-        font-size: 0.95rem;
-        min-height: 44px;
-        padding: 10px 12px;
+      .super-bonus-indicator,
+      .bonus-indicator {
+        font-size: 0.65rem;
+        padding: 3px 6px;
       }
 
-      .letra {
-        width: 28px;
-        height: 28px;
-        font-size: 0.9rem;
+      .dicas {
+        padding: 15px;
+        min-height: 110px;
       }
 
       .dica {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        padding-left: 35px;
+        margin-bottom: 10px;
+      }
+
+      .dica::before {
+        font-size: 1.5rem;
+      }
+
+      .dica-timer {
+        font-size: 0.85rem;
+      }
+
+      .opcao {
+        font-size: 0.95rem;
+        padding: 12px 8px;
+      }
+
+      .podio-item {
+        padding: 6px;
+        gap: 6px;
+      }
+
+      .podio-posicao {
+        font-size: 1.2rem;
+        min-width: 30px;
+      }
+
+      .podio-nome {
+        font-size: 0.85rem;
+      }
+
+      .podio-pontos {
         font-size: 0.9rem;
+        min-width: 50px;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <h1>ðŸŽ¯ Quem Sou Eu?</h1>
-      <p>Jogo de Cartas BÃ­blicas</p>
-      <div class="user-info" id="user-info">
-        <span id="nome-jogador">Visitante</span> | ðŸ† <span id="pontos-header">0</span> pts
+    <div class="card" id="tela-inicial">
+      <div class="header">
+        <h1>🎯 Modo Solo</h1>
+        <p>Responda 10 perguntas e alcance o topo!</p>
       </div>
+
+      <div class="stats">
+        <div class="stat-box">
+          <div class="stat-label">Recorde</div>
+          <div class="stat-value" id="recorde-pessoal">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Perguntas</div>
+          <div class="stat-value">10</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Tempo</div>
+          <div class="stat-value">60s</div>
+        </div>
+      </div>
+
+      <label for="categoria" style="display: block; margin-bottom: 8px; color: #1E3A5F; font-weight: bold; font-size: 0.95rem;">
+        📚 Categoria:
+      </label>
+      <select id="categoria" class="categoria-select">
+        <option value="personagens">👤 Personagens Bíblicos</option>
+        <option value="profecias">📜 Profecias</option>
+        <option value="pregacao">🎤 Pregação</option>
+      </select>
+
+      <label for="nome-jogador" style="display: block; margin-bottom: 8px; color: #1E3A5F; font-weight: bold; font-size: 0.95rem;">
+        ✏️ Seu Nome:
+      </label>
+      <input 
+        type="text" 
+        id="nome-jogador" 
+        class="categoria-select" 
+        placeholder="Digite seu nome..." 
+        style="margin-bottom: 12px;"
+        autocomplete="name"
+      >
+
+      <button class="btn btn-primary" onclick="iniciarJogo()">🚀 Iniciar Jogo</button>
+      <a href="index.html" class="btn btn-secondary">🏠 Voltar ao Menu</a>
     </div>
 
-    <div class="content">
-      <!-- TELA DE NOME -->
-      <div class="tela-nome ativa">
-        <div class="nome-icon">ðŸ‘¤</div>
-        <h2 class="nome-titulo">Bem-vindo ao Modo Solo!</h2>
-        <p class="nome-subtitulo">Digite seu nome para entrar no ranking global</p>
-        
-        <input 
-          type="text" 
-          class="input-nome" 
-          id="input-nome" 
-          placeholder="Digite seu nome..."
-          maxlength="20"
-        >
-        
-        <div class="acoes-container">
-          <button class="btn-acao" id="btn-confirmar-nome">
-            âœ… Confirmar e Continuar
-          </button>
-          <a href="index.html" class="btn-acao azul">
-            ðŸ  Voltar ao Menu
-          </a>
+    <div class="card pergunta-container" id="tela-jogo"></div>
+
+    <div class="card resultado-final" id="tela-resultado">
+      <div class="header">
+        <h1>🎊 Finalizado!</h1>
+      </div>
+
+      <div class="pontuacao-final" id="pontuacao-final">0</div>
+
+      <div class="resumo">
+        <div class="resumo-item">
+          <div class="resumo-label">✅ Acertos</div>
+          <div class="resumo-valor" id="resumo-acertos">0</div>
+        </div>
+        <div class="resumo-item">
+          <div class="resumo-label">❌ Erros</div>
+          <div class="resumo-valor" id="resumo-erros">0</div>
+        </div>
+        <div class="resumo-item">
+          <div class="resumo-label">🎯 Precisão</div>
+          <div class="resumo-valor" id="resumo-precisao">0%</div>
         </div>
       </div>
 
-      <!-- TELA INICIAL - CATEGORIAS -->
-      <div class="tela-inicial">
-        <h2 class="categorias-titulo">Escolha uma Categoria</h2>
-        
-        <div class="categorias-grid">
-          <div class="categoria-card" data-categoria="personagens">
-            <div class="categoria-icon">ðŸ‘¤</div>
-            <div class="categoria-nome">PERSONAGENS</div>
-            <div class="categoria-info">100 cartas</div>
-          </div>
-
-          <div class="categoria-card" data-categoria="profecias">
-            <div class="categoria-icon">ðŸ“œ</div>
-            <div class="categoria-nome">PROFECIAS</div>
-            <div class="categoria-info">100 cartas</div>
-          </div>
-
-          <div class="categoria-card" data-categoria="pregacao">
-            <div class="categoria-icon">ðŸŽ¯</div>
-            <div class="categoria-nome">PREGAÃ‡ÃƒO</div>
-            <div class="categoria-info">100 cartas</div>
-          </div>
-
-          <div class="categoria-card" data-categoria="desenho">
-            <div class="categoria-icon">ðŸŽ¨</div>
-            <div class="categoria-nome">DESENHO</div>
-            <div class="categoria-info">100 cartas</div>
-          </div>
-
-          <div class="categoria-card" data-categoria="mimica">
-            <div class="categoria-icon">ðŸŽ­</div>
-            <div class="categoria-nome">MÃMICA</div>
-            <div class="categoria-info">100 cartas</div>
-          </div>
-        </div>
-
-        <div class="acoes-container">
-          <a href="recompensas.html" class="btn-acao">
-            ðŸŽ Loja de Recompensas
-          </a>
-          <a href="multiplayer-competitivo.html" class="btn-acao laranja">
-            ðŸŽ® Modo Competitivo
-          </a>
-          <a href="index.html" class="btn-acao azul">
-            ðŸ  Voltar ao Menu
-          </a>
-        </div>
+      <div class="podio" id="podio-container" style="display: none;">
+        <h3>🏆 Top 5 Ranking</h3>
+        <div id="podio-lista"></div>
       </div>
 
-      <!-- TELA DE JOGO -->
-      <div class="tela-jogo">
-        <div class="info-jogo">
-          <div>
-            <span>â±ï¸ <span class="timer" id="timer">60</span>s</span>
-          </div>
-          <div>
-            <span class="pontos-possiveis" id="pontos-possiveis">ðŸ’° 100 pts</span>
-          </div>
-          <div>
-            <span>ðŸ“Š <span id="carta-atual">1</span>/10</span>
-          </div>
-        </div>
-
-        <div class="carta-container">
-          <div class="dicas-container">
-            <div class="dica visivel" id="dica1">
-              <strong>ðŸ’¡ DICA 1:</strong> <span id="texto-dica1"></span>
-            </div>
-            <div class="dica" id="dica2">
-              <strong>ðŸ’¡ DICA 2:</strong> <span id="texto-dica2"></span>
-            </div>
-            <div class="dica" id="dica3">
-              <strong>ðŸ’¡ DICA 3:</strong> <span id="texto-dica3"></span>
-            </div>
-          </div>
-
-          <div class="pergunta" id="pergunta">
-            Carregando pergunta...
-          </div>
-
-          <div class="alternativas" id="alternativas"></div>
-        </div>
-      </div>
-
-      <!-- TELA DE RESULTADO -->
-      <div class="tela-resultado">
-        <div class="resultado-container">
-          <div class="resultado-icon" id="resultado-icon">ðŸŽ‰</div>
-          <h2 class="resultado-titulo" id="resultado-titulo">ParabÃ©ns!</h2>
-          
-          <div class="pontos-total">
-            <span id="pontos-final">0</span> pontos
-          </div>
-
-          <div class="resultado-stats">
-            <div class="stat-item">
-              <span class="stat-label">âœ… Acertos:</span>
-              <span class="stat-valor" id="total-acertos">0</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">âŒ Erros:</span>
-              <span class="stat-valor" id="total-erros">0</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">â±ï¸ Tempo mÃ©dio:</span>
-              <span class="stat-valor" id="tempo-medio">0s</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">ðŸŽ¯ Categoria:</span>
-              <span class="stat-valor" id="categoria-jogada">-</span>
-            </div>
-          </div>
-
-          <div class="botoes-resultado">
-            <button class="btn-acao" onclick="jogarNovamente()">
-              ðŸ”„ Jogar Novamente
-            </button>
-            <button class="btn-acao laranja" onclick="voltarCategorias()">
-              ðŸ“š Escolher Outra Categoria
-            </button>
-            <a href="index.html" class="btn-acao azul">
-              ðŸ  Voltar ao Menu
-            </a>
-          </div>
-        </div>
-      </div>
+      <button class="btn btn-primary" onclick="location.reload()">🔄 Jogar Novamente</button>
+      <a href="index.html" class="btn btn-secondary">🏠 Menu</a>
     </div>
   </div>
 
   <script>
+    const AudioSystem = {
+      context: null,
+      volume: 0.25,
+
+      init() {
+        try {
+          this.context = new (window.AudioContext || window.webkitAudioContext)();
+        } catch(e) {}
+      },
+
+      playNote(frequency, duration, type = 'sine', volume = this.volume) {
+        if (!this.context) return;
+        try {
+          const oscillator = this.context.createOscillator();
+          const gainNode = this.context.createGain();
+          oscillator.connect(gainNode);
+          gainNode.connect(this.context.destination);
+          oscillator.frequency.value = frequency;
+          oscillator.type = type;
+          gainNode.gain.setValueAtTime(volume, this.context.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, this.context.currentTime + duration);
+          oscillator.start(this.context.currentTime);
+          oscillator.stop(this.context.currentTime + duration);
+        } catch(e) {}
+      },
+
+      click() { this.playNote(800, 0.08, 'sine', 0.12); },
+      newQuestion() {
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+          setTimeout(() => this.playNote(freq, 0.15, 'triangle', 0.15), i * 100);
+        });
+      },
+      showHint() { this.playNote(600, 0.08, 'sine', 0.08); },
+      correct() {
+        [659.25, 783.99, 1046.50].forEach((freq, i) => {
+          setTimeout(() => this.playNote(freq, 0.12, 'triangle', 0.2), i * 80);
+        });
+      },
+      correctBonus() {
+        [783.99, 1046.50, 1318.51, 1567.98, 2093.00].forEach((freq, i) => {
+          setTimeout(() => this.playNote(freq, 0.1, 'sine', 0.25), i * 50);
+        });
+      },
+      superBonus() {
+        this.playNote(988, 0.05, 'square', 0.35);
+        setTimeout(() => this.playNote(1319, 0.12, 'square', 0.35), 60);
+        setTimeout(() => {
+          for (let i = 0; i < 4; i++) {
+            setTimeout(() => this.playNote(1568 + (i * 250), 0.06, 'sine', 0.2), i * 30);
+          }
+        }, 180);
+      },
+      gameComplete() {
+        [523.25, 659.25, 783.99, 1046.50, 1318.51, 1568, 2093].forEach((freq, i) => {
+          setTimeout(() => this.playNote(freq, 0.25, 'sine', 0.2), i * 80);
+        });
+      },
+      error() { this.playNote(196, 0.3, 'sawtooth', 0.15); }
+    };
+
+    AudioSystem.init();
+
+    function mostrarPontosAnimados(pontos, isBonus = false) {
+      const elemento = document.createElement('div');
+      elemento.className = `floating-points ${isBonus ? 'bonus' : 'normal'}`;
+      elemento.textContent = `+${pontos} ${isBonus ? '🔥' : ''}`;
+      const x = Math.random() * (window.innerWidth - 150) + 75;
+      const y = window.innerHeight / 2;
+      elemento.style.left = `${x}px`;
+      elemento.style.top = `${y}px`;
+      document.body.appendChild(elemento);
+      setTimeout(() => elemento.remove(), 2000);
+    }
+
     const API_BASE = 'https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
-    
-    let nomeJogador = localStorage.getItem('nomeJogadorSolo') || '';
-    let pontosGlobais = parseInt(localStorage.getItem('pontosSolo')) || 0;
-    let categoriaAtual = '';
-    let cartaAtualIndex = 0;
-    let cartasJogo = [];
-    let todasCartas = [];
+    const TOTAL_PERGUNTAS = 10;
+    const TEMPO_POR_PERGUNTA = 60;
+
+    let cartas = [];
+    let perguntaAtual = 0;
+    let pontos = 0;
     let acertos = 0;
     let erros = 0;
-    let tempoInicio = 0;
-    let tempoTotal = 0;
-    let timerInterval;
-    let tempoRestante = 60;
+    let timerInterval = null;
+    let tempoRestante = TEMPO_POR_PERGUNTA;
+    let categoria = 'personagens';
+    let nomeJogador = '';
+    let cartaAtualObj = null;
+    let inicioResposta = null;
+    let sequenciaRapida = 0;
+    let respostaJaSelecionada = false;
+    let dicasVisiveis = 0;
+    let dicaTimerInterval = null;
 
-    // Verificar se jÃ¡ tem nome salvo
-    if (nomeJogador) {
-      document.getElementById('input-nome').value = nomeJogador;
+    // ============================================
+    // FUNÇÕES DE EMBARALHAMENTO
+    // ============================================
+    function gerarSeedUnico() {
+      const timestamp = Date.now();
+      const milis = performance.now();
+      const random = Math.random() * 1000000;
+      const seed = timestamp + milis + random;
+      return seed;
     }
 
-    // Atualizar header
-    document.getElementById('nome-jogador').textContent = nomeJogador || 'Visitante';
-    document.getElementById('pontos-header').textContent = pontosGlobais;
-
-    // Confirmar nome
-    document.getElementById('btn-confirmar-nome').addEventListener('click', function() {
-      const nome = document.getElementById('input-nome').value.trim();
+    function embaralharAvancado(array) {
+      const novo = [...array];
+      const seed = gerarSeedUnico();
       
-      if (!nome) {
-        alert('âŒ Por favor, digite seu nome!');
+      function seededRandom(s) {
+        const x = Math.sin(s) * 10000;
+        return x - Math.floor(x);
+      }
+
+      for (let i = novo.length - 1; i > 0; i--) {
+        const j = Math.floor(seededRandom(seed + i) * (i + 1));
+        [novo[i], novo[j]] = [novo[j], novo[i]];
+      }
+
+      for (let i = novo.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [novo[i], novo[j]] = [novo[j], novo[i]];
+      }
+
+      const rotacao = Date.now() % novo.length;
+      const parte1 = novo.slice(rotacao);
+      const parte2 = novo.slice(0, rotacao);
+      const resultado = [...parte1, ...parte2];
+
+      for (let i = resultado.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [resultado[i], resultado[j]] = [resultado[j], resultado[i]];
+      }
+
+      return resultado;
+    }
+
+    // ============================================
+    // FUNÇÕES DE MEMÓRIA GLOBAL (API)
+    // ============================================
+    async function obterCartasRecentesGlobal() {
+      try {
+        const response = await fetch(`${API_BASE}/cartas-recentes`);
+        const data = await response.json();
+        
+        console.log(`🌐 Cartas recentes globais: ${data.cartas.length}`);
+        console.log('📋 Cartas a evitar:', data.cartas);
+        
+        return data.cartas || [];
+      } catch (erro) {
+        console.error('❌ Erro ao buscar cartas recentes:', erro);
+        return [];
+      }
+    }
+
+    async function registrarCartasUsadas(respostas) {
+      try {
+        const response = await fetch(`${API_BASE}/registrar-cartas`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cartas: respostas })
+        });
+
+        const data = await response.json();
+        console.log('✅ Cartas registradas no servidor:', data);
+        
+      } catch (erro) {
+        console.error('❌ Erro ao registrar cartas:', erro);
+      }
+    }
+
+    function embaralharComExclusao(array, cartasRecentes = []) {
+      let disponiveis = array.filter(carta => {
+        return !cartasRecentes.includes(carta.resposta);
+      });
+
+      if (disponiveis.length < TOTAL_PERGUNTAS) {
+        console.log('⚠️ Poucas cartas após filtro, usando todas');
+        disponiveis = [...array];
+      }
+
+      return embaralharAvancado(disponiveis);
+    }
+
+    // ============================================
+    // INICIALIZAÇÃO
+    // ============================================
+    window.addEventListener('DOMContentLoaded', () => {
+      const recordePessoal = localStorage.getItem('recordePessoal') || 0;
+      document.getElementById('recorde-pessoal').textContent = recordePessoal;
+      const nomeSalvo = localStorage.getItem('nomeJogador');
+      if (nomeSalvo) {
+        document.getElementById('nome-jogador').value = nomeSalvo;
+      }
+
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', (e) => {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+          e.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, false);
+    });
+
+    // ============================================
+    // INICIAR JOGO
+    // ============================================
+    async function iniciarJogo() {
+      AudioSystem.click();
+      categoria = document.getElementById('categoria').value;
+      nomeJogador = document.getElementById('nome-jogador').value.trim();
+      if (!nomeJogador) {
+        alert('⚠️ Por favor, digite seu nome!');
         return;
       }
+      localStorage.setItem('nomeJogador', nomeJogador);
+      document.getElementById('tela-inicial').style.display = 'none';
+      document.getElementById('tela-jogo').innerHTML = '<div class="loading"><div class="loading-spinner">⏳</div><p>Carregando...</p></div>';
+      document.getElementById('tela-jogo').style.display = 'block';
       
-      nomeJogador = nome;
-      localStorage.setItem('nomeJogadorSolo', nome);
-      document.getElementById('nome-jogador').textContent = nome;
-      
-      // Ir para tela de categorias
-      document.querySelector('.tela-nome').classList.remove('ativa');
-      document.querySelector('.tela-inicial').classList.add('ativa');
-    });
-
-    // Enter no input de nome
-    document.getElementById('input-nome').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        document.getElementById('btn-confirmar-nome').click();
-      }
-    });
-
-    // Selecionar categoria
-    document.querySelectorAll('.categoria-card').forEach(card => {
-      card.addEventListener('click', function() {
-        categoriaAtual = this.dataset.categoria;
-        iniciarJogo();
-      });
-    });
-
-    function gerarAlternativasErradas(respostaCorreta, todasRespostas, quantidade = 3) {
-      const erradas = todasRespostas
-        .filter(r => r !== respostaCorreta)
-        .sort(() => Math.random() - 0.5)
-        .slice(0, quantidade);
-      
-      return erradas;
-    }
-
-    function transformarCarta(cartaAPI, todasRespostas) {
-      const alternativasErradas = gerarAlternativasErradas(cartaAPI.resposta, todasRespostas);
-      const todasAlternativas = [cartaAPI.resposta, ...alternativasErradas];
-      const alternativasEmbaralhadas = todasAlternativas.sort(() => Math.random() - 0.5);
-      const indiceResposta = alternativasEmbaralhadas.indexOf(cartaAPI.resposta);
-      
-      return {
-        pergunta: "Quem sou eu?",
-        alternativas: alternativasEmbaralhadas,
-        resposta: indiceResposta,
-        dica1: cartaAPI.dica1 || '',
-        dica2: cartaAPI.dica2 || '',
-        dica3: cartaAPI.dica3 || ''
-      };
-    }
-
-    async function iniciarJogo() {
       try {
-        const url = `${API_BASE}/cartas/${categoriaAtual}`;
-        const res = await fetch(url);
+        // BUSCAR cartas da API
+        const response = await fetch(`${API_BASE}/cartas/${categoria}`);
+        const data = await response.json();
         
-        if (!res.ok) {
-          throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        if (!data.cartas || data.cartas.length === 0) {
+          throw new Error('Nenhuma carta encontrada');
         }
+
+        // BUSCAR cartas recentes GLOBAIS
+        const cartasRecentesGlobal = await obterCartasRecentesGlobal();
+
+        // EMBARALHAR com exclusão de cartas recentes
+        const cartasEmbaralhadas = embaralharComExclusao(data.cartas, cartasRecentesGlobal);
+        cartas = cartasEmbaralhadas.slice(0, TOTAL_PERGUNTAS);
         
-        const data = await res.json();
+        console.log('🎲 Cartas selecionadas:', cartas.map(c => c.resposta));
         
-        if (!data.cartas || !Array.isArray(data.cartas) || data.cartas.length === 0) {
-          throw new Error('Nenhuma carta disponÃ­vel');
-        }
-        
-        todasCartas = data.cartas;
-        const todasRespostas = data.cartas.map(c => c.resposta);
-        
-        const cartasSelecionadas = data.cartas
-          .sort(() => Math.random() - 0.5)
-          .slice(0, 10);
-        
-        cartasJogo = cartasSelecionadas.map(carta => 
-          transformarCarta(carta, todasRespostas)
-        );
-        
-        cartaAtualIndex = 0;
-        acertos = 0;
-        erros = 0;
-        tempoTotal = 0;
-        
-        document.querySelector('.tela-inicial').classList.remove('ativa');
-        document.querySelector('.tela-jogo').classList.add('ativa');
-        
-        mostrarCarta();
-        
-      } catch (error) {
-        console.error('âŒ Erro:', error);
-        alert(`âŒ Erro ao carregar o jogo!\n\n${error.message}`);
-        document.querySelector('.tela-jogo').classList.remove('ativa');
-        document.querySelector('.tela-inicial').classList.add('ativa');
+        mostrarPergunta();
+
+      } catch (erro) {
+        console.error('❌ Erro:', erro);
+        alert('❌ Erro ao carregar. Tente novamente.');
+        location.reload();
       }
     }
 
-    function mostrarCarta() {
-      if (cartaAtualIndex >= cartasJogo.length) {
+    // ============================================
+    // MOSTRAR PERGUNTA
+    // ============================================
+    function mostrarPergunta() {
+      if (perguntaAtual >= cartas.length) {
         finalizarJogo();
         return;
       }
 
-      const carta = cartasJogo[cartaAtualIndex];
-      
-      if (!carta || !carta.pergunta || !carta.alternativas || carta.alternativas.length !== 4) {
-        console.error('âŒ Carta invÃ¡lida:', carta);
-        cartaAtualIndex++;
-        mostrarCarta();
-        return;
-      }
-      
-      // Atualizar informaÃ§Ãµes
-      document.getElementById('carta-atual').textContent = cartaAtualIndex + 1;
-      document.getElementById('pergunta').textContent = carta.pergunta;
-      
-      // Configurar dicas
-      document.getElementById('texto-dica1').textContent = carta.dica1;
-      document.getElementById('texto-dica2').textContent = carta.dica2;
-      document.getElementById('texto-dica3').textContent = carta.dica3;
-      
-      // DICA 1 SEMPRE VISÃVEL
-      document.getElementById('dica1').classList.add('visivel');
-      document.getElementById('dica2').classList.remove('visivel');
-      document.getElementById('dica3').classList.remove('visivel');
-      
-      // Gerar alternativas
-      const alternativasDiv = document.getElementById('alternativas');
-      alternativasDiv.innerHTML = '';
-      
-      const letras = ['A', 'B', 'C', 'D'];
-      carta.alternativas.forEach((alt, index) => {
-        const div = document.createElement('div');
-        div.className = 'alternativa';
-        div.innerHTML = `
-          <div class="letra">${letras[index]}</div>
-          <div>${alt}</div>
-        `;
-        div.addEventListener('click', () => verificarResposta(index, carta.resposta));
-        alternativasDiv.appendChild(div);
-      });
+      AudioSystem.newQuestion();
+      respostaJaSelecionada = false;
+      dicasVisiveis = 0;
 
-      // Iniciar timer
-      tempoRestante = 60;
-      tempoInicio = Date.now();
-      clearInterval(timerInterval);
-      atualizarPontosPossiveis();
-      timerInterval = setInterval(atualizarTimer, 1000);
-    }
+      cartaAtualObj = cartas[perguntaAtual];
+      inicioResposta = Date.now();
 
-    function atualizarTimer() {
-      tempoRestante--;
-      const timerEl = document.getElementById('timer');
-      timerEl.textContent = tempoRestante;
+      const todasRespostas = cartas.map(c => c.resposta);
+      const opcoesErradas = embaralharAvancado(
+        todasRespostas.filter(r => r !== cartaAtualObj.resposta)
+      ).slice(0, 3);
       
-      // DICA 2 aos 30s, DICA 3 aos 15s
-      if (tempoRestante === 30) {
-        document.getElementById('dica2').classList.add('visivel');
-      } else if (tempoRestante === 15) {
-        document.getElementById('dica3').classList.add('visivel');
-      }
-      
-      // Atualizar pontos possÃ­veis
-      atualizarPontosPossiveis();
-      
-      if (tempoRestante <= 10) {
-        timerEl.classList.add('urgente');
-      } else {
-        timerEl.classList.remove('urgente');
-      }
+      const opcoes = embaralharAvancado([cartaAtualObj.resposta, ...opcoesErradas]);
 
-      if (tempoRestante <= 0) {
-        clearInterval(timerInterval);
-        verificarResposta(-1, cartasJogo[cartaAtualIndex].resposta);
-      }
-    }
+      document.getElementById('tela-jogo').innerHTML = `
+        <div class="pergunta-header">
+          <div class="numero-pergunta">Pergunta ${perguntaAtual + 1}/${TOTAL_PERGUNTAS}</div>
+          <div class="timer" id="timer">60s</div>
+        </div>
 
-    function atualizarPontosPossiveis() {
-      const pontosEl = document.getElementById('pontos-possiveis');
-      let pontos = 0;
-      
-      // 100 pts com DICA 1, 70 pts com DICA 2, 40 pts com DICA 3
-      if (tempoRestante > 30) {
-        pontos = 100;
-        pontosEl.className = 'pontos-possiveis';
-      } else if (tempoRestante > 15) {
-        pontos = 70;
-        pontosEl.className = 'pontos-possiveis medio';
-      } else if (tempoRestante > 0) {
-        pontos = 40;
-        pontosEl.className = 'pontos-possiveis baixo';
-      }
-      
-      pontosEl.textContent = `ðŸ’° ${pontos} pts`;
-    }
+        <div class="stats" style="margin-bottom: 12px;">
+          <div class="stat-box">
+            <div class="stat-label">Pontos</div>
+            <div class="stat-value" id="pontos-atuais">${pontos}</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Acertos</div>
+            <div class="stat-value">${acertos}/${erros}</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Seq.</div>
+            <div class="stat-value">${sequenciaRapida}</div>
+          </div>
+        </div>
 
-    function calcularPontos() {
-      if (tempoRestante > 30) return 100;
-      if (tempoRestante > 15) return 70;
-      if (tempoRestante > 0) return 40;
-      return 0;
-    }
+        <div class="bonus-container">
+          <div class="super-bonus-indicator">
+            💥 1s = +2000
+          </div>
+          <div class="bonus-indicator">
+            ⚡ 3s = +500
+          </div>
+        </div>
 
-    function verificarResposta(indexEscolhido, respostaCorreta) {
-      clearInterval(timerInterval);
-      
-      const tempoGasto = 60 - tempoRestante;
-      tempoTotal += tempoGasto;
+        ${sequenciaRapida > 0 ? `
+        <div class="streak-indicator">
+          🔥 Sequência: ${sequenciaRapida}x
+        </div>
+        ` : ''}
 
-      const alternativas = document.querySelectorAll('.alternativa');
-      
-      if (indexEscolhido === respostaCorreta) {
-        acertos++;
-        const pontosGanhos = calcularPontos();
-        pontosGlobais += pontosGanhos;
-        
-        alternativas[indexEscolhido].classList.add('correta');
-        
-        document.getElementById('pontos-header').textContent = pontosGlobais;
-        localStorage.setItem('pontosSolo', pontosGlobais);
-        
-      } else {
-        erros++;
-        if (indexEscolhido >= 0) {
-          alternativas[indexEscolhido].classList.add('errada');
+        <div class="dicas">
+          <div class="dica" id="dica1">${cartaAtualObj.dica1}</div>
+          <div class="dica" id="dica2">${cartaAtualObj.dica2}</div>
+          <div class="dica" id="dica3">${cartaAtualObj.dica3}</div>
+          <div class="dica-timer" id="dica-timer">💡 Próxima dica em: <span id="countdown">15s</span></div>
+        </div>
+
+        <div class="opcoes-container">
+          ${opcoes.map(opcao => `
+            <div class="opcao" onclick="selecionarOpcao(this, '${opcao.replace(/'/g, "\\'")}')">
+              ${opcao}
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+      `;
+
+      mostrarDica(1);
+
+      tempoRestante = TEMPO_POR_PERGUNTA;
+      atualizarTimer();
+
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        tempoRestante--;
+        atualizarTimer();
+
+        if (tempoRestante <= 0) {
+          clearInterval(timerInterval);
+          if (dicaTimerInterval) clearInterval(dicaTimerInterval);
+          if (!respostaJaSelecionada) {
+            processarResposta('', false);
+          }
         }
-        alternativas[respostaCorreta].classList.add('correta');
-      }
+      }, 1000);
 
-      alternativas.forEach(alt => {
-        alt.style.pointerEvents = 'none';
+      iniciarTimerDicas();
+    }
+
+    function iniciarTimerDicas() {
+      let tempoProximaDica = 15;
+      const countdownEl = document.getElementById('countdown');
+
+      if (dicaTimerInterval) clearInterval(dicaTimerInterval);
+
+      dicaTimerInterval = setInterval(() => {
+        tempoProximaDica--;
+
+        if (countdownEl) {
+          countdownEl.textContent = `${tempoProximaDica}s`;
+        }
+
+        if (tempoProximaDica <= 0 && dicasVisiveis < 3) {
+          mostrarDica(dicasVisiveis + 1);
+          tempoProximaDica = 15;
+          
+          if (dicasVisiveis >= 3) {
+            clearInterval(dicaTimerInterval);
+            const timerEl = document.getElementById('dica-timer');
+            if (timerEl) {
+              timerEl.textContent = '✅ Todas as dicas reveladas';
+            }
+          }
+        }
+
+        if (respostaJaSelecionada) {
+          clearInterval(dicaTimerInterval);
+        }
+      }, 1000);
+    }
+
+    function mostrarDica(numero) {
+      const dicaEl = document.getElementById(`dica${numero}`);
+      if (dicaEl) {
+        dicaEl.classList.add('visivel');
+        dicasVisiveis = numero;
+        AudioSystem.showHint();
+      }
+    }
+
+    function selecionarOpcao(elemento, resposta) {
+      if (respostaJaSelecionada) return;
+
+      AudioSystem.click();
+      respostaJaSelecionada = true;
+      clearInterval(timerInterval);
+      if (dicaTimerInterval) clearInterval(dicaTimerInterval);
+
+      document.querySelectorAll('.opcao').forEach(op => {
+        op.classList.add('desabilitada');
       });
+
+      const acertou = normalizarTexto(resposta) === normalizarTexto(cartaAtualObj.resposta);
+
+      if (acertou) {
+        elemento.classList.add('correta');
+      } else {
+        elemento.classList.add('errada');
+        document.querySelectorAll('.opcao').forEach(op => {
+          if (normalizarTexto(op.textContent) === normalizarTexto(cartaAtualObj.resposta)) {
+            op.classList.add('correta');
+          }
+        });
+      }
 
       setTimeout(() => {
-        cartaAtualIndex++;
-        mostrarCarta();
+        processarResposta(resposta, acertou);
+      }, 1200);
+    }
+
+    function processarResposta(resposta, acertou) {
+      const tempoResposta = Math.floor((Date.now() - inicioResposta) / 1000);
+
+      if (acertou) {
+        acertos++;
+
+        let pontosBase = 100;
+        let bonusDicas = 0;
+
+        if (dicasVisiveis === 1) bonusDicas = 400;
+        else if (dicasVisiveis === 2) bonusDicas = 200;
+        else if (dicasVisiveis === 3) bonusDicas = 0;
+
+        let bonusVelocidade = 0;
+        let isBonus = false;
+        let isSuperBonus = false;
+
+        if (tempoResposta <= 1) {
+          bonusVelocidade = 2000;
+          sequenciaRapida++;
+          isSuperBonus = true;
+          isBonus = true;
+          AudioSystem.superBonus();
+          
+          setTimeout(() => {
+            for (let i = 0; i < 6; i++) {
+              setTimeout(() => AudioSystem.playNote(2093 + (i * 100), 0.08, 'sine', 0.3), i * 40);
+            }
+          }, 250);
+        } else if (tempoResposta <= 3) {
+          bonusVelocidade = 500;
+          sequenciaRapida++;
+          isBonus = true;
+          AudioSystem.superBonus();
+        } else {
+          sequenciaRapida = 0;
+          AudioSystem.correct();
+        }
+
+        const pontosGanhos = pontosBase + bonusDicas + bonusVelocidade;
+        pontos += pontosGanhos;
+
+        mostrarPontosAnimados(pontosGanhos, isBonus);
+
+        if (pontosGanhos >= 500) {
+          AudioSystem.correctBonus();
+        }
+
+        document.getElementById('feedback').className = 'feedback correto';
+        
+        if (isSuperBonus) {
+          document.getElementById('feedback').innerHTML = `
+            ✅ <strong>INCRÍVEL! 🔥⚡🔥</strong><br>
+            <span style="font-size: 1.5rem; color: #FFD700;">+${pontosGanhos} pts</span><br>
+            ${bonusDicas > 0 ? `📝 Bônus ${dicasVisiveis} dica(s): +${bonusDicas}<br>` : ''}
+            <strong style="color: #FF6B6B; font-size: 1.2rem;">💥 SUPER BÔNUS 1 SEGUNDO! +2000 pts 💥</strong>
+          `;
+        } else {
+          document.getElementById('feedback').innerHTML = `
+            ✅ <strong>CORRETO!</strong><br>
+            +${pontosGanhos} pts
+            ${bonusDicas > 0 ? `<br>📝 Bônus ${dicasVisiveis} dica(s): +${bonusDicas}` : ''}
+            ${bonusVelocidade > 0 ? '<br>⚡ <strong>BÔNUS VELOCIDADE!</strong>' : ''}
+          `;
+        }
+      } else {
+        AudioSystem.error();
+        erros++;
+        sequenciaRapida = 0;
+
+        document.getElementById('feedback').className = 'feedback errado';
+        document.getElementById('feedback').innerHTML = `
+          ❌ <strong>INCORRETO!</strong><br>
+          Resposta: <strong>${cartaAtualObj.resposta}</strong>
+        `;
+      }
+
+      document.getElementById('feedback').style.display = 'block';
+      perguntaAtual++;
+
+      setTimeout(() => {
+        mostrarPergunta();
       }, 2000);
     }
 
-    function finalizarJogo() {
-      clearInterval(timerInterval);
-      salvarPontuacao();
-      
-      document.getElementById('pontos-final').textContent = pontosGlobais;
-      document.getElementById('total-acertos').textContent = acertos;
-      document.getElementById('total-erros').textContent = erros;
-      document.getElementById('tempo-medio').textContent = Math.floor(tempoTotal / cartasJogo.length) + 's';
-      document.getElementById('categoria-jogada').textContent = categoriaAtual.toUpperCase();
-      
-      if (acertos >= 8) {
-        document.getElementById('resultado-icon').textContent = 'ðŸ†';
-        document.getElementById('resultado-titulo').textContent = 'Excelente!';
-      } else if (acertos >= 5) {
-        document.getElementById('resultado-icon').textContent = 'ðŸŽ‰';
-        document.getElementById('resultado-titulo').textContent = 'Muito Bem!';
-      } else {
-        document.getElementById('resultado-icon').textContent = 'ðŸ’ª';
-        document.getElementById('resultado-titulo').textContent = 'Continue Tentando!';
+    async function finalizarJogo() {
+      AudioSystem.gameComplete();
+      document.getElementById('tela-jogo').style.display = 'none';
+      document.getElementById('tela-resultado').style.display = 'block';
+      animarPontuacao(pontos);
+      const precisao = Math.round((acertos / TOTAL_PERGUNTAS) * 100);
+      document.getElementById('resumo-acertos').textContent = acertos;
+      document.getElementById('resumo-erros').textContent = erros;
+      document.getElementById('resumo-precisao').textContent = `${precisao}%`;
+      const recordeAnterior = parseInt(localStorage.getItem('recordePessoal') || 0);
+      if (pontos > recordeAnterior) {
+        localStorage.setItem('recordePessoal', pontos);
       }
 
-      document.querySelector('.tela-jogo').classList.remove('ativa');
-      document.querySelector('.tela-resultado').classList.add('ativa');
-    }
+      // REGISTRAR cartas usadas no servidor (GLOBAL)
+      const respostasUsadas = cartas.map(c => c.resposta);
+      await registrarCartasUsadas(respostasUsadas);
 
-    async function salvarPontuacao() {
       try {
-        await fetch(`${API_BASE}/pontuacao`, {
+        await fetch(`${API_BASE}/adicionar`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            nome: nomeJogador,
-            pontos: pontosGlobais,
-            modo: 'solo'
-          })
+          body: JSON.stringify({ nome: nomeJogador, pontos: pontos })
         });
-      } catch (error) {
-        console.error('Erro ao salvar pontuaÃ§Ã£o:', error);
+        await carregarRanking();
+      } catch (erro) {
+        console.error('❌ Erro:', erro);
       }
     }
 
-    function jogarNovamente() {
-      iniciarJogo();
-      document.querySelector('.tela-resultado').classList.remove('ativa');
+    function animarPontuacao(pontosFinal) {
+      const elemento = document.getElementById('pontuacao-final');
+      const duracao = 2000;
+      const incremento = pontosFinal / (duracao / 50);
+      let pontoAtual = 0;
+      const intervalo = setInterval(() => {
+        pontoAtual += incremento;
+        if (pontoAtual >= pontosFinal) {
+          pontoAtual = pontosFinal;
+          clearInterval(intervalo);
+        }
+        elemento.textContent = Math.floor(pontoAtual).toLocaleString('pt-BR');
+      }, 50);
     }
 
-    function voltarCategorias() {
-      document.querySelector('.tela-resultado').classList.remove('ativa');
-      document.querySelector('.tela-inicial').classList.add('ativa');
+    async function carregarRanking() {
+      try {
+        const response = await fetch(`${API_BASE}/ranking`);
+        const data = await response.json();
+        if (data.ranking && data.ranking.length > 0) {
+          const top5 = data.ranking.slice(0, 5);
+          const podioHTML = top5.map((jogador, index) => {
+            const medalhas = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+            return `
+              <div class="podio-item">
+                <span class="podio-posicao">${medalhas[index]}</span>
+                <span class="podio-nome">${jogador.nome}</span>
+                <span class="podio-pontos">${jogador.pontos.toLocaleString('pt-BR')}</span>
+              </div>
+            `;
+          }).join('');
+          document.getElementById('podio-lista').innerHTML = podioHTML;
+          document.getElementById('podio-container').style.display = 'block';
+        }
+      } catch (erro) {
+        console.error('❌ Erro:', erro);
+      }
+    }
+
+    function atualizarTimer() {
+      const timerEl = document.getElementById('timer');
+      if (timerEl) {
+        timerEl.textContent = `${tempoRestante}s`;
+        if (tempoRestante <= 10) {
+          timerEl.style.color = 'var(--jw-vermelho-erro)';
+        } else {
+          timerEl.style.color = 'var(--jw-laranja)';
+        }
+      }
+    }
+
+    function normalizarTexto(texto) {
+      return texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+    }
+
+    function embaralhar(array) {
+      return embaralharAvancado(array);
     }
   </script>
-
-<!-- ========================================
-     SISTEMA DE BÔNUS DE VELOCIDADE
-     +600 PONTOS EM ATÉ 3 SEGUNDOS
-     ======================================== -->
-<script>
-console.log('⚡ Sistema de Bônus de Velocidade iniciado');
-
-// Variável para controlar tempo
-let tempoInicioCarta = Date.now();
-
-// Função para resetar cronômetro (chamar ao mostrar nova carta)
-function resetarCronometro() {
-  tempoInicioCarta = Date.now();
-  console.log('⏱️ Cronômetro resetado');
-}
-
-// Função para calcular bônus
-function calcularBonusVelocidade() {
-  const tempoResposta = Date.now() - tempoInicioCarta;
-  const segundos = tempoResposta / 1000;
-  
-  console.log(`⏱️ Tempo de resposta: ${segundos.toFixed(2)}s`);
-  
-  // BÔNUS DE 600 PONTOS SE RESPONDER EM ATÉ 3 SEGUNDOS
-  if (segundos <= 3) {
-    console.log('🚀 BÔNUS MÁXIMO: +600 pontos!');
-    mostrarAnimacaoBonus(600, segundos);
-    return 600;
-  }
-  
-  // Bônus decrescente entre 3 e 10 segundos
-  if (segundos <= 10) {
-    const bonus = Math.floor(300 * (1 - (segundos - 3) / 7));
-    console.log(`⚡ Bônus: +${bonus} pontos`);
-    if (bonus > 50) {
-      mostrarAnimacaoBonus(bonus, segundos);
-    }
-    return bonus;
-  }
-  
-  console.log('⏱️ Sem bônus (>10s)');
-  return 0;
-}
-
-// Animação visual do bônus
-function mostrarAnimacaoBonus(bonus, segundos) {
-  const bonusDiv = document.createElement('div');
-  bonusDiv.innerHTML = `
-    <div style="font-size: 1.5em; margin-bottom: 10px;">⚡ RESPOSTA RÁPIDA! ⚡</div>
-    <div style="font-size: 2.5em; font-weight: 900; color: #FFD700; text-shadow: 0 0 20px rgba(255,215,0,0.8);">
-      +${bonus} PONTOS
-    </div>
-    <div style="font-size: 1em; margin-top: 10px; opacity: 0.9;">
-      ${segundos.toFixed(2)} segundos
-    </div>
-  `;
-  
-  bonusDiv.style.cssText = `
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 40px 60px;
-    border-radius: 25px;
-    text-align: center;
-    z-index: 99999;
-    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.6);
-    animation: bonusShow 0.4s ease-out forwards, bonusPulse 0.6s ease-in-out 0.4s 2;
-    border: 3px solid rgba(255,255,255,0.3);
-  `;
-  
-  document.body.appendChild(bonusDiv);
-  
-  // Remover após 2.5 segundos
-  setTimeout(() => {
-    bonusDiv.style.animation = 'bonusHide 0.3s ease-in forwards';
-    setTimeout(() => bonusDiv.remove(), 300);
-  }, 2500);
-}
-
-// Adicionar estilos de animação
-const styleBonus = document.createElement('style');
-styleBonus.textContent = `
-  @keyframes bonusShow {
-    from {
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0;
-    }
-    to {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 1;
-    }
-  }
-  
-  @keyframes bonusPulse {
-    0%, 100% {
-      transform: translate(-50%, -50%) scale(1);
-    }
-    50% {
-      transform: translate(-50%, -50%) scale(1.08);
-    }
-  }
-  
-  @keyframes bonusHide {
-    to {
-      transform: translate(-50%, -50%) scale(0.7);
-      opacity: 0;
-    }
-  }
-`;
-document.head.appendChild(styleBonus);
-
-// Interceptar verificação de resposta
-const verificarRespostaOriginal = window.verificarResposta || function() {};
-window.verificarResposta = function() {
-  const bonus = calcularBonusVelocidade();
-  
-  // Adicionar bônus aos pontos
-  if (typeof pontos !== 'undefined' && bonus > 0) {
-    pontos += bonus;
-    console.log(`💰 Pontos totais com bônus: ${pontos}`);
-  }
-  
-  // Chamar função original
-  const resultado = verificarRespostaOriginal.apply(this, arguments);
-  
-  // Resetar para próxima carta
-  setTimeout(resetarCronometro, 100);
-  
-  return resultado;
-};
-
-// Iniciar cronômetro
-console.log('✅ Bônus de velocidade ativo!');
-console.log('⚡ Responda em até 3 segundos = +600 pontos!');
-resetarCronometro();
-</script>
 </body>
 </html>
