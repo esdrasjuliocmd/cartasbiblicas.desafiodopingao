@@ -30,8 +30,7 @@ try {
   $totalLocal = $cartas.Count
 
   $payloadObj = [ordered]@{ cartas = $cartas }
-  $payloadJson = $payloadObj | ConvertTo-Json -Depth 20
-  Set-Content -LiteralPath $tmpPayload -Value $payloadJson -Encoding UTF8
+  $payloadJson = $payloadObj | ConvertTo-Json -Depth 20`r`n  $utf8NoBom = New-Object System.Text.UTF8Encoding($false)`r`n  [System.IO.File]::WriteAllText($tmpPayload, $payloadJson, $utf8NoBom)
 
   Write-Info "📦 Cartas locais de personagens encontradas: $totalLocal"
   Write-Info "🌐 API alvo: $ApiBase"
@@ -82,3 +81,4 @@ finally {
     Remove-Item -LiteralPath $tmpPayload -Force -ErrorAction SilentlyContinue
   }
 }
+
