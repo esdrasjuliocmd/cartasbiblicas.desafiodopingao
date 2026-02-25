@@ -1,0 +1,46 @@
+﻿export class PontosBiblicoDO {
+  constructor(state, env) {
+    this.state = state;
+    this.env = env;
+  }
+
+  async fetch(request) {
+    const url = new URL(request.url);
+    
+    if (request.method === "POST") {
+      const pontos = await request.json();
+      await this.state.storage.put("pontos", pontos);
+      return new Response(JSON.stringify({ success: true }), { 
+        headers: { "Content-Type": "application/json" } 
+      });
+    }
+    
+    if (request.method === "GET") {
+      const pontos = await this.state.storage.get("pontos") || {};
+      return new Response(JSON.stringify(pontos), { 
+        headers: { "Content-Type": "application/json" } 
+      });
+    }
+    
+    return new Response("Method not allowed", { status: 405 });
+  }
+}
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+
+    if (url.pathname.startsWith("/pontos")) {
+      const id = env.PontosBiblicoDO.idFromName("default");
+      const stub = env.PontosBiblicoDO.get(id);
+      return stub.fetch(request);
+    }
+
+    return new Response(JSON.stringify({ 
+      status: "ok",
+      message: "Desafio Bíblico do Pingão - Backend"
+    }), { 
+      headers: { "Content-Type": "application/json" } 
+    });
+  }
+};
