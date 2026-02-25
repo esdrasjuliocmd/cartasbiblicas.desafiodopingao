@@ -1,4 +1,4 @@
-﻿param(
+param(
   [switch]$Deploy,
   [switch]$DryRun,
   [string]$ApiBase = "https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev",
