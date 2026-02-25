@@ -1,1482 +1,252 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>🎯 Modo Solo - Quem Sou Eu?</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solo - Cartas Bíblicas</title>
   <style>
-    :root {
-      --jw-azul-principal: #4A6DA7;
-      --jw-azul-escuro: #1E3A5F;
-      --jw-azul-claro: #6B9BD1;
-      --jw-cinza-claro: #F5F5F5;
-      --jw-branco: #FFFFFF;
-      --jw-laranja: #F47920;
-      --jw-verde-sucesso: #5CB85C;
-      --jw-vermelho-erro: #D9534F;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, var(--jw-azul-escuro) 0%, var(--jw-azul-principal) 100%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-      overflow-x: hidden;
-      position: fixed;
-      width: 100%;
-      height: 100%;
-    }
-
-    .container {
-      max-width: 800px;
-      width: 100%;
-      position: relative;
-      overflow-y: auto;
-      max-height: 100vh;
-      padding: 5px;
-    }
-
-    .card {
-      background: var(--jw-branco);
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      padding: 15px;
-      margin-bottom: 10px;
-    }
-
-    .header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .header h1 {
-      color: var(--jw-azul-escuro);
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-    }
-
-    .header p {
-      color: var(--jw-azul-principal);
-      font-size: 0.95rem;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 15px;
-    }
-
-    .stat-box {
-      background: linear-gradient(135deg, var(--jw-azul-principal), var(--jw-azul-escuro));
-      color: var(--jw-branco);
-      padding: 10px 6px;
-      border-radius: 10px;
-      text-align: center;
-      transition: transform 0.3s;
-    }
-
-    .stat-box:active {
-      transform: scale(0.95);
-    }
-
-    .stat-label {
-      font-size: 0.65rem;
-      opacity: 0.9;
-      margin-bottom: 2px;
-    }
-
-    .stat-value {
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-
-    .categoria-select {
-      width: 100%;
-      padding: 14px;
-      border: 3px solid var(--jw-azul-principal);
-      border-radius: 10px;
-      font-size: 1rem;
-      margin-bottom: 12px;
-      background: var(--jw-branco);
-      color: var(--jw-azul-escuro);
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .btn {
-      width: 100%;
-      padding: 16px;
-      border: none;
-      border-radius: 10px;
-      font-size: 1.05rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-decoration: none;
-      display: inline-block;
-      text-align: center;
-      touch-action: manipulation;
-    }
-
-    .btn-primary {
-      background: var(--jw-azul-principal);
-      color: var(--jw-branco);
-    }
-
-    .btn-primary:active {
-      background: var(--jw-azul-escuro);
-      transform: scale(0.98);
-    }
-
-    .btn-secondary {
-      background: var(--jw-cinza-claro);
-      color: var(--jw-azul-escuro);
-      margin-top: 10px;
-    }
-
-    .btn-secondary:active {
-      background: #E0E0E0;
-      transform: scale(0.98);
-    }
-
-    .pergunta-container {
-      display: none;
-    }
-
-    .pergunta-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .numero-pergunta {
-      font-size: 1rem;
-      color: var(--jw-azul-principal);
-      font-weight: bold;
-      animation: slideIn 0.5s ease-out;
-    }
-
-    .timer {
-      font-size: 1.5rem;
-      color: var(--jw-laranja);
-      font-weight: bold;
-      min-width: 55px;
-      text-align: right;
-    }
-
-    .super-bonus-indicator {
-      background: transparent;
-      color: var(--jw-azul-principal);
-      padding: 4px 8px;
-      border-radius: 6px;
-      text-align: center;
-      font-weight: normal;
-      font-size: 0.7rem;
-      opacity: 0.7;
-      display: inline-block;
-      margin-right: 8px;
-    }
-
-    .bonus-indicator {
-      background: transparent;
-      color: var(--jw-azul-principal);
-      padding: 4px 8px;
-      border-radius: 6px;
-      text-align: center;
-      font-weight: normal;
-      font-size: 0.7rem;
-      opacity: 0.7;
-      display: inline-block;
-    }
-
-    .bonus-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
-      margin-bottom: 8px;
-      flex-wrap: wrap;
-    }
-
-    .dicas {
-      background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
-      padding: 18px;
-      border-radius: 15px;
-      margin-bottom: 15px;
-      min-height: 120px;
-      border: 3px solid var(--jw-azul-principal);
-      box-shadow: 0 4px 15px rgba(74, 109, 167, 0.2);
-    }
-
-    .dica {
-      font-size: 1.3rem;
-      color: var(--jw-azul-escuro);
-      margin-bottom: 12px;
-      padding-left: 38px;
-      position: relative;
-      opacity: 0;
-      animation: fadeInUp 0.5s ease-out forwards;
-      line-height: 1.7;
-      display: none;
-      font-weight: 700;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
-
-    .dica.visivel {
-      display: block;
-    }
-
-    .dica::before {
-      content: "💡";
-      position: absolute;
-      left: 0;
-      font-size: 1.6rem;
-      top: -2px;
-    }
-
-    .dica:last-child {
-      margin-bottom: 0;
-    }
-
-    .dica-timer {
-      text-align: center;
-      color: var(--jw-azul-principal);
-      font-size: 0.95rem;
-      font-weight: bold;
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 2px solid rgba(74, 109, 167, 0.3);
-    }
-
-    .opcoes-container {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .opcao {
-      background: var(--jw-branco);
-      border: 3px solid var(--jw-azul-principal);
-      padding: 14px 10px;
-      border-radius: 10px;
-      text-align: center;
-      font-size: 1.05rem;
-      font-weight: bold;
-      color: var(--jw-azul-escuro);
-      cursor: pointer;
-      transition: all 0.2s;
-      opacity: 0;
-      animation: fadeInUp 0.5s ease-out forwards;
-      touch-action: manipulation;
-      min-height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      word-wrap: break-word;
-    }
-
-    .opcao:active {
-      transform: scale(0.97);
-    }
-
-    .opcao.correta {
-      background: var(--jw-verde-sucesso);
-      color: var(--jw-branco);
-      border-color: var(--jw-verde-sucesso);
-      animation: pulse 0.5s;
-    }
-
-    .opcao.errada {
-      background: var(--jw-vermelho-erro);
-      color: var(--jw-branco);
-      border-color: var(--jw-vermelho-erro);
-      animation: shake 0.5s;
-    }
-
-    .opcao.desabilitada {
-      pointer-events: none;
-      opacity: 0.6;
-    }
-
-    .feedback {
-      margin-top: 12px;
-      padding: 12px;
-      border-radius: 10px;
-      text-align: center;
-      font-size: 0.9rem;
-      font-weight: bold;
-      display: none;
-      animation: bounceIn 0.5s;
-    }
-
-    .feedback.correto {
-      background: #d4edda;
-      color: #155724;
-      border: 2px solid var(--jw-verde-sucesso);
-    }
-
-    .feedback.errado {
-      background: #f8d7da;
-      color: #721c24;
-      border: 2px solid var(--jw-vermelho-erro);
-    }
-
-    .resultado-final {
-      display: none;
-      text-align: center;
-    }
-
-    .pontuacao-final {
-      font-size: 3rem;
-      color: var(--jw-laranja);
-      font-weight: bold;
-      margin: 20px 0;
-      animation: pulsar 1s infinite;
-    }
-
-    .resumo {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin: 20px 0;
-    }
-
-    .resumo-item {
-      background: var(--jw-cinza-claro);
-      padding: 14px 8px;
-      border-radius: 10px;
-      opacity: 0;
-      animation: fadeInUp 0.5s ease-out forwards;
-    }
-
-    .resumo-item:nth-child(1) { animation-delay: 0.1s; }
-    .resumo-item:nth-child(2) { animation-delay: 0.2s; }
-    .resumo-item:nth-child(3) { animation-delay: 0.3s; }
-
-    .resumo-label {
-      font-size: 0.8rem;
-      color: var(--jw-azul-principal);
-      margin-bottom: 5px;
-    }
-
-    .resumo-valor {
-      font-size: 1.6rem;
-      color: var(--jw-azul-escuro);
-      font-weight: bold;
-    }
-
-    .podio {
-      background: linear-gradient(135deg, #FFD700, #FFA500);
-      padding: 18px;
-      border-radius: 12px;
-      margin: 20px 0;
-      animation: fadeIn 1s;
-    }
-
-    .podio h3 {
-      text-align: center;
-      color: var(--jw-azul-escuro);
-      font-size: 1.3rem;
-      margin-bottom: 12px;
-    }
-
-    .podio-item {
-      background: rgba(255, 255, 255, 0.9);
-      padding: 8px;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      opacity: 0;
-      animation: slideInLeft 0.5s ease-out forwards;
-      gap: 8px;
-    }
-
-    .podio-item:nth-child(1) { animation-delay: 0.1s; }
-    .podio-item:nth-child(2) { animation-delay: 0.2s; }
-    .podio-item:nth-child(3) { animation-delay: 0.3s; }
-    .podio-item:nth-child(4) { animation-delay: 0.4s; }
-    .podio-item:nth-child(5) { animation-delay: 0.5s; }
-
-    .podio-posicao {
-      font-size: 1.5rem;
-      margin-right: 0;
-      flex-shrink: 0;
-      min-width: 35px;
-      text-align: center;
-    }
-
-    .podio-nome {
-      flex: 1;
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: var(--jw-azul-escuro);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .podio-pontos {
-      font-size: 1rem;
-      font-weight: bold;
-      color: var(--jw-laranja);
-      flex-shrink: 0;
-      min-width: 60px;
-      text-align: right;
-    }
-
-    .streak-indicator {
-      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
-      color: white;
-      padding: 6px 10px;
-      border-radius: 8px;
-      text-align: center;
-      font-weight: bold;
-      margin-bottom: 8px;
-      font-size: 0.8rem;
-      animation: shake 0.5s;
-    }
-
-    .floating-points {
-      position: fixed;
-      font-size: 2.2rem;
-      font-weight: bold;
-      pointer-events: none;
-      z-index: 9999;
-      animation: floatUp 2s ease-out forwards;
-    }
-
-    .floating-points.bonus {
-      color: #FFD700;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-      font-size: 2.8rem;
-    }
-
-    .floating-points.normal {
-      color: var(--jw-verde-sucesso);
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-
-    @keyframes floatUp {
-      0% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-      50% {
-        transform: translateY(-50px) scale(1.2);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-150px) scale(0.8);
-      }
-    }
-
-    @keyframes pulsar {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateX(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes slideInLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-50px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes bounceIn {
-      0% {
-        opacity: 0;
-        transform: scale(0.3);
-      }
-      50% {
-        transform: scale(1.05);
-      }
-      70% {
-        transform: scale(0.9);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-      20%, 40%, 60%, 80% { transform: translateX(5px); }
-    }
-
-    @keyframes girar {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .loading {
-      text-align: center;
-      padding: 40px;
-    }
-
-    .loading-spinner {
-      font-size: 2.5rem;
-      animation: girar 1s linear infinite;
-    }
-
-    @media (max-width: 380px) {
-      .card {
-        padding: 12px;
-      }
-
-      .header h1 {
-        font-size: 1.5rem;
-      }
-
-      .stat-value {
-        font-size: 1.1rem;
-      }
-
-      .super-bonus-indicator,
-      .bonus-indicator {
-        font-size: 0.65rem;
-        padding: 3px 6px;
-      }
-
-      .dicas {
-        padding: 15px;
-        min-height: 110px;
-      }
-
-      .dica {
-        font-size: 1.2rem;
-        line-height: 1.6;
-        padding-left: 35px;
-        margin-bottom: 10px;
-      }
-
-      .dica::before {
-        font-size: 1.5rem;
-      }
-
-      .dica-timer {
-        font-size: 0.85rem;
-      }
-
-      .opcao {
-        font-size: 0.95rem;
-        padding: 12px 8px;
-      }
-
-      .podio-item {
-        padding: 6px;
-        gap: 6px;
-      }
-
-      .podio-posicao {
-        font-size: 1.2rem;
-        min-width: 30px;
-      }
-
-      .podio-nome {
-        font-size: 0.85rem;
-      }
-
-      .podio-pontos {
-        font-size: 0.9rem;
-        min-width: 50px;
-      }
-    }
+    body { font-family: Arial, sans-serif; background:#0f172a; color:#fff; margin:0; }
+    .wrap { max-width:900px; margin:0 auto; padding:20px; }
+    .card { background:#111827; border:1px solid #374151; border-radius:12px; padding:16px; margin-bottom:12px; }
+    .row { display:flex; gap:10px; flex-wrap:wrap; }
+    .pill { background:#1f2937; border:1px solid #374151; border-radius:999px; padding:6px 10px; font-size:12px; }
+    .q { font-size:22px; margin:8px 0 14px; }
+    .opts { display:grid; grid-template-columns:1fr; gap:10px; }
+    .opt { width:100%; text-align:left; padding:12px; border-radius:10px; border:1px solid #4b5563; background:#1f2937; color:#fff; cursor:pointer; }
+    .opt:hover { background:#374151; }
+    .ok { color:#22c55e; font-weight:bold; }
+    .err { color:#ef4444; font-weight:bold; }
+    .muted { opacity:.85; font-size:14px; }
+    .actions { margin-top:12px; display:flex; gap:8px; }
+    button { padding:10px 14px; border:0; border-radius:8px; cursor:pointer; }
+    .primary { background:#2563eb; color:#fff; }
+    .ghost { background:#334155; color:#fff; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card" id="tela-inicial">
-      <div class="header">
-        <h1>🎯 Modo Solo</h1>
-        <p>Responda 10 perguntas e alcance o topo!</p>
-      </div>
+<div class="wrap">
+  <h1>🎯 Solo - Cartas Bíblicas</h1>
 
-      <div class="stats">
-        <div class="stat-box">
-          <div class="stat-label">Recorde</div>
-          <div class="stat-value" id="recorde-pessoal">0</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">Perguntas</div>
-          <div class="stat-value">10</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-label">Tempo</div>
-          <div class="stat-value">60s</div>
-        </div>
-      </div>
-
-      <label for="categoria" style="display: block; margin-bottom: 8px; color: #1E3A5F; font-weight: bold; font-size: 0.95rem;">
-        📚 Categoria:
-      </label>
-      <select id="categoria" class="categoria-select">
-        <option value="personagens">👤 Personagens Bíblicos</option>
-        <option value="profecias">📜 Profecias</option>
-        <option value="pregacao">🎤 Pregação</option>
-      </select>
-
-      <label for="nome-jogador" style="display: block; margin-bottom: 8px; color: #1E3A5F; font-weight: bold; font-size: 0.95rem;">
-        ✏️ Seu Nome:
-      </label>
-      <input
-        type="text"
-        id="nome-jogador"
-        class="categoria-select"
-        placeholder="Digite seu nome..."
-        style="margin-bottom: 12px;"
-        autocomplete="name"
-      >
-
-      <button class="btn btn-primary" onclick="iniciarJogo()">🚀 Iniciar Jogo</button>
-      <a href="index.html" class="btn btn-secondary">🏠 Voltar ao Menu</a>
-    </div>
-
-    <div class="card pergunta-container" id="tela-jogo"></div>
-
-    <div class="card resultado-final" id="tela-resultado">
-      <div class="header">
-        <h1>🎊 Finalizado!</h1>
-      </div>
-
-      <div class="pontuacao-final" id="pontuacao-final">0</div>
-
-      <div class="resumo">
-        <div class="resumo-item">
-          <div class="resumo-label">✅ Acertos</div>
-          <div class="resumo-valor" id="resumo-acertos">0</div>
-        </div>
-        <div class="resumo-item">
-          <div class="resumo-label">❌ Erros</div>
-          <div class="resumo-valor" id="resumo-erros">0</div>
-        </div>
-        <div class="resumo-item">
-          <div class="resumo-label">🎯 Precisão</div>
-          <div class="resumo-valor" id="resumo-precisao">0%</div>
-        </div>
-      </div>
-
-      <div class="podio" id="podio-container" style="display: none;">
-        <h3>🏆 Top 5 Ranking</h3>
-        <div id="podio-lista"></div>
-      </div>
-
-      <button class="btn btn-primary" onclick="location.reload()">🔄 Jogar Novamente</button>
-      <a href="index.html" class="btn btn-secondary">🏠 Menu</a>
+  <div class="card">
+    <div class="row">
+      <div class="pill">Fase <span id="faseTxt">1/10</span></div>
+      <div class="pill">Pontos <span id="pontosTxt">0</span></div>
+      <div class="pill">Dificuldade <span id="difTxt">5</span>/10</div>
+      <div class="pill">Acertos <span id="acertosTxt">0</span></div>
+      <div class="pill">Erros <span id="errosTxt">0</span></div>
     </div>
   </div>
 
-  <script>
-    const AudioSystem = {
-      context: null,
-      volume: 0.25,
+  <div class="card">
+    <div class="muted">Dica 1: <span id="d1">-</span></div>
+    <div class="muted">Dica 2: <span id="d2">-</span></div>
+    <div class="muted">Dica 3: <span id="d3">-</span></div>
+    <div class="q">Quem sou eu?</div>
+    <div class="opts" id="opts"></div>
+    <div id="fb" style="margin-top:10px;"></div>
+    <div class="actions">
+      <button class="ghost" id="proxBtn" disabled>Próxima</button>
+      <button class="primary" id="reiniciarBtn">Reiniciar</button>
+    </div>
+  </div>
+</div>
 
-      init() {
-        try {
-          this.context = new (window.AudioContext || window.webkitAudioContext)();
-        } catch(e) {}
-      },
+<script>
+(() => {
+  const API = "https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev";
+  const TOTAL_PERGUNTAS = 10;
 
-      playNote(frequency, duration, type = 'sine', volume = this.volume) {
-        if (!this.context) return;
-        try {
-          const oscillator = this.context.createOscillator();
-          const gainNode = this.context.createGain();
-          oscillator.connect(gainNode);
-          gainNode.connect(this.context.destination);
-          oscillator.frequency.value = frequency;
-          oscillator.type = type;
-          gainNode.gain.setValueAtTime(volume, this.context.currentTime);
-          gainNode.gain.exponentialRampToValueAtTime(0.01, this.context.currentTime + duration);
-          oscillator.start(this.context.currentTime);
-          oscillator.stop(this.context.currentTime + duration);
-        } catch(e) {}
-      },
+  let cartas = [];
+  let usadas = new Set();
+  let perguntaAtual = 1;
+  let pontos = 0;
+  let acertos = 0;
+  let erros = 0;
+  let cartaAtual = null;
+  let travado = false;
 
-      click() { this.playNote(800, 0.08, 'sine', 0.12); },
-      newQuestion() {
-        [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
-          setTimeout(() => this.playNote(freq, 0.15, 'triangle', 0.15), i * 100);
-        });
-      },
-      showHint() { this.playNote(600, 0.08, 'sine', 0.08); },
-      correct() {
-        [659.25, 783.99, 1046.50].forEach((freq, i) => {
-          setTimeout(() => this.playNote(freq, 0.12, 'triangle', 0.2), i * 80);
-        });
-      },
-      correctBonus() {
-        [783.99, 1046.50, 1318.51, 1567.98, 2093.00].forEach((freq, i) => {
-          setTimeout(() => this.playNote(freq, 0.1, 'sine', 0.25), i * 50);
-        });
-      },
-      superBonus() {
-        this.playNote(988, 0.05, 'square', 0.35);
-        setTimeout(() => this.playNote(1319, 0.12, 'square', 0.35), 60);
-        setTimeout(() => {
-          for (let i = 0; i < 4; i++) {
-            setTimeout(() => this.playNote(1568 + (i * 250), 0.06, 'sine', 0.2), i * 30);
-          }
-        }, 180);
-      },
-      gameComplete() {
-        [523.25, 659.25, 783.99, 1046.50, 1318.51, 1568, 2093].forEach((freq, i) => {
-          setTimeout(() => this.playNote(freq, 0.25, 'sine', 0.2), i * 80);
-        });
-      },
-      error() { this.playNote(196, 0.3, 'sawtooth', 0.15); }
-    };
+  const $ = (id) => document.getElementById(id);
 
-    AudioSystem.init();
+  function normalizarTexto(s) {
+    return String(s || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .trim();
+  }
 
-    function mostrarPontosAnimados(pontos, isBonus = false) {
-      const elemento = document.createElement('div');
-      elemento.className = `floating-points ${isBonus ? 'bonus' : 'normal'}`;
-      elemento.textContent = `+${pontos} ${isBonus ? '🔥' : ''}`;
-      const x = Math.random() * (window.innerWidth - 150) + 75;
-      const y = window.innerHeight / 2;
-      elemento.style.left = `${x}px`;
-      elemento.style.top = `${y}px`;
-      document.body.appendChild(elemento);
-      setTimeout(() => elemento.remove(), 2000);
+  function embaralhar(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function obterDificuldadeCarta(c) {
+    const v = Number(c?.dificuldade);
+    if (Number.isFinite(v)) return Math.max(0, Math.min(10, Math.round(v)));
+    return 5;
+  }
+
+  function detectarGeneroCarta(c) {
+    if (!c) return "neutro";
+
+    const g = normalizarTexto(c.genero || "");
+    if (g === "masculino") return "masculino";
+    if (g === "feminino") return "feminino";
+
+    if (c.masculino === true || c.masculino === 1) return "masculino";
+    if (c.feminino === true || c.feminino === 1) return "feminino";
+
+    // heuristica leve por nome (fallback)
+    const nome = normalizarTexto(c.resposta || "");
+    if (nome.endsWith("a") && !nome.endsWith("ias") && !nome.endsWith("as")) return "feminino";
+    if (nome.endsWith("o")) return "masculino";
+    return "neutro";
+  }
+
+  function gerarOpcoesErradas(correta, qtd = 3) {
+    const respostaCorreta = normalizarTexto(correta?.resposta || "");
+    const generoCorreta = detectarGeneroCarta(correta);
+
+    const candidatos = cartas.filter(c => normalizarTexto(c.resposta) !== respostaCorreta);
+
+    let pool = candidatos;
+    if (generoCorreta !== "neutro") {
+      const coerentes = candidatos.filter(c => detectarGeneroCarta(c) === generoCorreta);
+      const neutros = candidatos.filter(c => detectarGeneroCarta(c) === "neutro");
+      pool = coerentes.length >= qtd ? coerentes : [...coerentes, ...neutros];
+      if (pool.length < qtd) pool = candidatos;
     }
 
-    const API_BASE = 'https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
-    const TOTAL_PERGUNTAS = 10;
-    const TEMPO_POR_PERGUNTA = 60;
-
-    // ============================
-    // "Anti-repetição" (LOCAL + GLOBAL)
-    // ============================
-    const LOCAL_HISTORY_LIMIT = 200; // quantas cartas manter como "já usadas" por jogador/categoria
-    const LOCAL_HISTORY_MIN_KEEP = 50; // relaxamento mínimo (se faltar cartas)
-    const LOCAL_STORAGE_VERSION = 1;
-
-    function getHistoryStorageKey() {
-      const nome = (localStorage.getItem('nomeJogador') || '').trim() || 'anon';
-      const cat = categoria || 'geral';
-      return `qsEU:v${LOCAL_STORAGE_VERSION}:used:${nome.toLowerCase()}:${cat}`;
+    const out = [];
+    const seen = new Set([respostaCorreta]);
+    for (const c of embaralhar(pool)) {
+      const r = String(c.resposta || "").trim();
+      const k = normalizarTexto(r);
+      if (!r || seen.has(k)) continue;
+      seen.add(k);
+      out.push(r);
+      if (out.length === qtd) break;
     }
 
-    // Gera uma chave estável para a carta (preferindo carta.id se existir)
-    function cardKey(carta) {
-      if (!carta) return '';
-      if (carta.id !== undefined && carta.id !== null && String(carta.id).trim() !== '') {
-        return `id:${String(carta.id).trim()}`;
-      }
-      // fallback: assinatura estável (categoria + conteúdo)
-      const base = [
-        categoria || '',
-        carta.resposta || '',
-        carta.dica1 || '',
-        carta.dica2 || '',
-        carta.dica3 || ''
-      ].join('|');
-
-      // hash simples (rápido e determinístico) para não guardar textos enormes
-      let hash = 0;
-      for (let i = 0; i < base.length; i++) {
-        hash = ((hash << 5) - hash) + base.charCodeAt(i);
-        hash |= 0; // 32-bit
-      }
-      return `h:${Math.abs(hash)}`;
-    }
-
-    function loadLocalUsedKeys() {
-      try {
-        const raw = localStorage.getItem(getHistoryStorageKey());
-        if (!raw) return [];
-        const parsed = JSON.parse(raw);
-        if (!Array.isArray(parsed)) return [];
-        return parsed.filter(Boolean);
-      } catch (e) {
-        return [];
-      }
-    }
-
-    function saveLocalUsedKeys(keys) {
-      try {
-        localStorage.setItem(getHistoryStorageKey(), JSON.stringify(keys));
-      } catch (e) {
-        // se estourar quota, tenta truncar
-        try {
-          const truncated = keys.slice(Math.max(0, keys.length - LOCAL_HISTORY_MIN_KEEP));
-          localStorage.setItem(getHistoryStorageKey(), JSON.stringify(truncated));
-        } catch (e2) {}
-      }
-    }
-
-    function appendToLocalHistory(newKeys) {
-      const current = loadLocalUsedKeys();
-      const merged = [...current, ...newKeys].filter(Boolean);
-
-      // remove duplicados preservando ordem (mantém o mais antigo primeiro)
-      const seen = new Set();
-      const dedup = [];
-      for (const k of merged) {
-        if (seen.has(k)) continue;
+    // ultimo fallback
+    if (out.length < qtd) {
+      for (const c of embaralhar(candidatos)) {
+        const r = String(c.resposta || "").trim();
+        const k = normalizarTexto(r);
+        if (!r || seen.has(k)) continue;
         seen.add(k);
-        dedup.push(k);
-      }
-
-      // mantém só as últimas LOCAL_HISTORY_LIMIT
-      const finalList = dedup.slice(Math.max(0, dedup.length - LOCAL_HISTORY_LIMIT));
-      saveLocalUsedKeys(finalList);
-      return finalList;
-    }
-
-    function fisherYatesShuffle(array) {
-      const a = [...array];
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    }
-
-    // ============================
-    // Estado do jogo
-    // ============================
-    let cartas = [];
-    let perguntaAtual = 0;
-    let pontos = 0;
-    let acertos = 0;
-    let erros = 0;
-    let timerInterval = null;
-    let tempoRestante = TEMPO_POR_PERGUNTA;
-    let categoria = 'personagens';
-    let nomeJogador = '';
-    let cartaAtualObj = null;
-    let inicioResposta = null;
-    let sequenciaRapida = 0;
-    let respostaJaSelecionada = false;
-    let dicasVisiveis = 0;
-    let dicaTimerInterval = null;
-
-    // ============================================
-    // FUNÇÕES DE EMBARALHAMENTO (mantidas)
-    // ============================================
-    function gerarSeedUnico() {
-      const timestamp = Date.now();
-      const milis = performance.now();
-      const random = Math.random() * 1000000;
-      const seed = timestamp + milis + random;
-      return seed;
-    }
-
-    function embaralharAvancado(array) {
-      const novo = [...array];
-      const seed = gerarSeedUnico();
-
-      function seededRandom(s) {
-        const x = Math.sin(s) * 10000;
-        return x - Math.floor(x);
-      }
-
-      for (let i = novo.length - 1; i > 0; i--) {
-        const j = Math.floor(seededRandom(seed + i) * (i + 1));
-        [novo[i], novo[j]] = [novo[j], novo[i]];
-      }
-
-      for (let i = novo.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [novo[i], novo[j]] = [novo[j], novo[i]];
-      }
-
-      const rotacao = Date.now() % novo.length;
-      const parte1 = novo.slice(rotacao);
-      const parte2 = novo.slice(0, rotacao);
-      const resultado = [...parte1, ...parte2];
-
-      for (let i = resultado.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [resultado[i], resultado[j]] = [resultado[j], resultado[i]];
-      }
-
-      return resultado;
-    }
-
-    // ============================================
-    // FUNÇÕES DE MEMÓRIA GLOBAL (API)
-    // ============================================
-    async function obterCartasRecentesGlobal() {
-      try {
-        const response = await fetch(`${API_BASE}/cartas-recentes`);
-        if (!response.ok) {
-          console.warn(`⚠️ Servidor retornou erro ao buscar cartas recentes: ${response.status}`);
-          return [];
-        }
-        const data = await response.json();
-
-        // Pode vir como {cartas:[...]} (antigo: respostas), ou pode vir ids/keys.
-        const lista = (data && Array.isArray(data.cartas)) ? data.cartas : [];
-
-        console.log(`🌐 Cartas recentes globais: ${lista.length}`);
-        console.log('📋 Cartas globais a evitar:', lista);
-
-        return lista;
-      } catch (erro) {
-        console.error('❌ Erro ao buscar cartas recentes:', erro);
-        return [];
+        out.push(r);
+        if (out.length === qtd) break;
       }
     }
 
-    // envia keys (preferido) e respostas (fallback)
-    async function registrarCartasUsadasGlobal(payload) {
-      try {
-        const response = await fetch(`${API_BASE}/registrar-cartas`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
+    return out;
+  }
 
-        if (!response.ok) {
-          console.warn(`⚠️ Falha ao registrar cartas no servidor: ${response.status}`);
-          return;
-        }
-        const data = await response.json();
-        console.log('✅ Cartas registradas no servidor:', data);
+  function atualizarHUD() {
+    $("faseTxt").textContent = `${perguntaAtual}/${TOTAL_PERGUNTAS}`;
+    $("pontosTxt").textContent = pontos;
+    $("acertosTxt").textContent = acertos;
+    $("errosTxt").textContent = erros;
+    $("difTxt").textContent = obterDificuldadeCarta(cartaAtual);
+  }
 
-      } catch (erro) {
-        console.error('❌ Erro ao registrar cartas:', erro);
-      }
+  function escolherCarta() {
+    const disponiveis = cartas.filter(c => !usadas.has(normalizarTexto(c.resposta)));
+    if (disponiveis.length === 0) {
+      usadas.clear();
+      return escolherCarta();
+    }
+    const c = disponiveis[Math.floor(Math.random() * disponiveis.length)];
+    usadas.add(normalizarTexto(c.resposta));
+    return c;
+  }
+
+  function renderPergunta() {
+    travado = false;
+    $("fb").textContent = "";
+    $("proxBtn").disabled = true;
+
+    cartaAtual = escolherCarta();
+    $("d1").textContent = cartaAtual.dica1 || "-";
+    $("d2").textContent = cartaAtual.dica2 || "-";
+    $("d3").textContent = cartaAtual.dica3 || "-";
+
+    const erradas = gerarOpcoesErradas(cartaAtual, 3);
+    const opcoes = embaralhar([cartaAtual.resposta, ...erradas]);
+
+    $("opts").innerHTML = opcoes.map(op =>
+      `<button class="opt" data-op="${op.replace(/"/g, "&quot;")}">${op}</button>`
+    ).join("");
+
+    for (const btn of $("opts").querySelectorAll(".opt")) {
+      btn.addEventListener("click", () => responder(btn.dataset.op));
     }
 
-    // Seleciona cartas evitando repetição LOCAL + GLOBAL
-    function selecionarCartasSemRepetir(cartasDaCategoria, globalRecentList) {
-      // local history
-      const localUsed = loadLocalUsedKeys();
-      const localSet = new Set(localUsed);
+    atualizarHUD();
+  }
 
-      // global can be keys or respostas antigas. Vamos tratar como Set de strings.
-      const globalSet = new Set((globalRecentList || []).map(x => String(x)));
+  function responder(op) {
+    if (travado) return;
+    travado = true;
 
-      // 1) tenta evitar LOCAL + GLOBAL
-      const bothAvoidSet = new Set([...localSet, ...globalSet]);
+    const certo = normalizarTexto(op) === normalizarTexto(cartaAtual.resposta);
+    const d = obterDificuldadeCarta(cartaAtual);
 
-      let disponiveis = cartasDaCategoria.filter(c => !bothAvoidSet.has(cardKey(c)));
-
-      // Se o backend ainda estiver usando "resposta", também tenta evitar por resposta
-      // (compatibilidade com seu código antigo)
-      if (disponiveis.length < TOTAL_PERGUNTAS) {
-        const globalAsResposta = new Set((globalRecentList || []).map(x => normalizarTexto(String(x))));
-        disponiveis = cartasDaCategoria.filter(c => {
-          const k = cardKey(c);
-          if (bothAvoidSet.has(k)) return false;
-          const resp = normalizarTexto(c.resposta || '');
-          if (globalAsResposta.has(resp)) return false;
-          return true;
-        });
-      }
-
-      // 2) relaxa GLOBAL primeiro se faltar
-      if (disponiveis.length < TOTAL_PERGUNTAS) {
-        console.log('⚠️ Relaxando filtro GLOBAL (mantendo LOCAL)');
-        disponiveis = cartasDaCategoria.filter(c => !localSet.has(cardKey(c)));
-      }
-
-      // 3) se ainda faltar, relaxa LOCAL (mantém só as mais recentes como bloqueadas)
-      if (disponiveis.length < TOTAL_PERGUNTAS) {
-        console.log('⚠️ Relaxando filtro LOCAL (mantendo somente parte do histórico)');
-        const keep = Math.min(LOCAL_HISTORY_MIN_KEEP, localUsed.length);
-        const recentLocalSlice = localUsed.slice(Math.max(0, localUsed.length - keep));
-        const recentLocalSet = new Set(recentLocalSlice);
-        disponiveis = cartasDaCategoria.filter(c => !recentLocalSet.has(cardKey(c)));
-      }
-
-      // 4) se mesmo assim faltar (caso extremo), usa tudo
-      if (disponiveis.length < TOTAL_PERGUNTAS) {
-        console.log('⚠️ Poucas cartas após relaxamentos, usando todas');
-        disponiveis = [...cartasDaCategoria];
-      }
-
-      // embaralha e pega as 10
-      const embaralhadas = embaralharAvancado(disponiveis);
-      return embaralhadas.slice(0, TOTAL_PERGUNTAS);
+    if (certo) {
+      acertos++;
+      pontos += 100 + (d * 20);
+      $("fb").innerHTML = `<span class="ok">✅ Correto! Era ${cartaAtual.resposta}</span>`;
+    } else {
+      erros++;
+      $("fb").innerHTML = `<span class="err">❌ Errado. Era ${cartaAtual.resposta}</span>`;
     }
 
-    // ============================================
-    // INICIALIZAÇÃO
-    // ============================================
-    window.addEventListener('DOMContentLoaded', () => {
-      const recordePessoal = localStorage.getItem('recordePessoal') || 0;
-      document.getElementById('recorde-pessoal').textContent = recordePessoal;
-      const nomeSalvo = localStorage.getItem('nomeJogador');
-      if (nomeSalvo) {
-        document.getElementById('nome-jogador').value = nomeSalvo;
-      }
+    $("proxBtn").disabled = false;
+    atualizarHUD();
+  }
 
-      let lastTouchEnd = 0;
-      document.addEventListener('touchend', (e) => {
-        const now = Date.now();
-        if (now - lastTouchEnd <= 300) {
-          e.preventDefault();
-        }
-        lastTouchEnd = now;
-      }, false);
-    });
-
-    // ============================================
-    // INICIAR JOGO
-    // ============================================
-    async function iniciarJogo() {
-      AudioSystem.click();
-      categoria = document.getElementById('categoria').value;
-      nomeJogador = document.getElementById('nome-jogador').value.trim();
-      if (!nomeJogador) {
-        alert('⚠️ Por favor, digite seu nome!');
-        return;
-      }
-
-      localStorage.setItem('nomeJogador', nomeJogador);
-
-      document.getElementById('tela-inicial').style.display = 'none';
-      document.getElementById('tela-jogo').innerHTML = '<div class="loading"><div class="loading-spinner">⏳</div><p>Carregando...</p></div>';
-      document.getElementById('tela-jogo').style.display = 'block';
-
-      try {
-        // BUSCAR cartas da API
-        const response = await fetch(`${API_BASE}/cartas/${categoria}`);
-        if (!response.ok) {
-          throw new Error(`Erro ao buscar cartas (HTTP ${response.status})`);
-        }
-        const data = await response.json();
-
-        if (!data.cartas || data.cartas.length === 0) {
-          throw new Error('Nenhuma carta encontrada para esta categoria');
-        }
-
-        // BUSCAR cartas recentes GLOBAIS
-        const cartasRecentesGlobal = await obterCartasRecentesGlobal();
-
-        // Selecionar 10 cartas evitando repetição LOCAL + GLOBAL
-        cartas = selecionarCartasSemRepetir(data.cartas, cartasRecentesGlobal);
-
-        console.log('🎲 Cartas selecionadas:', cartas.map(c => c.resposta));
-        console.log('🧩 Keys selecionadas:', cartas.map(c => cardKey(c)));
-
-        mostrarPergunta();
-
-      } catch (erro) {
-        console.error('❌ Erro:', erro);
-        alert(`❌ Erro ao carregar: ${erro.message || 'Tente novamente.'}`);
-        location.reload();
-      }
+  function proxima() {
+    if (perguntaAtual >= TOTAL_PERGUNTAS) {
+      $("fb").innerHTML = `<strong>Fim!</strong> Pontos: ${pontos} | Acertos: ${acertos} | Erros: ${erros}`;
+      $("opts").innerHTML = "";
+      $("proxBtn").disabled = true;
+      return;
     }
+    perguntaAtual++;
+    renderPergunta();
+  }
 
-    // ============================================
-    // MOSTRAR PERGUNTA
-    // ============================================
-    function mostrarPergunta() {
-      if (perguntaAtual >= cartas.length) {
-        finalizarJogo();
-        return;
-      }
+  function reiniciar() {
+    usadas.clear();
+    perguntaAtual = 1;
+    pontos = 0;
+    acertos = 0;
+    erros = 0;
+    renderPergunta();
+  }
 
-      AudioSystem.newQuestion();
-      respostaJaSelecionada = false;
-      dicasVisiveis = 0;
-
-      cartaAtualObj = cartas[perguntaAtual];
-      inicioResposta = Date.now();
-
-      const todasRespostas = cartas.map(c => c.resposta);
-      const opcoesErradas = embaralharAvancado(
-        todasRespostas.filter(r => r !== cartaAtualObj.resposta)
-      ).slice(0, 3);
-
-      const opcoes = embaralharAvancado([cartaAtualObj.resposta, ...opcoesErradas]);
-
-      document.getElementById('tela-jogo').innerHTML = `
-        <div class="pergunta-header">
-          <div class="numero-pergunta">Pergunta ${perguntaAtual + 1}/${TOTAL_PERGUNTAS}</div>
-          <div class="timer" id="timer">60s</div>
-        </div>
-
-        <div class="stats" style="margin-bottom: 12px;">
-          <div class="stat-box">
-            <div class="stat-label">Pontos</div>
-            <div class="stat-value" id="pontos-atuais">${pontos}</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-label">Acertos</div>
-            <div class="stat-value">${acertos}/${erros}</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-label">Seq.</div>
-            <div class="stat-value">${sequenciaRapida}</div>
-          </div>
-        </div>
-
-        <div class="bonus-container">
-          <div class="super-bonus-indicator">
-            💥 1s = +2000
-          </div>
-          <div class="bonus-indicator">
-            ⚡ 3s = +500
-          </div>
-        </div>
-
-        ${sequenciaRapida > 0 ? `
-        <div class="streak-indicator">
-          🔥 Sequência: ${sequenciaRapida}x
-        </div>
-        ` : ''}
-
-        <div class="dicas">
-          <div class="dica" id="dica1">${cartaAtualObj.dica1}</div>
-          <div class="dica" id="dica2">${cartaAtualObj.dica2}</div>
-          <div class="dica" id="dica3">${cartaAtualObj.dica3}</div>
-          <div class="dica-timer" id="dica-timer">💡 Próxima dica em: <span id="countdown">15s</span></div>
-        </div>
-
-        <div class="opcoes-container">
-          ${opcoes.map(opcao => `
-            <div class="opcao" onclick="selecionarOpcao(this, '${opcao.replace(/'/g, "\\'")}')">
-              ${opcao}
-            </div>
-          `).join('')}
-        </div>
-
-        <div class="feedback" id="feedback"></div>
-      `;
-
-      mostrarDica(1);
-
-      tempoRestante = TEMPO_POR_PERGUNTA;
-      atualizarTimer();
-
-      if (timerInterval) clearInterval(timerInterval);
-      timerInterval = setInterval(() => {
-        tempoRestante--;
-        atualizarTimer();
-
-        if (tempoRestante <= 0) {
-          clearInterval(timerInterval);
-          if (dicaTimerInterval) clearInterval(dicaTimerInterval);
-          if (!respostaJaSelecionada) {
-            processarResposta('', false);
-          }
-        }
-      }, 1000);
-
-      iniciarTimerDicas();
+  async function carregar() {
+    try {
+      const resp = await fetch(`${API}/cartas/personagens`);
+      const data = await resp.json();
+      cartas = Array.isArray(data?.cartas) ? data.cartas : [];
+      if (!cartas.length) throw new Error("Nenhuma carta recebida.");
+      renderPergunta();
+    } catch (e) {
+      $("fb").innerHTML = `<span class="err">Erro ao carregar cartas: ${e.message}</span>`;
     }
+  }
 
-    function iniciarTimerDicas() {
-      let tempoProximaDica = 15;
-      const countdownEl = document.getElementById('countdown');
+  $("proxBtn").addEventListener("click", proxima);
+  $("reiniciarBtn").addEventListener("click", reiniciar);
 
-      if (dicaTimerInterval) clearInterval(dicaTimerInterval);
-
-      dicaTimerInterval = setInterval(() => {
-        tempoProximaDica--;
-
-        if (countdownEl) {
-          countdownEl.textContent = `${tempoProximaDica}s`;
-        }
-
-        if (tempoProximaDica <= 0 && dicasVisiveis < 3) {
-          mostrarDica(dicasVisiveis + 1);
-          tempoProximaDica = 15;
-
-          if (dicasVisiveis >= 3) {
-            clearInterval(dicaTimerInterval);
-            const timerEl = document.getElementById('dica-timer');
-            if (timerEl) {
-              timerEl.textContent = '✅ Todas as dicas reveladas';
-            }
-          }
-        }
-
-        if (respostaJaSelecionada) {
-          clearInterval(dicaTimerInterval);
-        }
-      }, 1000);
-    }
-
-    function mostrarDica(numero) {
-      const dicaEl = document.getElementById(`dica${numero}`);
-      if (dicaEl) {
-        dicaEl.classList.add('visivel');
-        dicasVisiveis = numero;
-        AudioSystem.showHint();
-      }
-    }
-
-    function selecionarOpcao(elemento, resposta) {
-      if (respostaJaSelecionada) return;
-
-      AudioSystem.click();
-      respostaJaSelecionada = true;
-      clearInterval(timerInterval);
-      if (dicaTimerInterval) clearInterval(dicaTimerInterval);
-
-      document.querySelectorAll('.opcao').forEach(op => {
-        op.classList.add('desabilitada');
-      });
-
-      const acertou = normalizarTexto(resposta) === normalizarTexto(cartaAtualObj.resposta);
-
-      if (acertou) {
-        elemento.classList.add('correta');
-      } else {
-        elemento.classList.add('errada');
-        document.querySelectorAll('.opcao').forEach(op => {
-          if (normalizarTexto(op.textContent) === normalizarTexto(cartaAtualObj.resposta)) {
-            op.classList.add('correta');
-          }
-        });
-      }
-
-      setTimeout(() => {
-        processarResposta(resposta, acertou);
-      }, 1200);
-    }
-
-    function processarResposta(resposta, acertou) {
-      const tempoResposta = Math.floor((Date.now() - inicioResposta) / 1000);
-
-      if (acertou) {
-        acertos++;
-
-        let pontosBase = 100;
-        let bonusDicas = 0;
-
-        if (dicasVisiveis === 1) bonusDicas = 400;
-        else if (dicasVisiveis === 2) bonusDicas = 200;
-        else if (dicasVisiveis === 3) bonusDicas = 0;
-
-        let bonusVelocidade = 0;
-        let isBonus = false;
-        let isSuperBonus = false;
-
-        if (tempoResposta <= 1) {
-          bonusVelocidade = 2000;
-          sequenciaRapida++;
-          isSuperBonus = true;
-          isBonus = true;
-          AudioSystem.superBonus();
-
-          setTimeout(() => {
-            for (let i = 0; i < 6; i++) {
-              setTimeout(() => AudioSystem.playNote(2093 + (i * 100), 0.08, 'sine', 0.3), i * 40);
-            }
-          }, 250);
-        } else if (tempoResposta <= 3) {
-          bonusVelocidade = 500;
-          sequenciaRapida++;
-          isBonus = true;
-          AudioSystem.superBonus();
-        } else {
-          sequenciaRapida = 0;
-          AudioSystem.correct();
-        }
-
-        const pontosGanhos = pontosBase + bonusDicas + bonusVelocidade;
-        pontos += pontosGanhos;
-
-        mostrarPontosAnimados(pontosGanhos, isBonus);
-
-        if (pontosGanhos >= 500) {
-          AudioSystem.correctBonus();
-        }
-
-        document.getElementById('feedback').className = 'feedback correto';
-
-        if (isSuperBonus) {
-          document.getElementById('feedback').innerHTML = `
-            ✅ <strong>INCRÍVEL! 🔥⚡🔥</strong><br>
-            <span style="font-size: 1.5rem; color: #FFD700;">+${pontosGanhos} pts</span><br>
-            ${bonusDicas > 0 ? `📝 Bônus ${dicasVisiveis} dica(s): +${bonusDicas}<br>` : ''}
-            <strong style="color: #FF6B6B; font-size: 1.2rem;">💥 SUPER BÔNUS 1 SEGUNDO! +2000 pts 💥</strong>
-          `;
-        } else {
-          document.getElementById('feedback').innerHTML = `
-            ✅ <strong>CORRETO!</strong><br>
-            +${pontosGanhos} pts
-            ${bonusDicas > 0 ? `<br>📝 Bônus ${dicasVisiveis} dica(s): +${bonusDicas}` : ''}
-            ${bonusVelocidade > 0 ? '<br>⚡ <strong>BÔNUS VELOCIDADE!</strong>' : ''}
-          `;
-        }
-      } else {
-        AudioSystem.error();
-        erros++;
-        sequenciaRapida = 0;
-
-        document.getElementById('feedback').className = 'feedback errado';
-        document.getElementById('feedback').innerHTML = `
-          ❌ <strong>INCORRETO!</strong><br>
-          Resposta: <strong>${cartaAtualObj.resposta}</strong>
-        `;
-      }
-
-      document.getElementById('feedback').style.display = 'block';
-      perguntaAtual++;
-
-      setTimeout(() => {
-        mostrarPergunta();
-      }, 2000);
-    }
-
-    async function finalizarJogo() {
-      AudioSystem.gameComplete();
-      document.getElementById('tela-jogo').style.display = 'none';
-      document.getElementById('tela-resultado').style.display = 'block';
-      animarPontuacao(pontos);
-      const precisao = Math.round((acertos / TOTAL_PERGUNTAS) * 100);
-      document.getElementById('resumo-acertos').textContent = acertos;
-      document.getElementById('resumo-erros').textContent = erros;
-      document.getElementById('resumo-precisao').textContent = `${precisao}%`;
-      const recordeAnterior = parseInt(localStorage.getItem('recordePessoal') || 0);
-      if (pontos > recordeAnterior) {
-        localStorage.setItem('recordePessoal', pontos);
-      }
-
-      // ============================
-      // Salvar histórico LOCAL
-      // ============================
-      const usedKeys = cartas.map(c => cardKey(c));
-      appendToLocalHistory(usedKeys);
-
-      // ============================
-      // Registrar no servidor (GLOBAL)
-      // ============================
-      // Envia keys e respostas para manter compatibilidade com backend antigo
-      await registrarCartasUsadasGlobal({
-        cartas: usedKeys, // preferido (keys/ids)
-        respostas: cartas.map(c => c.resposta), // fallback
-        categoria: categoria,
-        jogador: nomeJogador
-      });
-
-      try {
-        await fetch(`${API_BASE}/adicionar`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ nome: nomeJogador, pontos: pontos })
-        });
-        await carregarRanking();
-      } catch (erro) {
-        console.error('❌ Erro:', erro);
-      }
-    }
-
-    function animarPontuacao(pontosFinal) {
-      const elemento = document.getElementById('pontuacao-final');
-      const duracao = 2000;
-      const incremento = pontosFinal / (duracao / 50);
-      let pontoAtual = 0;
-      const intervalo = setInterval(() => {
-        pontoAtual += incremento;
-        if (pontoAtual >= pontosFinal) {
-          pontoAtual = pontosFinal;
-          clearInterval(intervalo);
-        }
-        elemento.textContent = Math.floor(pontoAtual).toLocaleString('pt-BR');
-      }, 50);
-    }
-
-    async function carregarRanking() {
-      try {
-        const response = await fetch(`${API_BASE}/ranking`);
-        const data = await response.json();
-        if (data.ranking && data.ranking.length > 0) {
-          const top5 = data.ranking.slice(0, 5);
-          const podioHTML = top5.map((jogador, index) => {
-            const medalhas = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
-            return `
-              <div class="podio-item">
-                <span class="podio-posicao">${medalhas[index]}</span>
-                <span class="podio-nome">${jogador.nome}</span>
-                <span class="podio-pontos">${jogador.pontos.toLocaleString('pt-BR')}</span>
-              </div>
-            `;
-          }).join('');
-          document.getElementById('podio-lista').innerHTML = podioHTML;
-          document.getElementById('podio-container').style.display = 'block';
-        }
-      } catch (erro) {
-        console.error('❌ Erro:', erro);
-      }
-    }
-
-    function atualizarTimer() {
-      const timerEl = document.getElementById('timer');
-      if (timerEl) {
-        timerEl.textContent = `${tempoRestante}s`;
-        if (tempoRestante <= 10) {
-          timerEl.style.color = 'var(--jw-vermelho-erro)';
-        } else {
-          timerEl.style.color = 'var(--jw-laranja)';
-        }
-      }
-    }
-
-    function normalizarTexto(texto) {
-      return String(texto || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
-    }
-
-    function embaralhar(array) {
-      return embaralharAvancado(array);
-    }
-  </script>
+  carregar();
+})();
+</script>
 </body>
 </html>
