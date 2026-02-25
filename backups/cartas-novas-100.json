@@ -1,0 +1,584 @@
+{
+  "personagens": [
+    {
+      "value": [
+        {
+          "resposta": "Lameque",
+          "dica1": "Descendente de Caim",
+          "dica2": "Pai de Tubalcaim e Jabal",
+          "dica3": "Praticou poligamia e foi violento"
+        },
+        {
+          "resposta": "Sete",
+          "dica1": "Filho de Adão nascido após Abel",
+          "dica2": "Seu nome significa 'designado'",
+          "dica3": "Pai de Enos, avô de Cainã"
+        },
+        {
+          "resposta": "Matusalém",
+          "dica1": "Viveu 969 anos",
+          "dica2": "Avô de Noé",
+          "dica3": "O homem mais velho da Bíblia"
+        },
+        {
+          "resposta": "Sem",
+          "dica1": "Um dos três filhos de Noé",
+          "dica2": "Ancestral dos semitas",
+          "dica3": "Abençoado por Noé após o dilúvio"
+        },
+        {
+          "resposta": "Ninrode",
+          "dica1": "Poderoso caçador",
+          "dica2": "Construiu Babel e Nínive",
+          "dica3": "Opôs-se a Jeová na planície de Sinear"
+        },
+        {
+          "resposta": "Hagar",
+          "dica1": "Serva egípcia de Sara",
+          "dica2": "Mãe de Ismael",
+          "dica3": "Expulsa para o deserto duas vezes"
+        },
+        {
+          "resposta": "Eliezer",
+          "dica1": "Servo mais velho de Abraão",
+          "dica2": "Encontrou esposa para Isaque",
+          "dica3": "Viajou até Harã com presentes"
+        },
+        {
+          "resposta": "Labão",
+          "dica1": "Irmão de Rebeca",
+          "dica2": "Sogro enganador de Jacó",
+          "dica3": "Pai de Lia e Raquel"
+        },
+        {
+          "resposta": "Lia",
+          "dica1": "Tinha olhos delicados",
+          "dica2": "Primeira esposa de Jacó",
+          "dica3": "Mãe de Rúben, Simeão e Levi"
+        },
+        {
+          "resposta": "Diná",
+          "dica1": "Única filha mencionada de Jacó",
+          "dica2": "Violada por Siquém",
+          "dica3": "Vingada por Simeão e Levi"
+        },
+        {
+          "resposta": "Rúben",
+          "dica1": "Primogênito de Jacó",
+          "dica2": "Perdeu direito de primogenitura",
+          "dica3": "Tentou salvar José da cisterna"
+        },
+        {
+          "resposta": "Judá",
+          "dica1": "Quarto filho de Jacó",
+          "dica2": "Ancestral de Jesus Cristo",
+          "dica3": "Salvou José ao sugerir vendê-lo"
+        },
+        {
+          "resposta": "Tamar",
+          "dica1": "Nora de Judá",
+          "dica2": "Disfarçou-se de prostituta",
+          "dica3": "Mãe de Perez e Zera"
+        },
+        {
+          "resposta": "Potifar",
+          "dica1": "Oficial egípcio do Faraó",
+          "dica2": "Comprou José como escravo",
+          "dica3": "Sua esposa mentiu sobre José"
+        },
+        {
+          "resposta": "Asenate",
+          "dica1": "Esposa egípcia de José",
+          "dica2": "Filha de sacerdote de Om",
+          "dica3": "Mãe de Manassés e Efraim"
+        },
+        {
+          "resposta": "Manassés",
+          "dica1": "Primogênito de José",
+          "dica2": "Recebeu bênção da mão esquerda",
+          "dica3": "Fundador de meia tribo de Israel"
+        },
+        {
+          "resposta": "Efraim",
+          "dica1": "Segundo filho de José",
+          "dica2": "Recebeu bênção da mão direita",
+          "dica3": "Tribo mais proeminente do norte"
+        },
+        {
+          "resposta": "Sífora",
+          "dica1": "Filha de Jetro",
+          "dica2": "Esposa de Moisés",
+          "dica3": "Circuncidou o filho com pedra afiada"
+        },
+        {
+          "resposta": "Hur",
+          "dica1": "Apoiou os braços de Moisés",
+          "dica2": "Acompanhou Arão no monte",
+          "dica3": "Ajudou Israel a vencer Amaleque"
+        },
+        {
+          "resposta": "Nadabe",
+          "dica1": "Filho mais velho de Arão",
+          "dica2": "Sacerdote de Israel",
+          "dica3": "Morreu por oferecer fogo ilegítimo"
+        },
+        {
+          "resposta": "Abiú",
+          "dica1": "Segundo filho de Arão",
+          "dica2": "Irmão de Nadabe",
+          "dica3": "Morreu junto com Nadabe pelo mesmo pecado"
+        },
+        {
+          "resposta": "Eleazar",
+          "dica1": "Terceiro filho de Arão",
+          "dica2": "Tornou-se sumo sacerdote",
+          "dica3": "Serviu com Josué na divisão da terra"
+        },
+        {
+          "resposta": "Coré",
+          "dica1": "Levita que se rebelou",
+          "dica2": "Liderou revolta contra Moisés",
+          "dica3": "Terra abriu-se e o engoliu vivo"
+        },
+        {
+          "resposta": "Acã",
+          "dica1": "Pegou coisas devotadas de Jericó",
+          "dica2": "Causou derrota em Ai",
+          "dica3": "Foi apedrejado com sua família"
+        },
+        {
+          "resposta": "Otniel",
+          "dica1": "Sobrinho de Calebe",
+          "dica2": "Primeiro juiz de Israel",
+          "dica3": "Conquistou Quiriate-Sefer"
+        },
+        {
+          "resposta": "Eúde",
+          "dica1": "Canhoto da tribo de Benjamim",
+          "dica2": "Segundo juiz de Israel",
+          "dica3": "Matou rei Eglom com espada curta"
+        },
+        {
+          "resposta": "Baraque",
+          "dica1": "Comandante de Israel",
+          "dica2": "Convocado por Débora",
+          "dica3": "Derrotou Sísera com 10 mil homens"
+        },
+        {
+          "resposta": "Jael",
+          "dica1": "Esposa de Héber, o queneu",
+          "dica2": "Ofereceu leite a Sísera",
+          "dica3": "Matou Sísera com estaca de tenda"
+        },
+        {
+          "resposta": "Jotão",
+          "dica1": "Filho mais novo de Gideão",
+          "dica2": "Único que escapou de Abimeleque",
+          "dica3": "Contou parábola das árvores"
+        },
+        {
+          "resposta": "Abimeleque",
+          "dica1": "Filho de Gideão com concubina",
+          "dica2": "Matou 70 irmãos numa pedra",
+          "dica3": "Morreu por pedra lançada por mulher"
+        },
+        {
+          "resposta": "Jefté",
+          "dica1": "Filho de prostituta",
+          "dica2": "Juiz expulso por seus irmãos",
+          "dica3": "Fez voto imprudente sobre sua filha"
+        },
+        {
+          "resposta": "Manoá",
+          "dica1": "Pai de Sansão",
+          "dica2": "Esposa estéril visitada por anjo",
+          "dica3": "Da tribo de Dã"
+        },
+        {
+          "resposta": "Elimeleque",
+          "dica1": "Marido de Noemi",
+          "dica2": "Mudou-se para Moabe na fome",
+          "dica3": "Pai de Malom e Quiliom"
+        },
+        {
+          "resposta": "Orfa",
+          "dica1": "Nora de Noemi",
+          "dica2": "Moabita viúva",
+          "dica3": "Voltou para seu povo ao contrário de Rute"
+        },
+        {
+          "resposta": "Obede",
+          "dica1": "Filho de Rute e Boaz",
+          "dica2": "Avô do rei Davi",
+          "dica3": "Nome significa 'adorador'"
+        },
+        {
+          "resposta": "Penina",
+          "dica1": "Segunda esposa de Elcana",
+          "dica2": "Tinha filhos ao contrário de Ana",
+          "dica3": "Provocava Ana constantemente"
+        },
+        {
+          "resposta": "Hofni",
+          "dica1": "Filho de Eli",
+          "dica2": "Sacerdote corrupto",
+          "dica3": "Morreu na batalha com os filisteus"
+        },
+        {
+          "resposta": "Fineias",
+          "dica1": "Irmão de Hofni",
+          "dica2": "Também filho de Eli",
+          "dica3": "Morreu no mesmo dia que Hofni"
+        },
+        {
+          "resposta": "Agague",
+          "dica1": "Rei dos amalequitas",
+          "dica2": "Poupado indevidamente por Saul",
+          "dica3": "Morto por Samuel em pedaços"
+        },
+        {
+          "resposta": "Isbosete",
+          "dica1": "Filho de Saul",
+          "dica2": "Feito rei por Abner",
+          "dica3": "Assassinado por dois capitães"
+        },
+        {
+          "resposta": "Abner",
+          "dica1": "Primo de Saul",
+          "dica2": "Comandante do exército de Saul",
+          "dica3": "Morto traiçoeiramente por Joabe"
+        },
+        {
+          "resposta": "Joabe",
+          "dica1": "Sobrinho de Davi",
+          "dica2": "Comandante do exército de Davi",
+          "dica3": "Matou Abner e Absalão"
+        },
+        {
+          "resposta": "Mefibosete",
+          "dica1": "Neto de Saul",
+          "dica2": "Filho de Jônatas",
+          "dica3": "Coxo dos dois pés desde criança"
+        },
+        {
+          "resposta": "Urias",
+          "dica1": "Marido de Bate-Seba",
+          "dica2": "Guerreiro heteu fiel",
+          "dica3": "Morto por ordem de Davi"
+        },
+        {
+          "resposta": "Amnom",
+          "dica1": "Primogênito de Davi",
+          "dica2": "Violou sua meia-irmã Tamar",
+          "dica3": "Morto por ordem de Absalão"
+        },
+        {
+          "resposta": "Husai",
+          "dica1": "Amigo e conselheiro de Davi",
+          "dica2": "Fingiu apoiar Absalão",
+          "dica3": "Frustrou conselho de Aitofel"
+        },
+        {
+          "resposta": "Aitofel",
+          "dica1": "Conselheiro de Davi",
+          "dica2": "Traiu Davi e apoiou Absalão",
+          "dica3": "Enforcou-se quando rejeitado"
+        },
+        {
+          "resposta": "Simei",
+          "dica1": "Benjamita da casa de Saul",
+          "dica2": "Amaldiçoou Davi na fuga",
+          "dica3": "Morto por Salomão"
+        },
+        {
+          "resposta": "Adonias",
+          "dica1": "Quarto filho de Davi",
+          "dica2": "Tentou usurpar trono de Salomão",
+          "dica3": "Executado por querer Abisague"
+        },
+        {
+          "resposta": "Zadoque",
+          "dica1": "Sacerdote nos dias de Davi",
+          "dica2": "Ungiu Salomão como rei",
+          "dica3": "Permaneceu fiel a Davi"
+        },
+        {
+          "resposta": "Hiram",
+          "dica1": "Rei de Tiro",
+          "dica2": "Forneceu cedros para o templo",
+          "dica3": "Amigo de Davi e Salomão"
+        },
+        {
+          "resposta": "Roboão",
+          "dica1": "Filho de Salomão",
+          "dica2": "Rejeitou conselho dos anciãos",
+          "dica3": "Causou divisão de Israel"
+        },
+        {
+          "resposta": "Jeroboão",
+          "dica1": "Servo de Salomão",
+          "dica2": "Primeiro rei do norte",
+          "dica3": "Fez dois bezerros de ouro"
+        },
+        {
+          "resposta": "Aías",
+          "dica1": "Profeta de Siló",
+          "dica2": "Rasgou manto em 12 pedaços",
+          "dica3": "Profetizou divisão do reino"
+        },
+        {
+          "resposta": "Asa",
+          "dica1": "Terceiro rei de Judá",
+          "dica2": "Removeu ídolos do país",
+          "dica3": "Confiou em médicos, não em Jeová"
+        },
+        {
+          "resposta": "Josafá",
+          "dica1": "Quarto rei de Judá",
+          "dica2": "Enviou ensinar a Lei",
+          "dica3": "Aliou-se indevidamente com Acabe"
+        },
+        {
+          "resposta": "Acazias",
+          "dica1": "Filho de Acabe",
+          "dica2": "Caiu pela grade do quarto",
+          "dica3": "Consultou Baal-Zebube"
+        },
+        {
+          "resposta": "Jorão",
+          "dica1": "Rei de Israel, irmão de Acazias",
+          "dica2": "Morto por Jeú",
+          "dica3": "Jogado no campo de Nabote"
+        },
+        {
+          "resposta": "Jeú",
+          "dica1": "Ungido rei por profeta",
+          "dica2": "Dirigia furiosamente",
+          "dica3": "Exterminou casa de Acabe"
+        },
+        {
+          "resposta": "Atalia",
+          "dica1": "Filha de Acabe",
+          "dica2": "Única rainha de Judá",
+          "dica3": "Tentou matar toda descendência real"
+        },
+        {
+          "resposta": "Joás",
+          "dica1": "Escondido no templo por 6 anos",
+          "dica2": "Tornou-se rei aos 7 anos",
+          "dica3": "Restaurou o templo"
+        },
+        {
+          "resposta": "Joiada",
+          "dica1": "Sumo sacerdote justo",
+          "dica2": "Escondeu Joás de Atalia",
+          "dica3": "Viveu 130 anos"
+        },
+        {
+          "resposta": "Zacarias",
+          "dica1": "Filho do sacerdote Joiada",
+          "dica2": "Profeta apedrejado no pátio",
+          "dica3": "Disse 'Jeová verá e pedirá contas'"
+        },
+        {
+          "resposta": "Amazias",
+          "dica1": "Rei de Judá",
+          "dica2": "Venceu edomitas",
+          "dica3": "Adorou deuses de Edom"
+        },
+        {
+          "resposta": "Uzias",
+          "dica1": "Rei de Judá também chamado Azarias",
+          "dica2": "Reinou 52 anos",
+          "dica3": "Ficou leproso por queimar incenso"
+        },
+        {
+          "resposta": "Acaz",
+          "dica1": "Rei ímpio de Judá",
+          "dica2": "Passou filhos pelo fogo",
+          "dica3": "Copiou altar de Damasco"
+        },
+        {
+          "resposta": "Amom",
+          "dica1": "Filho de Manassés",
+          "dica2": "Reinou apenas 2 anos",
+          "dica3": "Assassinado por seus servos"
+        },
+        {
+          "resposta": "Hulda",
+          "dica1": "Profetisa nos dias de Josias",
+          "dica2": "Consultada sobre livro da Lei",
+          "dica3": "Esposa do guarda das vestes"
+        },
+        {
+          "resposta": "Joaquim",
+          "dica1": "Rei de Judá",
+          "dica2": "Reinou 3 meses",
+          "dica3": "Levado cativo para Babilônia"
+        },
+        {
+          "resposta": "Zedequias",
+          "dica1": "Último rei de Judá",
+          "dica2": "Teve olhos vazados",
+          "dica3": "Viu filhos serem mortos"
+        },
+        {
+          "resposta": "Gedalias",
+          "dica1": "Governador de Judá",
+          "dica2": "Nomeado por Nabucodonosor",
+          "dica3": "Assassinado por Ismael"
+        },
+        {
+          "resposta": "Baruque",
+          "dica1": "Secretário de Jeremias",
+          "dica2": "Escreveu as palavras do profeta",
+          "dica3": "Leu rolo no templo"
+        },
+        {
+          "resposta": "Misaque",
+          "dica1": "Companheiro de Daniel",
+          "dica2": "Nome hebraico era Misael",
+          "dica3": "Um dos três na fornalha"
+        },
+        {
+          "resposta": "Abede-Nego",
+          "dica1": "Terceiro dos amigos de Daniel",
+          "dica2": "Nome hebraico era Azarias",
+          "dica3": "Jogado na fornalha ardente"
+        },
+        {
+          "resposta": "Belsazar",
+          "dica1": "Príncipe regente de Babilônia",
+          "dica2": "Viu escrita na parede",
+          "dica3": "Morto na queda de Babilônia"
+        },
+        {
+          "resposta": "Dario",
+          "dica1": "Rei medo",
+          "dica2": "Assinou decreto contra Daniel",
+          "dica3": "Alegrou-se por Daniel sobreviver"
+        },
+        {
+          "resposta": "Zorobabel",
+          "dica1": "Governador de Judá",
+          "dica2": "Liderou primeiro retorno",
+          "dica3": "Reconstruiu o templo"
+        },
+        {
+          "resposta": "Jesua",
+          "dica1": "Sumo sacerdote no retorno",
+          "dica2": "Trabalhou com Zorobabel",
+          "dica3": "Reconstruiu altar de Jeová"
+        },
+        {
+          "resposta": "Ageu",
+          "dica1": "Profeta pós-exílio",
+          "dica2": "Encorajou construção do templo",
+          "dica3": "Profetizou em 520 AEC"
+        },
+        {
+          "resposta": "Artaxerxes",
+          "dica1": "Rei persa",
+          "dica2": "Permitiu Esdras retornar",
+          "dica3": "Enviou Neemias reconstruir muros"
+        },
+        {
+          "resposta": "Sambalate",
+          "dica1": "Governador samaritano",
+          "dica2": "Opôs-se a Neemias",
+          "dica3": "Zombou da reconstrução dos muros"
+        },
+        {
+          "resposta": "Tobias",
+          "dica1": "Servo amonita",
+          "dica2": "Aliado de Sambalate",
+          "dica3": "Ameaçou trabalhadores de Neemias"
+        },
+        {
+          "resposta": "Assuero",
+          "dica1": "Nome persa de Xerxes",
+          "dica2": "Marido de Vasti depois Ester",
+          "dica3": "Governou 127 distritos"
+        },
+        {
+          "resposta": "Vasti",
+          "dica1": "Primeira rainha de Assuero",
+          "dica2": "Recusou aparecer no banquete",
+          "dica3": "Deposta por desobediência"
+        },
+        {
+          "resposta": "Hamã",
+          "dica1": "Agaguita inimigo dos judeus",
+          "dica2": "Planejou extermínio do povo",
+          "dica3": "Enforcado na estaca que preparou"
+        },
+        {
+          "resposta": "Zeres",
+          "dica1": "Esposa de Hamã",
+          "dica2": "Sugeriu fazer estaca alta",
+          "dica3": "Previu ruína do marido"
+        },
+        {
+          "resposta": "Elifaz",
+          "dica1": "Primeiro dos três amigos de Jó",
+          "dica2": "Temanita",
+          "dica3": "Acusou Jó de pecado secreto"
+        },
+        {
+          "resposta": "Bildade",
+          "dica1": "Segundo amigo de Jó",
+          "dica2": "Suíta",
+          "dica3": "Disse que filhos de Jó pecaram"
+        },
+        {
+          "resposta": "Zofar",
+          "dica1": "Terceiro amigo de Jó",
+          "dica2": "Naamatita",
+          "dica3": "Mais duro dos três amigos"
+        },
+        {
+          "resposta": "Eliú",
+          "dica1": "Quarto a falar com Jó",
+          "dica2": "Mais jovem que os três",
+          "dica3": "Esperou os anciãos falarem"
+        },
+        {
+          "resposta": "Oséias",
+          "dica1": "Profeta do reino do norte",
+          "dica2": "Casou-se com prostituta Gomer",
+          "dica3": "Profetizou durante 60 anos"
+        },
+        {
+          "resposta": "Gomer",
+          "dica1": "Esposa infiel de Oséias",
+          "dica2": "Simbolizou Israel apóstata",
+          "dica3": "Resgatada pelo profeta"
+        },
+        {
+          "resposta": "Amós",
+          "dica1": "Profeta pastor de ovelhas",
+          "dica2": "De Tecoa em Judá",
+          "dica3": "Profetizou contra Israel"
+        },
+        {
+          "resposta": "Malaquias",
+          "dica1": "Último profeta do AT",
+          "dica2": "Nome significa 'meu mensageiro'",
+          "dica3": "Profetizou vinda de Elias"
+        },
+        {
+          "resposta": "José de Arimateia",
+          "dica1": "Membro rico do Sinédrio",
+          "dica2": "Discípulo secreto de Jesus",
+          "dica3": "Cedeu tumba para Jesus"
+        },
+        {
+          "resposta": "Jairo",
+          "dica1": "Presidente da sinagoga",
+          "dica2": "Filha ressuscitada por Jesus",
+          "dica3": "Prostrou-se aos pés de Jesus"
+        }
+      ]
+    }
+  ]
+}
