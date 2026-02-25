@@ -1,6 +1,7 @@
-param(
+﻿param(
   [switch]$Deploy,
   [switch]$DryRun,
+  [switch]$FixEncoding,
   [string]$ApiBase = "https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev",
   [string]$Arquivo = "cartas-biblicas.json"
 )
@@ -10,8 +11,18 @@ $ErrorActionPreference = 'Stop'
 function Write-Info($msg) { Write-Host $msg }
 function Write-Err($msg) { Write-Host $msg -ForegroundColor Red }
 
+function Repair-TextEncoding([string]$text) {
+  if ([string]::IsNullOrEmpty($text)) { return $text }
+  if ($text -match '[ÃÂâ]') {
+    $latin1 = [System.Text.Encoding]::GetEncoding(28591)
+    $bytes = $latin1.GetBytes($text)
+    return [System.Text.Encoding]::UTF8.GetString($bytes)
+  }
+  return $text
+}
+
 if (-not (Test-Path -LiteralPath $Arquivo)) {
-  Write-Err "Arquivo não encontrado: $Arquivo"
+  Write-Err "Arquivo nao encontrado: $Arquivo"
   exit 1
 }
 
@@ -22,59 +33,93 @@ try {
   $obj = $jsonText | ConvertFrom-Json
 
   if (-not $obj.personagens -or -not $obj.personagens[0].value) {
-    Write-Err "Estrutura inválida no JSON: esperado personagens[0].value"
+    Write-Err "Estrutura invalida no JSON: esperado personagens[0].value"
     exit 1
   }
 
   $cartas = @($obj.personagens[0].value)
-  $totalLocal = $cartas.Count
 
+  if ($FixEncoding) {
+    Write-Info "Corrigindo textos com encoding quebrado..."
+    $cartas = @(
+      foreach ($c in $cartas) {
+        $dificuldade = 5
+        if ($null -ne $c.dificuldade -and "$($c.dificuldade)" -match '^\d+$') {
+          $dificuldade = [Math]::Max(0, [Math]::Min(10, [int]$c.dificuldade))
+        }
+
+        [ordered]@{
+          resposta    = Repair-TextEncoding ([string]$c.resposta)
+          dica1       = Repair-TextEncoding ([string]$c.dica1)
+          dica2       = Repair-TextEncoding ([string]$c.dica2)
+          dica3       = Repair-TextEncoding ([string]$c.dica3)
+          genero      = if ($null -ne $c.genero) { ([string]$c.genero).ToLower() } else { $null }
+          masculino   = ($c.masculino -eq $true -or $c.masculino -eq 1)
+          feminino    = ($c.feminino -eq $true -or $c.feminino -eq 1)
+          dificuldade = $dificuldade
+        }
+      }
+    )
+  }
+
+  $totalLocal = $cartas.Count
   $payloadObj = [ordered]@{ cartas = $cartas }
   $payloadJson = $payloadObj | ConvertTo-Json -Depth 20
-  Set-Content -LiteralPath $tmpPayload -Value $payloadJson -Encoding UTF8
+  $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+  [System.IO.File]::WriteAllText($tmpPayload, $payloadJson, $utf8NoBom)
 
-  Write-Info "📦 Cartas locais de personagens encontradas: $totalLocal"
-  Write-Info "🌐 API alvo: $ApiBase"
+  Write-Info "Cartas locais encontradas: $totalLocal"
+  Write-Info "API alvo: $ApiBase"
 
   if ($DryRun) {
-    Write-Info "⚠️ Dry-run ativo: não será feito deploy nem envio para produção."
+    Write-Info "Dry-run ativo: nao envia para producao."
     exit 0
   }
 
   if ($Deploy) {
-    Write-Info "🚀 Executando deploy do Worker..."
+    Write-Info "Executando deploy..."
     npm run deploy
   }
 
-  Write-Info "📤 Enviando payload para /cartas/personagens/popular ..."
-
   $urlPopular = "$ApiBase/cartas/personagens/popular"
-  $respPublicar = Invoke-WebRequest -Method Post -Uri $urlPopular -ContentType 'application/json; charset=utf-8' -InFile $tmpPayload -UseBasicParsing
+
+  try {
+    $respPublicar = Invoke-WebRequest -Method Post -Uri $urlPopular -ContentType 'application/json; charset=utf-8' -InFile $tmpPayload -UseBasicParsing
+  }
+  catch {
+    $erroWeb = $_.Exception.Response
+    if ($erroWeb -and $erroWeb.GetResponseStream) {
+      $reader = New-Object System.IO.StreamReader($erroWeb.GetResponseStream())
+      $corpo = $reader.ReadToEnd()
+      if ($corpo) {
+        Write-Err "Falha ao publicar. Resposta do servidor: $corpo"
+      }
+    }
+    throw
+  }
 
   if ($respPublicar.StatusCode -lt 200 -or $respPublicar.StatusCode -ge 300) {
-    Write-Err "❌ Falha ao publicar. HTTP $($respPublicar.StatusCode)"
+    Write-Err "Falha ao publicar. HTTP $($respPublicar.StatusCode)"
     if ($respPublicar.Content) { Write-Host $respPublicar.Content }
     exit 1
   }
 
-  Write-Info "✅ Publicação concluída. Validando contagem em produção..."
-
   $urlGet = "$ApiBase/cartas/personagens"
   $respGet = Invoke-RestMethod -Method Get -Uri $urlGet
-
   $totalProd = @($respGet.cartas).Count
-  Write-Info "📊 Total em produção (personagens): $totalProd"
+
+  Write-Info "Total em producao (personagens): $totalProd"
 
   if ($totalProd -ne $totalLocal) {
-    Write-Err "⚠️ Atenção: total em produção difere do local (local=$totalLocal, produção=$totalProd)."
+    Write-Err "Atencao: total em producao difere do local (local=$totalLocal, producao=$totalProd)."
     exit 1
   }
 
-  Write-Info "🎉 Sucesso! Produção está com $totalProd cartas em personagens."
+  Write-Info "Sucesso."
   exit 0
 }
 catch {
-  Write-Err "❌ Erro durante a execução: $($_.Exception.Message)"
+  Write-Err "Erro durante execucao: $($_.Exception.Message)"
   exit 1
 }
 finally {
