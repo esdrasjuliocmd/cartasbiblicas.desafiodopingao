@@ -1356,6 +1356,12 @@
     let ultimaSalvamentoPromise = Promise.resolve();
 
     async function salvarPontosFase(indiceFase) {
+      // VALIDAÇÃO 1: Nome do jogador deve estar preenchido
+      if (!nomeJogador || nomeJogador.trim() === '') {
+        console.error('❌ Nome do jogador está vazio! Não é possível salvar.');
+        return false;
+      }
+
       const pontosNormalFase = pontosNormaisPorFase[indiceFase] || 0;
       const pontosBonusFase = pontosBonusPorFase[indiceFase] || 0;
       const totalFase = pontosNormalFase + pontosBonusFase;
@@ -1366,23 +1372,27 @@
         return false;
       }
 
+      console.log(`📤 Salvando fase ${indiceFase + 1} - Jogador: "${nomeJogador}", Pontos: ${totalFase}`);
+
       try {
         const response = await fetch(`${API_BASE}/fase-completa`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            nome: nomeJogador,
+            nome: nomeJogador.trim(),
             faseNumero: indiceFase + 1,
             pontosNormal: pontosNormalFase,
             pontosBonusTotal: pontosBonusFase,
             pontosTotal: totalFase,
-            categoria: categoria,
+            categoria: categoria || 'personagens',
             timestamp: Date.now()
           })
         });
 
         if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
           console.error(`❌ Erro ao salvar fase ${indiceFase + 1}: HTTP ${response.status}`);
+          console.error('Detalhes:', errorData);
           return false;
         }
 

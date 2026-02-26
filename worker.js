@@ -1498,14 +1498,33 @@ export class PontosGlobaisDO {
   }
 
   async adicionarPontosFase(nome, faseNumero, pontosTotal, pontosNormal, pontosBonusTotal, categoria) {
+    // VALIDAÇÃO 1: Nome não pode ser vazio
+    const nomeLimpo = String(nome || '').trim();
+    if (!nomeLimpo) {
+      throw new Error('Nome do jogador não pode estar vazio');
+    }
+
+    // VALIDAÇÃO 2: Pontos devem ser número válido
     const pontosNumero = Number(pontosTotal);
     if (!Number.isFinite(pontosNumero) || pontosNumero < 0) {
-      throw new Error('Valor de pontos inválido');
+      throw new Error(`Valor de pontos inválido: ${pontosTotal}`);
+    }
+
+    // VALIDAÇÃO 3: Fase deve ser válida
+    const faseNum = Number(faseNumero);
+    if (!Number.isFinite(faseNum) || faseNum < 1 || faseNum > 10) {
+      throw new Error(`Número de fase inválido: ${faseNumero}`);
     }
 
     // Obtém pontos atuais (cria jogador se não existir)
-    const atual = await this.obterPontos(nome);
-    const nomeCanonical = this.obterNomeCanonical(nome);
+    const atual = await this.obterPontos(nomeLimpo);
+    const nomeCanonical = this.obterNomeCanonical(nomeLimpo);
+    
+    // VALIDAÇÃO 4: Nome canonical deve existir
+    if (!nomeCanonical) {
+      throw new Error('Falha ao normalizar nome do jogador');
+    }
+    
     const novo = atual + pontosNumero;
 
     // Atualiza os pontos no banco
@@ -1518,7 +1537,7 @@ export class PontosGlobaisDO {
     // Atualiza o nível baseado nos novos pontos totais
     await this.atualizarNivel(nomeCanonical, novo);
 
-    // Registra o histórico de fase (opcional, para análise posterior)
+    // Registra o histórico de fase
     this.sql.exec(
       `CREATE TABLE IF NOT EXISTS historico_fases (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -1537,20 +1556,22 @@ export class PontosGlobaisDO {
       `INSERT INTO historico_fases (nome, faseNumero, pontosNormal, pontosBonus, pontosTotal, categoria)
        VALUES (?, ?, ?, ?, ?, ?)`,
       nomeCanonical,
-      faseNumero,
-      pontosNormal,
-      pontosBonusTotal,
+      faseNum,
+      Number(pontosNormal) || 0,
+      Number(pontosBonusTotal) || 0,
       pontosNumero,
-      categoria
+      categoria || 'personagens'
     );
+
+    console.log(`✅ [WORKER] Fase ${faseNum} salva para ${nomeCanonical}: +${pontosNumero} pontos (Total: ${novo})`);
 
     return {
       nome: nomeCanonical,
-      faseNumero: faseNumero,
+      faseNumero: faseNum,
       pontosAnteriores: atual,
       pontosAdicionados: pontosNumero,
       pontosAtuais: novo,
-      mensagem: `Fase ${faseNumero} registrada com sucesso`
+      mensagem: `Fase ${faseNum} registrada com sucesso`
     };
   }
 
