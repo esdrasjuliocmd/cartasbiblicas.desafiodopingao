@@ -317,7 +317,6 @@
       border-color: var(--jw-verde-sucesso);
       animation: pulse 0.5s;
     }
-
     .opcao.errada {
       background: var(--jw-vermelho-erro);
       color: var(--jw-branco);
@@ -588,6 +587,96 @@
     .loading-spinner {
       font-size: 2.5rem;
       animation: girar 1s linear infinite;
+    }
+
+    .fase-resumo {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      border: 3px solid var(--jw-dourado);
+      background: linear-gradient(135deg, #fff6d6, #ffe8a3);
+      border-radius: 16px;
+      padding: 20px 14px;
+      animation: bounceIn 0.5s;
+    }
+
+    .fase-resumo h2 {
+      color: var(--jw-azul-escuro);
+      margin-bottom: 8px;
+      font-size: 1.4rem;
+    }
+
+    .fase-resumo .fase-sub {
+      color: #7a5a00;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .fase-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 14px 0;
+    }
+
+    .fase-box {
+      background: rgba(255,255,255,0.92);
+      border: 2px solid #f2cf61;
+      border-radius: 10px;
+      padding: 8px;
+    }
+
+    .fase-box .lbl {
+      font-size: 0.72rem;
+      color: #7a5a00;
+      font-weight: 700;
+    }
+
+    .fase-box .val {
+      font-size: 1.2rem;
+      color: var(--jw-azul-escuro);
+      font-weight: 800;
+      margin-top: 2px;
+    }
+
+    }
+
+    .fase-cta {
+      margin-top: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .btn-continue {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, #2E5B93, #1F4273);
+      cursor: pointer;
+    }
+
+    .stars-rain {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      top: -20px;
+      font-size: 16px;
+      animation: cair 2.2s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes cair {
+      from { transform: translateY(-30px) rotate(0deg); opacity: .9; }
+      to { transform: translateY(360px) rotate(360deg); opacity: 0; }
     }
 
     @media (max-width: 380px) {
@@ -890,7 +979,6 @@
         return [];
       }
     }
-
     function saveLocalUsedKeys(keys) {
       try {
         localStorage.setItem(getHistoryStorageKey(), JSON.stringify(keys));
@@ -954,6 +1042,10 @@
     let multiplicadorFaseAtual = 1;
     let rodadaPerfeita = true;
     let errosPorFase = Array(TOTAL_FASES).fill(0);
+    let pontosNormaisTotal = 0;
+    let pontosBonusTotal = 0;
+    let pontosNormaisPorFase = Array(TOTAL_FASES).fill(0);
+    let pontosBonusPorFase = Array(TOTAL_FASES).fill(0);
 
     const PALAVRAS_GENERO = {
       feminino: ['rainha', 'esposa', 'mãe', 'mae', 'filha', 'profetisa', 'juíza', 'juiza', 'viúva', 'viuva', 'irmã', 'irma', 'mulher', 'serva', 'ela', 'sua'],
@@ -1038,6 +1130,7 @@
         carta.dica2 || '',
         carta.dica3 || ''
       ].join(' '));
+
       const scoreFem = contarOcorrenciasGenero(textoBase, PALAVRAS_GENERO.feminino);
       const scoreMasc = contarOcorrenciasGenero(textoBase, PALAVRAS_GENERO.masculino);
 
@@ -1225,6 +1318,7 @@
       // com dificuldade crescente ao longo do jogo.
       const ordenadasPorDificuldade = [...disponiveis].sort((a, b) => {
         return obterDificuldadeCarta(a) - obterDificuldadeCarta(b);
+
       });
 
       const recorte = ordenadasPorDificuldade.slice(0, TOTAL_PERGUNTAS);
@@ -1245,6 +1339,54 @@
 
     function obterTituloFaseAtual() {
       return TITULOS_FASE[obterIndiceFaseAtual()] || 'Desafiante';
+    }
+
+    function obterResumoDificuldadeProximaFase(indiceAtual) {
+      const proxima = indiceAtual + 1;
+      if (proxima >= TOTAL_FASES) return 'Última fase concluída!';
+      const inicio = proxima * CARTAS_POR_FASE;
+      const fim = inicio + CARTAS_POR_FASE;
+      const bloco = cartas.slice(inicio, fim);
+      if (!bloco.length) return 'Dificuldade em preparação';
+      const media = bloco.reduce((acc, c) => acc + obterDificuldadeCarta(c), 0) / bloco.length;
+      return `Próxima fase: ${TITULOS_FASE[proxima]} · dificuldade média ${media.toFixed(1)}/10`;
+    }
+
+    function mostrarResumoFase(indiceFaseConcluida) {
+      const normal = pontosNormaisPorFase[indiceFaseConcluida] || 0;
+      const bonus = pontosBonusPorFase[indiceFaseConcluida] || 0;
+      const totalFase = normal + bonus;
+      const frase = obterResumoDificuldadeProximaFase(indiceFaseConcluida);
+      const estrelas = Array.from({length: 18}, (_, i) => {
+        const left = Math.floor(Math.random() * 100);
+        const delay = (Math.random() * 1.5).toFixed(2);
+        const dur = (1.4 + Math.random() * 1.8).toFixed(2);
+        return `<span class="star" style="left:${left}%;animation-delay:${delay}s;animation-duration:${dur}s">⭐</span>`;
+      }).join('');
+
+      document.getElementById('tela-jogo').innerHTML = `
+        <div class="fase-resumo">
+          <div class="stars-rain">${estrelas}</div>
+          <h2>🎉 Fase ${indiceFaseConcluida + 1} concluída!</h2>
+          <div class="fase-sub">${TITULOS_FASE[indiceFaseConcluida]}</div>
+          <div class="fase-grid">
+            <div class="fase-box"><div class="lbl">Pontos normais</div><div class="val">${normal.toLocaleString('pt-BR')}</div></div>
+            <div class="fase-box"><div class="lbl">Pontos bônus</div><div class="val">${bonus.toLocaleString('pt-BR')}</div></div>
+            <div class="fase-box"><div class="lbl">Total da fase</div><div class="val">${totalFase.toLocaleString('pt-BR')}</div></div>
+          </div>
+          <div style="font-weight:800;color:#1F4273;margin-top:4px;">Total geral normal: ${pontosNormaisTotal.toLocaleString('pt-BR')} · bônus: ${pontosBonusTotal.toLocaleString('pt-BR')}</div>
+          <div style="margin-top:8px;color:#7a5a00;font-weight:700;">${frase}</div>
+          <div class="fase-cta">
+            <button class="btn-continue" onclick="continuarProximaFase()">🚀 Vamos em frente!!!</button>
+            <button class="btn btn-secondary" onclick="encerrarPartida()">Sair</button>
+          </div>
+        </div>
+      `;
+      AudioSystem.coinsStars();
+    }
+
+    function continuarProximaFase() {
+      mostrarPergunta();
     }
 
     // ============================================
@@ -1289,6 +1431,10 @@
       sequenciaRapida = 0;
       rodadaPerfeita = true;
       errosPorFase = Array(TOTAL_FASES).fill(0);
+      pontosNormaisTotal = 0;
+      pontosBonusTotal = 0;
+      pontosNormaisPorFase = Array(TOTAL_FASES).fill(0);
+      pontosBonusPorFase = Array(TOTAL_FASES).fill(0);
 
       document.getElementById('tela-inicial').style.display = 'none';
       document.getElementById('tela-jogo').innerHTML = '<div class="loading"><div class="loading-spinner">⏳</div><p>Carregando...</p></div>';
@@ -1297,7 +1443,6 @@
       try {
         // BUSCAR cartas da API
         const response = await fetch(`${API_BASE}/cartas/${categoria}`);
-
         if (!response.ok) {
           throw new Error(`Erro ao buscar cartas (HTTP ${response.status})`);
         }
@@ -1508,7 +1653,10 @@
 
     function processarResposta(resposta, acertou) {
       const dificuldadeCarta = obterDificuldadeCarta(cartaAtualObj);
+      const indiceFaseAtual = obterIndiceFaseAtual();
       let pontosDaCarta = 0;
+      let pontosNormaisCarta = 0;
+      let pontosBonusCarta = 0;
       let mensagemBonus = '';
 
       if (acertou) {
@@ -1516,21 +1664,26 @@
         sequenciaRapida++;
 
         const pontosTempo = calcularPontosPorTempo(tempoRestante);
-        pontosDaCarta += pontosTempo;
+        pontosNormaisCarta += pontosTempo;
 
         // bônus por sequência de 4 sem errar
         if (sequenciaRapida > 0 && sequenciaRapida % 4 === 0) {
-          pontosDaCarta += 1000;
+          pontosBonusCarta += 1000;
           mensagemBonus += '<br>🌟 Bônus sequência 4x: +1000';
           mostrarPontosAnimados(1000, true);
           AudioSystem.coinsStars();
         }
 
+        pontosDaCarta = pontosNormaisCarta + pontosBonusCarta;
         pontos += pontosDaCarta;
+        pontosNormaisTotal += pontosNormaisCarta;
+        pontosBonusTotal += pontosBonusCarta;
+        pontosNormaisPorFase[indiceFaseAtual] += pontosNormaisCarta;
+        pontosBonusPorFase[indiceFaseAtual] += pontosBonusCarta;
 
-        mostrarPontosAnimados(pontosDaCarta, pontosDaCarta >= 1000);
+        mostrarPontosAnimados(pontosDaCarta, pontosBonusCarta > 0 || pontosDaCarta >= 1000);
 
-        if (pontosDaCarta >= 1000) {
+        if (pontosBonusCarta > 0 || pontosDaCarta >= 1000) {
           AudioSystem.correctBonus();
         } else {
           AudioSystem.correct();
@@ -1558,12 +1711,19 @@
           <span style="font-size:1.1rem; color:#D9534F;">+0 pts nesta carta</span>
         `;
       }
+
       document.getElementById('feedback').style.display = 'block';
       perguntaAtual++;
       faseAtual = Math.min(TOTAL_FASES, obterIndiceFaseAtual() + 1);
 
       // Mostrar resultado da carta por 3s e avançar automaticamente
       setTimeout(() => {
+        const acabouJogo = perguntaAtual >= TOTAL_PERGUNTAS;
+        const concluiuFase = !acabouJogo && (perguntaAtual % CARTAS_POR_FASE === 0);
+        if (concluiuFase) {
+          mostrarResumoFase((perguntaAtual / CARTAS_POR_FASE) - 1);
+          return;
+        }
         mostrarPergunta();
       }, 3000);
     }
@@ -1587,6 +1747,7 @@
       const bonusFasesPerfeitas = fasesPerfeitas * 10000;
       if (cartas.length >= TOTAL_PERGUNTAS && bonusFasesPerfeitas > 0) {
         pontos += bonusFasesPerfeitas;
+        pontosBonusTotal += bonusFasesPerfeitas;
         AudioSystem.coinsStars();
         mostrarPontosAnimados(bonusFasesPerfeitas, true);
       }
@@ -1702,3 +1863,4 @@
   </script>
 </body>
 </html>
+
