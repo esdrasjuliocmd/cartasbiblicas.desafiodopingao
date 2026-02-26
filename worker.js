@@ -252,6 +252,21 @@ export default {
     }
 
     // ============================================
+    // API REST - ADMIN
+    // ============================================
+    if (path === '/admin/salas') {
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(new Request('http://internal/admin/salas'));
+    }
+
+    if (path === '/admin/jogadores-completos') {
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(new Request('http://internal/admin/jogadores-completos'));
+    }
+
+    // ============================================
     // PÁGINA INICIAL
     // ============================================
     return new Response(paginaInicial(), {
@@ -1375,6 +1390,46 @@ export class PontosGlobaisDO {
       }
     }
 
+    // NOVO: Admin - Listar salas (atualmente vazio pois salas não são persistidas)
+    if (path === '/admin/salas') {
+      try {
+        return new Response(JSON.stringify({
+          salas: []
+        }), {
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      } catch (erro) {
+        return new Response(JSON.stringify({
+          salas: [],
+          erro: erro.message
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+    }
+
+    // NOVO: Admin - Listar jogadores solo com última partida
+    if (path === '/admin/jogadores-completos') {
+      try {
+        const jogadores = await this.obterJogadoresCompletos();
+        return new Response(JSON.stringify({
+          jogadores: jogadores
+        }), {
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      } catch (erro) {
+        console.error('Erro ao obter jogadores completos:', erro);
+        return new Response(JSON.stringify({
+          jogadores: [],
+          erro: erro.message
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+    }
+
     return new Response('Not Found', { status: 404 });
   }
 
@@ -1634,6 +1689,24 @@ export class PontosGlobaisDO {
     ).toArray();
 
     return result;
+  }
+
+  async obterJogadoresCompletos() {
+    // Obter jogadores com pontos (que completaram pelo menos uma fase)
+    const jogadores = this.sql.exec(`
+      SELECT 
+        j.nome, 
+        j.pontos, 
+        j.nivel, 
+        MAX(hf.dataConclusao) as ultimaPartidaEm
+      FROM jogadores j
+      LEFT JOIN historico_fases hf ON j.nome = hf.nome
+      WHERE j.pontos > 0
+      GROUP BY j.nome
+      ORDER BY j.pontos DESC
+    `).toArray();
+
+    return jogadores;
   }
 
   async obterPerfil(nome) {
