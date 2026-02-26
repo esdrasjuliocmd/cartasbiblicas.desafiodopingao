@@ -1498,18 +1498,14 @@ export class PontosGlobaisDO {
   }
 
   async adicionarPontosFase(nome, faseNumero, pontosTotal, pontosNormal, pontosBonusTotal, categoria) {
-    const nomeCanonical = this.obterNomeCanonical(nome);
-    if (!nomeCanonical) {
-      throw new Error('Nome inválido para adicionar pontos de fase');
-    }
-
     const pontosNumero = Number(pontosTotal);
     if (!Number.isFinite(pontosNumero) || pontosNumero < 0) {
       throw new Error('Valor de pontos inválido');
     }
 
-    // Obtém pontos atuais
-    const atual = await this.obterPontos(nomeCanonical);
+    // Obtém pontos atuais (cria jogador se não existir)
+    const atual = await this.obterPontos(nome);
+    const nomeCanonical = this.obterNomeCanonical(nome);
     const novo = atual + pontosNumero;
 
     // Atualiza os pontos no banco
