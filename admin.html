@@ -819,14 +819,20 @@
       return ADMIN_TOKEN_CACHE;
     }
 
-    async function editarJogador(nomeAtual, pontosAtual) {
+        async function editarJogador(nomeAtual, pontosAtual) {
       const token = getAdminToken();
       if (!token) { alert('Token não informado.'); return; }
 
-      const novoNome = prompt(Renomear jogador (opcional)\nAtual: \nDeixe em branco para manter:, nomeAtual);
+      const novoNome = prompt(
+        'Renomear jogador (opcional)\nAtual: ' + nomeAtual + '\nDeixe em branco para manter:',
+        nomeAtual
+      );
       if (novoNome === null) return;
 
-      const novoPontosStr = prompt(Alterar pontos\nJogador: \nPontos atuais: \nNovo valor:, String(pontosAtual ?? 0));
+      const novoPontosStr = prompt(
+        'Alterar pontos\nJogador: ' + nomeAtual + '\nPontos atuais: ' + (pontosAtual ?? 0) + '\nNovo valor:',
+        String(pontosAtual ?? 0)
+      );
       if (novoPontosStr === null) return;
 
       const pontos = Number(novoPontosStr);
@@ -837,7 +843,9 @@
 
       try {
         const enc = encodeURIComponent(nomeAtual);
-        const res = await fetch(${API_BASE}/admin/jogadores/DeleteMe, {
+        const url = API_BASE + '/admin/jogadores/' + enc;
+
+        const res = await fetch(url, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -845,7 +853,7 @@
           },
           body: JSON.stringify({
             novoNome: (novoNome || '').trim(),
-            pontos
+            pontos: pontos
           })
         });
 
@@ -853,7 +861,7 @@
         let data = {};
         try { data = JSON.parse(text); } catch {}
 
-        if (!res.ok || !data?.sucesso) throw new Error(data?.erro || HTTP );
+        if (!res.ok || !data?.sucesso) throw new Error(data?.erro || ('HTTP ' + res.status));
 
         alert('Jogador atualizado!');
         await carregarJogadoresCompletos();
@@ -866,11 +874,13 @@
       const token = getAdminToken();
       if (!token) { alert('Token não informado.'); return; }
 
-      if (!confirm(Excluir jogador e TODOS os dados?\n\n)) return;
+      if (!confirm('Excluir jogador e TODOS os dados?\n\n' + nomeAtual)) return;
 
       try {
         const enc = encodeURIComponent(nomeAtual);
-        const res = await fetch(${API_BASE}/admin/jogadores/DeleteMe, {
+        const url = API_BASE + '/admin/jogadores/' + enc;
+
+        const res = await fetch(url, {
           method: 'DELETE',
           headers: { 'X-Admin-Token': token }
         });
@@ -879,7 +889,7 @@
         let data = {};
         try { data = JSON.parse(text); } catch {}
 
-        if (!res.ok || !data?.sucesso) throw new Error(data?.erro || HTTP );
+        if (!res.ok || !data?.sucesso) throw new Error(data?.erro || ('HTTP ' + res.status));
 
         alert('Jogador excluído!');
         await carregarJogadoresCompletos();
@@ -887,10 +897,12 @@
         alert('Erro ao excluir: ' + e.message);
       }
     }
-    window.addEventListener('load', () => carregarDadosGeral());
+window.addEventListener('load', () => carregarDadosGeral());
   </script>
 </body>
 </html>
+
+
 
 
 
