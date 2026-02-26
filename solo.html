@@ -7,6 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>🎯 Modo Solo - Quem Sou Eu?</title>
+  <meta name="solo-build" content="2026-02-26-phase10-full">
   <style>
     :root {
       --jw-azul-principal: #2E5B93;
@@ -19,54 +20,728 @@
       --jw-verde-sucesso: #5CB85C;
       --jw-vermelho-erro: #D9534F;
     }
-    * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-    body {
-      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-      background:linear-gradient(135deg,var(--jw-azul-escuro) 0%,var(--jw-azul-principal) 100%);
-      min-height:100vh; display:flex; align-items:center; justify-content:center;
-      padding:10px; overflow-x:hidden; position:fixed; width:100%; height:100%;
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
-    .container { max-width:800px; width:100%; position:relative; overflow-y:auto; max-height:100vh; padding:5px; }
-    .card { background:#f1f2f6; border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,.3); padding:15px; margin-bottom:10px; }
-    .header { text-align:center; margin-bottom:20px; }
-    .header h1 { color:var(--jw-azul-escuro); font-size:1.8rem; margin-bottom:10px; }
-    .header p { color:var(--jw-azul-principal); font-size:.95rem; }
-    .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:15px; }
-    .stat-box { background:linear-gradient(135deg,var(--jw-azul-principal),var(--jw-azul-escuro)); color:#fff; padding:10px 6px; border-radius:10px; text-align:center; }
-    .stat-label { font-size:.65rem; opacity:.9; margin-bottom:2px; }
-    .stat-value { font-size:1.2rem; font-weight:bold; }
-    .categoria-select { width:100%; padding:14px; border:3px solid var(--jw-azul-principal); border-radius:10px; font-size:1rem; margin-bottom:12px; background:#fff; color:var(--jw-azul-escuro); }
-    .btn { width:100%; padding:16px; border:none; border-radius:10px; font-size:1.05rem; font-weight:bold; cursor:pointer; text-decoration:none; display:inline-block; text-align:center; }
-    .btn-primary { background:linear-gradient(135deg,var(--jw-azul-principal),var(--jw-azul-escuro)); color:#fff; }
-    .btn-secondary { background:var(--jw-cinza-claro); color:var(--jw-azul-escuro); margin-top:10px; }
-    .pergunta-container { display:none; }
-    .pergunta-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px; }
-    .numero-pergunta { font-size:1rem; color:var(--jw-azul-principal); font-weight:bold; }
-    .timer { font-size:1.5rem; color:var(--jw-laranja); font-weight:bold; min-width:55px; text-align:right; }
-    .bonus-container { display:flex; justify-content:center; align-items:center; gap:5px; margin-bottom:8px; flex-wrap:wrap; }
-    .super-bonus-indicator,.bonus-indicator { color:var(--jw-azul-principal); font-size:.7rem; opacity:.8; }
-    .btn-exit-mini { border:none; border-radius:999px; background:var(--jw-dourado); color:var(--jw-azul-escuro); font-weight:700; font-size:.75rem; padding:6px 10px; cursor:pointer; }
-    .dicas { background:linear-gradient(135deg,#E3F2FD,#BBDEFB); padding:18px; border-radius:15px; margin-bottom:15px; border:3px solid var(--jw-azul-principal); }
-    .dica { font-size:1.2rem; color:var(--jw-azul-escuro); margin-bottom:10px; padding-left:34px; position:relative; display:none; font-weight:700; }
-    .dica.visivel { display:block; }
-    .dica::before { content:"💡"; position:absolute; left:0; top:-2px; }
-    .dica-timer { text-align:center; color:var(--jw-azul-principal); font-weight:700; margin-top:8px; font-size:.9rem; }
-    .opcoes-container { display:grid; gap:10px; }
-    .opcao { background:#fff; border:2px solid #d4d9e4; border-radius:12px; padding:12px; font-size:1.05rem; font-weight:700; color:#1f4273; cursor:pointer; }
-    .opcao.correta { background:#dff6e3; border-color:#5cb85c; }
-    .opcao.errada { background:#ffe2e2; border-color:#d9534f; }
-    .opcao.desabilitada { pointer-events:none; opacity:.8; }
-    .feedback { margin-top:10px; border-radius:12px; padding:12px; display:none; font-weight:700; text-align:center; }
-    .feedback.correto { background:#eaf9ee; color:#1d6b2d; border:1px solid #5cb85c; }
-    .feedback.errado { background:#fff0f0; color:#8e1e1e; border:1px solid #d9534f; }
-    .resultado-final { display:none; text-align:center; }
-    .pontuacao-final { font-size:2.3rem; font-weight:800; color:var(--jw-azul-escuro); margin:12px 0; }
-    .resumo { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:12px 0; }
-    .resumo-item { background:#fff; border-radius:10px; padding:8px; }
-    .resumo-label { color:#5f86bd; font-size:.8rem; }
-    .resumo-valor { color:#1f4273; font-size:1.2rem; font-weight:800; }
-    .podio { margin-top:12px; }
-    .podio-item { display:flex; justify-content:space-between; background:#fff; border-radius:10px; padding:8px; margin-bottom:6px; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--jw-azul-escuro) 0%, var(--jw-azul-principal) 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      overflow-x: hidden;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      position: relative;
+      overflow-y: auto;
+      max-height: 100vh;
+      padding: 5px;
+    }
+
+    .card {
+      background: #f1f2f6;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      padding: 15px;
+      margin-bottom: 10px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      color: var(--jw-azul-escuro);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: var(--jw-azul-principal);
+      font-size: 0.95rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .stat-box {
+      background: linear-gradient(135deg, var(--jw-azul-principal), var(--jw-azul-escuro));
+      color: var(--jw-branco);
+      padding: 10px 6px;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .stat-box:active {
+      transform: scale(0.95);
+    }
+
+    .stat-label {
+      font-size: 0.65rem;
+      opacity: 0.9;
+      margin-bottom: 2px;
+    }
+
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .categoria-select {
+      width: 100%;
+      padding: 14px;
+      border: 3px solid var(--jw-azul-principal);
+      border-radius: 10px;
+      font-size: 1rem;
+      margin-bottom: 12px;
+      background: var(--jw-branco);
+      color: var(--jw-azul-escuro);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      touch-action: manipulation;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--jw-azul-principal), var(--jw-azul-escuro));
+      color: var(--jw-branco);
+    }
+
+    .btn-primary:active {
+      background: var(--jw-azul-escuro);
+      transform: scale(0.98);
+    }
+
+    .btn-secondary {
+      background: var(--jw-cinza-claro);
+      color: var(--jw-azul-escuro);
+      margin-top: 10px;
+    }
+
+    .btn-secondary:active {
+      background: #E0E0E0;
+      transform: scale(0.98);
+    }
+
+    .pergunta-container {
+      display: none;
+    }
+
+    .pergunta-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .numero-pergunta {
+      font-size: 1rem;
+      color: var(--jw-azul-principal);
+      font-weight: bold;
+      animation: slideIn 0.5s ease-out;
+    }
+
+    .timer {
+      font-size: 1.5rem;
+      color: var(--jw-laranja);
+      font-weight: bold;
+      min-width: 55px;
+      text-align: right;
+    }
+
+    .super-bonus-indicator {
+      background: transparent;
+      color: var(--jw-azul-principal);
+      padding: 4px 8px;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: normal;
+      font-size: 0.7rem;
+      opacity: 0.7;
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    .bonus-indicator {
+      background: transparent;
+      color: var(--jw-azul-principal);
+      padding: 4px 8px;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: normal;
+      font-size: 0.7rem;
+      opacity: 0.7;
+      display: inline-block;
+    }
+
+    .bonus-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-exit-mini {
+      border: none;
+      border-radius: 999px;
+      background: var(--jw-dourado);
+      color: var(--jw-azul-escuro);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 6px 10px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .dicas {
+      background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+      padding: 18px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      min-height: 120px;
+      border: 3px solid var(--jw-azul-principal);
+      box-shadow: 0 4px 15px rgba(74, 109, 167, 0.2);
+    }
+
+    .dica {
+      font-size: 1.3rem;
+      color: var(--jw-azul-escuro);
+      margin-bottom: 12px;
+      padding-left: 38px;
+      position: relative;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease-out forwards;
+      line-height: 1.7;
+      display: none;
+      font-weight: 700;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .dica.visivel {
+      display: block;
+    }
+
+    .dica::before {
+      content: "💡";
+      position: absolute;
+      left: 0;
+      font-size: 1.6rem;
+      top: -2px;
+    }
+
+    .dica:last-child {
+      margin-bottom: 0;
+    }
+
+    .dica-timer {
+      text-align: center;
+      color: var(--jw-azul-principal);
+      font-size: 0.95rem;
+      font-weight: bold;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 2px solid rgba(74, 109, 167, 0.3);
+    }
+
+    .opcoes-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .opcao {
+      background: var(--jw-branco);
+      border: 3px solid var(--jw-azul-principal);
+      padding: 14px 10px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: var(--jw-azul-escuro);
+      cursor: pointer;
+      transition: all 0.2s;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease-out forwards;
+      touch-action: manipulation;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      word-wrap: break-word;
+    }
+
+    .opcao:active {
+      transform: scale(0.97);
+    }
+
+    .opcao.correta {
+      background: var(--jw-verde-sucesso);
+      color: var(--jw-branco);
+      border-color: var(--jw-verde-sucesso);
+      animation: pulse 0.5s;
+    }
+    .opcao.errada {
+      background: var(--jw-vermelho-erro);
+      color: var(--jw-branco);
+      border-color: var(--jw-vermelho-erro);
+      animation: shake 0.5s;
+    }
+
+    .opcao.desabilitada {
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    .feedback {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: bold;
+      display: none;
+      animation: bounceIn 0.5s;
+    }
+
+    .feedback.correto {
+      background: #d4edda;
+      color: #155724;
+      border: 2px solid var(--jw-verde-sucesso);
+    }
+
+    .feedback.errado {
+      background: #f8d7da;
+      color: #721c24;
+      border: 2px solid var(--jw-vermelho-erro);
+    }
+
+    .resultado-final {
+      display: none;
+      text-align: center;
+    }
+
+    .pontuacao-final {
+      font-size: 3rem;
+      color: var(--jw-laranja);
+      font-weight: bold;
+      margin: 20px 0;
+      animation: pulsar 1s infinite;
+    }
+
+    .resumo {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .resumo-item {
+      background: var(--jw-cinza-claro);
+      padding: 14px 8px;
+      border-radius: 10px;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease-out forwards;
+    }
+
+    .resumo-item:nth-child(1) { animation-delay: 0.1s; }
+    .resumo-item:nth-child(2) { animation-delay: 0.2s; }
+    .resumo-item:nth-child(3) { animation-delay: 0.3s; }
+
+    .resumo-label {
+      font-size: 0.8rem;
+      color: var(--jw-azul-principal);
+      margin-bottom: 5px;
+    }
+
+    .resumo-valor {
+      font-size: 1.6rem;
+      color: var(--jw-azul-escuro);
+      font-weight: bold;
+    }
+
+    .podio {
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      padding: 18px;
+      border-radius: 12px;
+      margin: 20px 0;
+      animation: fadeIn 1s;
+    }
+
+    .podio h3 {
+      text-align: center;
+      color: var(--jw-azul-escuro);
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+
+    .podio-item {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 8px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 0;
+      animation: slideInLeft 0.5s ease-out forwards;
+      gap: 8px;
+    }
+
+    .podio-item:nth-child(1) { animation-delay: 0.1s; }
+    .podio-item:nth-child(2) { animation-delay: 0.2s; }
+    .podio-item:nth-child(3) { animation-delay: 0.3s; }
+    .podio-item:nth-child(4) { animation-delay: 0.4s; }
+    .podio-item:nth-child(5) { animation-delay: 0.5s; }
+
+    .podio-posicao {
+      font-size: 1.5rem;
+      margin-right: 0;
+      flex-shrink: 0;
+      min-width: 35px;
+      text-align: center;
+    }
+
+    .podio-nome {
+      flex: 1;
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: var(--jw-azul-escuro);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .podio-pontos {
+      font-size: 1rem;
+      font-weight: bold;
+      color: var(--jw-laranja);
+      flex-shrink: 0;
+      min-width: 60px;
+      text-align: right;
+    }
+
+    .streak-indicator {
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      color: white;
+      padding: 6px 10px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+      animation: shake 0.5s;
+    }
+
+    .floating-points {
+      position: fixed;
+      font-size: 2.2rem;
+      font-weight: bold;
+      pointer-events: none;
+      z-index: 9999;
+      animation: floatUp 2s ease-out forwards;
+    }
+
+    .floating-points.bonus {
+      color: #FFD700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-size: 2.8rem;
+    }
+
+    .floating-points.normal {
+      color: var(--jw-verde-sucesso);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-50px) scale(1.2);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-150px) scale(0.8);
+      }
+    }
+
+    @keyframes pulsar {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+
+    @keyframes girar {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+    }
+
+    .loading-spinner {
+      font-size: 2.5rem;
+      animation: girar 1s linear infinite;
+    }
+
+    .fase-resumo {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      border: 3px solid var(--jw-dourado);
+      background: linear-gradient(135deg, #fff6d6, #ffe8a3);
+      border-radius: 16px;
+      padding: 20px 14px;
+      animation: bounceIn 0.5s;
+    }
+
+    .fase-resumo h2 {
+      color: var(--jw-azul-escuro);
+      margin-bottom: 8px;
+      font-size: 1.4rem;
+    }
+
+    .fase-resumo .fase-sub {
+      color: #7a5a00;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .fase-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 14px 0;
+    }
+
+    .fase-box {
+      background: rgba(255,255,255,0.92);
+      border: 2px solid #f2cf61;
+      border-radius: 10px;
+      padding: 8px;
+    }
+
+    .fase-box .lbl {
+      font-size: 0.72rem;
+      color: #7a5a00;
+      font-weight: 700;
+    }
+
+    .fase-box .val {
+      font-size: 1.2rem;
+      color: var(--jw-azul-escuro);
+      font-weight: 800;
+      margin-top: 2px;
+    }
+
+    }
+
+    .fase-cta {
+      margin-top: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .btn-continue {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, #2E5B93, #1F4273);
+      cursor: pointer;
+    }
+
+    .stars-rain {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      top: -20px;
+      font-size: 16px;
+      animation: cair 2.2s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes cair {
+      from { transform: translateY(-30px) rotate(0deg); opacity: .9; }
+      to { transform: translateY(360px) rotate(360deg); opacity: 0; }
+    }
+
+    @media (max-width: 380px) {
+      .card {
+        padding: 12px;
+      }
+
+      .header h1 {
+        font-size: 1.5rem;
+      }
+
+      .stat-value {
+        font-size: 1.1rem;
+      }
+
+      .super-bonus-indicator,
+      .bonus-indicator {
+        font-size: 0.65rem;
+        padding: 3px 6px;
+      }
+
+      .dicas {
+        padding: 15px;
+        min-height: 110px;
+      }
+
+      .dica {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        padding-left: 35px;
+        margin-bottom: 10px;
+      }
+
+      .dica::before {
+        font-size: 1.5rem;
+      }
+
+      .dica-timer {
+        font-size: 0.85rem;
+      }
+
+      .opcao {
+        font-size: 0.95rem;
+        padding: 12px 8px;
+      }
+
+      .podio-item {
+        padding: 6px;
+        gap: 6px;
+      }
+
+      .podio-posicao {
+        font-size: 1.2rem;
+        min-width: 30px;
+      }
+
+      .podio-nome {
+        font-size: 0.85rem;
+      }
+
+      .podio-pontos {
+        font-size: 0.9rem;
+        min-width: 50px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -78,20 +753,40 @@
       </div>
 
       <div class="stats">
-        <div class="stat-box"><div class="stat-label">Recorde</div><div class="stat-value" id="recorde-pessoal">0</div></div>
-        <div class="stat-box"><div class="stat-label">Perguntas</div><div class="stat-value">10</div></div>
-        <div class="stat-box"><div class="stat-label">Tempo</div><div class="stat-value">60s</div></div>
+        <div class="stat-box">
+          <div class="stat-label">Recorde</div>
+          <div class="stat-value" id="recorde-pessoal">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Perguntas</div>
+          <div class="stat-value">100</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Tempo</div>
+          <div class="stat-value">60s</div>
+        </div>
       </div>
 
-      <label for="categoria" style="display:block;margin-bottom:8px;color:#1E3A5F;font-weight:bold;">📚 Categoria:</label>
+      <label for="categoria" style="display: block; margin-bottom: 8px; color: #1E3A5F; font-weight: bold; font-size: 0.95rem;">
+        📚 Categoria:
+      </label>
       <select id="categoria" class="categoria-select">
         <option value="personagens">👤 Personagens Bíblicos</option>
         <option value="profecias">📜 Profecias</option>
         <option value="pregacao">🎤 Pregação</option>
       </select>
 
-      <label for="nome-jogador" style="display:block;margin-bottom:8px;color:#1E3A5F;font-weight:bold;">✏️ Seu Nome:</label>
-      <input type="text" id="nome-jogador" class="categoria-select" placeholder="Digite seu nome..." autocomplete="name">
+      <label for="nome-jogador" style="display: block; margin-bottom: 8px; color: #1E3A5F; font-weight: bold; font-size: 0.95rem;">
+        ✏️ Seu Nome:
+      </label>
+      <input
+        type="text"
+        id="nome-jogador"
+        class="categoria-select"
+        placeholder="Digite seu nome..."
+        style="margin-bottom: 12px;"
+        autocomplete="name"
+      >
 
       <button class="btn btn-primary" onclick="iniciarJogo()">🚀 Iniciar Jogo</button>
       <a href="index.html" class="btn btn-secondary">🏠 Voltar ao Menu</a>
@@ -100,38 +795,233 @@
     <div class="card pergunta-container" id="tela-jogo"></div>
 
     <div class="card resultado-final" id="tela-resultado">
-      <div class="header"><h1>🎊 Finalizado!</h1></div>
-      <div class="pontuacao-final" id="pontuacao-final">0</div>
-      <div class="resumo">
-        <div class="resumo-item"><div class="resumo-label">✅ Acertos</div><div class="resumo-valor" id="resumo-acertos">0</div></div>
-        <div class="resumo-item"><div class="resumo-label">❌ Erros</div><div class="resumo-valor" id="resumo-erros">0</div></div>
-        <div class="resumo-item"><div class="resumo-label">🎯 Precisão</div><div class="resumo-valor" id="resumo-precisao">0%</div></div>
+      <div class="header">
+        <h1>🎊 Finalizado!</h1>
       </div>
-      <div class="podio" id="podio-container" style="display:none;"><h3>🏆 Top 5 Ranking</h3><div id="podio-lista"></div></div>
+
+      <div class="pontuacao-final" id="pontuacao-final">0</div>
+
+      <div class="resumo">
+        <div class="resumo-item">
+          <div class="resumo-label">✅ Acertos</div>
+          <div class="resumo-valor" id="resumo-acertos">0</div>
+        </div>
+        <div class="resumo-item">
+          <div class="resumo-label">❌ Erros</div>
+          <div class="resumo-valor" id="resumo-erros">0</div>
+        </div>
+        <div class="resumo-item">
+          <div class="resumo-label">🎯 Precisão</div>
+          <div class="resumo-valor" id="resumo-precisao">0%</div>
+        </div>
+      </div>
+
+      <div class="podio" id="podio-container" style="display: none;">
+        <h3>🏆 Top 5 Ranking</h3>
+        <div id="podio-lista"></div>
+      </div>
+
       <button class="btn btn-primary" onclick="location.reload()">🔄 Jogar Novamente</button>
       <a href="index.html" class="btn btn-secondary">🏠 Menu</a>
     </div>
   </div>
 
   <script>
-    const API_BASE = 'https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
-    const TOTAL_PERGUNTAS = 10;
-    const TEMPO_POR_PERGUNTA = 60;
-
     const AudioSystem = {
-      context: null, volume: 0.25,
-      init(){ try{ this.context = new (window.AudioContext || window.webkitAudioContext)(); }catch(e){} },
-      playNote(f,d,t='sine',v=this.volume){ if(!this.context)return; try{ const o=this.context.createOscillator(); const g=this.context.createGain(); o.connect(g); g.connect(this.context.destination); o.frequency.value=f; o.type=t; g.gain.setValueAtTime(v,this.context.currentTime); g.gain.exponentialRampToValueAtTime(0.01,this.context.currentTime+d); o.start(this.context.currentTime); o.stop(this.context.currentTime+d);}catch(e){} },
-      click(){ this.playNote(800,0.08,'sine',0.12); },
-      showHint(){ this.playNote(600,0.08,'sine',0.08); },
-      correct(){ [659.25,783.99,1046.5].forEach((f,i)=>setTimeout(()=>this.playNote(f,0.12,'triangle',0.2),i*80)); },
-      correctBonus(){ [783.99,1046.5,1318.51,1567.98,2093].forEach((f,i)=>setTimeout(()=>this.playNote(f,0.1,'sine',0.25),i*50)); },
-      coinsStars(){ [1046.5,1318.51,1567.98,2093].forEach((f,i)=>setTimeout(()=>this.playNote(f,0.1,'triangle',0.28),i*45)); setTimeout(()=>[659.25,783.99,987.77].forEach((f,i)=>setTimeout(()=>this.playNote(f,0.12,'sine',0.22),i*50)),220); },
-      gameComplete(){ [523.25,659.25,783.99,1046.5,1318.51,1568,2093].forEach((f,i)=>setTimeout(()=>this.playNote(f,0.25,'sine',0.2),i*80)); },
-      error(){ this.playNote(196,0.3,'sawtooth',0.15); }
+      context: null,
+      volume: 0.25,
+
+      init() {
+        try {
+          this.context = new (window.AudioContext || window.webkitAudioContext)();
+        } catch(e) {}
+      },
+
+      playNote(frequency, duration, type = 'sine', volume = this.volume) {
+        if (!this.context) return;
+        try {
+          const oscillator = this.context.createOscillator();
+          const gainNode = this.context.createGain();
+          oscillator.connect(gainNode);
+          gainNode.connect(this.context.destination);
+          oscillator.frequency.value = frequency;
+          oscillator.type = type;
+          gainNode.gain.setValueAtTime(volume, this.context.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, this.context.currentTime + duration);
+          oscillator.start(this.context.currentTime);
+          oscillator.stop(this.context.currentTime + duration);
+        } catch(e) {}
+      },
+
+      click() { this.playNote(800, 0.08, 'sine', 0.12); },
+      newQuestion() {
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+          setTimeout(() => this.playNote(freq, 0.15, 'triangle', 0.15), i * 100);
+        });
+      },
+      showHint() { this.playNote(600, 0.08, 'sine', 0.08); },
+      correct() {
+        [659.25, 783.99, 1046.50].forEach((freq, i) => {
+          setTimeout(() => this.playNote(freq, 0.12, 'triangle', 0.2), i * 80);
+        });
+      },
+      correctBonus() {
+        [783.99, 1046.50, 1318.51, 1567.98, 2093.00].forEach((freq, i) => {
+          setTimeout(() => this.playNote(freq, 0.1, 'sine', 0.25), i * 50);
+        });
+      },
+      coinsStars() {
+        [1046.5, 1318.51, 1567.98, 2093.0].forEach((freq, i) => {
+          setTimeout(() => this.playNote(freq, 0.1, 'triangle', 0.28), i * 45);
+        });
+        setTimeout(() => {
+          [659.25, 783.99, 987.77].forEach((freq, i) => {
+            setTimeout(() => this.playNote(freq, 0.12, 'sine', 0.22), i * 50);
+          });
+        }, 220);
+      },
+      superBonus() {
+        this.playNote(988, 0.05, 'square', 0.35);
+        setTimeout(() => this.playNote(1319, 0.12, 'square', 0.35), 60);
+        setTimeout(() => {
+          for (let i = 0; i < 4; i++) {
+            setTimeout(() => this.playNote(1568 + (i * 250), 0.06, 'sine', 0.2), i * 30);
+          }
+        }, 180);
+      },
+      gameComplete() {
+        [523.25, 659.25, 783.99, 1046.50, 1318.51, 1568, 2093].forEach((freq, i) => {
+          setTimeout(() => this.playNote(freq, 0.25, 'sine', 0.2), i * 80);
+        });
+      },
+      error() { this.playNote(196, 0.3, 'sawtooth', 0.15); }
     };
+
     AudioSystem.init();
 
+    function mostrarPontosAnimados(pontos, isBonus = false) {
+      const elemento = document.createElement('div');
+      elemento.className = `floating-points ${isBonus ? 'bonus' : 'normal'}`;
+      elemento.textContent = `+${pontos} ${isBonus ? '🔥' : ''}`;
+      const x = Math.random() * (window.innerWidth - 150) + 75;
+      const y = window.innerHeight / 2;
+      elemento.style.left = `${x}px`;
+      elemento.style.top = `${y}px`;
+      document.body.appendChild(elemento);
+      setTimeout(() => elemento.remove(), 2000);
+    }
+
+    const API_BASE = 'https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
+    const SOLO_BUILD_VERSION = "2026-02-26-phase10-full";
+    const TOTAL_FASES = 10;
+    const CARTAS_POR_FASE = 10;
+    const TOTAL_PERGUNTAS = TOTAL_FASES * CARTAS_POR_FASE;
+    const TEMPO_POR_PERGUNTA = 60;
+
+    const TITULOS_FASE = [
+      'Estudante',
+      'Conhecedor',
+      'Pesquisador',
+      'Estrategista',
+      'Analista',
+      'Especialista',
+      'Sábio',
+      'Mentor',
+      'Mestre da Perseverança',
+      'Lenda do Conhecimento'
+    ];
+
+    // ============================
+    // "Anti-repetição" (LOCAL + GLOBAL)
+    // ============================
+    const LOCAL_HISTORY_LIMIT = 200; // quantas cartas manter como "já usadas" por jogador/categoria
+    const LOCAL_HISTORY_MIN_KEEP = 50; // relaxamento mínimo (se faltar cartas)
+    const LOCAL_STORAGE_VERSION = 1;
+
+    function getHistoryStorageKey() {
+      const nome = (localStorage.getItem('nomeJogador') || '').trim() || 'anon';
+      const cat = categoria || 'geral';
+      return `qsEU:v${LOCAL_STORAGE_VERSION}:used:${nome.toLowerCase()}:${cat}`;
+    }
+
+    // Gera uma chave estável para a carta (preferindo carta.id se existir)
+    function cardKey(carta) {
+      if (!carta) return '';
+      if (carta.id !== undefined && carta.id !== null && String(carta.id).trim() !== '') {
+        return `id:${String(carta.id).trim()}`;
+      }
+      // fallback: assinatura estável (categoria + conteúdo)
+      const base = [
+        categoria || '',
+        carta.resposta || '',
+        carta.dica1 || '',
+        carta.dica2 || '',
+        carta.dica3 || ''
+      ].join('|');
+
+      // hash simples (rápido e determinístico) para não guardar textos enormes
+      let hash = 0;
+      for (let i = 0; i < base.length; i++) {
+        hash = ((hash << 5) - hash) + base.charCodeAt(i);
+        hash |= 0; // 32-bit
+      }
+      return `h:${Math.abs(hash)}`;
+    }
+
+    function loadLocalUsedKeys() {
+      try {
+        const raw = localStorage.getItem(getHistoryStorageKey());
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return [];
+        return parsed.filter(Boolean);
+      } catch (e) {
+        return [];
+      }
+    }
+    function saveLocalUsedKeys(keys) {
+      try {
+        localStorage.setItem(getHistoryStorageKey(), JSON.stringify(keys));
+      } catch (e) {
+        // se estourar quota, tenta truncar
+        try {
+          const truncated = keys.slice(Math.max(0, keys.length - LOCAL_HISTORY_MIN_KEEP));
+          localStorage.setItem(getHistoryStorageKey(), JSON.stringify(truncated));
+        } catch (e2) {}
+      }
+    }
+
+    function appendToLocalHistory(newKeys) {
+      const current = loadLocalUsedKeys();
+      const merged = [...current, ...newKeys].filter(Boolean);
+
+      // remove duplicados preservando ordem (mantém o mais antigo primeiro)
+      const seen = new Set();
+      const dedup = [];
+      for (const k of merged) {
+        if (seen.has(k)) continue;
+        seen.add(k);
+        dedup.push(k);
+      }
+
+      // mantém só as últimas LOCAL_HISTORY_LIMIT
+      const finalList = dedup.slice(Math.max(0, dedup.length - LOCAL_HISTORY_LIMIT));
+      saveLocalUsedKeys(finalList);
+      return finalList;
+    }
+
+    function fisherYatesShuffle(array) {
+      const a = [...array];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // ============================
+    // Estado do jogo
+    // ============================
     let cartas = [];
     let cartasCategoriaAtual = [];
     let perguntaAtual = 0;
@@ -143,257 +1033,834 @@
     let categoria = 'personagens';
     let nomeJogador = '';
     let cartaAtualObj = null;
+    let inicioResposta = null;
     let sequenciaRapida = 0;
     let respostaJaSelecionada = false;
     let dicasVisiveis = 0;
+    let dicaTimerInterval = null;
     let faseAtual = 1;
+    let multiplicadorFaseAtual = 1;
     let rodadaPerfeita = true;
+    let errosPorFase = Array(TOTAL_FASES).fill(0);
+    let pontosNormaisTotal = 0;
+    let pontosBonusTotal = 0;
+    let pontosNormaisPorFase = Array(TOTAL_FASES).fill(0);
+    let pontosBonusPorFase = Array(TOTAL_FASES).fill(0);
 
-    function normalizarTexto(t){ return String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim(); }
-    function embaralhar(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+    const PALAVRAS_GENERO = {
+      feminino: ['rainha', 'esposa', 'mãe', 'mae', 'filha', 'profetisa', 'juíza', 'juiza', 'viúva', 'viuva', 'irmã', 'irma', 'mulher', 'serva', 'ela', 'sua'],
+      masculino: ['rei', 'esposo', 'pai', 'filho', 'profeta', 'apóstolo', 'apostolo', 'sacerdote', 'irmão', 'irmao', 'homem', 'servo', 'marido', 'ele', 'seu']
+    };
 
-    function detectarGeneroCarta(c){
-      const g = normalizarTexto(c?.genero || '');
-      if (g === 'masculino') return 'masculino';
-      if (g === 'feminino') return 'feminino';
-      if (c?.masculino === true || c?.masculino === 1) return 'masculino';
-      if (c?.feminino === true || c?.feminino === 1) return 'feminino';
-      const nome = normalizarTexto(c?.resposta || '');
+    const NOMES_FEMININOS_BIBLICOS = new Set([
+      'eva', 'sara', 'rebeca', 'raquel', 'lia', 'miriã', 'miriam', 'débora', 'debora',
+      'rute', 'ester', 'marta', 'maria', 'elisabete', 'ana', 'dalila', 'jezabel',
+      'abigail', 'priscila', 'loide', 'eunice', 'noemi', 'orfa', 'bete-seba', 'bateseba'
+    ]);
+
+    const NOMES_MASCULINOS_EXCECAO = new Set(['jeremias', 'isaias', 'miqueias', 'zacarias', 'ananias', 'urias', 'jonas', 'esdras', 'lucas', 'barnabas']);
+
+    function contarOcorrenciasGenero(textoBase, lista) {
+      return lista.reduce((total, termo) => total + (textoBase.includes(normalizarTexto(termo)) ? 1 : 0), 0);
+    }
+
+    // ============================================
+    // FUNÇÕES DE EMBARALHAMENTO (mantidas)
+    // ============================================
+    function gerarSeedUnico() {
+      const timestamp = Date.now();
+      const milis = performance.now();
+      const random = Math.random() * 1000000;
+      const seed = timestamp + milis + random;
+      return seed;
+    }
+
+    function embaralharAvancado(array) {
+      const novo = [...array];
+      const seed = gerarSeedUnico();
+
+      function seededRandom(s) {
+        const x = Math.sin(s) * 10000;
+        return x - Math.floor(x);
+      }
+
+      for (let i = novo.length - 1; i > 0; i--) {
+        const j = Math.floor(seededRandom(seed + i) * (i + 1));
+        [novo[i], novo[j]] = [novo[j], novo[i]];
+      }
+
+      for (let i = novo.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [novo[i], novo[j]] = [novo[j], novo[i]];
+      }
+
+      const rotacao = Date.now() % novo.length;
+      const parte1 = novo.slice(rotacao);
+      const parte2 = novo.slice(0, rotacao);
+      const resultado = [...parte1, ...parte2];
+
+      for (let i = resultado.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [resultado[i], resultado[j]] = [resultado[j], resultado[i]];
+      }
+
+      return resultado;
+    }
+
+    function detectarGeneroCarta(carta) {
+      if (categoria !== 'personagens' || !carta) return 'neutro';
+
+      if (carta.genero) {
+        const g = normalizarTexto(String(carta.genero));
+        if (g.includes('femin')) return 'feminino';
+        if (g.includes('mascul')) return 'masculino';
+      }
+
+      if (carta.feminino === true || carta.feminino === 1) return 'feminino';
+      if (carta.masculino === true || carta.masculino === 1) return 'masculino';
+
+      const nome = normalizarTexto(carta.resposta || '');
+
+      if (NOMES_FEMININOS_BIBLICOS.has(nome)) return 'feminino';
+      if (NOMES_MASCULINOS_EXCECAO.has(nome)) return 'masculino';
+
+      const textoBase = normalizarTexto([
+        carta.resposta || '',
+        carta.dica1 || '',
+        carta.dica2 || '',
+        carta.dica3 || ''
+      ].join(' '));
+
+      const scoreFem = contarOcorrenciasGenero(textoBase, PALAVRAS_GENERO.feminino);
+      const scoreMasc = contarOcorrenciasGenero(textoBase, PALAVRAS_GENERO.masculino);
+
+      if (scoreFem > scoreMasc) return 'feminino';
+      if (scoreMasc > scoreFem) return 'masculino';
+
+      // heurística leve de nome (muito comum em pt-BR, com exceções bíblicas)
       if (nome.endsWith('a') && !nome.endsWith('ias') && !nome.endsWith('as')) return 'feminino';
       if (nome.endsWith('o')) return 'masculino';
+
       return 'neutro';
     }
 
-    function gerarOpcoesErradas(correta,qtd=3){
-      const rc = normalizarTexto(correta?.resposta||'');
-      const gc = detectarGeneroCarta(correta);
-      const candidatos = (cartasCategoriaAtual.length?cartasCategoriaAtual:cartas).filter(c=>normalizarTexto(c.resposta)!==rc);
-      let pool = candidatos;
-      if (categoria==='personagens' && gc!=='neutro'){
-        const coerentes = candidatos.filter(c=>detectarGeneroCarta(c)===gc);
-        const neutros = candidatos.filter(c=>detectarGeneroCarta(c)==='neutro');
-        pool = coerentes.length>=qtd ? coerentes : [...coerentes,...neutros];
-        if(pool.length<qtd) pool = candidatos;
+    function gerarOpcoesErradas(cartaCorreta, quantidade = 3) {
+      const respostaCorreta = normalizarTexto(cartaCorreta?.resposta || '');
+      const generoCorreta = detectarGeneroCarta(cartaCorreta);
+
+      const base = (Array.isArray(cartasCategoriaAtual) && cartasCategoriaAtual.length > 0)
+        ? cartasCategoriaAtual
+        : cartas;
+
+      const candidatos = base.filter(c => normalizarTexto(c.resposta || '') !== respostaCorreta);
+
+      const coerentes = candidatos.filter(c => {
+        if (categoria !== 'personagens') return true;
+        if (generoCorreta === 'neutro') return true;
+        return detectarGeneroCarta(c) === generoCorreta;
+      });
+
+      const neutros = candidatos.filter(c => detectarGeneroCarta(c) === 'neutro');
+
+      let poolPrincipal = coerentes;
+      if (categoria === 'personagens' && generoCorreta !== 'neutro' && poolPrincipal.length < quantidade) {
+        // prioriza manter coerência: primeiro tenta combinar com cartas neutras
+        poolPrincipal = [...coerentes, ...neutros];
       }
-      const out=[], seen=new Set([rc]);
-      for(const c of embaralhar(pool)){ const r=(c.resposta||'').trim(); const k=normalizarTexto(r); if(!r||seen.has(k))continue; seen.add(k); out.push(r); if(out.length===qtd)break; }
-      if(out.length<qtd){ for(const c of embaralhar(candidatos)){ const r=(c.resposta||'').trim(); const k=normalizarTexto(r); if(!r||seen.has(k))continue; seen.add(k); out.push(r); if(out.length===qtd)break; } }
-      return out;
+
+      if (poolPrincipal.length < quantidade) {
+        poolPrincipal = candidatos;
+      }
+
+      const respostas = [];
+      const vistos = new Set([respostaCorreta]);
+
+      for (const c of embaralharAvancado(poolPrincipal)) {
+        const r = (c.resposta || '').trim();
+        const key = normalizarTexto(r);
+        if (!r || vistos.has(key)) continue;
+        vistos.add(key);
+        respostas.push(r);
+        if (respostas.length === quantidade) break;
+      }
+
+      if (respostas.length < quantidade) {
+        // 2º fallback (personagens): tenta manter coerência por gênero usando nome
+        if (categoria === 'personagens' && generoCorreta !== 'neutro') {
+          const coerentesNome = candidatos.filter(c => detectarGeneroCarta(c) === generoCorreta);
+          for (const c of embaralharAvancado(coerentesNome)) {
+            const r = (c.resposta || '').trim();
+            const key = normalizarTexto(r);
+            if (!r || vistos.has(key)) continue;
+            vistos.add(key);
+            respostas.push(r);
+            if (respostas.length === quantidade) break;
+          }
+        }
+      }
+
+      if (respostas.length < quantidade) {
+        // 3º fallback: completa com qualquer resposta válida para nunca quebrar o jogo
+        for (const c of embaralharAvancado(candidatos)) {
+          const r = (c.resposta || '').trim();
+          const key = normalizarTexto(r);
+          if (!r || vistos.has(key)) continue;
+          vistos.add(key);
+          respostas.push(r);
+          if (respostas.length === quantidade) break;
+        }
+      }
+
+      return respostas;
     }
 
-    function obterDificuldadeCarta(c){ const v=Number(c?.dificuldade); return Number.isFinite(v)?Math.max(0,Math.min(10,Math.round(v))):5; }
-    function calcularPontosPorTempo(t){ if(t<=2)return 2000; if(t<=3)return 1000; if(t<=10)return 500; if(t<=30)return 200; return 100; }
-
-    function mostrarPontosAnimados(p,isBonus=false){
-      const e=document.createElement('div');
-      e.textContent = `+${p}`;
-      e.style.position='fixed'; e.style.left='50%'; e.style.top='45%'; e.style.transform='translate(-50%,-50%)';
-      e.style.zIndex='9999'; e.style.fontWeight='900'; e.style.fontSize=isBonus?'2rem':'1.6rem';
-      e.style.color=isBonus?'#F2B705':'#5CB85C'; e.style.transition='all 1.2s ease';
-      document.body.appendChild(e);
-      setTimeout(()=>{ e.style.opacity='0'; e.style.top='30%'; },50);
-      setTimeout(()=>e.remove(),1400);
+    function obterDificuldadeCarta(carta) {
+      const valor = Number(carta?.dificuldade);
+      if (!Number.isFinite(valor)) return 5;
+      return Math.max(0, Math.min(10, Math.round(valor)));
     }
 
-    function atualizarTimer(){
-      const t=document.getElementById('timer'); if(!t)return;
-      t.textContent=`${tempoRestante}s`;
-      t.style.color = tempoRestante<=10 ? 'var(--jw-vermelho-erro)' : 'var(--jw-laranja)';
-    }
+    // ============================================
+    // FUNÇÕES DE MEMÓRIA GLOBAL (API)
+    // ============================================
+    async function obterCartasRecentesGlobal() {
+      try {
+        const response = await fetch(`${API_BASE}/cartas-recentes`);
+        if (!response.ok) {
+          console.warn(`⚠️ Servidor retornou erro ao buscar cartas recentes: ${response.status}`);
+          return [];
+        }
+        const data = await response.json();
 
-    function mostrarDica(n){
-      const el=document.getElementById(`dica${n}`);
-      if(el){ el.classList.add('visivel'); dicasVisiveis=n; AudioSystem.showHint(); }
-    }
+        // Pode vir como {cartas:[...]} (antigo: respostas), ou pode vir ids/keys.
+        const lista = (data && Array.isArray(data.cartas)) ? data.cartas : [];
 
-    function atualizarDicasPorTempo(){
-      const timer=document.getElementById('dica-timer');
-      if(tempoRestante<=45 && dicasVisiveis<1) mostrarDica(1);
-      if(tempoRestante<=30 && dicasVisiveis<2) mostrarDica(2);
-      if(tempoRestante<=15 && dicasVisiveis<3) mostrarDica(3);
-      if(!timer) return;
-      if(dicasVisiveis>=3) timer.textContent='✅ Todas as dicas reveladas';
-      else{
-        const marca = dicasVisiveis===0?45:(dicasVisiveis===1?30:15);
-        timer.innerHTML = `💡 Próxima dica em: <span id="countdown">${Math.max(0,tempoRestante-marca)}s</span>`;
+        console.log(`🌐 Cartas recentes globais: ${lista.length}`);
+        console.log('📋 Cartas globais a evitar:', lista);
+
+        return lista;
+      } catch (erro) {
+        console.error('❌ Erro ao buscar cartas recentes:', erro);
+        return [];
       }
     }
 
-    function selecionarOpcao(el,resposta){
-      if(respostaJaSelecionada) return;
-      respostaJaSelecionada=true; AudioSystem.click();
-      clearInterval(timerInterval);
-      document.querySelectorAll('.opcao').forEach(op=>op.classList.add('desabilitada'));
-      const acertou = normalizarTexto(resposta)===normalizarTexto(cartaAtualObj.resposta);
-      if(acertou){ el.classList.add('correta'); }
-      else{
-        el.classList.add('errada');
-        document.querySelectorAll('.opcao').forEach(op=>{
-          if(normalizarTexto(op.textContent)===normalizarTexto(cartaAtualObj.resposta)) op.classList.add('correta');
+    // envia keys (preferido) e respostas (fallback)
+    async function registrarCartasUsadasGlobal(payload) {
+      try {
+        const response = await fetch(`${API_BASE}/registrar-cartas`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          console.warn(`⚠️ Falha ao registrar cartas no servidor: ${response.status}`);
+          return;
+        }
+        const data = await response.json();
+        console.log('✅ Cartas registradas no servidor:', data);
+
+      } catch (erro) {
+        console.error('❌ Erro ao registrar cartas:', erro);
+      }
+    }
+
+    // Seleciona cartas evitando repetição LOCAL + GLOBAL
+    function selecionarCartasSemRepetir(cartasDaCategoria, globalRecentList) {
+      // local history
+      const localUsed = loadLocalUsedKeys();
+      const localSet = new Set(localUsed);
+
+      // global can be keys or respostas antigas. Vamos tratar como Set de strings.
+      const globalSet = new Set((globalRecentList || []).map(x => String(x)));
+
+      // 1) tenta evitar LOCAL + GLOBAL
+      const bothAvoidSet = new Set([...localSet, ...globalSet]);
+
+      let disponiveis = cartasDaCategoria.filter(c => !bothAvoidSet.has(cardKey(c)));
+
+      // Se o backend ainda estiver usando "resposta", também tenta evitar por resposta
+      // (compatibilidade com seu código antigo)
+      if (disponiveis.length < TOTAL_PERGUNTAS) {
+        const globalAsResposta = new Set((globalRecentList || []).map(x => normalizarTexto(String(x))));
+        disponiveis = cartasDaCategoria.filter(c => {
+          const k = cardKey(c);
+          if (bothAvoidSet.has(k)) return false;
+          const resp = normalizarTexto(c.resposta || '');
+          if (globalAsResposta.has(resp)) return false;
+          return true;
         });
       }
-      setTimeout(()=>processarResposta(acertou),1200);
-    }
 
-    function processarResposta(acertou){
-      const dif = obterDificuldadeCarta(cartaAtualObj);
-      let pontosCarta = 0, bonusMsg='';
-
-      if(acertou){
-        acertos++; sequenciaRapida++;
-        pontosCarta += calcularPontosPorTempo(tempoRestante);
-
-        if(sequenciaRapida>0 && sequenciaRapida%4===0){
-          pontosCarta += 1000;
-          bonusMsg += '<br>🌟 Bônus sequência 4x: +1000';
-          AudioSystem.coinsStars();
-          mostrarPontosAnimados(1000,true);
-        }
-
-        pontos += pontosCarta;
-        if(pontosCarta>=1000) AudioSystem.correctBonus(); else AudioSystem.correct();
-
-        document.getElementById('feedback').className='feedback correto';
-        document.getElementById('feedback').innerHTML=`
-          ✅ <strong>CARTA CONCLUÍDA!</strong><br>
-          Resposta correta: <strong>${cartaAtualObj.resposta}</strong><br>
-          <span style="font-size:1.35rem;color:#FFD700;">+${pontosCarta} pts</span><br>
-          <span style="color:#8E44AD;">🎯 Dificuldade ${dif}/10</span>
-          ${bonusMsg}
-        `;
-      } else {
-        erros++; sequenciaRapida=0; rodadaPerfeita=false; AudioSystem.error();
-        document.getElementById('feedback').className='feedback errado';
-        document.getElementById('feedback').innerHTML=`
-          ❌ <strong>CARTA CONCLUÍDA!</strong><br>
-          Resposta correta: <strong>${cartaAtualObj.resposta}</strong><br>
-          <span style="font-size:1.1rem;color:#D9534F;">+0 pts nesta carta</span>
-        `;
+      // 2) relaxa GLOBAL primeiro se faltar
+      if (disponiveis.length < TOTAL_PERGUNTAS) {
+        console.log('⚠️ Relaxando filtro GLOBAL (mantendo LOCAL)');
+        disponiveis = cartasDaCategoria.filter(c => !localSet.has(cardKey(c)));
       }
 
-      document.getElementById('feedback').style.display='block';
-      perguntaAtual++;
-      faseAtual = Math.min(TOTAL_PERGUNTAS, perguntaAtual + 1);
+      // 3) se ainda faltar, relaxa LOCAL (mantém só as mais recentes como bloqueadas)
+      if (disponiveis.length < TOTAL_PERGUNTAS) {
+        console.log('⚠️ Relaxando filtro LOCAL (mantendo somente parte do histórico)');
+        const keep = Math.min(LOCAL_HISTORY_MIN_KEEP, localUsed.length);
+        const recentLocalSlice = localUsed.slice(Math.max(0, localUsed.length - keep));
+        const recentLocalSet = new Set(recentLocalSlice);
+        disponiveis = cartasDaCategoria.filter(c => !recentLocalSet.has(cardKey(c)));
+      }
 
-      setTimeout(()=>mostrarPergunta(),3000);
+      // 4) se mesmo assim faltar (caso extremo), usa tudo
+      if (disponiveis.length < TOTAL_PERGUNTAS) {
+        console.log('⚠️ Poucas cartas após relaxamentos, usando todas');
+        disponiveis = [...cartasDaCategoria];
+      }
+
+      // ordena por dificuldade e organiza em 10 fases de 10 cartas,
+      // com dificuldade crescente ao longo do jogo.
+      const ordenadasPorDificuldade = [...disponiveis].sort((a, b) => {
+        return obterDificuldadeCarta(a) - obterDificuldadeCarta(b);
+
+      });
+
+      const recorte = ordenadasPorDificuldade.slice(0, TOTAL_PERGUNTAS);
+      const porFase = [];
+      for (let i = 0; i < TOTAL_FASES; i++) {
+        const inicio = i * CARTAS_POR_FASE;
+        const fim = inicio + CARTAS_POR_FASE;
+        const bloco = recorte.slice(inicio, fim);
+        porFase.push(...embaralharAvancado(bloco));
+      }
+
+      return porFase;
     }
 
-    function encerrarPartida(){
-      if(!confirm('Encerrar agora e voltar ao menu inicial?')) return;
-      clearInterval(timerInterval);
-      document.getElementById('tela-jogo').style.display='none';
-      document.getElementById('tela-resultado').style.display='none';
-      document.getElementById('tela-inicial').style.display='block';
+    function obterIndiceFaseAtual() {
+      return Math.min(TOTAL_FASES - 1, Math.floor(perguntaAtual / CARTAS_POR_FASE));
     }
 
-    function mostrarPergunta(){
-      if(perguntaAtual>=cartas.length){ finalizarJogo(); return; }
-      respostaJaSelecionada=false; dicasVisiveis=0;
+    function obterTituloFaseAtual() {
+      return TITULOS_FASE[obterIndiceFaseAtual()] || 'Desafiante';
+    }
+
+    function obterResumoDificuldadeProximaFase(indiceAtual) {
+      const proxima = indiceAtual + 1;
+      if (proxima >= TOTAL_FASES) return 'Última fase concluída!';
+      const inicio = proxima * CARTAS_POR_FASE;
+      const fim = inicio + CARTAS_POR_FASE;
+      const bloco = cartas.slice(inicio, fim);
+      if (!bloco.length) return 'Dificuldade em preparação';
+      const media = bloco.reduce((acc, c) => acc + obterDificuldadeCarta(c), 0) / bloco.length;
+      return `Próxima fase: ${TITULOS_FASE[proxima]} · dificuldade média ${media.toFixed(1)}/10`;
+    }
+
+    function mostrarResumoFase(indiceFaseConcluida) {
+      const normal = pontosNormaisPorFase[indiceFaseConcluida] || 0;
+      const bonus = pontosBonusPorFase[indiceFaseConcluida] || 0;
+      const totalFase = normal + bonus;
+      const frase = obterResumoDificuldadeProximaFase(indiceFaseConcluida);
+      const estrelas = Array.from({length: 18}, (_, i) => {
+        const left = Math.floor(Math.random() * 100);
+        const delay = (Math.random() * 1.5).toFixed(2);
+        const dur = (1.4 + Math.random() * 1.8).toFixed(2);
+        return `<span class="star" style="left:${left}%;animation-delay:${delay}s;animation-duration:${dur}s">⭐</span>`;
+      }).join('');
+
+      document.getElementById('tela-jogo').innerHTML = `
+        <div class="fase-resumo">
+          <div class="stars-rain">${estrelas}</div>
+          <h2>🎉 Fase ${indiceFaseConcluida + 1} concluída!</h2>
+          <div class="fase-sub">${TITULOS_FASE[indiceFaseConcluida]}</div>
+          <div class="fase-grid">
+            <div class="fase-box"><div class="lbl">Pontos normais</div><div class="val">${normal.toLocaleString('pt-BR')}</div></div>
+            <div class="fase-box"><div class="lbl">Pontos bônus</div><div class="val">${bonus.toLocaleString('pt-BR')}</div></div>
+            <div class="fase-box"><div class="lbl">Total da fase</div><div class="val">${totalFase.toLocaleString('pt-BR')}</div></div>
+          </div>
+          <div style="font-weight:800;color:#1F4273;margin-top:4px;">Total geral normal: ${pontosNormaisTotal.toLocaleString('pt-BR')} · bônus: ${pontosBonusTotal.toLocaleString('pt-BR')}</div>
+          <div style="margin-top:8px;color:#7a5a00;font-weight:700;">${frase}</div>
+          <div class="fase-cta">
+            <button class="btn-continue" onclick="continuarProximaFase()">🚀 Vamos em frente!!!</button>
+            <button class="btn btn-secondary" onclick="encerrarPartida()">Sair</button>
+          </div>
+        </div>
+      `;
+      AudioSystem.coinsStars();
+    }
+
+    function continuarProximaFase() {
+      mostrarPergunta();
+    }
+
+    // ============================================
+    // INICIALIZAÇÃO
+    // ============================================
+    window.addEventListener('DOMContentLoaded', () => {
+      const recordePessoal = localStorage.getItem('recordePessoal') || 0;
+      document.getElementById('recorde-pessoal').textContent = recordePessoal;
+      const nomeSalvo = localStorage.getItem('nomeJogador');
+      if (nomeSalvo) {
+        document.getElementById('nome-jogador').value = nomeSalvo;
+      }
+
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', (e) => {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+          e.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, false);
+    });
+
+    // ============================================
+    // INICIAR JOGO
+    // ============================================
+    async function iniciarJogo() {
+      AudioSystem.click();
+      categoria = document.getElementById('categoria').value;
+      nomeJogador = document.getElementById('nome-jogador').value.trim();
+      if (!nomeJogador) {
+        alert('⚠️ Por favor, digite seu nome!');
+        return;
+      }
+
+      localStorage.setItem('nomeJogador', nomeJogador);
+
+      perguntaAtual = 0;
+      pontos = 0;
+      acertos = 0;
+      erros = 0;
+      sequenciaRapida = 0;
+      rodadaPerfeita = true;
+      errosPorFase = Array(TOTAL_FASES).fill(0);
+      pontosNormaisTotal = 0;
+      pontosBonusTotal = 0;
+      pontosNormaisPorFase = Array(TOTAL_FASES).fill(0);
+      pontosBonusPorFase = Array(TOTAL_FASES).fill(0);
+
+      document.getElementById('tela-inicial').style.display = 'none';
+      document.getElementById('tela-jogo').innerHTML = '<div class="loading"><div class="loading-spinner">⏳</div><p>Carregando...</p></div>';
+      document.getElementById('tela-jogo').style.display = 'block';
+
+      try {
+        // BUSCAR cartas da API
+        const response = await fetch(`${API_BASE}/cartas/${categoria}`);
+        if (!response.ok) {
+          throw new Error(`Erro ao buscar cartas (HTTP ${response.status})`);
+        }
+        const data = await response.json();
+
+        if (!data.cartas || data.cartas.length === 0) {
+          throw new Error('Nenhuma carta encontrada para esta categoria');
+        }
+
+        cartasCategoriaAtual = data.cartas;
+
+        // BUSCAR cartas recentes GLOBAIS
+        const cartasRecentesGlobal = await obterCartasRecentesGlobal();
+
+        // Selecionar 10 cartas evitando repetição LOCAL + GLOBAL
+        cartas = selecionarCartasSemRepetir(data.cartas, cartasRecentesGlobal);
+        if (cartas.length < TOTAL_PERGUNTAS) {
+          throw new Error(`Cartas insuficientes para iniciar (mínimo ${TOTAL_PERGUNTAS}).`);
+        }
+        faseAtual = 1;
+
+        console.log('🎲 Cartas selecionadas:', cartas.map(c => c.resposta));
+        console.log('🧩 Keys selecionadas:', cartas.map(c => cardKey(c)));
+
+        mostrarPergunta();
+
+      } catch (erro) {
+        console.error('❌ Erro:', erro);
+        alert(`❌ Erro ao carregar: ${erro.message || 'Tente novamente.'}`);
+        location.reload();
+      }
+    }
+
+    // ============================================
+    // MOSTRAR PERGUNTA
+    // ============================================
+    function mostrarPergunta() {
+      if (perguntaAtual >= cartas.length) {
+        finalizarJogo();
+        return;
+      }
+
+      AudioSystem.newQuestion();
+      respostaJaSelecionada = false;
+      dicasVisiveis = 0;
+
       cartaAtualObj = cartas[perguntaAtual];
-      const dif = obterDificuldadeCarta(cartaAtualObj);
-      const opcoes = embaralhar([cartaAtualObj.resposta, ...gerarOpcoesErradas(cartaAtualObj,3)]);
+      inicioResposta = Date.now();
+      multiplicadorFaseAtual = 1;
+
+      const dificuldadeCarta = obterDificuldadeCarta(cartaAtualObj);
+
+      const opcoesErradas = gerarOpcoesErradas(cartaAtualObj, 3);
+
+      const opcoes = embaralharAvancado([cartaAtualObj.resposta, ...opcoesErradas]);
+
+      const indiceFase = obterIndiceFaseAtual();
+      const tituloFase = obterTituloFaseAtual();
+      const cartaNaFase = (perguntaAtual % CARTAS_POR_FASE) + 1;
 
       document.getElementById('tela-jogo').innerHTML = `
         <div class="pergunta-header">
-          <div class="numero-pergunta">Fase ${faseAtual}/${TOTAL_PERGUNTAS}</div>
-          <div style="display:flex;align-items:center;gap:8px;">
+          <div class="numero-pergunta">Fase ${indiceFase + 1}/${TOTAL_FASES} · ${tituloFase} · Carta ${cartaNaFase}/${CARTAS_POR_FASE}</div>
+          <div style="display:flex; align-items:center; gap:8px;">
             <div class="timer" id="timer">60s</div>
             <button class="btn-exit-mini" onclick="encerrarPartida()">Sair</button>
           </div>
         </div>
 
-        <div class="stats" style="margin-bottom:12px;">
-          <div class="stat-box"><div class="stat-label">Pontos</div><div class="stat-value">${pontos}</div></div>
-          <div class="stat-box"><div class="stat-label">Acertos</div><div class="stat-value">${acertos}/${erros}</div></div>
-          <div class="stat-box"><div class="stat-label">Seq.</div><div class="stat-value">${sequenciaRapida}</div></div>
+        <div class="stats" style="margin-bottom: 12px;">
+          <div class="stat-box">
+            <div class="stat-label">Pontos</div>
+            <div class="stat-value" id="pontos-atuais">${pontos}</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Acertos</div>
+            <div class="stat-value">${acertos}/${erros}</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Seq.</div>
+            <div class="stat-value">${sequenciaRapida}</div>
+          </div>
         </div>
 
         <div class="bonus-container">
-          <div class="bonus-indicator">🎯 Dificuldade: ${dif}/10</div>
-          <div class="super-bonus-indicator">💥 2s = +2000</div>
-          <div class="bonus-indicator">⚡ 3s=+1000 | 10s=+500 | 30s=+200</div>
+          <div class="bonus-indicator" style="border-left-color: #8E44AD;">
+            🎯 Dificuldade: ${dificuldadeCarta}/10
+          </div>
+          <div class="super-bonus-indicator">
+            💥 2s = +2000
+          </div>
+          <div class="bonus-indicator">
+            ⚡ 3s=+1000 | 10s=+500 | 30s=+200
+          </div>
         </div>
 
+        ${sequenciaRapida > 0 ? `
+        <div class="streak-indicator">
+          🔥 Sequência: ${sequenciaRapida}x
+        </div>
+        ` : ''}
+
         <div class="dicas">
-          <div class="dica" id="dica1">${cartaAtualObj.dica1||''}</div>
-          <div class="dica" id="dica2">${cartaAtualObj.dica2||''}</div>
-          <div class="dica" id="dica3">${cartaAtualObj.dica3||''}</div>
+          <div class="dica" id="dica1">${cartaAtualObj.dica1}</div>
+          <div class="dica" id="dica2">${cartaAtualObj.dica2}</div>
+          <div class="dica" id="dica3">${cartaAtualObj.dica3}</div>
           <div class="dica-timer" id="dica-timer">💡 Próxima dica em: <span id="countdown">15s</span></div>
         </div>
 
         <div class="opcoes-container">
-          ${opcoes.map(op=>`<div class="opcao" onclick="selecionarOpcao(this, '${String(op).replace(/'/g,"\\'")}')">${op}</div>`).join('')}
+          ${opcoes.map(opcao => `
+            <div class="opcao" onclick="selecionarOpcao(this, '${opcao.replace(/'/g, "\\'")}')">
+              ${opcao}
+            </div>
+          `).join('')}
         </div>
 
         <div class="feedback" id="feedback"></div>
       `;
 
+      mostrarDica(1);
+
       tempoRestante = TEMPO_POR_PERGUNTA;
       atualizarTimer();
       atualizarDicasPorTempo();
 
-      clearInterval(timerInterval);
-      timerInterval = setInterval(()=>{
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
         tempoRestante--;
         atualizarTimer();
         atualizarDicasPorTempo();
-        if(tempoRestante<=0){
+
+        if (tempoRestante <= 0) {
           clearInterval(timerInterval);
-          if(!respostaJaSelecionada) processarResposta(false);
+          if (dicaTimerInterval) clearInterval(dicaTimerInterval);
+          if (!respostaJaSelecionada) {
+            processarResposta('', false);
+          }
         }
-      },1000);
+      }, 1000);
     }
 
-    async function iniciarJogo(){
-      categoria = document.getElementById('categoria').value;
-      nomeJogador = (document.getElementById('nome-jogador').value||'').trim();
-      if(!nomeJogador){ alert('⚠️ Por favor, digite seu nome!'); return; }
-      localStorage.setItem('nomeJogador', nomeJogador);
-
-      perguntaAtual=0; pontos=0; acertos=0; erros=0; sequenciaRapida=0; rodadaPerfeita=true; faseAtual=1;
-
-      document.getElementById('tela-inicial').style.display='none';
-      document.getElementById('tela-jogo').style.display='block';
-      document.getElementById('tela-jogo').innerHTML='<p>⏳ Carregando...</p>';
-
-      const resp = await fetch(`${API_BASE}/cartas/${categoria}`);
-      const data = await resp.json();
-      cartasCategoriaAtual = Array.isArray(data?.cartas) ? data.cartas : [];
-      if(!cartasCategoriaAtual.length){ alert('Nenhuma carta encontrada.'); location.reload(); return; }
-
-      cartas = embaralhar(cartasCategoriaAtual).slice(0,TOTAL_PERGUNTAS);
-      mostrarPergunta();
+    function mostrarDica(numero) {
+      const dicaEl = document.getElementById(`dica${numero}`);
+      if (dicaEl) {
+        dicaEl.classList.add('visivel');
+        dicasVisiveis = numero;
+        AudioSystem.showHint();
+      }
     }
 
-    async function finalizarJogo(){
-      AudioSystem.gameComplete();
-      if(acertos===TOTAL_PERGUNTAS && rodadaPerfeita){
-        pontos += 2000;
-        AudioSystem.coinsStars();
-        mostrarPontosAnimados(2000,true);
+    function calcularPontosPorTempo(tempoRestanteAtual) {
+      if (tempoRestanteAtual <= 2) return 2000;
+      if (tempoRestanteAtual <= 3) return 1000;
+      if (tempoRestanteAtual <= 10) return 500;
+      if (tempoRestanteAtual <= 30) return 200;
+      return 100;
+    }
+
+    function atualizarDicasPorTempo() {
+      const dicaTimerEl = document.getElementById('dica-timer');
+
+      if (tempoRestante <= 45 && dicasVisiveis < 1) mostrarDica(1);
+      if (tempoRestante <= 30 && dicasVisiveis < 2) mostrarDica(2);
+      if (tempoRestante <= 15 && dicasVisiveis < 3) {
+        mostrarDica(3);
       }
 
-      document.getElementById('tela-jogo').style.display='none';
-      document.getElementById('tela-resultado').style.display='block';
+      if (!dicaTimerEl) return;
+      if (dicasVisiveis >= 3) {
+        dicaTimerEl.textContent = '✅ Todas as dicas reveladas';
+      } else {
+        const proximaMarca = dicasVisiveis === 0 ? 45 : (dicasVisiveis === 1 ? 30 : 15);
+        const faltam = Math.max(0, tempoRestante - proximaMarca);
+        dicaTimerEl.innerHTML = `💡 Próxima dica em: <span id="countdown">${faltam}s</span>`;
+      }
+    }
 
-      document.getElementById('pontuacao-final').textContent = pontos.toLocaleString('pt-BR');
+    function selecionarOpcao(elemento, resposta) {
+      if (respostaJaSelecionada) return;
+
+      AudioSystem.click();
+      respostaJaSelecionada = true;
+      clearInterval(timerInterval);
+      if (dicaTimerInterval) clearInterval(dicaTimerInterval);
+
+      document.querySelectorAll('.opcao').forEach(op => {
+        op.classList.add('desabilitada');
+      });
+
+      const acertou = normalizarTexto(resposta) === normalizarTexto(cartaAtualObj.resposta);
+
+      if (acertou) {
+        elemento.classList.add('correta');
+      } else {
+        elemento.classList.add('errada');
+        document.querySelectorAll('.opcao').forEach(op => {
+          if (normalizarTexto(op.textContent) === normalizarTexto(cartaAtualObj.resposta)) {
+            op.classList.add('correta');
+          }
+        });
+      }
+
+      setTimeout(() => {
+        processarResposta(resposta, acertou);
+      }, 1200);
+    }
+
+    function processarResposta(resposta, acertou) {
+      const dificuldadeCarta = obterDificuldadeCarta(cartaAtualObj);
+      const indiceFaseAtual = obterIndiceFaseAtual();
+      let pontosDaCarta = 0;
+      let pontosNormaisCarta = 0;
+      let pontosBonusCarta = 0;
+      let mensagemBonus = '';
+
+      if (acertou) {
+        acertos++;
+        sequenciaRapida++;
+
+        const pontosTempo = calcularPontosPorTempo(tempoRestante);
+        pontosNormaisCarta += pontosTempo;
+
+        // bônus por sequência de 4 sem errar
+        if (sequenciaRapida > 0 && sequenciaRapida % 4 === 0) {
+          pontosBonusCarta += 1000;
+          mensagemBonus += '<br>🌟 Bônus sequência 4x: +1000';
+          mostrarPontosAnimados(1000, true);
+          AudioSystem.coinsStars();
+        }
+
+        pontosDaCarta = pontosNormaisCarta + pontosBonusCarta;
+        pontos += pontosDaCarta;
+        pontosNormaisTotal += pontosNormaisCarta;
+        pontosBonusTotal += pontosBonusCarta;
+        pontosNormaisPorFase[indiceFaseAtual] += pontosNormaisCarta;
+        pontosBonusPorFase[indiceFaseAtual] += pontosBonusCarta;
+
+        mostrarPontosAnimados(pontosDaCarta, pontosBonusCarta > 0 || pontosDaCarta >= 1000);
+
+        if (pontosBonusCarta > 0 || pontosDaCarta >= 1000) {
+          AudioSystem.correctBonus();
+        } else {
+          AudioSystem.correct();
+        }
+
+        document.getElementById('feedback').className = 'feedback correto';
+        document.getElementById('feedback').innerHTML = `
+          ✅ <strong>CARTA CONCLUÍDA!</strong><br>
+          Resposta correta: <strong>${cartaAtualObj.resposta}</strong><br>
+          <span style="font-size:1.35rem;color:#FFD700;">+${pontosDaCarta} pts</span><br>
+          <span style="color:#8E44AD;">🎯 Dificuldade ${dificuldadeCarta}/10</span>
+          ${mensagemBonus}
+        `;
+      } else {
+        AudioSystem.error();
+        erros++;
+        sequenciaRapida = 0;
+        rodadaPerfeita = false;
+        errosPorFase[obterIndiceFaseAtual()]++;
+
+        document.getElementById('feedback').className = 'feedback errado';
+        document.getElementById('feedback').innerHTML = `
+          ❌ <strong>CARTA CONCLUÍDA!</strong><br>
+          Resposta correta: <strong>${cartaAtualObj.resposta}</strong><br>
+          <span style="font-size:1.1rem; color:#D9534F;">+0 pts nesta carta</span>
+        `;
+      }
+
+      document.getElementById('feedback').style.display = 'block';
+      perguntaAtual++;
+      faseAtual = Math.min(TOTAL_FASES, obterIndiceFaseAtual() + 1);
+
+      // Mostrar resultado da carta por 3s e avançar automaticamente
+      setTimeout(() => {
+        const acabouJogo = perguntaAtual >= TOTAL_PERGUNTAS;
+        const concluiuFase = !acabouJogo && (perguntaAtual % CARTAS_POR_FASE === 0);
+        if (concluiuFase) {
+          mostrarResumoFase((perguntaAtual / CARTAS_POR_FASE) - 1);
+          return;
+        }
+        mostrarPergunta();
+      }, 3000);
+    }
+
+    function encerrarPartida() {
+      const confirmar = confirm('Encerrar agora e voltar ao menu inicial?');
+      if (!confirmar) return;
+
+      if (timerInterval) clearInterval(timerInterval);
+      if (dicaTimerInterval) clearInterval(dicaTimerInterval);
+
+      document.getElementById('tela-jogo').style.display = 'none';
+      document.getElementById('tela-resultado').style.display = 'none';
+      document.getElementById('tela-inicial').style.display = 'block';
+    }
+
+    async function finalizarJogo() {
+      AudioSystem.gameComplete();
+
+      const fasesPerfeitas = errosPorFase.filter(e => e === 0).length;
+      const bonusFasesPerfeitas = fasesPerfeitas * 10000;
+      if (cartas.length >= TOTAL_PERGUNTAS && bonusFasesPerfeitas > 0) {
+        pontos += bonusFasesPerfeitas;
+        pontosBonusTotal += bonusFasesPerfeitas;
+        AudioSystem.coinsStars();
+        mostrarPontosAnimados(bonusFasesPerfeitas, true);
+      }
+
+      document.getElementById('tela-jogo').style.display = 'none';
+      document.getElementById('tela-resultado').style.display = 'block';
+      animarPontuacao(pontos);
+      const precisao = Math.round((acertos / TOTAL_PERGUNTAS) * 100);
       document.getElementById('resumo-acertos').textContent = acertos;
       document.getElementById('resumo-erros').textContent = erros;
-      document.getElementById('resumo-precisao').textContent = `${Math.round((acertos/TOTAL_PERGUNTAS)*100)}%`;
+      document.getElementById('resumo-precisao').textContent = `${precisao}%`;
 
-      if(acertos===TOTAL_PERGUNTAS && rodadaPerfeita){
-        const b=document.createElement('div');
-        b.className='feedback correto';
-        b.style.display='block'; b.style.marginTop='12px';
-        b.innerHTML='🌟 <strong>BÔNUS PERFEITO!</strong><br>+2000 pontos por acertar todas sem errar!';
-        document.getElementById('tela-resultado').appendChild(b);
+      if (cartas.length >= TOTAL_PERGUNTAS && bonusFasesPerfeitas > 0) {
+        const bonusPerfect = document.createElement('div');
+        bonusPerfect.className = 'feedback correto';
+        bonusPerfect.style.display = 'block';
+        bonusPerfect.style.marginTop = '12px';
+        bonusPerfect.innerHTML = `🌟 <strong>BÔNUS DE FASES PERFEITAS!</strong><br>Fases sem erro: ${fasesPerfeitas}/${TOTAL_FASES}<br>+${bonusFasesPerfeitas.toLocaleString('pt-BR')} pontos`;
+        document.getElementById('tela-resultado').appendChild(bonusPerfect);
+      }
+      const recordeAnterior = parseInt(localStorage.getItem('recordePessoal') || 0);
+      if (pontos > recordeAnterior) {
+        localStorage.setItem('recordePessoal', pontos);
+      }
+
+      // ============================
+      // Salvar histórico LOCAL
+      // ============================
+      const usedKeys = cartas.map(c => cardKey(c));
+      appendToLocalHistory(usedKeys);
+
+      // ============================
+      // Registrar no servidor (GLOBAL)
+      // ============================
+      // Envia keys e respostas para manter compatibilidade com backend antigo
+      await registrarCartasUsadasGlobal({
+        cartas: usedKeys, // preferido (keys/ids)
+        respostas: cartas.map(c => c.resposta), // fallback
+        categoria: categoria,
+        jogador: nomeJogador
+      });
+
+      try {
+        await fetch(`${API_BASE}/adicionar`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nome: nomeJogador, pontos: pontos })
+        });
+        await carregarRanking();
+      } catch (erro) {
+        console.error('❌ Erro:', erro);
       }
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const nomeSalvo = localStorage.getItem('nomeJogador');
-      if (nomeSalvo) document.getElementById('nome-jogador').value = nomeSalvo;
-    });
+    function animarPontuacao(pontosFinal) {
+      const elemento = document.getElementById('pontuacao-final');
+      const duracao = 2000;
+      const incremento = pontosFinal / (duracao / 50);
+      let pontoAtual = 0;
+      const intervalo = setInterval(() => {
+        pontoAtual += incremento;
+        if (pontoAtual >= pontosFinal) {
+          pontoAtual = pontosFinal;
+          clearInterval(intervalo);
+        }
+        elemento.textContent = Math.floor(pontoAtual).toLocaleString('pt-BR');
+      }, 50);
+    }
+
+    async function carregarRanking() {
+      try {
+        const response = await fetch(`${API_BASE}/ranking`);
+        const data = await response.json();
+        if (data.ranking && data.ranking.length > 0) {
+          const top5 = data.ranking.slice(0, 5);
+          const podioHTML = top5.map((jogador, index) => {
+            const medalhas = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+            return `
+              <div class="podio-item">
+                <span class="podio-posicao">${medalhas[index]}</span>
+                <span class="podio-nome">${jogador.nome}</span>
+                <span class="podio-pontos">${jogador.pontos.toLocaleString('pt-BR')}</span>
+              </div>
+            `;
+          }).join('');
+          document.getElementById('podio-lista').innerHTML = podioHTML;
+          document.getElementById('podio-container').style.display = 'block';
+        }
+      } catch (erro) {
+        console.error('❌ Erro:', erro);
+      }
+    }
+
+    function atualizarTimer() {
+      const timerEl = document.getElementById('timer');
+      if (timerEl) {
+        timerEl.textContent = `${tempoRestante}s`;
+        if (tempoRestante <= 10) {
+          timerEl.style.color = 'var(--jw-vermelho-erro)';
+        } else {
+          timerEl.style.color = 'var(--jw-laranja)';
+        }
+      }
+    }
+
+    function normalizarTexto(texto) {
+      return String(texto || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+    }
+
+    function embaralhar(array) {
+      return embaralharAvancado(array);
+    }
   </script>
 </body>
 </html>
+
