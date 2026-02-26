@@ -614,8 +614,8 @@
             <td>${j.nivel ?? '-'}</td>
             <td>${fmtData(j.ultimaPartidaEm)}</td>
             <td>
-              <button class="btn-acao" onclick="editarJogador(j.nome, j.pontos ?? 0)">Editar</button>
-              <button class="btn-acao danger" onclick="excluirJogador(j.nome)">Excluir</button>
+              <button class="btn-acao" onclick="editarJogador(${JSON.stringify(j.nome)}, ${Number(j.pontos ?? 0)})">Editar</button>
+              <button class="btn-acao danger" onclick="excluirJogador(${JSON.stringify(j.nome)})">Excluir</button>
             </td>
           </tr>`;
         }
@@ -901,6 +901,7 @@ window.addEventListener('load', () => carregarDadosGeral());
   </script>
 </body>
 </html>
+
 
 
 
