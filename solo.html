@@ -639,8 +639,6 @@
       margin-top: 2px;
     }
 
-    }
-
     .fase-cta {
       margin-top: 12px;
       display: grid;
@@ -1352,6 +1350,51 @@
       return `Próxima fase: ${TITULOS_FASE[proxima]} · dificuldade média ${media.toFixed(1)}/10`;
     }
 
+    // ============================
+    // SALVAR PONTOS DE FASE AO BACKEND
+    // ============================
+    let ultimaSalvamentoPromise = Promise.resolve();
+
+    async function salvarPontosFase(indiceFase) {
+      const pontosNormalFase = pontosNormaisPorFase[indiceFase] || 0;
+      const pontosBonusFase = pontosBonusPorFase[indiceFase] || 0;
+      const totalFase = pontosNormalFase + pontosBonusFase;
+      
+      // Só envia se não for negativo
+      if (totalFase < 0) {
+        console.warn(`⚠️ Pontos negativos na fase ${indiceFase + 1}: ${totalFase}`);
+        return false;
+      }
+
+      try {
+        const response = await fetch(`${API_BASE}/fase-completa`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            nome: nomeJogador,
+            faseNumero: indiceFase + 1,
+            pontosNormal: pontosNormalFase,
+            pontosBonusTotal: pontosBonusFase,
+            pontosTotal: totalFase,
+            categoria: categoria,
+            timestamp: Date.now()
+          })
+        });
+
+        if (!response.ok) {
+          console.error(`❌ Erro ao salvar fase ${indiceFase + 1}: HTTP ${response.status}`);
+          return false;
+        }
+
+        const data = await response.json();
+        console.log(`✅ Fase ${indiceFase + 1} salva com ${totalFase} pontos. Saldo total: ${data.pontosAtuais || 'N/A'}`);
+        return true;
+      } catch (erro) {
+        console.error(`❌ Erro ao registrar fase ${indiceFase + 1}:`, erro);
+        return false;
+      }
+    }
+
     function mostrarResumoFase(indiceFaseConcluida) {
       const normal = pontosNormaisPorFase[indiceFaseConcluida] || 0;
       const bonus = pontosBonusPorFase[indiceFaseConcluida] || 0;
@@ -1383,9 +1426,24 @@
         </div>
       `;
       AudioSystem.coinsStars();
+
+      // Iniciando salvamento da fase em paralelo (não bloqueia a interface)
+      ultimaSalvamentoPromise = salvarPontosFase(indiceFaseConcluida)
+        .then(sucesso => {
+          if (!sucesso) {
+            console.warn(`⚠️ Salvamento da fase ${indiceFaseConcluida + 1} falhou, mas continuando...`);
+          }
+          return sucesso;
+        })
+        .catch(e => {
+          console.error(`❌ Erro crítico ao salvar fase ${indiceFaseConcluida + 1}:`, e);
+          return false;
+        });
     }
 
-    function continuarProximaFase() {
+    async function continuarProximaFase() {
+      // Aguarda o salvamento da fase anterior ser concluído
+      await ultimaSalvamentoPromise;
       mostrarPergunta();
     }
 

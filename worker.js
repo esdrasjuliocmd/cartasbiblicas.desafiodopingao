@@ -312,6 +312,12 @@ export default {
       return stub.fetch(request);
     }
 
+    if (path === '/fase-completa' && request.method === 'POST') {
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(request);
+    }
+
     if (path === '/ranking') {
       const id = env.PontosGlobaisDO.idFromName('pontos-globais');
       const stub = env.PontosGlobaisDO.get(id);
@@ -1337,6 +1343,31 @@ export class PontosGlobaisDO {
       }
     }
 
+    if (path === '/fase-completa' && request.method === 'POST') {
+      try {
+        const body = await request.json();
+        const resultado = await this.adicionarPontosFase(
+          body.nome,
+          body.faseNumero,
+          body.pontosTotal,
+          body.pontosNormal,
+          body.pontosBonusTotal,
+          body.categoria
+        );
+        return new Response(JSON.stringify({ sucesso: true, ...resultado }), {
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      } catch (erro) {
+        return new Response(JSON.stringify({
+          sucesso: false,
+          erro: erro.message || 'Falha ao registrar fase'
+        }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      }
+    }
+
     if (path === '/ranking') {
       const ranking = await this.obterRanking();
       return new Response(JSON.stringify({ ranking }), {
@@ -1463,6 +1494,67 @@ export class PontosGlobaisDO {
       pontosAnteriores: atual,
       pontosAdicionados: pontosNumero,
       pontosAtuais: novo,
+    };
+  }
+
+  async adicionarPontosFase(nome, faseNumero, pontosTotal, pontosNormal, pontosBonusTotal, categoria) {
+    const nomeCanonical = this.obterNomeCanonical(nome);
+    if (!nomeCanonical) {
+      throw new Error('Nome inválido para adicionar pontos de fase');
+    }
+
+    const pontosNumero = Number(pontosTotal);
+    if (!Number.isFinite(pontosNumero) || pontosNumero < 0) {
+      throw new Error('Valor de pontos inválido');
+    }
+
+    // Obtém pontos atuais
+    const atual = await this.obterPontos(nomeCanonical);
+    const novo = atual + pontosNumero;
+
+    // Atualiza os pontos no banco
+    this.sql.exec(
+      'UPDATE jogadores SET pontos = ? WHERE nome = ?',
+      novo,
+      nomeCanonical
+    );
+
+    // Atualiza o nível baseado nos novos pontos totais
+    await this.atualizarNivel(nomeCanonical, novo);
+
+    // Registra o histórico de fase (opcional, para análise posterior)
+    this.sql.exec(
+      `CREATE TABLE IF NOT EXISTS historico_fases (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL,
+        faseNumero INTEGER NOT NULL,
+        pontosNormal INTEGER DEFAULT 0,
+        pontosBonu INTEGER DEFAULT 0,
+        pontosTotal INTEGER DEFAULT 0,
+        categoria TEXT,
+        dataConclusao TEXT DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (nome) REFERENCES jogadores(nome)
+      )`
+    );
+
+    this.sql.exec(
+      `INSERT INTO historico_fases (nome, faseNumero, pontosNormal, pontosBonusTotal, pontosTotal, categoria)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      nomeCanonical,
+      faseNumero,
+      pontosNormal,
+      pontosBonusTotal,
+      pontosNumero,
+      categoria
+    );
+
+    return {
+      nome: nomeCanonical,
+      faseNumero: faseNumero,
+      pontosAnteriores: atual,
+      pontosAdicionados: pontosNumero,
+      pontosAtuais: novo,
+      mensagem: `Fase ${faseNumero} registrada com sucesso`
     };
   }
 
