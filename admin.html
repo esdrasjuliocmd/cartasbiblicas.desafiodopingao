@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -339,7 +339,20 @@
     .badge.ok { border-color: var(--jw-verde-sucesso); }
     .badge.info { border-color: var(--jw-azul-principal); }
     .muted { color: #666; }
-  </style>
+  
+    .btn-acao{
+      background: #4A6DA7;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 800;
+      margin-right: 8px;
+    }
+    .btn-acao:hover{ filter: brightness(0.95); }
+    .btn-acao.danger{ background: #B3261E; }
+</style>
 </head>
 <body>
   <div class="container">
@@ -591,7 +604,7 @@
         }
 
         let html = `<table class="table"><thead><tr>
-          <th>Jogador</th><th>Pontos</th><th>Nível</th><th>Última partida</th>
+          <th>Jogador</th><th>Pontos</th><th>Nível</th><th>Última partida</th><th>Ações</th>
         </tr></thead><tbody>`;
 
         for (const j of jogadores) {
@@ -788,7 +801,92 @@
       }
     }
 
+    
+    // ============================
+    // ADMIN TOKEN (não fica salvo no arquivo)
+    // ============================
+    let ADMIN_TOKEN_CACHE = '';
+
+    function getAdminToken() {
+      if (ADMIN_TOKEN_CACHE && ADMIN_TOKEN_CACHE.length > 0) return ADMIN_TOKEN_CACHE;
+      const t = prompt('Cole o ADMIN_TOKEN para habilitar Editar/Excluir jogadores:');
+      if (!t) return '';
+      ADMIN_TOKEN_CACHE = t.trim();
+      return ADMIN_TOKEN_CACHE;
+    }
+
+    async function editarJogador(nomeAtual, pontosAtual) {
+      const token = getAdminToken();
+      if (!token) { alert('Token não informado.'); return; }
+
+      const novoNome = prompt(Renomear jogador (opcional)\nAtual: \nDeixe em branco para manter:, nomeAtual);
+      if (novoNome === null) return;
+
+      const novoPontosStr = prompt(Alterar pontos\nJogador: \nPontos atuais: \nNovo valor:, String(pontosAtual ?? 0));
+      if (novoPontosStr === null) return;
+
+      const pontos = Number(novoPontosStr);
+      if (!Number.isFinite(pontos) || pontos < 0) {
+        alert('Pontos inválidos. Use um número >= 0');
+        return;
+      }
+
+      try {
+        const enc = encodeURIComponent(nomeAtual);
+        const res = await fetch(${API_BASE}/admin/jogadores/DeleteMe, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'X-Admin-Token': token
+          },
+          body: JSON.stringify({
+            novoNome: (novoNome || '').trim(),
+            pontos
+          })
+        });
+
+        const text = await res.text();
+        let data = {};
+        try { data = JSON.parse(text); } catch {}
+
+        if (!res.ok || !data?.sucesso) throw new Error(data?.erro || HTTP );
+
+        alert('Jogador atualizado!');
+        await carregarJogadoresCompletos();
+      } catch (e) {
+        alert('Erro ao editar: ' + e.message);
+      }
+    }
+
+    async function excluirJogador(nomeAtual) {
+      const token = getAdminToken();
+      if (!token) { alert('Token não informado.'); return; }
+
+      if (!confirm(Excluir jogador e TODOS os dados?\n\n)) return;
+
+      try {
+        const enc = encodeURIComponent(nomeAtual);
+        const res = await fetch(${API_BASE}/admin/jogadores/DeleteMe, {
+          method: 'DELETE',
+          headers: { 'X-Admin-Token': token }
+        });
+
+        const text = await res.text();
+        let data = {};
+        try { data = JSON.parse(text); } catch {}
+
+        if (!res.ok || !data?.sucesso) throw new Error(data?.erro || HTTP );
+
+        alert('Jogador excluído!');
+        await carregarJogadoresCompletos();
+      } catch (e) {
+        alert('Erro ao excluir: ' + e.message);
+      }
+    }
     window.addEventListener('load', () => carregarDadosGeral());
   </script>
 </body>
 </html>
+
+
+

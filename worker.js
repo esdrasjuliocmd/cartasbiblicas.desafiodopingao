@@ -254,6 +254,26 @@ export default {
     // ============================================
     // API REST - ADMIN
     // ============================================
+    // ============================================
+    // API REST - ADMIN (Jogadores) - PROTEGIDO POR TOKEN
+    // Header obrigatório: X-Admin-Token
+    // ============================================
+
+    if (path.startsWith('/admin/jogadores/') && (request.method === 'PUT' || request.method === 'DELETE')) {
+      const token = request.headers.get('X-Admin-Token') || '';
+      if (!env.ADMIN_TOKEN || token !== env.ADMIN_TOKEN) {
+        return new Response(JSON.stringify({ sucesso: false, erro: 'Não autorizado' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+
+      return stub.fetch(new Request("http://internal" + path, request));
+    }
+
     if (path === '/admin/salas') {
       const id = env.PontosGlobaisDO.idFromName('pontos-globais');
       const stub = env.PontosGlobaisDO.get(id);
@@ -1430,7 +1450,78 @@ export class PontosGlobaisDO {
       }
     }
 
-    return new Response('Not Found', { status: 404 });
+    
+    // ============================
+    // ADMIN: Atualizar / Excluir jogador
+    // ============================
+
+    // PUT /admin/jogadores/:nome
+    if (path.startsWith('/admin/jogadores/') && request.method === 'PUT') {
+      try {
+        const nomeAtual = decodeURIComponent(path.split('/')[3] || '').trim();
+        if (!nomeAtual) throw new Error('Nome atual inválido');
+
+        const body = await request.json().catch(() => ({}));
+        const novoNome = typeof body?.novoNome === 'string' ? body.novoNome.trim() : '';
+        const pontos = body?.pontos;
+
+        if (pontos === undefined || pontos === null || pontos === '') throw new Error('Campo \"pontos\" é obrigatório');
+        const pontosNumero = Number(pontos);
+        if (!Number.isFinite(pontosNumero) || pontosNumero < 0) throw new Error('Campo \"pontos\" inválido');
+
+        const existe = this.sql.exec('SELECT nome FROM jogadores WHERE nome = ? LIMIT 1', nomeAtual).toArray();
+        if (existe.length === 0) throw new Error('Jogador não encontrado');
+
+        let nomeFinal = nomeAtual;
+
+        if (novoNome && novoNome !== nomeAtual) {
+          const conflito = this.sql.exec('SELECT nome FROM jogadores WHERE nome = ? LIMIT 1', novoNome).toArray();
+          if (conflito.length > 0) throw new Error('Já existe um jogador com esse novo nome');
+
+          this.sql.exec('UPDATE jogadores SET nome = ? WHERE nome = ?', novoNome, nomeAtual);
+          this.sql.exec('UPDATE historico_fases SET nome = ? WHERE nome = ?', novoNome, nomeAtual);
+          this.sql.exec('UPDATE resgates SET nome = ? WHERE nome = ?', novoNome, nomeAtual);
+
+          nomeFinal = novoNome;
+        }
+
+        this.sql.exec('UPDATE jogadores SET pontos = ? WHERE nome = ?', pontosNumero, nomeFinal);
+        await this.atualizarNivel(nomeFinal, pontosNumero);
+
+        const atualizado = this.sql.exec('SELECT nome, pontos, nivel FROM jogadores WHERE nome = ? LIMIT 1', nomeFinal).toArray()[0];
+
+        return new Response(JSON.stringify({ sucesso: true, jogador: atualizado }), {
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      } catch (erro) {
+        return new Response(JSON.stringify({ sucesso: false, erro: erro.message }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+    }
+
+    // DELETE /admin/jogadores/:nome
+    if (path.startsWith('/admin/jogadores/') && request.method === 'DELETE') {
+      try {
+        const nome = decodeURIComponent(path.split('/')[3] || '').trim();
+        if (!nome) throw new Error('Nome inválido');
+
+        this.sql.exec('DELETE FROM historico_fases WHERE nome = ?', nome);
+        this.sql.exec('DELETE FROM resgates WHERE nome = ?', nome);
+        this.sql.exec('DELETE FROM jogadores WHERE nome = ?', nome);
+
+        return new Response(JSON.stringify({ sucesso: true }), {
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      } catch (erro) {
+        return new Response(JSON.stringify({ sucesso: false, erro: erro.message }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+    }
+return new Response('Not Found', { status: 404 });
   }
 
   async inicializar() {
@@ -1859,3 +1950,5 @@ Desenvolvido com ❤️ para JW.ORG
 // Compatibilidade retroativa para migrations antigas do Durable Object
 // que ainda referenciam a classe PontosBiblicoDO.
 export class PontosBiblicoDO extends PontosGlobaisDO {}
+
+
