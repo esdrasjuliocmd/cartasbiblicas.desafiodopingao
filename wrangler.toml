@@ -17,3 +17,7 @@ class_name = "BancoDadosDO"
 [[durable_objects.bindings]]
 name = "PontosGlobaisDO"
 class_name = "PontosGlobaisDO"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = [ "SalaDO", "SalaCompetitivaDO", "BancoDadosDO", "PontosGlobaisDO" ]
