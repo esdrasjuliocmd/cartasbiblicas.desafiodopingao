@@ -1,252 +1,399 @@
-﻿<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Solo - Cartas Bíblicas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>🎯 Modo Solo - Quem Sou Eu?</title>
   <style>
-    body { font-family: Arial, sans-serif; background:#0f172a; color:#fff; margin:0; }
-    .wrap { max-width:900px; margin:0 auto; padding:20px; }
-    .card { background:#111827; border:1px solid #374151; border-radius:12px; padding:16px; margin-bottom:12px; }
-    .row { display:flex; gap:10px; flex-wrap:wrap; }
-    .pill { background:#1f2937; border:1px solid #374151; border-radius:999px; padding:6px 10px; font-size:12px; }
-    .q { font-size:22px; margin:8px 0 14px; }
-    .opts { display:grid; grid-template-columns:1fr; gap:10px; }
-    .opt { width:100%; text-align:left; padding:12px; border-radius:10px; border:1px solid #4b5563; background:#1f2937; color:#fff; cursor:pointer; }
-    .opt:hover { background:#374151; }
-    .ok { color:#22c55e; font-weight:bold; }
-    .err { color:#ef4444; font-weight:bold; }
-    .muted { opacity:.85; font-size:14px; }
-    .actions { margin-top:12px; display:flex; gap:8px; }
-    button { padding:10px 14px; border:0; border-radius:8px; cursor:pointer; }
-    .primary { background:#2563eb; color:#fff; }
-    .ghost { background:#334155; color:#fff; }
+    :root {
+      --jw-azul-principal: #2E5B93;
+      --jw-azul-escuro: #1F4273;
+      --jw-azul-claro: #5F86BD;
+      --jw-cinza-claro: #E8E8EC;
+      --jw-branco: #FFFFFF;
+      --jw-laranja: #F28C1B;
+      --jw-dourado: #F2B705;
+      --jw-verde-sucesso: #5CB85C;
+      --jw-vermelho-erro: #D9534F;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    body {
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+      background:linear-gradient(135deg,var(--jw-azul-escuro) 0%,var(--jw-azul-principal) 100%);
+      min-height:100vh; display:flex; align-items:center; justify-content:center;
+      padding:10px; overflow-x:hidden; position:fixed; width:100%; height:100%;
+    }
+    .container { max-width:800px; width:100%; position:relative; overflow-y:auto; max-height:100vh; padding:5px; }
+    .card { background:#f1f2f6; border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,.3); padding:15px; margin-bottom:10px; }
+    .header { text-align:center; margin-bottom:20px; }
+    .header h1 { color:var(--jw-azul-escuro); font-size:1.8rem; margin-bottom:10px; }
+    .header p { color:var(--jw-azul-principal); font-size:.95rem; }
+    .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:15px; }
+    .stat-box { background:linear-gradient(135deg,var(--jw-azul-principal),var(--jw-azul-escuro)); color:#fff; padding:10px 6px; border-radius:10px; text-align:center; }
+    .stat-label { font-size:.65rem; opacity:.9; margin-bottom:2px; }
+    .stat-value { font-size:1.2rem; font-weight:bold; }
+    .categoria-select { width:100%; padding:14px; border:3px solid var(--jw-azul-principal); border-radius:10px; font-size:1rem; margin-bottom:12px; background:#fff; color:var(--jw-azul-escuro); }
+    .btn { width:100%; padding:16px; border:none; border-radius:10px; font-size:1.05rem; font-weight:bold; cursor:pointer; text-decoration:none; display:inline-block; text-align:center; }
+    .btn-primary { background:linear-gradient(135deg,var(--jw-azul-principal),var(--jw-azul-escuro)); color:#fff; }
+    .btn-secondary { background:var(--jw-cinza-claro); color:var(--jw-azul-escuro); margin-top:10px; }
+    .pergunta-container { display:none; }
+    .pergunta-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px; }
+    .numero-pergunta { font-size:1rem; color:var(--jw-azul-principal); font-weight:bold; }
+    .timer { font-size:1.5rem; color:var(--jw-laranja); font-weight:bold; min-width:55px; text-align:right; }
+    .bonus-container { display:flex; justify-content:center; align-items:center; gap:5px; margin-bottom:8px; flex-wrap:wrap; }
+    .super-bonus-indicator,.bonus-indicator { color:var(--jw-azul-principal); font-size:.7rem; opacity:.8; }
+    .btn-exit-mini { border:none; border-radius:999px; background:var(--jw-dourado); color:var(--jw-azul-escuro); font-weight:700; font-size:.75rem; padding:6px 10px; cursor:pointer; }
+    .dicas { background:linear-gradient(135deg,#E3F2FD,#BBDEFB); padding:18px; border-radius:15px; margin-bottom:15px; border:3px solid var(--jw-azul-principal); }
+    .dica { font-size:1.2rem; color:var(--jw-azul-escuro); margin-bottom:10px; padding-left:34px; position:relative; display:none; font-weight:700; }
+    .dica.visivel { display:block; }
+    .dica::before { content:"💡"; position:absolute; left:0; top:-2px; }
+    .dica-timer { text-align:center; color:var(--jw-azul-principal); font-weight:700; margin-top:8px; font-size:.9rem; }
+    .opcoes-container { display:grid; gap:10px; }
+    .opcao { background:#fff; border:2px solid #d4d9e4; border-radius:12px; padding:12px; font-size:1.05rem; font-weight:700; color:#1f4273; cursor:pointer; }
+    .opcao.correta { background:#dff6e3; border-color:#5cb85c; }
+    .opcao.errada { background:#ffe2e2; border-color:#d9534f; }
+    .opcao.desabilitada { pointer-events:none; opacity:.8; }
+    .feedback { margin-top:10px; border-radius:12px; padding:12px; display:none; font-weight:700; text-align:center; }
+    .feedback.correto { background:#eaf9ee; color:#1d6b2d; border:1px solid #5cb85c; }
+    .feedback.errado { background:#fff0f0; color:#8e1e1e; border:1px solid #d9534f; }
+    .resultado-final { display:none; text-align:center; }
+    .pontuacao-final { font-size:2.3rem; font-weight:800; color:var(--jw-azul-escuro); margin:12px 0; }
+    .resumo { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:12px 0; }
+    .resumo-item { background:#fff; border-radius:10px; padding:8px; }
+    .resumo-label { color:#5f86bd; font-size:.8rem; }
+    .resumo-valor { color:#1f4273; font-size:1.2rem; font-weight:800; }
+    .podio { margin-top:12px; }
+    .podio-item { display:flex; justify-content:space-between; background:#fff; border-radius:10px; padding:8px; margin-bottom:6px; }
   </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>🎯 Solo - Cartas Bíblicas</h1>
+  <div class="container">
+    <div class="card" id="tela-inicial">
+      <div class="header">
+        <h1>🎯 Modo Solo</h1>
+        <p>Responda 10 perguntas e alcance o topo!</p>
+      </div>
 
-  <div class="card">
-    <div class="row">
-      <div class="pill">Fase <span id="faseTxt">1/10</span></div>
-      <div class="pill">Pontos <span id="pontosTxt">0</span></div>
-      <div class="pill">Dificuldade <span id="difTxt">5</span>/10</div>
-      <div class="pill">Acertos <span id="acertosTxt">0</span></div>
-      <div class="pill">Erros <span id="errosTxt">0</span></div>
+      <div class="stats">
+        <div class="stat-box"><div class="stat-label">Recorde</div><div class="stat-value" id="recorde-pessoal">0</div></div>
+        <div class="stat-box"><div class="stat-label">Perguntas</div><div class="stat-value">10</div></div>
+        <div class="stat-box"><div class="stat-label">Tempo</div><div class="stat-value">60s</div></div>
+      </div>
+
+      <label for="categoria" style="display:block;margin-bottom:8px;color:#1E3A5F;font-weight:bold;">📚 Categoria:</label>
+      <select id="categoria" class="categoria-select">
+        <option value="personagens">👤 Personagens Bíblicos</option>
+        <option value="profecias">📜 Profecias</option>
+        <option value="pregacao">🎤 Pregação</option>
+      </select>
+
+      <label for="nome-jogador" style="display:block;margin-bottom:8px;color:#1E3A5F;font-weight:bold;">✏️ Seu Nome:</label>
+      <input type="text" id="nome-jogador" class="categoria-select" placeholder="Digite seu nome..." autocomplete="name">
+
+      <button class="btn btn-primary" onclick="iniciarJogo()">🚀 Iniciar Jogo</button>
+      <a href="index.html" class="btn btn-secondary">🏠 Voltar ao Menu</a>
+    </div>
+
+    <div class="card pergunta-container" id="tela-jogo"></div>
+
+    <div class="card resultado-final" id="tela-resultado">
+      <div class="header"><h1>🎊 Finalizado!</h1></div>
+      <div class="pontuacao-final" id="pontuacao-final">0</div>
+      <div class="resumo">
+        <div class="resumo-item"><div class="resumo-label">✅ Acertos</div><div class="resumo-valor" id="resumo-acertos">0</div></div>
+        <div class="resumo-item"><div class="resumo-label">❌ Erros</div><div class="resumo-valor" id="resumo-erros">0</div></div>
+        <div class="resumo-item"><div class="resumo-label">🎯 Precisão</div><div class="resumo-valor" id="resumo-precisao">0%</div></div>
+      </div>
+      <div class="podio" id="podio-container" style="display:none;"><h3>🏆 Top 5 Ranking</h3><div id="podio-lista"></div></div>
+      <button class="btn btn-primary" onclick="location.reload()">🔄 Jogar Novamente</button>
+      <a href="index.html" class="btn btn-secondary">🏠 Menu</a>
     </div>
   </div>
 
-  <div class="card">
-    <div class="muted">Dica 1: <span id="d1">-</span></div>
-    <div class="muted">Dica 2: <span id="d2">-</span></div>
-    <div class="muted">Dica 3: <span id="d3">-</span></div>
-    <div class="q">Quem sou eu?</div>
-    <div class="opts" id="opts"></div>
-    <div id="fb" style="margin-top:10px;"></div>
-    <div class="actions">
-      <button class="ghost" id="proxBtn" disabled>Próxima</button>
-      <button class="primary" id="reiniciarBtn">Reiniciar</button>
-    </div>
-  </div>
-</div>
+  <script>
+    const API_BASE = 'https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
+    const TOTAL_PERGUNTAS = 10;
+    const TEMPO_POR_PERGUNTA = 60;
 
-<script>
-(() => {
-  const API = "https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev";
-  const TOTAL_PERGUNTAS = 10;
+    const AudioSystem = {
+      context: null, volume: 0.25,
+      init(){ try{ this.context = new (window.AudioContext || window.webkitAudioContext)(); }catch(e){} },
+      playNote(f,d,t='sine',v=this.volume){ if(!this.context)return; try{ const o=this.context.createOscillator(); const g=this.context.createGain(); o.connect(g); g.connect(this.context.destination); o.frequency.value=f; o.type=t; g.gain.setValueAtTime(v,this.context.currentTime); g.gain.exponentialRampToValueAtTime(0.01,this.context.currentTime+d); o.start(this.context.currentTime); o.stop(this.context.currentTime+d);}catch(e){} },
+      click(){ this.playNote(800,0.08,'sine',0.12); },
+      showHint(){ this.playNote(600,0.08,'sine',0.08); },
+      correct(){ [659.25,783.99,1046.5].forEach((f,i)=>setTimeout(()=>this.playNote(f,0.12,'triangle',0.2),i*80)); },
+      correctBonus(){ [783.99,1046.5,1318.51,1567.98,2093].forEach((f,i)=>setTimeout(()=>this.playNote(f,0.1,'sine',0.25),i*50)); },
+      coinsStars(){ [1046.5,1318.51,1567.98,2093].forEach((f,i)=>setTimeout(()=>this.playNote(f,0.1,'triangle',0.28),i*45)); setTimeout(()=>[659.25,783.99,987.77].forEach((f,i)=>setTimeout(()=>this.playNote(f,0.12,'sine',0.22),i*50)),220); },
+      gameComplete(){ [523.25,659.25,783.99,1046.5,1318.51,1568,2093].forEach((f,i)=>setTimeout(()=>this.playNote(f,0.25,'sine',0.2),i*80)); },
+      error(){ this.playNote(196,0.3,'sawtooth',0.15); }
+    };
+    AudioSystem.init();
 
-  let cartas = [];
-  let usadas = new Set();
-  let perguntaAtual = 1;
-  let pontos = 0;
-  let acertos = 0;
-  let erros = 0;
-  let cartaAtual = null;
-  let travado = false;
+    let cartas = [];
+    let cartasCategoriaAtual = [];
+    let perguntaAtual = 0;
+    let pontos = 0;
+    let acertos = 0;
+    let erros = 0;
+    let timerInterval = null;
+    let tempoRestante = TEMPO_POR_PERGUNTA;
+    let categoria = 'personagens';
+    let nomeJogador = '';
+    let cartaAtualObj = null;
+    let sequenciaRapida = 0;
+    let respostaJaSelecionada = false;
+    let dicasVisiveis = 0;
+    let faseAtual = 1;
+    let rodadaPerfeita = true;
 
-  const $ = (id) => document.getElementById(id);
+    function normalizarTexto(t){ return String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim(); }
+    function embaralhar(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 
-  function normalizarTexto(s) {
-    return String(s || "")
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .trim();
-  }
-
-  function embaralhar(arr) {
-    const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
-
-  function obterDificuldadeCarta(c) {
-    const v = Number(c?.dificuldade);
-    if (Number.isFinite(v)) return Math.max(0, Math.min(10, Math.round(v)));
-    return 5;
-  }
-
-  function detectarGeneroCarta(c) {
-    if (!c) return "neutro";
-
-    const g = normalizarTexto(c.genero || "");
-    if (g === "masculino") return "masculino";
-    if (g === "feminino") return "feminino";
-
-    if (c.masculino === true || c.masculino === 1) return "masculino";
-    if (c.feminino === true || c.feminino === 1) return "feminino";
-
-    // heuristica leve por nome (fallback)
-    const nome = normalizarTexto(c.resposta || "");
-    if (nome.endsWith("a") && !nome.endsWith("ias") && !nome.endsWith("as")) return "feminino";
-    if (nome.endsWith("o")) return "masculino";
-    return "neutro";
-  }
-
-  function gerarOpcoesErradas(correta, qtd = 3) {
-    const respostaCorreta = normalizarTexto(correta?.resposta || "");
-    const generoCorreta = detectarGeneroCarta(correta);
-
-    const candidatos = cartas.filter(c => normalizarTexto(c.resposta) !== respostaCorreta);
-
-    let pool = candidatos;
-    if (generoCorreta !== "neutro") {
-      const coerentes = candidatos.filter(c => detectarGeneroCarta(c) === generoCorreta);
-      const neutros = candidatos.filter(c => detectarGeneroCarta(c) === "neutro");
-      pool = coerentes.length >= qtd ? coerentes : [...coerentes, ...neutros];
-      if (pool.length < qtd) pool = candidatos;
+    function detectarGeneroCarta(c){
+      const g = normalizarTexto(c?.genero || '');
+      if (g === 'masculino') return 'masculino';
+      if (g === 'feminino') return 'feminino';
+      if (c?.masculino === true || c?.masculino === 1) return 'masculino';
+      if (c?.feminino === true || c?.feminino === 1) return 'feminino';
+      const nome = normalizarTexto(c?.resposta || '');
+      if (nome.endsWith('a') && !nome.endsWith('ias') && !nome.endsWith('as')) return 'feminino';
+      if (nome.endsWith('o')) return 'masculino';
+      return 'neutro';
     }
 
-    const out = [];
-    const seen = new Set([respostaCorreta]);
-    for (const c of embaralhar(pool)) {
-      const r = String(c.resposta || "").trim();
-      const k = normalizarTexto(r);
-      if (!r || seen.has(k)) continue;
-      seen.add(k);
-      out.push(r);
-      if (out.length === qtd) break;
+    function gerarOpcoesErradas(correta,qtd=3){
+      const rc = normalizarTexto(correta?.resposta||'');
+      const gc = detectarGeneroCarta(correta);
+      const candidatos = (cartasCategoriaAtual.length?cartasCategoriaAtual:cartas).filter(c=>normalizarTexto(c.resposta)!==rc);
+      let pool = candidatos;
+      if (categoria==='personagens' && gc!=='neutro'){
+        const coerentes = candidatos.filter(c=>detectarGeneroCarta(c)===gc);
+        const neutros = candidatos.filter(c=>detectarGeneroCarta(c)==='neutro');
+        pool = coerentes.length>=qtd ? coerentes : [...coerentes,...neutros];
+        if(pool.length<qtd) pool = candidatos;
+      }
+      const out=[], seen=new Set([rc]);
+      for(const c of embaralhar(pool)){ const r=(c.resposta||'').trim(); const k=normalizarTexto(r); if(!r||seen.has(k))continue; seen.add(k); out.push(r); if(out.length===qtd)break; }
+      if(out.length<qtd){ for(const c of embaralhar(candidatos)){ const r=(c.resposta||'').trim(); const k=normalizarTexto(r); if(!r||seen.has(k))continue; seen.add(k); out.push(r); if(out.length===qtd)break; } }
+      return out;
     }
 
-    // ultimo fallback
-    if (out.length < qtd) {
-      for (const c of embaralhar(candidatos)) {
-        const r = String(c.resposta || "").trim();
-        const k = normalizarTexto(r);
-        if (!r || seen.has(k)) continue;
-        seen.add(k);
-        out.push(r);
-        if (out.length === qtd) break;
+    function obterDificuldadeCarta(c){ const v=Number(c?.dificuldade); return Number.isFinite(v)?Math.max(0,Math.min(10,Math.round(v))):5; }
+    function calcularPontosPorTempo(t){ if(t<=2)return 2000; if(t<=3)return 1000; if(t<=10)return 500; if(t<=30)return 200; return 100; }
+
+    function mostrarPontosAnimados(p,isBonus=false){
+      const e=document.createElement('div');
+      e.textContent = `+${p}`;
+      e.style.position='fixed'; e.style.left='50%'; e.style.top='45%'; e.style.transform='translate(-50%,-50%)';
+      e.style.zIndex='9999'; e.style.fontWeight='900'; e.style.fontSize=isBonus?'2rem':'1.6rem';
+      e.style.color=isBonus?'#F2B705':'#5CB85C'; e.style.transition='all 1.2s ease';
+      document.body.appendChild(e);
+      setTimeout(()=>{ e.style.opacity='0'; e.style.top='30%'; },50);
+      setTimeout(()=>e.remove(),1400);
+    }
+
+    function atualizarTimer(){
+      const t=document.getElementById('timer'); if(!t)return;
+      t.textContent=`${tempoRestante}s`;
+      t.style.color = tempoRestante<=10 ? 'var(--jw-vermelho-erro)' : 'var(--jw-laranja)';
+    }
+
+    function mostrarDica(n){
+      const el=document.getElementById(`dica${n}`);
+      if(el){ el.classList.add('visivel'); dicasVisiveis=n; AudioSystem.showHint(); }
+    }
+
+    function atualizarDicasPorTempo(){
+      const timer=document.getElementById('dica-timer');
+      if(tempoRestante<=45 && dicasVisiveis<1) mostrarDica(1);
+      if(tempoRestante<=30 && dicasVisiveis<2) mostrarDica(2);
+      if(tempoRestante<=15 && dicasVisiveis<3) mostrarDica(3);
+      if(!timer) return;
+      if(dicasVisiveis>=3) timer.textContent='✅ Todas as dicas reveladas';
+      else{
+        const marca = dicasVisiveis===0?45:(dicasVisiveis===1?30:15);
+        timer.innerHTML = `💡 Próxima dica em: <span id="countdown">${Math.max(0,tempoRestante-marca)}s</span>`;
       }
     }
 
-    return out;
-  }
-
-  function atualizarHUD() {
-    $("faseTxt").textContent = `${perguntaAtual}/${TOTAL_PERGUNTAS}`;
-    $("pontosTxt").textContent = pontos;
-    $("acertosTxt").textContent = acertos;
-    $("errosTxt").textContent = erros;
-    $("difTxt").textContent = obterDificuldadeCarta(cartaAtual);
-  }
-
-  function escolherCarta() {
-    const disponiveis = cartas.filter(c => !usadas.has(normalizarTexto(c.resposta)));
-    if (disponiveis.length === 0) {
-      usadas.clear();
-      return escolherCarta();
-    }
-    const c = disponiveis[Math.floor(Math.random() * disponiveis.length)];
-    usadas.add(normalizarTexto(c.resposta));
-    return c;
-  }
-
-  function renderPergunta() {
-    travado = false;
-    $("fb").textContent = "";
-    $("proxBtn").disabled = true;
-
-    cartaAtual = escolherCarta();
-    $("d1").textContent = cartaAtual.dica1 || "-";
-    $("d2").textContent = cartaAtual.dica2 || "-";
-    $("d3").textContent = cartaAtual.dica3 || "-";
-
-    const erradas = gerarOpcoesErradas(cartaAtual, 3);
-    const opcoes = embaralhar([cartaAtual.resposta, ...erradas]);
-
-    $("opts").innerHTML = opcoes.map(op =>
-      `<button class="opt" data-op="${op.replace(/"/g, "&quot;")}">${op}</button>`
-    ).join("");
-
-    for (const btn of $("opts").querySelectorAll(".opt")) {
-      btn.addEventListener("click", () => responder(btn.dataset.op));
+    function selecionarOpcao(el,resposta){
+      if(respostaJaSelecionada) return;
+      respostaJaSelecionada=true; AudioSystem.click();
+      clearInterval(timerInterval);
+      document.querySelectorAll('.opcao').forEach(op=>op.classList.add('desabilitada'));
+      const acertou = normalizarTexto(resposta)===normalizarTexto(cartaAtualObj.resposta);
+      if(acertou){ el.classList.add('correta'); }
+      else{
+        el.classList.add('errada');
+        document.querySelectorAll('.opcao').forEach(op=>{
+          if(normalizarTexto(op.textContent)===normalizarTexto(cartaAtualObj.resposta)) op.classList.add('correta');
+        });
+      }
+      setTimeout(()=>processarResposta(acertou),1200);
     }
 
-    atualizarHUD();
-  }
+    function processarResposta(acertou){
+      const dif = obterDificuldadeCarta(cartaAtualObj);
+      let pontosCarta = 0, bonusMsg='';
 
-  function responder(op) {
-    if (travado) return;
-    travado = true;
+      if(acertou){
+        acertos++; sequenciaRapida++;
+        pontosCarta += calcularPontosPorTempo(tempoRestante);
 
-    const certo = normalizarTexto(op) === normalizarTexto(cartaAtual.resposta);
-    const d = obterDificuldadeCarta(cartaAtual);
+        if(sequenciaRapida>0 && sequenciaRapida%4===0){
+          pontosCarta += 1000;
+          bonusMsg += '<br>🌟 Bônus sequência 4x: +1000';
+          AudioSystem.coinsStars();
+          mostrarPontosAnimados(1000,true);
+        }
 
-    if (certo) {
-      acertos++;
-      pontos += 100 + (d * 20);
-      $("fb").innerHTML = `<span class="ok">✅ Correto! Era ${cartaAtual.resposta}</span>`;
-    } else {
-      erros++;
-      $("fb").innerHTML = `<span class="err">❌ Errado. Era ${cartaAtual.resposta}</span>`;
+        pontos += pontosCarta;
+        if(pontosCarta>=1000) AudioSystem.correctBonus(); else AudioSystem.correct();
+
+        document.getElementById('feedback').className='feedback correto';
+        document.getElementById('feedback').innerHTML=`
+          ✅ <strong>CARTA CONCLUÍDA!</strong><br>
+          Resposta correta: <strong>${cartaAtualObj.resposta}</strong><br>
+          <span style="font-size:1.35rem;color:#FFD700;">+${pontosCarta} pts</span><br>
+          <span style="color:#8E44AD;">🎯 Dificuldade ${dif}/10</span>
+          ${bonusMsg}
+        `;
+      } else {
+        erros++; sequenciaRapida=0; rodadaPerfeita=false; AudioSystem.error();
+        document.getElementById('feedback').className='feedback errado';
+        document.getElementById('feedback').innerHTML=`
+          ❌ <strong>CARTA CONCLUÍDA!</strong><br>
+          Resposta correta: <strong>${cartaAtualObj.resposta}</strong><br>
+          <span style="font-size:1.1rem;color:#D9534F;">+0 pts nesta carta</span>
+        `;
+      }
+
+      document.getElementById('feedback').style.display='block';
+      perguntaAtual++;
+      faseAtual = Math.min(TOTAL_PERGUNTAS, perguntaAtual + 1);
+
+      setTimeout(()=>mostrarPergunta(),3000);
     }
 
-    $("proxBtn").disabled = false;
-    atualizarHUD();
-  }
-
-  function proxima() {
-    if (perguntaAtual >= TOTAL_PERGUNTAS) {
-      $("fb").innerHTML = `<strong>Fim!</strong> Pontos: ${pontos} | Acertos: ${acertos} | Erros: ${erros}`;
-      $("opts").innerHTML = "";
-      $("proxBtn").disabled = true;
-      return;
+    function encerrarPartida(){
+      if(!confirm('Encerrar agora e voltar ao menu inicial?')) return;
+      clearInterval(timerInterval);
+      document.getElementById('tela-jogo').style.display='none';
+      document.getElementById('tela-resultado').style.display='none';
+      document.getElementById('tela-inicial').style.display='block';
     }
-    perguntaAtual++;
-    renderPergunta();
-  }
 
-  function reiniciar() {
-    usadas.clear();
-    perguntaAtual = 1;
-    pontos = 0;
-    acertos = 0;
-    erros = 0;
-    renderPergunta();
-  }
+    function mostrarPergunta(){
+      if(perguntaAtual>=cartas.length){ finalizarJogo(); return; }
+      respostaJaSelecionada=false; dicasVisiveis=0;
+      cartaAtualObj = cartas[perguntaAtual];
+      const dif = obterDificuldadeCarta(cartaAtualObj);
+      const opcoes = embaralhar([cartaAtualObj.resposta, ...gerarOpcoesErradas(cartaAtualObj,3)]);
 
-  async function carregar() {
-    try {
-      const resp = await fetch(`${API}/cartas/personagens`);
+      document.getElementById('tela-jogo').innerHTML = `
+        <div class="pergunta-header">
+          <div class="numero-pergunta">Fase ${faseAtual}/${TOTAL_PERGUNTAS}</div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="timer" id="timer">60s</div>
+            <button class="btn-exit-mini" onclick="encerrarPartida()">Sair</button>
+          </div>
+        </div>
+
+        <div class="stats" style="margin-bottom:12px;">
+          <div class="stat-box"><div class="stat-label">Pontos</div><div class="stat-value">${pontos}</div></div>
+          <div class="stat-box"><div class="stat-label">Acertos</div><div class="stat-value">${acertos}/${erros}</div></div>
+          <div class="stat-box"><div class="stat-label">Seq.</div><div class="stat-value">${sequenciaRapida}</div></div>
+        </div>
+
+        <div class="bonus-container">
+          <div class="bonus-indicator">🎯 Dificuldade: ${dif}/10</div>
+          <div class="super-bonus-indicator">💥 2s = +2000</div>
+          <div class="bonus-indicator">⚡ 3s=+1000 | 10s=+500 | 30s=+200</div>
+        </div>
+
+        <div class="dicas">
+          <div class="dica" id="dica1">${cartaAtualObj.dica1||''}</div>
+          <div class="dica" id="dica2">${cartaAtualObj.dica2||''}</div>
+          <div class="dica" id="dica3">${cartaAtualObj.dica3||''}</div>
+          <div class="dica-timer" id="dica-timer">💡 Próxima dica em: <span id="countdown">15s</span></div>
+        </div>
+
+        <div class="opcoes-container">
+          ${opcoes.map(op=>`<div class="opcao" onclick="selecionarOpcao(this, '${String(op).replace(/'/g,"\\'")}')">${op}</div>`).join('')}
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+      `;
+
+      tempoRestante = TEMPO_POR_PERGUNTA;
+      atualizarTimer();
+      atualizarDicasPorTempo();
+
+      clearInterval(timerInterval);
+      timerInterval = setInterval(()=>{
+        tempoRestante--;
+        atualizarTimer();
+        atualizarDicasPorTempo();
+        if(tempoRestante<=0){
+          clearInterval(timerInterval);
+          if(!respostaJaSelecionada) processarResposta(false);
+        }
+      },1000);
+    }
+
+    async function iniciarJogo(){
+      categoria = document.getElementById('categoria').value;
+      nomeJogador = (document.getElementById('nome-jogador').value||'').trim();
+      if(!nomeJogador){ alert('⚠️ Por favor, digite seu nome!'); return; }
+      localStorage.setItem('nomeJogador', nomeJogador);
+
+      perguntaAtual=0; pontos=0; acertos=0; erros=0; sequenciaRapida=0; rodadaPerfeita=true; faseAtual=1;
+
+      document.getElementById('tela-inicial').style.display='none';
+      document.getElementById('tela-jogo').style.display='block';
+      document.getElementById('tela-jogo').innerHTML='<p>⏳ Carregando...</p>';
+
+      const resp = await fetch(`${API_BASE}/cartas/${categoria}`);
       const data = await resp.json();
-      cartas = Array.isArray(data?.cartas) ? data.cartas : [];
-      if (!cartas.length) throw new Error("Nenhuma carta recebida.");
-      renderPergunta();
-    } catch (e) {
-      $("fb").innerHTML = `<span class="err">Erro ao carregar cartas: ${e.message}</span>`;
+      cartasCategoriaAtual = Array.isArray(data?.cartas) ? data.cartas : [];
+      if(!cartasCategoriaAtual.length){ alert('Nenhuma carta encontrada.'); location.reload(); return; }
+
+      cartas = embaralhar(cartasCategoriaAtual).slice(0,TOTAL_PERGUNTAS);
+      mostrarPergunta();
     }
-  }
 
-  $("proxBtn").addEventListener("click", proxima);
-  $("reiniciarBtn").addEventListener("click", reiniciar);
+    async function finalizarJogo(){
+      AudioSystem.gameComplete();
+      if(acertos===TOTAL_PERGUNTAS && rodadaPerfeita){
+        pontos += 2000;
+        AudioSystem.coinsStars();
+        mostrarPontosAnimados(2000,true);
+      }
 
-  carregar();
-})();
-</script>
+      document.getElementById('tela-jogo').style.display='none';
+      document.getElementById('tela-resultado').style.display='block';
+
+      document.getElementById('pontuacao-final').textContent = pontos.toLocaleString('pt-BR');
+      document.getElementById('resumo-acertos').textContent = acertos;
+      document.getElementById('resumo-erros').textContent = erros;
+      document.getElementById('resumo-precisao').textContent = `${Math.round((acertos/TOTAL_PERGUNTAS)*100)}%`;
+
+      if(acertos===TOTAL_PERGUNTAS && rodadaPerfeita){
+        const b=document.createElement('div');
+        b.className='feedback correto';
+        b.style.display='block'; b.style.marginTop='12px';
+        b.innerHTML='🌟 <strong>BÔNUS PERFEITO!</strong><br>+2000 pontos por acertar todas sem errar!';
+        document.getElementById('tela-resultado').appendChild(b);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const nomeSalvo = localStorage.getItem('nomeJogador');
+      if (nomeSalvo) document.getElementById('nome-jogador').value = nomeSalvo;
+    });
+  </script>
 </body>
 </html>
