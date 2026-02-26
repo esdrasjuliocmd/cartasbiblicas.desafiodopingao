@@ -1,12 +1,8 @@
-// ============================================
+﻿// ============================================
 // QUEM SOU EU? - Backend Cloudflare Workers
 // Sistema Completo: Solo + Multiplayer + Competitivo
 // COM MEMÓRIA GLOBAL DE CARTAS
 // (PATCH) Histórico global padronizado para KEYS (h:/id:)
-// + (PATCH) BancoDadosDO garante retorno de id (migração + fallback rowid)
-// + (PATCH) Admin: índice de salas + endpoints /admin/salas e /admin/jogadores-completos
-// + (PATCH) Admin: snapshot de sala (/admin/sala => DO /__admin_snapshot)
-// + (PATCH) Solo: salvar data/hora da última partida em jogadores.ultimaPartidaEm
 // ============================================
 
 export default {
@@ -39,9 +35,14 @@ export default {
     function normalizarParaKey(valor) {
       const s = String(valor || '').trim();
       if (!s) return '';
+
+      // já é key
       if (s.startsWith('h:') || s.startsWith('id:')) return s;
 
+      // gera key determinística a partir do texto normalizado
       const base = normalizarTexto(s);
+
+      // hash 32-bit simples, determinístico
       let hash = 0;
       for (let i = 0; i < base.length; i++) {
         hash = ((hash << 5) - hash) + base.charCodeAt(i);
@@ -62,6 +63,7 @@ export default {
         })
         .filter(item => item.key);
 
+      // remove duplicados mantendo ordem
       const seen = new Set();
       const dedup = [];
       for (const it of normalizados) {
@@ -70,138 +72,37 @@ export default {
         dedup.push(it);
       }
 
+      // limitar
       return dedup.slice(-100);
-    }
-
-    // =========================================================
-    // ADMIN: índice simples de salas em KV
-    // =========================================================
-    const SALAS_INDEX_KEY = 'salas_index_v1';
-
-    async function getSalasIndex() {
-      try {
-        const raw = await env.SALAS_INDEX_KV.get(SALAS_INDEX_KEY, { type: 'json' });
-        if (raw && Array.isArray(raw.salas)) return raw;
-      } catch (_) {}
-      return { salas: [] };
-    }
-
-    async function putSalasIndex(obj) {
-      await env.SALAS_INDEX_KV.put(SALAS_INDEX_KEY, JSON.stringify(obj));
-    }
-
-    async function registerSalaSeen({ codigo, tipo }) {
-      if (!codigo) return;
-      const now = Date.now();
-      const data = await getSalasIndex();
-
-      const codigoUp = String(codigo).trim().toUpperCase();
-      const t = (tipo || 'casual').toLowerCase();
-
-      const idx = data.salas.findIndex(s => s.codigo === codigoUp && s.tipo === t);
-      if (idx >= 0) {
-        data.salas[idx].ultimaVez = now;
-      } else {
-        data.salas.unshift({
-          codigo: codigoUp,
-          tipo: t,
-          criadaEm: now,
-          ultimaVez: now
-        });
-      }
-
-      data.salas = data.salas.slice(0, 500);
-      await putSalasIndex(data);
-    }
-
-    function json(data, status = 200) {
-      return new Response(JSON.stringify(data), {
-        status,
-        headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
-      });
-    }
-
-    // ============================================
-    // ADMIN: listar salas
-    // ============================================
-    if (path === '/admin/salas' && request.method === 'GET') {
-      if (!env.SALAS_INDEX_KV) {
-        return json({ error: 'KV SALAS_INDEX_KV não configurado no wrangler.toml' }, 500);
-      }
-      const data = await getSalasIndex();
-      return json({ salas: data.salas });
-    }
-
-    // ============================================
-    // ADMIN: snapshot de sala
-    // GET /admin/sala?sala=ABC123&tipo=casual|competitivo
-    // ============================================
-    if (path === '/admin/sala' && request.method === 'GET') {
-      const sala = (url.searchParams.get('sala') || '').trim().toUpperCase();
-      const tipo = (url.searchParams.get('tipo') || 'casual').trim().toLowerCase();
-
-      if (!sala) return json({ error: 'Parâmetro "sala" é obrigatório' }, 400);
-      if (tipo !== 'casual' && tipo !== 'competitivo') return json({ error: 'Parâmetro "tipo" deve ser "casual" ou "competitivo"' }, 400);
-
-      try {
-        const stub = (tipo === 'competitivo')
-          ? env.SALA_COMPETITIVA_DO.get(env.SALA_COMPETITIVA_DO.idFromName(sala))
-          : env.SALA_DO.get(env.SALA_DO.idFromName(sala));
-
-        const res = await stub.fetch(new Request(`http://internal/__admin_snapshot?sala=${encodeURIComponent(sala)}&tipo=${encodeURIComponent(tipo)}`));
-        const text = await res.text().catch(() => '');
-        if (!res.ok) return json({ error: `Snapshot falhou (HTTP ${res.status})`, detail: text }, 502);
-
-        let data;
-        try { data = JSON.parse(text); } catch { data = { raw: text }; }
-        return json({ sala, tipo, snapshot: data });
-      } catch (e) {
-        return json({ error: e.message || 'Erro ao obter snapshot' }, 500);
-      }
-    }
-
-    // ============================================
-    // ADMIN: jogadores com 1+ partida (SOLO)
-    // Baseado no /ranking (que já representa quem ganhou pontos no solo)
-    // ============================================
-    if (path === '/admin/jogadores-completos' && request.method === 'GET') {
-      try {
-        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
-        const res = await env.PontosGlobaisDO.get(id).fetch(new Request('http://internal/ranking'));
-        if (!res.ok) return json({ error: `Falha ao obter ranking (HTTP ${res.status})` }, 502);
-
-        const data = await res.json();
-        const ranking = Array.isArray(data?.ranking) ? data.ranking : [];
-        return json({
-          total: ranking.length,
-          jogadores: ranking.map(j => ({
-            nome: j.nome,
-            pontos: j.pontos,
-            nivel: j.nivel,
-            ultimaPartidaEm: j.ultimaPartidaEm || null
-          }))
-        });
-      } catch (e) {
-        return json({ error: e.message || 'Erro' }, 500);
-      }
     }
 
     // ============================================
     // ROTA: OBTER CARTAS USADAS RECENTEMENTE (GLOBAL)
+    // PADRONIZADO: sempre retorna KEYS (h:/id:)
     // ============================================
     if (path === '/cartas-recentes' && request.method === 'GET') {
       try {
         const historico = await env.CARTAS_STORAGE.get('historico_global', { type: 'json' });
+
         const agora = Date.now();
 
         if (!historico || !historico.cartas) {
-          return new Response(JSON.stringify({ cartas: [], total: 0, timestamp: agora }), {
-            headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          return new Response(JSON.stringify({
+            cartas: [],
+            total: 0,
+            timestamp: agora
+          }), {
+            headers: {
+              'Content-Type': 'application/json; charset=utf-8',
+              ...corsHeaders
+            }
           });
         }
 
+        // migra e filtra automaticamente (1 hora)
         const finalList = migrarHistoricoParaKeys(historico, agora);
 
+        // Atualiza storage com o formato novo (keys)
         await env.CARTAS_STORAGE.put('historico_global', JSON.stringify({
           cartas: finalList,
           atualizado: agora
@@ -212,51 +113,82 @@ export default {
           total: finalList.length,
           timestamp: agora
         }), {
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            ...corsHeaders
+          }
         });
+
       } catch (erro) {
         console.error('Erro ao buscar cartas recentes:', erro);
-        return new Response(JSON.stringify({ cartas: [], erro: erro.message }), {
+        return new Response(JSON.stringify({
+          cartas: [],
+          erro: erro.message
+        }), {
           status: 500,
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            ...corsHeaders
+          }
         });
       }
     }
 
     // ============================================
     // ROTA: REGISTRAR CARTAS USADAS (GLOBAL)
+    // PADRONIZADO: sempre grava KEYS (h:/id:)
     // ============================================
     if (path === '/registrar-cartas' && request.method === 'POST') {
       try {
         const body = await request.json();
 
+        // compat: pode vir "cartas" (antigo) ou "respostas" (fallback)
         const input = Array.isArray(body.cartas) ? body.cartas
           : Array.isArray(body.respostas) ? body.respostas
             : null;
 
         if (!input || !Array.isArray(input)) {
-          return new Response(JSON.stringify({ success: false, erro: 'Formato inválido' }), {
+          return new Response(JSON.stringify({
+            success: false,
+            erro: 'Formato inválido'
+          }), {
             status: 400,
-            headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+            headers: {
+              'Content-Type': 'application/json; charset=utf-8',
+              ...corsHeaders
+            }
           });
         }
 
         const agora = Date.now();
-        const keys = input.map(x => normalizarParaKey(x)).filter(Boolean);
+
+        const keys = input
+          .map(x => normalizarParaKey(x))
+          .filter(Boolean);
 
         if (keys.length === 0) {
-          return new Response(JSON.stringify({ success: false, erro: 'Nenhuma carta válida para registrar' }), {
+          return new Response(JSON.stringify({
+            success: false,
+            erro: 'Nenhuma carta válida para registrar'
+          }), {
             status: 400,
-            headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+            headers: {
+              'Content-Type': 'application/json; charset=utf-8',
+              ...corsHeaders
+            }
           });
         }
 
+        // Buscar histórico atual
         const historico = await env.CARTAS_STORAGE.get('historico_global', { type: 'json' }) || { cartas: [] };
+
+        // Migra histórico existente + adiciona novas keys
         const historicoMigrado = migrarHistoricoParaKeys(historico, agora);
 
         const novasCartas = keys.map(key => ({ key, timestamp: agora }));
         const combinado = [...historicoMigrado, ...novasCartas];
 
+        // remove duplicados mantendo ordem e limita a 100
         const seen = new Set();
         const dedup = [];
         for (const it of combinado) {
@@ -267,6 +199,7 @@ export default {
         }
         const finalList = dedup.slice(-100);
 
+        // Salvar de volta
         await env.CARTAS_STORAGE.put('historico_global', JSON.stringify({
           cartas: finalList,
           atualizado: agora
@@ -279,30 +212,58 @@ export default {
           total_historico: finalList.length,
           registradas: keys.length
         }), {
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            ...corsHeaders
+          }
         });
+
       } catch (erro) {
         console.error('Erro ao registrar cartas:', erro);
-        return new Response(JSON.stringify({ success: false, erro: erro.message }), {
+        return new Response(JSON.stringify({
+          success: false,
+          erro: erro.message
+        }), {
           status: 500,
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            ...corsHeaders
+          }
         });
       }
     }
 
     // ============================================
     // ROTA: LIMPAR HISTÓRICO GLOBAL (ADMIN)
+    // (mantém novo formato)
     // ============================================
     if (path === '/limpar-historico' && request.method === 'POST') {
       try {
-        await env.CARTAS_STORAGE.put('historico_global', JSON.stringify({ cartas: [], atualizado: Date.now() }));
-        return new Response(JSON.stringify({ success: true, mensagem: 'Histórico global limpo com sucesso' }), {
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        await env.CARTAS_STORAGE.put('historico_global', JSON.stringify({
+          cartas: [],
+          atualizado: Date.now()
+        }));
+
+        return new Response(JSON.stringify({
+          success: true,
+          mensagem: 'Histórico global limpo com sucesso'
+        }), {
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            ...corsHeaders
+          }
         });
+
       } catch (erro) {
-        return new Response(JSON.stringify({ success: false, erro: erro.message }), {
+        return new Response(JSON.stringify({
+          success: false,
+          erro: erro.message
+        }), {
           status: 500,
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            ...corsHeaders
+          }
         });
       }
     }
@@ -312,14 +273,13 @@ export default {
     // ============================================
     if (path === '/ws') {
       const sala = url.searchParams.get('sala');
-      if (!sala) return new Response('Sala não especificada', { status: 400 });
-
-      if (env.SALAS_INDEX_KV) {
-        await registerSalaSeen({ codigo: sala, tipo: 'casual' });
+      if (!sala) {
+        return new Response('Sala não especificada', { status: 400 });
       }
 
       const id = env.SALA_DO.idFromName(sala);
-      return env.SALA_DO.get(id).fetch(request);
+      const stub = env.SALA_DO.get(id);
+      return stub.fetch(request);
     }
 
     // ============================================
@@ -327,14 +287,13 @@ export default {
     // ============================================
     if (path === '/ws-competitivo') {
       const sala = url.searchParams.get('sala');
-      if (!sala) return new Response('Sala não especificada', { status: 400 });
-
-      if (env.SALAS_INDEX_KV) {
-        await registerSalaSeen({ codigo: sala, tipo: 'competitivo' });
+      if (!sala) {
+        return new Response('Sala não especificada', { status: 400 });
       }
 
       const id = env.SALA_COMPETITIVA_DO.idFromName(sala);
-      return env.SALA_COMPETITIVA_DO.get(id).fetch(request);
+      const stub = env.SALA_COMPETITIVA_DO.get(id);
+      return stub.fetch(request);
     }
 
     // ============================================
@@ -343,17 +302,20 @@ export default {
     if (path.startsWith('/pontos/')) {
       const nome = decodeURIComponent(path.split('/')[2]);
       const id = env.PontosGlobaisDO.idFromName('pontos-globais');
-      return env.PontosGlobaisDO.get(id).fetch(new Request(`http://internal/pontos/${nome}`));
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(new Request(`http://internal/pontos/${nome}`));
     }
 
     if (path === '/adicionar' && request.method === 'POST') {
       const id = env.PontosGlobaisDO.idFromName('pontos-globais');
-      return env.PontosGlobaisDO.get(id).fetch(request);
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(request);
     }
 
     if (path === '/ranking') {
       const id = env.PontosGlobaisDO.idFromName('pontos-globais');
-      return env.PontosGlobaisDO.get(id).fetch(new Request('http://internal/ranking'));
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(new Request('http://internal/ranking'));
     }
 
     // ============================================
@@ -361,12 +323,15 @@ export default {
     // ============================================
     if (path.endsWith('/popular') && request.method === 'POST' && path.startsWith('/cartas/')) {
       const id = env.BancoDadosDO.idFromName('banco-principal');
-      return env.BancoDadosDO.get(id).fetch(request);
+      const stub = env.BancoDadosDO.get(id);
+      return stub.fetch(request);
     }
 
     if (path.startsWith('/cartas/') && !path.endsWith('/popular')) {
+      const categoria = path.split('/')[2];
       const id = env.BancoDadosDO.idFromName('banco-principal');
-      return env.BancoDadosDO.get(id).fetch(request);
+      const stub = env.BancoDadosDO.get(id);
+      return stub.fetch(request);
     }
 
     // ============================================
@@ -375,25 +340,32 @@ export default {
     if (path.startsWith('/perfil/')) {
       const nome = decodeURIComponent(path.split('/')[2]);
       const id = env.PontosGlobaisDO.idFromName('pontos-globais');
-      return env.PontosGlobaisDO.get(id).fetch(new Request(`http://internal/perfil/${nome}`));
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(new Request(`http://internal/perfil/${nome}`));
     }
 
     if (path === '/loja') {
       const id = env.PontosGlobaisDO.idFromName('pontos-globais');
-      return env.PontosGlobaisDO.get(id).fetch(new Request('http://internal/loja'));
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(new Request('http://internal/loja'));
     }
 
     if (path === '/resgatar' && request.method === 'POST') {
       const id = env.PontosGlobaisDO.idFromName('pontos-globais');
-      return env.PontosGlobaisDO.get(id).fetch(request);
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(request);
     }
 
     if (path.startsWith('/conquistas/')) {
       const nome = decodeURIComponent(path.split('/')[2]);
       const id = env.PontosGlobaisDO.idFromName('pontos-globais');
-      return env.PontosGlobaisDO.get(id).fetch(new Request(`http://internal/conquistas/${nome}`));
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(new Request(`http://internal/conquistas/${nome}`));
     }
 
+    // ============================================
+    // PÁGINA INICIAL
+    // ============================================
     return new Response(paginaInicial(), {
       headers: { 'Content-Type': 'text/plain; charset=utf-8', ...corsHeaders }
     });
@@ -415,29 +387,20 @@ export class SalaDO {
   }
 
   async fetch(request) {
-    const url = new URL(request.url);
-    const path = url.pathname;
-
-    // Snapshot admin via HTTP
-    if (path === '/__admin_snapshot' && request.method === 'GET') {
-      const jogadores = Array.from(this.jogadores.values()).map(j => ({ nome: j.nome, pontos: j.pontos }));
-      return new Response(JSON.stringify({
-        tipo: 'casual',
-        totalJogadores: jogadores.length,
-        jogadores,
-        rodadaAtiva: !!this.rodadaAtiva,
-        cartaAtual: this.cartaAtual ? { resposta: this.cartaAtual.resposta } : null
-      }), { headers: { 'Content-Type': 'application/json; charset=utf-8' } });
-    }
-
     const webSocketPair = new WebSocketPair();
     const [client, server] = Object.values(webSocketPair);
+
     await this.handleSession(server);
-    return new Response(null, { status: 101, webSocket: client });
+
+    return new Response(null, {
+      status: 101,
+      webSocket: client,
+    });
   }
 
   async handleSession(webSocket) {
     webSocket.accept();
+
     const id = Math.random().toString(36).substring(7);
     this.sessions.set(id, { ws: webSocket, nome: null });
 
@@ -454,7 +417,10 @@ export class SalaDO {
       const session = this.sessions.get(id);
       if (session && session.nome) {
         this.jogadores.delete(session.nome);
-        this.broadcast({ tipo: 'jogador_saiu', nome: session.nome });
+        this.broadcast({
+          tipo: 'jogador_saiu',
+          nome: session.nome
+        });
       }
       this.sessions.delete(id);
     });
@@ -489,7 +455,11 @@ export class SalaDO {
         break;
 
       case 'chat':
-        this.broadcast({ tipo: 'chat', nome: data.nome, mensagem: data.mensagem });
+        this.broadcast({
+          tipo: 'chat',
+          nome: data.nome,
+          mensagem: data.mensagem
+        });
         break;
     }
   }
@@ -508,10 +478,16 @@ export class SalaDO {
 
       this.broadcast({
         tipo: 'nova_rodada',
-        carta: { dica1: this.cartaAtual.dica1, dica2: this.cartaAtual.dica2, dica3: this.cartaAtual.dica3 }
+        carta: {
+          dica1: this.cartaAtual.dica1,
+          dica2: this.cartaAtual.dica2,
+          dica3: this.cartaAtual.dica3
+        }
       });
 
-      setTimeout(() => this.finalizarRodada(), 60000);
+      setTimeout(() => {
+        this.finalizarRodada();
+      }, 60000);
     }
   }
 
@@ -530,24 +506,42 @@ export class SalaDO {
     this.respostas.set(nome, { acertou, pontos });
 
     const jogador = this.jogadores.get(nome);
-    if (jogador) jogador.pontos += pontos;
+    if (jogador) {
+      jogador.pontos += pontos;
+    }
 
-    this.broadcast({ tipo: 'resposta_registrada', nome, acertou, pontos });
+    this.broadcast({
+      tipo: 'resposta_registrada',
+      nome: nome,
+      acertou: acertou,
+      pontos: pontos
+    });
   }
 
   finalizarRodada() {
     this.rodadaAtiva = false;
-    this.broadcast({ tipo: 'fim_rodada', respostaCorreta: this.cartaAtual.resposta });
+
+    this.broadcast({
+      tipo: 'fim_rodada',
+      respostaCorreta: this.cartaAtual.resposta
+    });
   }
 
   normalizarTexto(texto) {
-    return texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+    return texto.toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .trim();
   }
 
   broadcast(message) {
     const msg = JSON.stringify(message);
-    for (const session of this.sessions.values()) {
-      try { session.ws.send(msg); } catch (e) { console.error('Erro ao enviar mensagem:', e); }
+    for (const [id, session] of this.sessions.entries()) {
+      try {
+        session.ws.send(msg);
+      } catch (e) {
+        console.error('Erro ao enviar mensagem:', e);
+      }
     }
   }
 }
@@ -577,43 +571,20 @@ export class SalaCompetitivaDO {
   }
 
   async fetch(request) {
-    const url = new URL(request.url);
-    const path = url.pathname;
-
-    // Snapshot admin via HTTP
-    if (path === '/__admin_snapshot' && request.method === 'GET') {
-      const jogadores = Array.from(this.jogadores.values()).map(j => ({
-        nome: j.nome,
-        pontos: j.pontos,
-        sala: j.sala,
-        host: !!j.host,
-        pulandoAte: j.pulandoAte ?? null
-      }));
-
-      return new Response(JSON.stringify({
-        tipo: 'competitivo',
-        estadoSala: this.estadoSala,
-        categoria: this.categoria,
-        rodadaAtual: this.rodadaAtual,
-        totalRodadas: this.totalRodadas,
-        host: this.host,
-        totalJogadores: jogadores.length,
-        jogadores,
-        salaA: Array.from(this.salaA),
-        salaB: Array.from(this.salaB),
-        resgatesRealizados: this.resgatesRealizados,
-        inicioJogo: this.inicioJogo
-      }), { headers: { 'Content-Type': 'application/json; charset=utf-8' } });
-    }
-
     const webSocketPair = new WebSocketPair();
     const [client, server] = Object.values(webSocketPair);
+
     await this.handleSession(server);
-    return new Response(null, { status: 101, webSocket: client });
+
+    return new Response(null, {
+      status: 101,
+      webSocket: client,
+    });
   }
 
   async handleSession(webSocket) {
     webSocket.accept();
+
     const id = Math.random().toString(36).substring(7);
     this.sessions.set(id, { ws: webSocket, nome: null });
 
@@ -628,7 +599,9 @@ export class SalaCompetitivaDO {
 
     webSocket.addEventListener('close', () => {
       const session = this.sessions.get(id);
-      if (session && session.nome) this.removerJogador(session.nome);
+      if (session && session.nome) {
+        this.removerJogador(session.nome);
+      }
       this.sessions.delete(id);
     });
   }
@@ -641,9 +614,18 @@ export class SalaCompetitivaDO {
       case 'entrar':
         session.nome = nome;
 
-        if (!this.host) this.host = nome;
+        if (!this.host) {
+          this.host = nome;
+        }
 
-        this.jogadores.set(nome, { nome, pontos: 0, sala: 'A', host: nome === this.host, pulandoAte: null });
+        this.jogadores.set(nome, {
+          nome: nome,
+          pontos: 0,
+          sala: 'A',
+          host: nome === this.host,
+          pulandoAte: null
+        });
+
         this.salaA.add(nome);
 
         session.ws.send(JSON.stringify({
@@ -652,11 +634,21 @@ export class SalaCompetitivaDO {
           host: this.host
         }));
 
-        this.broadcast({ tipo: 'jogador_entrou', nome, jogadores: Array.from(this.jogadores.values()) });
+        this.broadcast({
+          tipo: 'jogador_entrou',
+          nome: nome,
+          jogadores: Array.from(this.jogadores.values())
+        });
         break;
 
       case 'iniciar_jogo':
-        if (nome === this.host) await this.iniciarJogo(data.categoria);
+        console.log('📨 [COMPETITIVO] Recebido iniciar_jogo de:', nome, 'HOST:', this.host);
+        if (nome === this.host) {
+          console.log('✅ [COMPETITIVO] HOST confirmado, iniciando jogo...');
+          await this.iniciarJogo(data.categoria);
+        } else {
+          console.log('❌ [COMPETITIVO] Jogador não é HOST, ignorando');
+        }
         break;
 
       case 'responder':
@@ -668,16 +660,25 @@ export class SalaCompetitivaDO {
         break;
 
       case 'continuar_jogo':
-        if (nome === this.host) await this.continuarJogo();
+        if (nome === this.host) {
+          await this.continuarJogo();
+        }
         break;
 
       case 'chat':
-        this.broadcast({ tipo: 'chat', nome, mensagem: data.mensagem });
+        this.broadcast({
+          tipo: 'chat',
+          nome: nome,
+          mensagem: data.mensagem
+        });
         break;
     }
   }
 
   async iniciarJogo(categoria) {
+    console.log('🎮 [COMPETITIVO] Iniciando jogo - Categoria:', categoria);
+    console.log('🎮 [COMPETITIVO] Total de jogadores:', this.jogadores.size);
+
     this.categoria = categoria;
     this.estadoSala = 'jogo';
     this.rodadaAtual = 0;
@@ -686,8 +687,15 @@ export class SalaCompetitivaDO {
     const totalJogadores = this.jogadores.size;
     this.totalRodadas = this.calcularTotalRodadas(totalJogadores);
 
-    this.broadcast({ tipo: 'jogo_iniciado', totalRodadas: this.totalRodadas, categoria: this.categoria });
-    setTimeout(() => this.proximaRodada(), 2000);
+    this.broadcast({
+      tipo: 'jogo_iniciado',
+      totalRodadas: this.totalRodadas,
+      categoria: this.categoria
+    });
+
+    setTimeout(() => {
+      this.proximaRodada();
+    }, 2000);
   }
 
   calcularTotalRodadas(total) {
@@ -699,6 +707,8 @@ export class SalaCompetitivaDO {
   }
 
   async proximaRodada() {
+    console.log('🔄 [COMPETITIVO] Iniciando rodada:', this.rodadaAtual + 1);
+
     this.rodadaAtual++;
     this.rodadaAtiva = true;
     this.respostas.clear();
@@ -720,7 +730,10 @@ export class SalaCompetitivaDO {
       for (const [nome, jogador] of this.jogadores.entries()) {
         if (jogador.pulandoAte && this.rodadaAtual <= jogador.pulandoAte) {
           jogadoresPulando.push(nome);
-          if (this.rodadaAtual === jogador.pulandoAte) jogador.pulandoAte = null;
+
+          if (this.rodadaAtual === jogador.pulandoAte) {
+            jogador.pulandoAte = null;
+          }
         }
       }
 
@@ -729,21 +742,37 @@ export class SalaCompetitivaDO {
       this.broadcast({
         tipo: 'nova_rodada',
         rodada: this.rodadaAtual,
-        carta: { dica1: this.cartaAtual.dica1, dica2: this.cartaAtual.dica2, dica3: this.cartaAtual.dica3, resposta: this.cartaAtual.resposta },
-        proximaEliminacao,
-        jogadoresPulando
+        carta: {
+          dica1: this.cartaAtual.dica1,
+          dica2: this.cartaAtual.dica2,
+          dica3: this.cartaAtual.dica3,
+          resposta: this.cartaAtual.resposta
+        },
+        proximaEliminacao: proximaEliminacao,
+        jogadoresPulando: jogadoresPulando
       });
 
-      if (this.timerRodada) clearTimeout(this.timerRodada);
-      this.timerRodada = setTimeout(() => { if (this.rodadaAtiva) this.finalizarRodada(); }, 60000);
+      if (this.timerRodada) {
+        clearTimeout(this.timerRodada);
+      }
+
+      this.timerRodada = setTimeout(() => {
+        if (this.rodadaAtiva) {
+          console.log('⏰ [COMPETITIVO] Tempo esgotado! Finalizando rodada...');
+          this.finalizarRodada();
+        }
+      }, 60000);
     }
   }
 
-  verificarEliminacao() { return [5, 9, 13, 17].includes(this.rodadaAtual); }
+  verificarEliminacao() {
+    return [5, 9, 13, 17].includes(this.rodadaAtual);
+  }
 
   getProximaEliminacao() {
     const rodadasEliminacao = [5, 9, 13, 17];
     const proxima = rodadasEliminacao.find(r => r > this.rodadaAtual);
+
     if (!proxima) return null;
 
     const jogadoresRestantes = this.salaA.size;
@@ -759,7 +788,10 @@ export class SalaCompetitivaDO {
 
   async processarResposta(nome, resposta, tempo) {
     const jogador = this.jogadores.get(nome);
-    if (!jogador || jogador.sala !== 'A' || this.respostas.has(nome)) return;
+
+    if (!jogador || jogador.sala !== 'A' || this.respostas.has(nome)) {
+      return;
+    }
 
     const acertou = this.normalizarTexto(resposta) === this.normalizarTexto(this.cartaAtual.resposta);
 
@@ -773,46 +805,86 @@ export class SalaCompetitivaDO {
     this.respostas.set(nome, { acertou, pontos });
     jogador.pontos += pontos;
 
-    this.broadcast({ tipo: 'resposta_registrada', nome, acertou, pontos });
-
-    const jogadoresSalaA = Array.from(this.salaA);
-    const jogadoresAtivos = jogadoresSalaA.filter(n => {
-      const jog = this.jogadores.get(n);
-      return jog && !(jog.pulandoAte && this.rodadaAtual <= jog.pulandoAte);
+    this.broadcast({
+      tipo: 'resposta_registrada',
+      nome: nome,
+      acertou: acertou,
+      pontos: pontos
     });
 
-    const todosResponderam = jogadoresAtivos.every(n => this.respostas.has(n));
+    const jogadoresSalaA = Array.from(this.salaA);
+    const jogadoresAtivos = jogadoresSalaA.filter(nomeJogador => {
+      const jog = this.jogadores.get(nomeJogador);
+      return jog && !(jog.pulandoAte && this.rodadaAtual <= jog.pulandoAte);
+    });
+    const todosResponderam = jogadoresAtivos.every(nomeJogador => {
+      return this.respostas.has(nomeJogador);
+    });
+
     if (todosResponderam && this.rodadaAtiva) {
-      if (this.timerRodada) clearTimeout(this.timerRodada);
-      setTimeout(() => { if (this.rodadaAtiva) this.finalizarRodada(); }, 2000);
+      console.log('✅ [COMPETITIVO] Todos da Sala A responderam! Finalizando em 2s...');
+
+      if (this.timerRodada) {
+        clearTimeout(this.timerRodada);
+      }
+
+      setTimeout(() => {
+        if (this.rodadaAtiva) {
+          this.finalizarRodada();
+        }
+      }, 2000);
     }
   }
 
   async finalizarRodada() {
-    if (!this.rodadaAtiva) return;
+    if (!this.rodadaAtiva) {
+      console.log('⚠️ [COMPETITIVO] Rodada já finalizada, ignorando...');
+      return;
+    }
+
+    console.log('🏁 [COMPETITIVO] Finalizando rodada', this.rodadaAtual);
+
     this.rodadaAtiva = false;
 
-    if (this.timerRodada) { clearTimeout(this.timerRodada); this.timerRodada = null; }
+    if (this.timerRodada) {
+      clearTimeout(this.timerRodada);
+      this.timerRodada = null;
+    }
 
-    this.broadcast({ tipo: 'fim_rodada', respostaCorreta: this.cartaAtual.resposta });
+    this.broadcast({
+      tipo: 'fim_rodada',
+      respostaCorreta: this.cartaAtual.resposta
+    });
 
-    if (this.verificarEliminacao()) await this.eliminarJogadores();
+    if (this.verificarEliminacao()) {
+      await this.eliminarJogadores();
+    }
 
     if (this.rodadaAtual >= this.totalRodadas) {
-      setTimeout(() => this.finalizarJogo(), 3000);
+      setTimeout(() => {
+        this.finalizarJogo();
+      }, 3000);
       return;
     }
 
     if (this.rodadaAtual % 4 === 0 && this.rodadaAtual < this.totalRodadas) {
-      setTimeout(() => this.iniciarSalaConversa(), 3000);
+      setTimeout(() => {
+        this.iniciarSalaConversa();
+      }, 3000);
     } else {
-      setTimeout(() => this.proximaRodada(), 3000);
+      setTimeout(() => {
+        this.proximaRodada();
+      }, 3000);
     }
   }
 
   async eliminarJogadores() {
     const quantidade = this.calcularQuantidadeEliminacao();
-    const jogadoresSalaA = Array.from(this.salaA).map(nome => this.jogadores.get(nome)).sort((a, b) => a.pontos - b.pontos);
+
+    const jogadoresSalaA = Array.from(this.salaA)
+      .map(nome => this.jogadores.get(nome))
+      .sort((a, b) => a.pontos - b.pontos);
+
     const eliminados = jogadoresSalaA.slice(0, quantidade);
 
     for (const jogador of eliminados) {
@@ -824,23 +896,33 @@ export class SalaCompetitivaDO {
     this.broadcast({
       tipo: 'eliminacao',
       eliminados: eliminados.map(j => j.nome),
-      salaA: Array.from(this.salaA).map(nome => ({ nome, pontos: this.jogadores.get(nome).pontos })),
-      salaB: Array.from(this.salaB).map(nome => ({ nome, pontos: this.jogadores.get(nome).pontos }))
+      salaA: Array.from(this.salaA).map(nome => {
+        const j = this.jogadores.get(nome);
+        return { nome: j.nome, pontos: j.pontos };
+      }),
+      salaB: Array.from(this.salaB).map(nome => {
+        const j = this.jogadores.get(nome);
+        return { nome: j.nome, pontos: j.pontos };
+      })
     });
   }
 
   calcularQuantidadeEliminacao() {
     const total = this.salaA.size;
+
     if (this.rodadaAtual === 5) return Math.max(1, Math.floor(total * 0.2));
     if (this.rodadaAtual === 9) return Math.max(1, Math.floor(total * 0.3));
     if (this.rodadaAtual === 13) return Math.max(1, Math.floor(total * 0.4));
     if (this.rodadaAtual === 17) return Math.max(1, Math.floor(total * 0.5));
+
     return 1;
   }
 
   async iniciarSalaConversa() {
     this.estadoSala = 'conversa';
+
     const proximaEliminacao = this.getProximaEliminacao();
+
     this.broadcast({
       tipo: 'sala_conversa',
       salaA: Array.from(this.salaA).map(nome => {
@@ -851,13 +933,14 @@ export class SalaCompetitivaDO {
         const j = this.jogadores.get(nome);
         return { nome: j.nome, pontos: j.pontos };
       }),
-      proximaEliminacao
+      proximaEliminacao: proximaEliminacao
     });
   }
 
   async processarResgate(nomeResgatador, nomeResgatado) {
     const resgatador = this.jogadores.get(nomeResgatador);
     const resgatado = this.jogadores.get(nomeResgatado);
+
     if (!resgatador || !resgatado) return;
     if (resgatador.sala !== 'A' || resgatado.sala !== 'B') return;
     if (resgatador.pontos < 5) return;
@@ -870,6 +953,7 @@ export class SalaCompetitivaDO {
     this.salaA.add(nomeResgatado);
 
     this.resgatesRealizados++;
+
     const proximaEliminacao = this.getProximaEliminacao();
 
     this.broadcast({
@@ -884,25 +968,38 @@ export class SalaCompetitivaDO {
         const j = this.jogadores.get(nome);
         return { nome: j.nome, pontos: j.pontos };
       }),
-      proximaEliminacao
+      proximaEliminacao: proximaEliminacao
     });
   }
 
   async continuarJogo() {
     this.estadoSala = 'jogo';
-    this.broadcast({ tipo: 'continuar_jogo' });
-    setTimeout(() => this.proximaRodada(), 2000);
+
+    this.broadcast({
+      tipo: 'continuar_jogo'
+    });
+
+    setTimeout(() => {
+      this.proximaRodada();
+    }, 2000);
   }
 
   finalizarJogo() {
     this.estadoSala = 'final';
+
     const duracao = this.inicioJogo ? Math.floor((Date.now() - this.inicioJogo) / 60000) : 0;
 
     this.broadcast({
       tipo: 'fim_jogo',
       totalRodadas: this.totalRodadas,
-      salaA: Array.from(this.salaA).map(nome => ({ nome, pontos: this.jogadores.get(nome).pontos })).sort((a, b) => b.pontos - a.pontos),
-      salaB: Array.from(this.salaB).map(nome => ({ nome, pontos: this.jogadores.get(nome).pontos })).sort((a, b) => b.pontos - a.pontos),
+      salaA: Array.from(this.salaA).map(nome => {
+        const j = this.jogadores.get(nome);
+        return { nome: j.nome, pontos: j.pontos };
+      }).sort((a, b) => b.pontos - a.pontos),
+      salaB: Array.from(this.salaB).map(nome => {
+        const j = this.jogadores.get(nome);
+        return { nome: j.nome, pontos: j.pontos };
+      }).sort((a, b) => b.pontos - a.pontos),
       categoria: this.categoria,
       duracao: `${duracao} minutos`,
       resgatesRealizados: this.resgatesRealizados
@@ -921,21 +1018,36 @@ export class SalaCompetitivaDO {
       if (this.host) {
         const novoHost = this.jogadores.get(this.host);
         if (novoHost) novoHost.host = true;
-        this.broadcast({ tipo: 'host_mudou', novoHost: this.host, jogadores: Array.from(this.jogadores.values()) });
+
+        this.broadcast({
+          tipo: 'host_mudou',
+          novoHost: this.host,
+          jogadores: Array.from(this.jogadores.values())
+        });
       }
     }
 
-    this.broadcast({ tipo: 'jogador_saiu', nome });
+    this.broadcast({
+      tipo: 'jogador_saiu',
+      nome: nome
+    });
   }
 
   normalizarTexto(texto) {
-    return texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+    return texto.toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .trim();
   }
 
   broadcast(message) {
     const msg = JSON.stringify(message);
-    for (const session of this.sessions.values()) {
-      try { session.ws.send(msg); } catch (e) { console.error('Erro ao enviar mensagem:', e); }
+    for (const [id, session] of this.sessions.entries()) {
+      try {
+        session.ws.send(msg);
+      } catch (e) {
+        console.error('Erro ao enviar mensagem:', e);
+      }
     }
   }
 }
@@ -970,12 +1082,39 @@ export class BancoDadosDO {
     }
 
     if (path.endsWith('/popular') && request.method === 'POST') {
-      const categoria = path.split('/')[2];
-      const body = await request.json();
-      await this.popularCartas(categoria, body.cartas);
-      return new Response(JSON.stringify({ sucesso: true }), {
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
+      try {
+        const categoria = path.split('/')[2];
+        const body = await request.json();
+
+        if (!body || !Array.isArray(body.cartas)) {
+          return new Response(JSON.stringify({
+            sucesso: false,
+            erro: 'Payload inválido: esperado objeto com array "cartas"'
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...corsHeaders }
+          });
+        }
+
+        const resultado = await this.popularCartas(categoria, body.cartas);
+
+        return new Response(JSON.stringify({
+          sucesso: true,
+          categoria,
+          inseridas: resultado.inseridas,
+          ignoradas: resultado.ignoradas
+        }), {
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      } catch (erro) {
+        return new Response(JSON.stringify({
+          sucesso: false,
+          erro: erro?.message || 'Erro ao popular cartas'
+        }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      }
     }
 
     if (path.startsWith('/cartas/') && !path.endsWith('/popular')) {
@@ -997,74 +1136,94 @@ export class BancoDadosDO {
         dica1 TEXT NOT NULL,
         dica2 TEXT NOT NULL,
         dica3 TEXT NOT NULL,
-        resposta TEXT NOT NULL
+        resposta TEXT NOT NULL,
+        genero TEXT,
+        masculino INTEGER DEFAULT 0,
+        feminino INTEGER DEFAULT 0,
+        dificuldade INTEGER DEFAULT 5
       )
     `);
 
-    try {
-      const cols = this.sql.exec(`PRAGMA table_info(cartas)`).toArray();
-      const hasId = cols.some(c => String(c.name).toLowerCase() === 'id');
-
-      if (!hasId) {
-        this.sql.exec(`
-          CREATE TABLE IF NOT EXISTS cartas_new (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            categoria TEXT NOT NULL,
-            dica1 TEXT NOT NULL,
-            dica2 TEXT NOT NULL,
-            dica3 TEXT NOT NULL,
-            resposta TEXT NOT NULL
-          )
-        `);
-
-        this.sql.exec(`
-          INSERT INTO cartas_new (categoria, dica1, dica2, dica3, resposta)
-          SELECT categoria, dica1, dica2, dica3, resposta FROM cartas
-        `);
-
-        this.sql.exec(`DROP TABLE cartas`);
-        this.sql.exec(`ALTER TABLE cartas_new RENAME TO cartas`);
-
-        console.log('✅ [BancoDadosDO] Migração aplicada: adicionada coluna id');
-      }
-    } catch (e) {
-      console.log('⚠️ [BancoDadosDO] Falha ao checar/migrar schema:', e?.message || e);
-    }
+    const colunas = this.sql.exec('PRAGMA table_info(cartas)').toArray().map(c => c.name);
+    if (!colunas.includes('genero')) this.sql.exec('ALTER TABLE cartas ADD COLUMN genero TEXT');
+    if (!colunas.includes('masculino')) this.sql.exec('ALTER TABLE cartas ADD COLUMN masculino INTEGER DEFAULT 0');
+    if (!colunas.includes('feminino')) this.sql.exec('ALTER TABLE cartas ADD COLUMN feminino INTEGER DEFAULT 0');
+    if (!colunas.includes('dificuldade')) this.sql.exec('ALTER TABLE cartas ADD COLUMN dificuldade INTEGER DEFAULT 5');
 
     const count = this.sql.exec('SELECT COUNT(*) as total FROM cartas').toArray()[0].total;
+
     if (count === 0) {
       await this.popularCartasPadrao();
     }
   }
 
   async obterCartas(categoria) {
-    try {
-      return this.sql.exec(
-        'SELECT id, dica1, dica2, dica3, resposta FROM cartas WHERE categoria = ?',
-        categoria
-      ).toArray();
-    } catch (e) {
-      console.log('⚠️ [BancoDadosDO] SELECT com id falhou, usando rowid. Erro:', e?.message || e);
-      return this.sql.exec(
-        'SELECT rowid as id, dica1, dica2, dica3, resposta FROM cartas WHERE categoria = ?',
-        categoria
-      ).toArray();
-    }
+    const result = this.sql.exec(
+      'SELECT id, dica1, dica2, dica3, resposta, genero, masculino, feminino, dificuldade FROM cartas WHERE categoria = ?',
+      categoria
+    ).toArray();
+
+    return result;
   }
 
   async popularCartas(categoria, cartas) {
-    this.sql.exec('DELETE FROM cartas WHERE categoria = ?', categoria);
+    if (!Array.isArray(cartas)) {
+      throw new Error('Formato inválido para cartas: esperado array');
+    }
+
+    const normalizarTexto = (valor) => String(valor ?? '').trim();
+    const normalizadas = [];
 
     for (const carta of cartas) {
-      this.sql.exec(
-        'INSERT INTO cartas (categoria, dica1, dica2, dica3, resposta) VALUES (?, ?, ?, ?, ?)',
+      const resposta = normalizarTexto(carta?.resposta);
+      const dica1 = normalizarTexto(carta?.dica1);
+      const dica2 = normalizarTexto(carta?.dica2);
+      const dica3 = normalizarTexto(carta?.dica3);
+
+      if (!resposta || !dica1 || !dica2 || !dica3) {
+        continue;
+      }
+
+      const genero = typeof carta?.genero === 'string' ? carta.genero.toLowerCase() : null;
+      const masculino = carta?.masculino === true || carta?.masculino === 1 ? 1 : 0;
+      const feminino = carta?.feminino === true || carta?.feminino === 1 ? 1 : 0;
+      const dificuldadeRaw = Number.isFinite(Number(carta?.dificuldade)) ? Number(carta.dificuldade) : 5;
+      const dificuldade = Math.max(0, Math.min(10, Math.round(dificuldadeRaw)));
+
+      normalizadas.push({
         categoria,
+        dica1,
+        dica2,
+        dica3,
+        resposta,
+        genero,
+        masculino,
+        feminino,
+        dificuldade
+      });
+    }
+
+    this.sql.exec('DELETE FROM cartas WHERE categoria = ?', categoria);
+
+    for (const carta of normalizadas) {
+      this.sql.exec(
+        'INSERT INTO cartas (categoria, dica1, dica2, dica3, resposta, genero, masculino, feminino, dificuldade) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        carta.categoria,
         carta.dica1,
         carta.dica2,
         carta.dica3,
-        carta.resposta
+        carta.resposta,
+        carta.genero,
+        carta.masculino,
+        carta.feminino,
+        carta.dificuldade
       );
     }
+
+    return {
+      inseridas: normalizadas.length,
+      ignoradas: cartas.length - normalizadas.length
+    };
   }
 
   async popularCartasPadrao() {
@@ -1113,6 +1272,26 @@ export class PontosGlobaisDO {
     this.initialized = false;
   }
 
+  normalizarNomeEntrada(nome) {
+    return String(nome || '').trim();
+  }
+
+  obterNomeCanonical(nome) {
+    const nomeLimpo = this.normalizarNomeEntrada(nome);
+    if (!nomeLimpo) return '';
+
+    const existente = this.sql.exec(
+      'SELECT nome FROM jogadores WHERE LOWER(TRIM(nome)) = LOWER(TRIM(?)) LIMIT 1',
+      nomeLimpo
+    ).toArray();
+
+    if (existente.length > 0) {
+      return existente[0].nome;
+    }
+
+    return nomeLimpo;
+  }
+
   async fetch(request) {
     const url = new URL(request.url);
     const path = url.pathname;
@@ -1141,11 +1320,21 @@ export class PontosGlobaisDO {
     }
 
     if (path === '/adicionar' && request.method === 'POST') {
-      const body = await request.json();
-      await this.adicionarPontos(body.nome, body.pontos);
-      return new Response(JSON.stringify({ sucesso: true }), {
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
+      try {
+        const body = await request.json();
+        const resultado = await this.adicionarPontos(body.nome, body.pontos);
+        return new Response(JSON.stringify({ sucesso: true, ...resultado }), {
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      } catch (erro) {
+        return new Response(JSON.stringify({
+          sucesso: false,
+          erro: erro.message || 'Falha ao adicionar pontos'
+        }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      }
     }
 
     if (path === '/ranking') {
@@ -1202,13 +1391,6 @@ export class PontosGlobaisDO {
       )
     `);
 
-    // (PATCH) migração defensiva: adiciona coluna ultimaPartidaEm se não existir
-    try {
-      this.sql.exec(`ALTER TABLE jogadores ADD COLUMN ultimaPartidaEm TEXT`);
-    } catch (e) {
-      // já existe -> ignora
-    }
-
     this.sql.exec(`
       CREATE TABLE IF NOT EXISTS resgates (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -1232,28 +1414,56 @@ export class PontosGlobaisDO {
     `);
 
     const countLoja = this.sql.exec('SELECT COUNT(*) as total FROM loja').toArray()[0].total;
-    if (countLoja === 0) await this.popularLoja();
+    if (countLoja === 0) {
+      await this.popularLoja();
+    }
   }
 
   async obterPontos(nome) {
-    const result = this.sql.exec('SELECT pontos FROM jogadores WHERE nome = ?', nome).toArray();
+    const nomeCanonical = this.obterNomeCanonical(nome);
+    if (!nomeCanonical) return 0;
+
+    const result = this.sql.exec(
+      'SELECT pontos FROM jogadores WHERE nome = ?',
+      nomeCanonical
+    ).toArray();
+
     if (result.length === 0) {
-      this.sql.exec('INSERT INTO jogadores (nome, pontos) VALUES (?, 0)', nome);
+      this.sql.exec('INSERT INTO jogadores (nome, pontos) VALUES (?, 0)', nomeCanonical);
       return 0;
     }
+
     return result[0].pontos;
   }
 
   async adicionarPontos(nome, pontos) {
-    const atual = await this.obterPontos(nome);
-    const novo = atual + pontos;
+    const nomeCanonical = this.obterNomeCanonical(nome);
+    if (!nomeCanonical) {
+      throw new Error('Nome inválido para adicionar pontos');
+    }
 
-    const agoraISO = new Date().toISOString();
+    const pontosNumero = Number(pontos);
+    if (!Number.isFinite(pontosNumero) || pontosNumero <= 0) {
+      throw new Error('Valor de pontos inválido');
+    }
 
-    // (PATCH) atualiza pontos + última partida
-    this.sql.exec('UPDATE jogadores SET pontos = ?, ultimaPartidaEm = ? WHERE nome = ?', novo, agoraISO, nome);
+    const atual = await this.obterPontos(nomeCanonical);
+    const novo = atual + pontosNumero;
 
-    await this.atualizarNivel(nome, novo);
+    this.sql.exec(
+      'UPDATE jogadores SET pontos = ? WHERE nome = ?',
+      novo,
+      nomeCanonical
+    );
+
+    await this.atualizarNivel(nomeCanonical, novo);
+
+    return {
+      nome: nomeCanonical,
+      pontosAnteriores: atual,
+      pontosAdicionados: pontosNumero,
+      pontosAtuais: novo,
+    };
   }
 
   async atualizarNivel(nome, pontos) {
@@ -1262,39 +1472,64 @@ export class PontosGlobaisDO {
     else if (pontos >= 2000) nivel = 'Diamante';
     else if (pontos >= 1000) nivel = 'Ouro';
     else if (pontos >= 500) nivel = 'Prata';
-    this.sql.exec('UPDATE jogadores SET nivel = ? WHERE nome = ?', nivel, nome);
+
+    this.sql.exec(
+      'UPDATE jogadores SET nivel = ? WHERE nome = ?',
+      nivel,
+      nome
+    );
   }
 
   async obterRanking() {
-    // (PATCH) inclui ultimaPartidaEm
-    return this.sql.exec(
-      'SELECT nome, pontos, nivel, ultimaPartidaEm FROM jogadores ORDER BY pontos DESC LIMIT 100'
+    const result = this.sql.exec(
+      'SELECT nome, pontos, nivel FROM jogadores ORDER BY pontos DESC LIMIT 100'
     ).toArray();
+
+    return result;
   }
 
   async obterPerfil(nome) {
-    const jogador = this.sql.exec('SELECT * FROM jogadores WHERE nome = ?', nome).toArray();
-    if (jogador.length === 0) return { erro: 'Jogador não encontrado' };
+    const jogador = this.sql.exec(
+      'SELECT * FROM jogadores WHERE nome = ?',
+      nome
+    ).toArray();
+
+    if (jogador.length === 0) {
+      return { erro: 'Jogador não encontrado' };
+    }
 
     const resgates = this.sql.exec(
       'SELECT itemId, itemNome, custo, dataResgate FROM resgates WHERE nome = ? ORDER BY dataResgate DESC',
       nome
     ).toArray();
 
-    return { ...jogador[0], resgates };
+    return {
+      ...jogador[0],
+      resgates
+    };
   }
 
   async obterLoja() {
-    const itens = this.sql.exec('SELECT * FROM loja ORDER BY categoria, custo').toArray();
+    const itens = this.sql.exec(
+      'SELECT * FROM loja ORDER BY categoria, custo'
+    ).toArray();
+
     return { itens };
   }
 
   async resgatarItem(nome, item, custo) {
     const pontosAtuais = await this.obterPontos(nome);
-    if (pontosAtuais < custo) return { erro: 'Pontos insuficientes' };
+
+    if (pontosAtuais < custo) {
+      return { erro: 'Pontos insuficientes' };
+    }
 
     const novoPontos = pontosAtuais - custo;
-    this.sql.exec('UPDATE jogadores SET pontos = ? WHERE nome = ?', novoPontos, nome);
+    this.sql.exec(
+      'UPDATE jogadores SET pontos = ? WHERE nome = ?',
+      novoPontos,
+      nome
+    );
 
     this.sql.exec(
       'INSERT INTO resgates (nome, itemId, itemNome, custo) VALUES (?, ?, ?, ?)',
@@ -1304,14 +1539,20 @@ export class PontosGlobaisDO {
       custo
     );
 
-    return { sucesso: true, pontosRestantes: novoPontos, itemResgatado: item.nome };
+    return {
+      sucesso: true,
+      pontosRestantes: novoPontos,
+      itemResgatado: item.nome
+    };
   }
 
   async obterConquistas(nome) {
-    return this.sql.exec(
+    const resgates = this.sql.exec(
       'SELECT itemNome, dataResgate FROM resgates WHERE nome = ? ORDER BY dataResgate DESC',
       nome
     ).toArray();
+
+    return resgates;
   }
 
   async popularLoja() {
@@ -1353,21 +1594,47 @@ function paginaInicial() {
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Status: ✅ ONLINE
+Paleta: 🎨 JW.ORG (Azul #4A6DA7)
 
 📡 ENDPOINTS:
-  GET  /cartas/:categoria
-  POST /cartas/:categoria/popular
-  GET  /cartas-recentes
-  POST /registrar-cartas
-  POST /limpar-historico
 
-🛠️ ADMIN:
-  GET /admin/salas
-  GET /admin/jogadores-completos
-  GET /admin/sala?sala=ABC123&tipo=casual|competitivo
+WebSocket Multiplayer Casual:
+  wss://[seu-worker].workers.dev/ws?sala=CODIGO
+
+WebSocket Competitivo (Sala A vs B):
+  wss://[seu-worker].workers.dev/ws-competitivo?sala=CODIGO
+
+API REST - Pontos:
+  GET  /pontos/:nome               → Pontos globais do jogador
+  POST /adicionar                  → Adicionar pontos
+  GET  /ranking                    → Top 100 jogadores
+
+API REST - Cartas:
+  GET  /cartas/:categoria          → Cartas da categoria
+  POST /cartas/:categoria/popular  → Popular cartas
+
+API REST - Histórico Global:
+  GET  /cartas-recentes            → KEYS usadas recentemente (global)
+  POST /registrar-cartas           → Registrar KEYS usadas
+  POST /limpar-historico           → Limpar histórico (admin)
+
+🎮 MODOS DE JOGO:
+  • Solo (com memória global)
+  • Multiplayer Casual
+  • Multiplayer Competitivo (Sala A vs B)
+
+🌐 MEMÓRIA GLOBAL DE CARTAS:
+  • Todos jogadores compartilham histórico
+  • Auto-limpeza: 1 hora
+  • Máximo: 100 cartas no histórico
+  • Evita repetição de cartas recentes
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Desenvolvido com ❤️ para JW.ORG
 `;
 }
+
+
 // Compatibilidade retroativa para migrations antigas do Durable Object
 // que ainda referenciam a classe PontosBiblicoDO.
 export class PontosBiblicoDO extends PontosGlobaisDO {}
-
