@@ -1444,6 +1444,28 @@ export class PontosGlobaisDO {
       )
     `);
 
+    // IMPORTANTE: Recriar historico_fases com schema correto (pontosBonus com 's')
+    try {
+      this.sql.exec('DROP TABLE IF EXISTS historico_fases');
+      console.log('✅ Tabela historico_fases dropada e será recriada');
+    } catch (e) {
+      console.log('Tabela historico_fases não existia:', e.message);
+    }
+
+    this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS historico_fases (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL,
+        faseNumero INTEGER NOT NULL,
+        pontosNormal INTEGER DEFAULT 0,
+        pontosBonus INTEGER DEFAULT 0,
+        pontosTotal INTEGER DEFAULT 0,
+        categoria TEXT,
+        dataConclusao TEXT DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (nome) REFERENCES jogadores(nome)
+      )
+    `);
+
     const countLoja = this.sql.exec('SELECT COUNT(*) as total FROM loja').toArray()[0].total;
     if (countLoja === 0) {
       await this.popularLoja();
@@ -1537,21 +1559,7 @@ export class PontosGlobaisDO {
     // Atualiza o nível baseado nos novos pontos totais
     await this.atualizarNivel(nomeCanonical, novo);
 
-    // Registra o histórico de fase
-    this.sql.exec(
-      `CREATE TABLE IF NOT EXISTS historico_fases (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXT NOT NULL,
-        faseNumero INTEGER NOT NULL,
-        pontosNormal INTEGER DEFAULT 0,
-        pontosBonus INTEGER DEFAULT 0,
-        pontosTotal INTEGER DEFAULT 0,
-        categoria TEXT,
-        dataConclusao TEXT DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (nome) REFERENCES jogadores(nome)
-      )`
-    );
-
+    // Registra o histórico de fase (tabela já criada no inicializar com schema correto)
     this.sql.exec(
       `INSERT INTO historico_fases (nome, faseNumero, pontosNormal, pontosBonus, pontosTotal, categoria)
        VALUES (?, ?, ?, ?, ?, ?)`,
