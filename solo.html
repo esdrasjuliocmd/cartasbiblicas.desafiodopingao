@@ -638,6 +638,9 @@
       font-weight: 800;
       margin-top: 2px;
     }
+
+    }
+
     .fase-cta {
       margin-top: 12px;
       display: grid;
@@ -1043,8 +1046,6 @@
     let pontosBonusTotal = 0;
     let pontosNormaisPorFase = Array(TOTAL_FASES).fill(0);
     let pontosBonusPorFase = Array(TOTAL_FASES).fill(0);
-      pontosJaEnviadosRanking = 0;
-    let pontosJaEnviadosRanking = 0;
 
     const PALAVRAS_GENERO = {
       feminino: ['rainha', 'esposa', 'mãe', 'mae', 'filha', 'profetisa', 'juíza', 'juiza', 'viúva', 'viuva', 'irmã', 'irma', 'mulher', 'serva', 'ela', 'sua'],
@@ -1351,29 +1352,7 @@
       return `Próxima fase: ${TITULOS_FASE[proxima]} · dificuldade média ${media.toFixed(1)}/10`;
     }
 
-        async function sincronizarPontosRanking(force = false) {
-      const totalConsolidado = pontosNormaisTotal + pontosBonusTotal;
-      const pontosPendentes = totalConsolidado - pontosJaEnviadosRanking;
-
-      if (!force && pontosPendentes <= 0) return;
-      if (force && totalConsolidado <= 0) return;
-
-      const payloadPontos = force ? totalConsolidado : pontosPendentes;
-
-      try {
-        await fetch(${API_BASE}/adicionar, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ nome: nomeJogador, pontos: payloadPontos })
-        });
-
-        pontosJaEnviadosRanking = totalConsolidado;
-        await carregarRanking();
-      } catch (erro) {
-        console.error('❌ Erro ao sincronizar ranking:', erro);
-      }
-    }
-    async function mostrarResumoFase(indiceFaseConcluida) {
+    function mostrarResumoFase(indiceFaseConcluida) {
       const normal = pontosNormaisPorFase[indiceFaseConcluida] || 0;
       const bonus = pontosBonusPorFase[indiceFaseConcluida] || 0;
       const totalFase = normal + bonus;
@@ -1404,7 +1383,6 @@
         </div>
       `;
       AudioSystem.coinsStars();
-      await sincronizarPontosRanking();
     }
 
     function continuarProximaFase() {
@@ -1457,7 +1435,6 @@
       pontosBonusTotal = 0;
       pontosNormaisPorFase = Array(TOTAL_FASES).fill(0);
       pontosBonusPorFase = Array(TOTAL_FASES).fill(0);
-      pontosJaEnviadosRanking = 0;
 
       document.getElementById('tela-inicial').style.display = 'none';
       document.getElementById('tela-jogo').innerHTML = '<div class="loading"><div class="loading-spinner">⏳</div><p>Carregando...</p></div>';
@@ -1695,7 +1672,6 @@
           mensagemBonus += '<br>🌟 Bônus sequência 4x: +1000';
           mostrarPontosAnimados(1000, true);
           AudioSystem.coinsStars();
-      await sincronizarPontosRanking();
         }
 
         pontosDaCarta = pontosNormaisCarta + pontosBonusCarta;
@@ -1773,12 +1749,8 @@
         pontos += bonusFasesPerfeitas;
         pontosBonusTotal += bonusFasesPerfeitas;
         AudioSystem.coinsStars();
-      await sincronizarPontosRanking();
         mostrarPontosAnimados(bonusFasesPerfeitas, true);
       }
-
-      // Fonte única de verdade para ranking/top 5: soma consolidada por fase
-      pontos = pontosNormaisTotal + pontosBonusTotal;
 
       document.getElementById('tela-jogo').style.display = 'none';
       document.getElementById('tela-resultado').style.display = 'block';
@@ -1891,3 +1863,4 @@
   </script>
 </body>
 </html>
+
