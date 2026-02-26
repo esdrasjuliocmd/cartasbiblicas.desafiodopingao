@@ -143,24 +143,28 @@
     .modos {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-top: 15px;
     }
 
     .modo-btn {
       background: linear-gradient(135deg, var(--jw-azul-principal), var(--jw-azul-escuro));
       color: var(--jw-branco);
-      padding: 20px;
+      padding: 18px 12px;
       border-radius: 15px;
       text-align: center;
       text-decoration: none;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: bold;
       transition: all 0.3s;
       border: none;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      line-height: 1.4;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      line-height: 1.3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .modo-btn:active {
@@ -169,9 +173,9 @@
     }
 
     .modo-icon {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       display: block;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .loading {
@@ -258,7 +262,7 @@
 
       .podio {
         padding: 15px;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
       }
 
       .header h1 {
@@ -269,14 +273,19 @@
         font-size: 0.9rem;
       }
 
+      .modos {
+        gap: 10px;
+        margin-top: 12px;
+      }
 
       .modo-btn {
-        padding: 15px 10px;
-        font-size: 0.9rem;
+        padding: 16px 8px;
+        font-size: 0.85rem;
       }
 
       .modo-icon {
-        font-size: 1.8rem;
+        font-size: 2rem;
+        margin-bottom: 6px;
       }
 
       .podio h3 {
@@ -327,29 +336,27 @@
       </div>
     </div>
 
-    <!-- CARD PRINCIPAL -->
-    <div class="card">
-      <div class="modos">
-        <a href="solo.html" class="modo-btn">
-          <span class="modo-icon">🎯</span>
-          Jogar e Estudar Sozinho
-        </a>
-        
-        <a href="multiplayer-competitivo.html" class="modo-btn">
-          <span class="modo-icon">⚔️</span>
-          Jogar e Estudar com os Amigos
-        </a>
-        
-        <a href="recompensas.html" class="modo-btn">
-          <span class="modo-icon">🏆</span>
-          Recompensas
-        </a>
+    <!-- BOTÕES DE NAVEGAÇÃO -->
+    <div class="modos">
+      <a href="solo.html" class="modo-btn">
+        <span class="modo-icon">🎯</span>
+        Jogar e Estudar Sozinho
+      </a>
+      
+      <a href="multiplayer-competitivo.html" class="modo-btn">
+        <span class="modo-icon">⚔️</span>
+        Jogar e Estudar com os Amigos
+      </a>
+      
+      <a href="recompensas.html" class="modo-btn">
+        <span class="modo-icon">🏆</span>
+        Recompensas
+      </a>
 
-        <a href="regras.html" class="modo-btn">
-          <span class="modo-icon">📖</span>
-          Regras
-        </a>
-      </div>
+      <a href="regras.html" class="modo-btn">
+        <span class="modo-icon">📖</span>
+        Regras
+      </a>
     </div>
   </div>
 
