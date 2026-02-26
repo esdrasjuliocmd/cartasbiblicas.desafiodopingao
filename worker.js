@@ -82,64 +82,16 @@ export default {
     // ============================================
     if (path === '/cartas-recentes' && request.method === 'GET') {
       try {
-        // Verifica se CARTAS_STORAGE está disponível
-        if (!env.CARTAS_STORAGE) {
-          return new Response(JSON.stringify({
-            cartas: [],
-            total: 0,
-            timestamp: Date.now(),
-            aviso: 'KV namespace não configurado'
-          }), {
-            headers: {
-              'Content-Type': 'application/json; charset=utf-8',
-              ...corsHeaders
-            }
-          });
-        }
-
-        const historico = await env.CARTAS_STORAGE.get('historico_global', { type: 'json' });
-
-        const agora = Date.now();
-
-        if (!historico || !historico.cartas) {
-          return new Response(JSON.stringify({
-            cartas: [],
-            total: 0,
-            timestamp: agora
-          }), {
-            headers: {
-              'Content-Type': 'application/json; charset=utf-8',
-              ...corsHeaders
-            }
-          });
-        }
-
-        // migra e filtra automaticamente (1 hora)
-        const finalList = migrarHistoricoParaKeys(historico, agora);
-
-        // Atualiza storage com o formato novo (keys)
-        await env.CARTAS_STORAGE.put('historico_global', JSON.stringify({
-          cartas: finalList,
-          atualizado: agora
-        }));
-
-        return new Response(JSON.stringify({
-          cartas: finalList.map(item => item.key),
-          total: finalList.length,
-          timestamp: agora
-        }), {
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            ...corsHeaders
-          }
-        });
-
+        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+        const stub = env.PontosGlobaisDO.get(id);
+        const response = await stub.fetch(new Request('http://internal/cartas-recentes-globais'));
+        return response;
       } catch (erro) {
         console.error('Erro ao buscar cartas recentes:', erro);
         return new Response(JSON.stringify({
           cartas: [],
           total: 0,
-          erro: erro.message
+          timestamp: Date.now()
         }), {
           status: 200,
           headers: {
@@ -156,97 +108,9 @@ export default {
     // ============================================
     if (path === '/registrar-cartas' && request.method === 'POST') {
       try {
-        // Verifica se CARTAS_STORAGE está disponível
-        if (!env.CARTAS_STORAGE) {
-          return new Response(JSON.stringify({
-            success: true,
-            aviso: 'KV namespace não configurado, registro desabilitado'
-          }), {
-            headers: {
-              'Content-Type': 'application/json; charset=utf-8',
-              ...corsHeaders
-            }
-          });
-        }
-
-        const body = await request.json();
-
-        // compat: pode vir "cartas" (antigo) ou "respostas" (fallback)
-        const input = Array.isArray(body.cartas) ? body.cartas
-          : Array.isArray(body.respostas) ? body.respostas
-            : null;
-
-        if (!input || !Array.isArray(input)) {
-          return new Response(JSON.stringify({
-            success: false,
-            erro: 'Formato inválido'
-          }), {
-            status: 400,
-            headers: {
-              'Content-Type': 'application/json; charset=utf-8',
-              ...corsHeaders
-            }
-          });
-        }
-
-        const agora = Date.now();
-
-        const keys = input
-          .map(x => normalizarParaKey(x))
-          .filter(Boolean);
-
-        if (keys.length === 0) {
-          return new Response(JSON.stringify({
-            success: false,
-            erro: 'Nenhuma carta válida para registrar'
-          }), {
-            status: 400,
-            headers: {
-              'Content-Type': 'application/json; charset=utf-8',
-              ...corsHeaders
-            }
-          });
-        }
-
-        // Buscar histórico atual
-        const historico = await env.CARTAS_STORAGE.get('historico_global', { type: 'json' }) || { cartas: [] };
-
-        // Migra histórico existente + adiciona novas keys
-        const historicoMigrado = migrarHistoricoParaKeys(historico, agora);
-
-        const novasCartas = keys.map(key => ({ key, timestamp: agora }));
-        const combinado = [...historicoMigrado, ...novasCartas];
-
-        // remove duplicados mantendo ordem e limita a 100
-        const seen = new Set();
-        const dedup = [];
-        for (const it of combinado) {
-          if (!it?.key) continue;
-          if (seen.has(it.key)) continue;
-          seen.add(it.key);
-          dedup.push(it);
-        }
-        const finalList = dedup.slice(-100);
-
-        // Salvar de volta
-        await env.CARTAS_STORAGE.put('historico_global', JSON.stringify({
-          cartas: finalList,
-          atualizado: agora
-        }));
-
-        console.log(`✅ Registradas ${keys.length} cartas (keys) no histórico global`);
-
-        return new Response(JSON.stringify({
-          success: true,
-          total_historico: finalList.length,
-          registradas: keys.length
-        }), {
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            ...corsHeaders
-          }
-        });
-
+        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+        const stub = env.PontosGlobaisDO.get(id);
+        return stub.fetch(request);
       } catch (erro) {
         console.error('Erro ao registrar cartas:', erro);
         return new Response(JSON.stringify({
@@ -264,39 +128,15 @@ export default {
 
     // ============================================
     // ROTA: LIMPAR HISTÓRICO GLOBAL (ADMIN)
-    // (mantém novo formato)
     // ============================================
     if (path === '/limpar-historico' && request.method === 'POST') {
       try {
-        // Verifica se CARTAS_STORAGE está disponível
-        if (!env.CARTAS_STORAGE) {
-          return new Response(JSON.stringify({
-            success: true,
-            mensagem: 'KV namespace não configurado'
-          }), {
-            headers: {
-              'Content-Type': 'application/json; charset=utf-8',
-              ...corsHeaders
-            }
-          });
-        }
-
-        await env.CARTAS_STORAGE.put('historico_global', JSON.stringify({
-          cartas: [],
-          atualizado: Date.now()
-        }));
-
-        return new Response(JSON.stringify({
-          success: true,
-          mensagem: 'Histórico global limpo com sucesso'
-        }), {
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            ...corsHeaders
-          }
-        });
-
+        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+        const stub = env.PontosGlobaisDO.get(id);
+        const response = await stub.fetch(new Request('http://internal/limpar-historico-cartas', { method: 'POST' }));
+        return response;
       } catch (erro) {
+        console.error('Erro ao limpar histórico:', erro);
         return new Response(JSON.stringify({
           success: false,
           erro: erro.message
@@ -1448,6 +1288,86 @@ export class PontosGlobaisDO {
       });
     }
 
+    // NOVO: Endpoint para obter cartas recentes globais
+    if (path === '/cartas-recentes-globais') {
+      try {
+        const cartas = await this.obterCartasRecentesGlobais();
+        return new Response(JSON.stringify({
+          cartas: cartas,
+          total: cartas.length,
+          timestamp: Date.now()
+        }), {
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      } catch (erro) {
+        console.error('Erro ao obter cartas recentes:', erro);
+        return new Response(JSON.stringify({
+          cartas: [],
+          total: 0,
+          erro: erro.message
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      }
+    }
+
+    // NOVO: Endpoint para registrar cartas globais  
+    if (path === '/registrar-cartas' && request.method === 'POST') {
+      try {
+        const body = await request.json();
+        const input = Array.isArray(body.cartas) ? body.cartas : [];
+        
+        if (input.length === 0) {
+          return new Response(JSON.stringify({
+            success: true,
+            registradas: 0
+          }), {
+            headers: { 'Content-Type': 'application/json', ...corsHeaders }
+          });
+        }
+
+        const resultado = await this.registrarCartasGlobais(input);
+        return new Response(JSON.stringify({
+          success: true,
+          ...resultado
+        }), {
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      } catch (erro) {
+        console.error('Erro ao registrar cartas:', erro);
+        return new Response(JSON.stringify({
+          success: false,
+          erro: erro.message
+        }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      }
+    }
+
+    // NOVO: Endpoint para limpar histórico de cartas
+    if (path === '/limpar-historico-cartas' && request.method === 'POST') {
+      try {
+        const resultado = await this.limparCartasGlobais();
+        return new Response(JSON.stringify({
+          success: true,
+          ...resultado
+        }), {
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      } catch (erro) {
+        console.error('Erro ao limpar histórico de cartas:', erro);
+        return new Response(JSON.stringify({
+          success: false,
+          erro: erro.message
+        }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      }
+    }
+
     return new Response('Not Found', { status: 404 });
   }
 
@@ -1505,6 +1425,15 @@ export class PontosGlobaisDO {
         categoria TEXT,
         dataConclusao TEXT DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (nome) REFERENCES jogadores(nome)
+      )
+    `);
+
+    // NOVO: Tabela para histórico global de cartas usadas
+    this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS historico_cartas_globais (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        chaveKey TEXT NOT NULL UNIQUE,
+        dataSolicitacao TEXT DEFAULT CURRENT_TIMESTAMP
       )
     `);
 
@@ -1623,6 +1552,59 @@ export class PontosGlobaisDO {
       pontosAtuais: novo,
       mensagem: `Fase ${faseNum} registrada com sucesso`
     };
+  }
+
+  async obterCartasRecentesGlobais() {
+    // Remove cartas com mais de 1 hora
+    const umaHoraAtras = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+    
+    this.sql.exec(
+      `DELETE FROM historico_cartas_globais WHERE dataSolicitacao < ?`,
+      umaHoraAtras
+    );
+
+    // Retorna as cartas recentes (máximo 100)
+    const result = this.sql.exec(
+      `SELECT chaveKey FROM historico_cartas_globais ORDER BY dataSolicitacao DESC LIMIT 100`
+    ).toArray();
+
+    return result.map(r => r.chaveKey);
+  }
+
+  async registrarCartasGlobais(chaves) {
+    if (!Array.isArray(chaves) || chaves.length === 0) {
+      return { registradas: 0 };
+    }
+
+    let registradas = 0;
+    for (const chave of chaves) {
+      if (!chave || typeof chave !== 'string') continue;
+
+      try {
+        // INSERT OR IGNORE para evitar duplicatas
+        this.sql.exec(
+          `INSERT OR IGNORE INTO historico_cartas_globais (chaveKey) VALUES (?)`,
+          chave
+        );
+        registradas++;
+      } catch (e) {
+        console.log(`Falha ao registrar carta ${chave}:`, e.message);
+      }
+    }
+
+    console.log(`✅ [WORKER] ${registradas} cartas registradas no histórico global`);
+
+    return { registradas };
+  }
+
+  async limparCartasGlobais() {
+    try {
+      this.sql.exec('DELETE FROM historico_cartas_globais');
+      console.log('✅ [WORKER] Histórico global de cartas limpo');
+      return { sucesso: true, mensagem: 'Histórico global limpo com sucesso' };
+    } catch (e) {
+      throw new Error(`Falha ao limpar histórico: ${e.message}`);
+    }
   }
 
   async atualizarNivel(nome, pontos) {
