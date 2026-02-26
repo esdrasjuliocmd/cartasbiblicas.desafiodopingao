@@ -613,6 +613,10 @@
             <td>${(j.pontos ?? 0).toLocaleString('pt-BR')}</td>
             <td>${j.nivel ?? '-'}</td>
             <td>${fmtData(j.ultimaPartidaEm)}</td>
+            <td>
+              <button class="btn-acao" onclick="editarJogador(j.nome, j.pontos ?? 0)">Editar</button>
+              <button class="btn-acao danger" onclick="excluirJogador(j.nome)">Excluir</button>
+            </td>
           </tr>`;
         }
 
@@ -887,6 +891,7 @@
   </script>
 </body>
 </html>
+
 
 
 
