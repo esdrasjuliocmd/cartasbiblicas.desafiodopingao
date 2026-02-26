@@ -1529,7 +1529,7 @@ export class PontosGlobaisDO {
         nome TEXT NOT NULL,
         faseNumero INTEGER NOT NULL,
         pontosNormal INTEGER DEFAULT 0,
-        pontosBonu INTEGER DEFAULT 0,
+        pontosBonus INTEGER DEFAULT 0,
         pontosTotal INTEGER DEFAULT 0,
         categoria TEXT,
         dataConclusao TEXT DEFAULT CURRENT_TIMESTAMP,
@@ -1538,7 +1538,7 @@ export class PontosGlobaisDO {
     );
 
     this.sql.exec(
-      `INSERT INTO historico_fases (nome, faseNumero, pontosNormal, pontosBonusTotal, pontosTotal, categoria)
+      `INSERT INTO historico_fases (nome, faseNumero, pontosNormal, pontosBonus, pontosTotal, categoria)
        VALUES (?, ?, ?, ?, ?, ?)`,
       nomeCanonical,
       faseNumero,
