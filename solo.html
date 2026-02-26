@@ -638,9 +638,6 @@
       font-weight: 800;
       margin-top: 2px;
     }
-
-    }
-
     .fase-cta {
       margin-top: 12px;
       display: grid;
@@ -1752,6 +1749,9 @@
         mostrarPontosAnimados(bonusFasesPerfeitas, true);
       }
 
+      // Fonte única de verdade para ranking/top 5: soma consolidada por fase
+      pontos = pontosNormaisTotal + pontosBonusTotal;
+
       document.getElementById('tela-jogo').style.display = 'none';
       document.getElementById('tela-resultado').style.display = 'block';
       animarPontuacao(pontos);
@@ -1863,4 +1863,3 @@
   </script>
 </body>
 </html>
-
