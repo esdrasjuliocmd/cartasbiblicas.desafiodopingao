@@ -29,7 +29,10 @@ if (-not (Test-Path -LiteralPath $Arquivo)) {
 $tmpPayload = [System.IO.Path]::GetTempFileName()
 
 try {
-  $jsonText = Get-Content -LiteralPath $Arquivo -Encoding Unicode -Raw
+  # Força UTF-8 sem BOM na leitura
+  $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+  $jsonBytes = [System.IO.File]::ReadAllBytes($Arquivo)
+  $jsonText = $utf8NoBom.GetString($jsonBytes)
   $obj = $jsonText | ConvertFrom-Json
 
   if (-not $obj.personagens -or -not $obj.personagens[0].value) {
@@ -64,9 +67,10 @@ try {
 
   $totalLocal = $cartas.Count
   $payloadObj = [ordered]@{ cartas = $cartas }
-  $payloadJson = $payloadObj | ConvertTo-Json -Depth 20
-  $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
-  [System.IO.File]::WriteAllText($tmpPayload, $payloadJson, $utf8NoBom)
+  $payloadJson = $payloadObj | ConvertTo-Json -Depth 20 -Compress:$false
+  # Garante UTF-8 sem BOM na escrita
+  $utf8NoBomWrite = New-Object System.Text.UTF8Encoding($false)
+  [System.IO.File]::WriteAllText($tmpPayload, $payloadJson, $utf8NoBomWrite)
 
   Write-Info "Cartas locais encontradas: $totalLocal"
   Write-Info "API alvo: $ApiBase"

@@ -1250,7 +1250,7 @@
       try {
         const response = await fetch(`${API_BASE}/registrar-cartas`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
           body: JSON.stringify(payload)
         });
 
@@ -1382,7 +1382,7 @@
       try {
         const response = await fetch(`${API_BASE}/fase-completa`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
           body: JSON.stringify({
             nome: nomeJogador.trim(),
             faseNumero: indiceFase + 1,
@@ -1866,7 +1866,7 @@
       try {
         await fetch(`${API_BASE}/adicionar`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
           body: JSON.stringify({ nome: nomeJogador, pontos: pontos })
         });
         await carregarRanking();

@@ -992,7 +992,7 @@ export class BancoDadosDO {
           inseridas: resultado.inseridas,
           ignoradas: resultado.ignoradas
         }), {
-          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
         });
       } catch (erro) {
         return new Response(JSON.stringify({
@@ -1009,7 +1009,7 @@ export class BancoDadosDO {
       const categoria = path.split('/')[2];
       const cartas = await this.obterCartas(categoria);
       return new Response(JSON.stringify({ cartas }), {
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
       });
     }
 
@@ -1059,7 +1059,14 @@ export class BancoDadosDO {
       throw new Error('Formato inválido para cartas: esperado array');
     }
 
-    const normalizarTexto = (valor) => String(valor ?? '').trim();
+    // Função melhorada para garantir UTF-8 correto
+    const normalizarTexto = (valor) => {
+      if (valor == null) return '';
+      let texto = String(valor).trim();
+      // Remove caracteres de controle mas mantém caracteres UTF-8 válidos
+      texto = texto.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
+      return texto;
+    };
     const normalizadas = [];
 
     for (const carta of cartas) {
