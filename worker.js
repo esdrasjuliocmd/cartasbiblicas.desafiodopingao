@@ -82,6 +82,21 @@ export default {
     // ============================================
     if (path === '/cartas-recentes' && request.method === 'GET') {
       try {
+        // Verifica se CARTAS_STORAGE está disponível
+        if (!env.CARTAS_STORAGE) {
+          return new Response(JSON.stringify({
+            cartas: [],
+            total: 0,
+            timestamp: Date.now(),
+            aviso: 'KV namespace não configurado'
+          }), {
+            headers: {
+              'Content-Type': 'application/json; charset=utf-8',
+              ...corsHeaders
+            }
+          });
+        }
+
         const historico = await env.CARTAS_STORAGE.get('historico_global', { type: 'json' });
 
         const agora = Date.now();
@@ -123,9 +138,10 @@ export default {
         console.error('Erro ao buscar cartas recentes:', erro);
         return new Response(JSON.stringify({
           cartas: [],
+          total: 0,
           erro: erro.message
         }), {
-          status: 500,
+          status: 200,
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
             ...corsHeaders
@@ -140,6 +156,19 @@ export default {
     // ============================================
     if (path === '/registrar-cartas' && request.method === 'POST') {
       try {
+        // Verifica se CARTAS_STORAGE está disponível
+        if (!env.CARTAS_STORAGE) {
+          return new Response(JSON.stringify({
+            success: true,
+            aviso: 'KV namespace não configurado, registro desabilitado'
+          }), {
+            headers: {
+              'Content-Type': 'application/json; charset=utf-8',
+              ...corsHeaders
+            }
+          });
+        }
+
         const body = await request.json();
 
         // compat: pode vir "cartas" (antigo) ou "respostas" (fallback)
@@ -239,6 +268,19 @@ export default {
     // ============================================
     if (path === '/limpar-historico' && request.method === 'POST') {
       try {
+        // Verifica se CARTAS_STORAGE está disponível
+        if (!env.CARTAS_STORAGE) {
+          return new Response(JSON.stringify({
+            success: true,
+            mensagem: 'KV namespace não configurado'
+          }), {
+            headers: {
+              'Content-Type': 'application/json; charset=utf-8',
+              ...corsHeaders
+            }
+          });
+        }
+
         await env.CARTAS_STORAGE.put('historico_global', JSON.stringify({
           cartas: [],
           atualizado: Date.now()

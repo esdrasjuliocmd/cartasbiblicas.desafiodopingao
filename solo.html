@@ -1230,11 +1230,19 @@
         }
         const data = await response.json();
 
+        // Verifica se KV namespace está configurado
+        if (data.aviso) {
+          console.log(`ℹ️ Histórico global desabilitado: ${data.aviso}`);
+          return [];
+        }
+
         // Pode vir como {cartas:[...]} (antigo: respostas), ou pode vir ids/keys.
         const lista = (data && Array.isArray(data.cartas)) ? data.cartas : [];
 
         console.log(`🌐 Cartas recentes globais: ${lista.length}`);
-        console.log('📋 Cartas globais a evitar:', lista);
+        if (lista.length > 0) {
+          console.log('📋 Cartas globais a evitar:', lista);
+        }
 
         return lista;
       } catch (erro) {
@@ -1257,6 +1265,12 @@
           return;
         }
         const data = await response.json();
+        
+        if (data.aviso) {
+          console.log(`ℹ️ Registro de histórico desabilitado: ${data.aviso}`);
+          return;
+        }
+        
         console.log('✅ Cartas registradas no servidor:', data);
 
       } catch (erro) {
