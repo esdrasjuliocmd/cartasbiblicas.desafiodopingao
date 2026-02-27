@@ -760,8 +760,53 @@
       -webkit-user-select: none;
       user-select: none;
     }
+
+    /* ============================================
+       MODO SALA B (ASSISTINDO) - AMARELO/ESMAECIDO
+       ============================================ */
+    body.sala-b-spectator {
+      background: linear-gradient(135deg, #b88a00 0%, #f0ad4e 100%) !important;
+    }
+
+    #tela-jogo.sala-b-spectator {
+      filter: grayscale(0.35) brightness(0.95);
+    }
+
+    #tela-jogo.sala-b-spectator .carta-jogo {
+      background: linear-gradient(135deg, #f6c76a, #f0ad4e) !important;
+      color: #1E3A5F !important;
+    }
+
+    #tela-jogo.sala-b-spectator .rodada-info,
+    #tela-jogo.sala-b-spectator .placar {
+      border: 2px dashed rgba(30,58,95,0.35);
+      background: rgba(255,255,255,0.85);
+    }
+
+    #tela-jogo.sala-b-spectator .alternativa-btn {
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    #aviso-sala-b-assistindo {
+      display: none;
+      background: rgba(255,255,255,0.92);
+      border: 2px solid rgba(30,58,95,0.25);
+      color: #1E3A5F;
+      padding: 10px 12px;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: bold;
+      margin: 8px 0 10px 0;
+      font-size: 0.9rem;
+    }
+
+    #tela-jogo.sala-b-spectator #aviso-sala-b-assistindo {
+      display: block;
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <div class="header">
@@ -809,7 +854,7 @@
         <div class="sala-info">
           <h3 style="margin-bottom: 8px;">Código da Sala:</h3>
           <div class="sala-codigo" id="sala-codigo-display">------</div>
-          
+
           <button class="btn btn-success" onclick="compartilharWhatsApp()" style="margin-top: 12px;">
             📱 Compartilhar
           </button>
@@ -882,6 +927,10 @@
       <div id="tela-jogo" class="tela">
         <div class="rodada-info">
           <span id="rodada-atual">Rodada 1</span> de <span id="rodada-total">100</span>
+        </div>
+
+        <div id="aviso-sala-b-assistindo">
+          📚 Você está na SALA B (assistindo) — aguarde ser resgatado para voltar a responder.
         </div>
 
         <div class="placar">
@@ -1077,6 +1126,18 @@
         if (e.key === 'Enter') enviarChatConversa();
       });
     });
+
+    function ativarModoSalaBSpectator() {
+      document.body.classList.add('sala-b-spectator');
+      const telaJogo = document.getElementById('tela-jogo');
+      if (telaJogo) telaJogo.classList.add('sala-b-spectator');
+    }
+
+    function desativarModoSalaBSpectator() {
+      document.body.classList.remove('sala-b-spectator');
+      const telaJogo = document.getElementById('tela-jogo');
+      if (telaJogo) telaJogo.classList.remove('sala-b-spectator');
+    }
 
     function criarSala() {
       nomeJogador = document.getElementById('input-nome').value.trim();
@@ -1296,6 +1357,7 @@
       meusPontos = 0;
       resgatesRealizados = 0;
       meuEstado = 'sala-a';
+      desativarModoSalaBSpectator();
 
       mostrarNotificacao(`🎮 Jogo iniciado! ${rodadaTotal} rodadas`, 'sucesso');
 
@@ -1316,10 +1378,11 @@
         return;
       }
 
+      // Sala B assiste na tela do jogo, mas bloqueado e amarelado
       if (meuEstado === 'sala-b') {
-        mostrarTela('tela-sala-b');
-        document.getElementById('rodada-sala-b').textContent = `Rodada ${rodadaAtual}`;
-        return;
+        ativarModoSalaBSpectator();
+      } else {
+        desativarModoSalaBSpectator();
       }
 
       mostrarTela('tela-jogo');
@@ -1329,7 +1392,7 @@
       document.getElementById('dica1-jogo').innerHTML = `<strong>DICA 1:</strong> ${data.carta.dica1}`;
       document.getElementById('dica1-jogo').classList.remove('bloqueada');
 
-      document.getElementById('dica2-jogo').innerHTML = '<strong>DICA 2:</strong> ���� Aguarde...';
+      document.getElementById('dica2-jogo').innerHTML = '<strong>DICA 2:</strong> 🔒 Aguarde...';
       document.getElementById('dica2-jogo').classList.add('bloqueada');
 
       document.getElementById('dica3-jogo').innerHTML = '<strong>DICA 3:</strong> 🔒 Aguarde...';
@@ -1423,6 +1486,9 @@
     function selecionarAlternativaVerdadeiroFalso(valor, indexBtn) {
       if (respondeu) return;
 
+      // Sala B não pode responder mesmo que clique (defesa extra)
+      if (meuEstado === 'sala-b') return;
+
       respondeu = true;
       clearInterval(timerInterval);
 
@@ -1495,6 +1561,9 @@
 
     function selecionarAlternativa(index) {
       if (respondeu) return;
+
+      // Sala B não pode responder mesmo que clique (defesa extra)
+      if (meuEstado === 'sala-b') return;
 
       respondeu = true;
       clearInterval(timerInterval);
@@ -1571,6 +1640,7 @@
       eliminados.forEach(nome => {
         if (nome === nomeJogador) {
           meuEstado = 'sala-b';
+          ativarModoSalaBSpectator();
           mostrarNotificacao('📚 Você foi para SALA B! Continue estudando!', 'aviso');
           document.getElementById('pontos-sala-b').textContent = meusPontos;
         } else {
@@ -1671,6 +1741,7 @@
         mostrarNotificacao(`Você resgatou ${data.resgatado}! -5 pontos`, 'sucesso');
       } else if (data.resgatado === nomeJogador) {
         meuEstado = 'sala-a';
+        desativarModoSalaBSpectator();
         mostrarNotificacao(`${data.quemResgatou} te resgatou! 🎉`, 'sucesso');
       } else {
         mostrarNotificacao(`${data.quemResgatou} resgatou ${data.resgatado}! 🤝`, 'aviso');
