@@ -839,25 +839,31 @@
           <div class="input-group">
             <label>Escolha a Categoria:</label>
             <div class="categorias-select">
-              <div class="categoria-card selecionada" onclick="selecionarCategoria('personagens')">
+              <div class="categoria-card selecionada" onclick="selecionarCategoria('personagens', event)">
                 <div class="icone">👤</div>
                 <div class="nome">PERSONAGENS</div>
               </div>
-              <div class="categoria-card" onclick="selecionarCategoria('profecias')">
+              <div class="categoria-card" onclick="selecionarCategoria('profecias', event)">
                 <div class="icone">📜</div>
                 <div class="nome">PROFECIAS</div>
               </div>
-              <div class="categoria-card" onclick="selecionarCategoria('pregacao')">
+              <div class="categoria-card" onclick="selecionarCategoria('pregacao', event)">
                 <div class="icone">🎯</div>
                 <div class="nome">PREGAÇÃO</div>
               </div>
-              <div class="categoria-card" onclick="selecionarCategoria('desenho')">
+              <div class="categoria-card" onclick="selecionarCategoria('desenho', event)">
                 <div class="icone">🎨</div>
                 <div class="nome">DESENHO</div>
               </div>
-              <div class="categoria-card" onclick="selecionarCategoria('mimica')">
+              <div class="categoria-card" onclick="selecionarCategoria('mimica', event)">
                 <div class="icone">🎭</div>
                 <div class="nome">MÍMICA</div>
+              </div>
+
+              <!-- NOVA CATEGORIA: VERDADEIRO/FALSO -->
+              <div class="categoria-card" onclick="selecionarCategoria('verdadeirofalso', event)">
+                <div class="icone">✅❌</div>
+                <div class="nome">V/F</div>
               </div>
             </div>
           </div>
@@ -875,7 +881,7 @@
       <!-- TELA 3: JOGO (SEM CHAT - OTIMIZADO) -->
       <div id="tela-jogo" class="tela">
         <div class="rodada-info">
-          <span id="rodada-atual">Rodada 1</span> de <span id="rodada-total">20</span>
+          <span id="rodada-atual">Rodada 1</span> de <span id="rodada-total">100</span>
         </div>
 
         <div class="placar">
@@ -921,7 +927,7 @@
         </div>
 
         <div class="rodada-info">
-          <span id="rodada-sala-b">Rodada 1</span> de <span id="rodada-total-b">20</span>
+          <span id="rodada-sala-b">Rodada 1</span> de <span id="rodada-total-b">100</span>
         </div>
       </div>
 
@@ -980,7 +986,7 @@
         </div>
 
         <div class="rodada-info">
-          <span id="rodada-pulando">Rodada 5</span> de <span id="rodada-total-pulando">20</span>
+          <span id="rodada-pulando">Rodada 5</span> de <span id="rodada-total-pulando">100</span>
         </div>
 
         <p style="text-align: center; color: var(--jw-verde-sucesso); font-size: 1.1rem; font-weight: bold; margin-top: 15px;">
@@ -992,7 +998,7 @@
       <div id="tela-final" class="tela">
         <div style="text-align: center; padding: 25px; background: linear-gradient(135deg, var(--jw-azul-claro), var(--jw-azul-principal)); color: white; border-radius: 12px; margin-bottom: 20px;">
           <h1 style="font-size: 2.5rem; margin-bottom: 15px;">🎉 FIM!</h1>
-          <p style="font-size: 1.1rem;" id="info-final">20 Rodadas!</p>
+          <p style="font-size: 1.1rem;" id="info-final">100 Rodadas!</p>
         </div>
 
         <div class="vencedores" id="vencedores-lista">
@@ -1034,7 +1040,10 @@
     let meuEstado = 'sala-a';
     let souAnfitriao = false;
     let rodadaAtual = 0;
-    let rodadaTotal = 20;
+
+    // Alinhado com o solo (10 fases x 10)
+    let rodadaTotal = 100;
+
     let timerInterval = null;
     let tempoRestante = 60;
     let respondeu = false;
@@ -1054,7 +1063,7 @@
       if (salaUrl) {
         document.getElementById('input-sala').value = salaUrl;
         document.getElementById('btn-criar-sala').style.display = 'none';
-        
+
         if (nomeUrl) {
           document.getElementById('input-nome').value = nomeUrl;
         }
@@ -1080,7 +1089,7 @@
       const codigo = gerarCodigoSala();
       salaAtual = codigo;
       souAnfitriao = true;
-      
+
       conectarWebSocket();
     }
 
@@ -1113,17 +1122,17 @@
 
     function conectarWebSocket() {
       const wsUrl = `${WS_BASE}/ws-competitivo?sala=${salaAtual}`;
-      
+
       console.log('🔌 Conectando ao WebSocket:', wsUrl);
-      
+
       ws = new WebSocket(wsUrl);
 
       ws.onopen = () => {
         console.log('✅ Conectado ao servidor competitivo!');
         document.getElementById('sala-codigo-display').textContent = salaAtual;
-        
+
         mostrarTela('tela-lobby');
-        
+
         ws.send(JSON.stringify({
           tipo: 'entrar',
           nome: nomeJogador,
@@ -1233,33 +1242,37 @@
     function atualizarListaJogadoresLobby() {
       const lista = document.getElementById('jogadores-lista');
       lista.innerHTML = '';
-      
+
       todosJogadores.forEach(jogador => {
         const item = document.createElement('div');
         item.className = 'jogador-item' + (jogador.host ? ' anfitriao' : '');
-        
+
         const icone = jogador.host ? '👑 ' : '';
         const label = jogador.host ? ' (ANFITRIÃO)' : '';
-        
+
         item.innerHTML = `
           <span style="font-weight: bold;">${icone}${jogador.nome}${label}</span>
           <span>${jogador.pontos || 0} pts</span>
         `;
-        
+
         lista.appendChild(item);
       });
 
       document.getElementById('total-jogadores').textContent = todosJogadores.length;
     }
 
-    function selecionarCategoria(categoria) {
+    function selecionarCategoria(categoria, evt) {
       categoriaSelecionada = categoria;
-      
+
       document.querySelectorAll('.categoria-card').forEach(card => {
         card.classList.remove('selecionada');
       });
-      
-      event.target.closest('.categoria-card').classList.add('selecionada');
+
+      if (evt && evt.target) {
+        evt.target.closest('.categoria-card').classList.add('selecionada');
+      } else if (window.event && window.event.target) {
+        window.event.target.closest('.categoria-card').classList.add('selecionada');
+      }
     }
 
     function iniciarJogo() {
@@ -1277,14 +1290,15 @@
     }
 
     function iniciarJogoLocal(data) {
-      rodadaTotal = data.totalRodadas;
+      // Preferir o que o backend manda; senão, cai no padrão 100
+      rodadaTotal = Number.isFinite(data.totalRodadas) ? data.totalRodadas : 100;
       rodadaAtual = 0;
       meusPontos = 0;
       resgatesRealizados = 0;
       meuEstado = 'sala-a';
-      
+
       mostrarNotificacao(`🎮 Jogo iniciado! ${rodadaTotal} rodadas`, 'sucesso');
-      
+
       document.getElementById('rodada-total').textContent = rodadaTotal;
       document.getElementById('rodada-total-b').textContent = rodadaTotal;
       document.getElementById('rodada-total-pulando').textContent = rodadaTotal;
@@ -1309,15 +1323,15 @@
       }
 
       mostrarTela('tela-jogo');
-      
+
       document.getElementById('rodada-atual').textContent = `Rodada ${rodadaAtual}`;
 
       document.getElementById('dica1-jogo').innerHTML = `<strong>DICA 1:</strong> ${data.carta.dica1}`;
       document.getElementById('dica1-jogo').classList.remove('bloqueada');
-      
-      document.getElementById('dica2-jogo').innerHTML = '<strong>DICA 2:</strong> 🔒 Aguarde...';
+
+      document.getElementById('dica2-jogo').innerHTML = '<strong>DICA 2:</strong> ���� Aguarde...';
       document.getElementById('dica2-jogo').classList.add('bloqueada');
-      
+
       document.getElementById('dica3-jogo').innerHTML = '<strong>DICA 3:</strong> 🔒 Aguarde...';
       document.getElementById('dica3-jogo').classList.add('bloqueada');
 
@@ -1325,7 +1339,14 @@
 
       atualizarStatusJogadores();
 
-      gerarAlternativas(data.carta);
+      // ===============================
+      // GERAR ALTERNATIVAS (4 opções ou VF)
+      // ===============================
+      if (categoriaSelecionada === 'verdadeirofalso') {
+        gerarAlternativasVerdadeiroFalso();
+      } else {
+        gerarAlternativas(data.carta);
+      }
 
       setTimeout(() => {
         if (!respondeu) {
@@ -1341,6 +1362,7 @@
         }
       }, 40000);
 
+      document.getElementById('timer-jogo').textContent = `${tempoRestante}s`;
       timerInterval = setInterval(() => {
         tempoRestante--;
         document.getElementById('timer-jogo').textContent = `${tempoRestante}s`;
@@ -1350,25 +1372,75 @@
         }
       }, 1000);
     }
+
     function atualizarStatusJogadores() {
       const container = document.getElementById('status-jogadores');
       if (!container) return;
-      
+
       container.innerHTML = '';
-      
+
       const jogadoresSalaA = todosJogadores.filter(j => !salaBJogadores.includes(j.nome));
-      
+
       jogadoresSalaA.forEach(jogador => {
         const item = document.createElement('div');
         item.className = 'status-item pensando';
         item.id = `status-${jogador.nome}`;
-        
+
         item.innerHTML = `
           <span>${jogador.nome}</span>
           <span style="color: var(--jw-amarelo-aviso); font-weight: bold;">⏳ Pensando...</span>
         `;
-        
+
         container.appendChild(item);
+      });
+    }
+
+    function gerarAlternativasVerdadeiroFalso() {
+      const container = document.getElementById('alternativas-container');
+      container.innerHTML = '';
+
+      // 2 botões fixos
+      alternativasAtuais = ['Verdadeiro', 'Falso'];
+      respostaCorretaIndex = -1; // no VF a gente não usa index local; backend valida pela string
+
+      const opcoes = [
+        { label: 'V', texto: 'VERDADEIRO', valor: 'Verdadeiro' },
+        { label: 'F', texto: 'FALSO', valor: 'Falso' }
+      ];
+
+      opcoes.forEach((op, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'alternativa-btn';
+        btn.innerHTML = `
+          <span class="letra">${op.label}</span>
+          <span class="texto">${op.texto}</span>
+        `;
+        btn.onclick = () => selecionarAlternativaVerdadeiroFalso(op.valor, index);
+        container.appendChild(btn);
+      });
+    }
+
+    function selecionarAlternativaVerdadeiroFalso(valor, indexBtn) {
+      if (respondeu) return;
+
+      respondeu = true;
+      clearInterval(timerInterval);
+
+      const botoes = document.querySelectorAll('.alternativa-btn');
+
+      ws.send(JSON.stringify({
+        tipo: 'responder',
+        nome: nomeJogador,
+        resposta: valor,
+        tempo: tempoRestante
+      }));
+
+      // Feedback visual otimista (o backend confirma depois em resposta_registrada)
+      botoes[indexBtn].classList.add('correta');
+
+      botoes.forEach(btn => {
+        btn.style.pointerEvents = 'none';
+        btn.style.opacity = '0.7';
       });
     }
 
@@ -1377,9 +1449,9 @@
       container.innerHTML = '';
 
       const respostasErradas = gerarRespostasErradas(carta.resposta);
-      
+
       respostaCorretaIndex = Math.floor(Math.random() * 4);
-      
+
       alternativasAtuais = [];
       for (let i = 0; i < 4; i++) {
         if (i === respostaCorretaIndex) {
@@ -1458,7 +1530,7 @@
         const emoji = data.acertou ? '✅' : '❌';
         const status = data.acertou ? 'ACERTOU!' : 'ERROU';
         const cor = data.acertou ? 'var(--jw-verde-sucesso)' : 'var(--jw-vermelho-erro)';
-        
+
         statusItem.className = 'status-item respondeu';
         statusItem.innerHTML = `
           <span>${data.nome}</span>
@@ -1469,15 +1541,15 @@
       const placar = document.getElementById('placar-lista');
       const item = document.createElement('div');
       item.className = 'placar-item';
-      
+
       const emoji = data.acertou ? '✅' : '❌';
       const cor = data.acertou ? 'var(--jw-verde-sucesso)' : 'var(--jw-vermelho-erro)';
-      
+
       item.innerHTML = `
         <span>${data.nome}</span>
         <span style="color: ${cor}; font-weight: bold;">${emoji} ${data.pontos} pts</span>
       `;
-      
+
       placar.appendChild(item);
 
       if (data.nome === nomeJogador) {
@@ -1487,7 +1559,7 @@
 
     function finalizarRodada(data) {
       clearInterval(timerInterval);
-      
+
       if (meuEstado === 'sala-a') {
         mostrarNotificacao(`Resposta: ${data.respostaCorreta}`, 'aviso');
       }
@@ -1495,7 +1567,7 @@
 
     function processarEliminacao(data) {
       const eliminados = data.eliminados || [];
-      
+
       eliminados.forEach(nome => {
         if (nome === nomeJogador) {
           meuEstado = 'sala-b';
@@ -1512,42 +1584,42 @@
 
     function entrarSalaConversa(data) {
       mostrarTela('tela-conversa');
-      
+
       salaAJogadores = data.salaA || [];
       salaBJogadores = data.salaB || [];
 
       const listaSalaA = document.getElementById('lista-sala-a-conversa');
       listaSalaA.innerHTML = '';
-      
+
       salaAJogadores.forEach(jogador => {
         const item = document.createElement('div');
         item.className = 'placar-item';
-        
+
         const icone = jogador.host ? '👑 ' : '🟢 ';
         const eu = jogador.nome === nomeJogador ? ' (VOCÊ)' : '';
-        
+
         item.innerHTML = `
           <span>${icone}${jogador.nome}${eu}</span>
           <span style="font-weight: bold;">${jogador.pontos} pts</span>
         `;
-        
+
         listaSalaA.appendChild(item);
       });
 
       if (salaBJogadores.length > 0) {
         document.getElementById('sala-b-resgates').style.display = 'block';
-        
+
         const listaSalaB = document.getElementById('lista-sala-b-conversa');
         listaSalaB.innerHTML = '';
-        
+
         salaBJogadores.forEach(jogador => {
           const item = document.createElement('div');
           item.className = 'placar-item';
           item.style.borderLeft = '4px solid var(--jw-vermelho-erro)';
-          
+
           const podeResgatar = meuEstado === 'sala-a' && meusPontos >= 5;
           const eu = jogador.nome === nomeJogador ? ' ⬅️ VOCÊ' : '';
-          
+
           item.innerHTML = `
             <div>
               <div style="font-weight: bold;">🔴 ${jogador.nome}${eu}</div>
@@ -1560,7 +1632,7 @@
               </button>
             ` : ''}
           `;
-          
+
           listaSalaB.appendChild(item);
         });
       } else {
@@ -1605,10 +1677,10 @@
       }
 
       resgatesRealizados++;
-      
+
       salaAJogadores = data.salaA || [];
       salaBJogadores = data.salaB || [];
-      
+
       entrarSalaConversa(data);
     }
 
@@ -1628,20 +1700,20 @@
     function mostrarTelaFinal(data) {
       mostrarTela('tela-final');
 
-      document.getElementById('info-final').textContent = 
+      document.getElementById('info-final').textContent =
         `${data.totalRodadas} Rodadas!`;
 
       const listaVencedores = document.getElementById('lista-vencedores');
       listaVencedores.innerHTML = '';
-      
+
       const vencedores = data.salaA || [];
       vencedores.forEach((jogador, index) => {
         const item = document.createElement('div');
         item.className = 'vencedor-item';
-        
+
         const medalhas = ['🥇', '🥈', '🥉'];
         const medalha = medalhas[index] || '🏆';
-        
+
         item.textContent = `${medalha} ${jogador.nome} - ${jogador.pontos} pts`;
         listaVencedores.appendChild(item);
       });
@@ -1649,10 +1721,10 @@
       const salaBFinal = data.salaB || [];
       if (salaBFinal.length > 0) {
         document.getElementById('sala-b-final').style.display = 'block';
-        
+
         const listaSalaB = document.getElementById('lista-sala-b-final');
         listaSalaB.innerHTML = '';
-        
+
         salaBFinal.forEach((jogador, index) => {
           const item = document.createElement('div');
           item.className = 'placar-item';
@@ -1686,7 +1758,7 @@
     function enviarMensagemChat(inputId, chatId) {
       const input = document.getElementById(inputId);
       const mensagem = input.value.trim();
-      
+
       if (!mensagem) return;
 
       ws.send(JSON.stringify({
@@ -1700,24 +1772,24 @@
 
     function adicionarMensagemChat(data) {
       const chats = ['chat-lobby', 'chat-conversa'];
-      
+
       chats.forEach(chatId => {
         const chat = document.getElementById(chatId);
         if (chat) {
           const bubble = document.createElement('div');
           const ehMinha = data.nome === nomeJogador;
-          
+
           bubble.className = `chat-bubble ${ehMinha ? 'minha' : 'outro'}`;
-          
+
           const agora = new Date();
           const hora = `${agora.getHours().toString().padStart(2, '0')}:${agora.getMinutes().toString().padStart(2, '0')}`;
-          
+
           bubble.innerHTML = `
             ${!ehMinha ? `<div class="nome">${data.nome}</div>` : ''}
             <div class="texto">${data.mensagem}</div>
             <div class="hora">${hora}</div>
           `;
-          
+
           chat.appendChild(bubble);
           chat.scrollTop = chat.scrollHeight;
         }
@@ -1726,7 +1798,7 @@
 
     function adicionarMensagemSistema(mensagem) {
       const chats = ['chat-lobby', 'chat-conversa'];
-      
+
       chats.forEach(chatId => {
         const chat = document.getElementById(chatId);
         if (chat) {
@@ -1745,7 +1817,7 @@
                        `Venha jogar comigo!\n\n` +
                        `📍 *Código da Sala:* ${salaAtual}\n\n` +
                        `🔗 Entre: ${urlSala}`;
-      
+
       const urlWhatsApp = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
       window.open(urlWhatsApp, '_blank');
     }
@@ -1754,9 +1826,9 @@
       const notif = document.createElement('div');
       notif.className = `notificacao ${tipo}`;
       notif.textContent = mensagem;
-      
+
       document.body.appendChild(notif);
-      
+
       setTimeout(() => {
         notif.remove();
       }, 5000);
