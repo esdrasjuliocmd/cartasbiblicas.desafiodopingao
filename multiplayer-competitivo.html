@@ -1104,6 +1104,10 @@
     let alternativasAtuais = [];
     let respostaCorretaIndex = -1;
 
+    // ✅ NOVO: quantas dicas já estavam liberadas quando eu respondi
+    // 1 = só dica1, 2 = dica1+dica2, 3 = dica1+dica2+dica3
+    let dicasLiberadas = 1;
+
     document.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const salaUrl = urlParams.get('sala');
@@ -1371,6 +1375,9 @@
       respondeu = false;
       tempoRestante = 60;
 
+      // ✅ reset por rodada: começou só com dica 1
+      dicasLiberadas = 1;
+
       if (data.jogadoresPulando && data.jogadoresPulando.includes(nomeJogador)) {
         meuEstado = 'pulando';
         mostrarTela('tela-pulando');
@@ -1415,6 +1422,7 @@
         if (!respondeu) {
           document.getElementById('dica2-jogo').innerHTML = `<strong>DICA 2:</strong> ${data.carta.dica2}`;
           document.getElementById('dica2-jogo').classList.remove('bloqueada');
+          dicasLiberadas = Math.max(dicasLiberadas, 2);
         }
       }, 20000);
 
@@ -1422,6 +1430,7 @@
         if (!respondeu) {
           document.getElementById('dica3-jogo').innerHTML = `<strong>DICA 3:</strong> ${data.carta.dica3}`;
           document.getElementById('dica3-jogo').classList.remove('bloqueada');
+          dicasLiberadas = Math.max(dicasLiberadas, 3);
         }
       }, 40000);
 
@@ -1498,7 +1507,9 @@
         tipo: 'responder',
         nome: nomeJogador,
         resposta: valor,
-        tempo: tempoRestante
+        tempo: tempoRestante,
+        // ✅ NOVO: dicas usadas (1/2/3)
+        dicas: dicasLiberadas
       }));
 
       // Feedback visual otimista (o backend confirma depois em resposta_registrada)
@@ -1575,7 +1586,9 @@
         tipo: 'responder',
         nome: nomeJogador,
         resposta: respostaSelecionada,
-        tempo: tempoRestante
+        tempo: tempoRestante,
+        // ✅ NOVO: dicas usadas (1/2/3)
+        dicas: dicasLiberadas
       }));
 
       if (index === respostaCorretaIndex) {

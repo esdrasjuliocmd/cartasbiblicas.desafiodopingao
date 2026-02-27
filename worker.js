@@ -1,4 +1,4 @@
-﻿﻿// ============================================
+﻿﻿﻿// ============================================
 // QUEM SOU EU? - Backend Cloudflare Workers
 // Sistema Completo: Solo + Multiplayer + Competitivo
 // COM MEMÓRIA GLOBAL DE CARTAS
@@ -626,7 +626,8 @@ export class SalaCompetitivaDO {
         break;
 
       case 'responder':
-        await this.processarResposta(nome, data.resposta, data.tempo);
+        // ✅ PATCH: passa "dicas" para aplicar a nova regra de pontos
+        await this.processarResposta(nome, data.resposta, data.tempo, data.dicas);
         break;
 
       case 'resgatar':
@@ -730,6 +731,7 @@ export class SalaCompetitivaDO {
         clearTimeout(this.timerRodada);
       }
 
+      // ⏱️ Mantém 60s por rodada
       this.timerRodada = setTimeout(() => {
         if (this.rodadaAtiva) {
           console.log('⏰ [COMPETITIVO] Tempo esgotado! Finalizando rodada...');
@@ -760,7 +762,8 @@ export class SalaCompetitivaDO {
     return { rodada: proxima, quantidade };
   }
 
-  async processarResposta(nome, resposta, tempo) {
+  // ✅ PATCH: nova regra de pontos por dicas (tempo não conta)
+  async processarResposta(nome, resposta, tempo, dicas) {
     const jogador = this.jogadores.get(nome);
 
     if (!jogador || jogador.sala !== 'A' || this.respostas.has(nome)) {
@@ -771,9 +774,9 @@ export class SalaCompetitivaDO {
 
     let pontos = 0;
     if (acertou) {
-      if (tempo >= 40) pontos = 3;
-      else if (tempo >= 20) pontos = 2;
-      else pontos = 1;
+      const dicasLiberadas = Math.min(3, Math.max(1, parseInt(dicas ?? 1, 10) || 1));
+      pontos = 10 - (dicasLiberadas - 1) * 3; // 10, 7, 4
+      if (pontos < 1) pontos = 1;
     }
 
     this.respostas.set(nome, { acertou, pontos });
