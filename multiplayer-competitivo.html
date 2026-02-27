@@ -46,6 +46,7 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
       background: linear-gradient(135deg, var(--jw-azul-escuro) 0%, var(--jw-azul-principal) 100%);
       min-height: 100vh;
+      min-height: 100dvh;
       padding: 10px;
       padding-bottom: 20px;
     }
@@ -99,14 +100,14 @@
     }
 
     /* ============================================
-       TELA DE JOGO - OTIMIZADA SEM SCROLL
+       TELA DE JOGO - OTIMIZADA COM SCROLL
        ============================================ */
     #tela-jogo {
-      overflow: hidden !important;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       display: flex;
       flex-direction: column;
       padding: 5px 10px !important;
-      max-height: calc(100vh - 60px);
     }
 
     #tela-jogo > * {
@@ -812,6 +813,7 @@
     <div class="header">
       <h1>🏆 MODO COMPETITIVO</h1>
       <p>Sistema Sala A vs B</p>
+      <button id="btn-som" onclick="toggleSom()" style="margin-top: 8px; background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.5); border-radius: 20px; padding: 4px 14px; cursor: pointer; font-size: 0.85rem; touch-action: manipulation;">🔇 SOM</button>
     </div>
 
     <div class="content">
@@ -1108,6 +1110,58 @@
     // 1 = só dica1, 2 = dica1+dica2, 3 = dica1+dica2+dica3
     let dicasLiberadas = 1;
 
+    // ============================================
+    // SISTEMA DE SONS (Web Audio API)
+    // ============================================
+    let somAtivado = false;
+    let audioCtx = null;
+
+    function inicializarAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function tocarTom(freq, duracao, delay = 0, tipo = 'sine', vol = 0.3) {
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.type = tipo;
+      osc.frequency.value = freq;
+      const t = audioCtx.currentTime + delay;
+      gain.gain.setValueAtTime(vol, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + duracao);
+      osc.start(t);
+      osc.stop(t + duracao + 0.05);
+    }
+
+    function tocarSom(tipo) {
+      if (!somAtivado || !audioCtx) return;
+      const sons = {
+        inicio_rodada: [[440, 0.12], [550, 0.15, 0.12]],
+        dica:          [[660, 0.08]],
+        acerto:        [[523, 0.1], [659, 0.1, 0.1], [784, 0.2, 0.2]],
+        erro:          [[200, 0.3, 0, 'sawtooth', 0.25]],
+        eliminacao:    [[300, 0.2], [200, 0.3, 0.2]],
+        fim_jogo:      [[784, 0.15], [880, 0.15, 0.15], [988, 0.3, 0.3]]
+      };
+      const seq = sons[tipo];
+      if (!seq) return;
+      seq.forEach(args => tocarTom(...args));
+    }
+
+    function toggleSom() {
+      inicializarAudio();
+      somAtivado = !somAtivado;
+      const btn = document.getElementById('btn-som');
+      if (btn) btn.textContent = somAtivado ? '🔊 SOM' : '🔇 SOM';
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const salaUrl = urlParams.get('sala');
@@ -1378,6 +1432,8 @@
       // ✅ reset por rodada: começou só com dica 1
       dicasLiberadas = 1;
 
+      tocarSom('inicio_rodada');
+
       if (data.jogadoresPulando && data.jogadoresPulando.includes(nomeJogador)) {
         meuEstado = 'pulando';
         mostrarTela('tela-pulando');
@@ -1423,6 +1479,7 @@
           document.getElementById('dica2-jogo').innerHTML = `<strong>DICA 2:</strong> ${data.carta.dica2}`;
           document.getElementById('dica2-jogo').classList.remove('bloqueada');
           dicasLiberadas = Math.max(dicasLiberadas, 2);
+          tocarSom('dica');
         }
       }, 20000);
 
@@ -1431,6 +1488,7 @@
           document.getElementById('dica3-jogo').innerHTML = `<strong>DICA 3:</strong> ${data.carta.dica3}`;
           document.getElementById('dica3-jogo').classList.remove('bloqueada');
           dicasLiberadas = Math.max(dicasLiberadas, 3);
+          tocarSom('dica');
         }
       }, 40000);
 
@@ -1594,10 +1652,12 @@
       if (index === respostaCorretaIndex) {
         botoes[index].classList.add('correta');
         mostrarNotificacao('✅ CORRETO!', 'sucesso');
+        tocarSom('acerto');
       } else {
         botoes[index].classList.add('errada');
         botoes[respostaCorretaIndex].classList.add('correta');
         mostrarNotificacao('❌ ERRADO!', 'erro');
+        tocarSom('erro');
       }
 
       botoes.forEach(btn => {
@@ -1656,6 +1716,7 @@
           ativarModoSalaBSpectator();
           mostrarNotificacao('📚 Você foi para SALA B! Continue estudando!', 'aviso');
           document.getElementById('pontos-sala-b').textContent = meusPontos;
+          tocarSom('eliminacao');
         } else {
           mostrarNotificacao(`📚 ${nome} foi para SALA B`, 'aviso');
         }
@@ -1783,6 +1844,7 @@
 
     function mostrarTelaFinal(data) {
       mostrarTela('tela-final');
+      tocarSom('fim_jogo');
 
       document.getElementById('info-final').textContent =
         `${data.totalRodadas} Rodadas!`;
