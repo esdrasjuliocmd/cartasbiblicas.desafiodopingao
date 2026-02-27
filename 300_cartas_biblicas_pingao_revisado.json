@@ -1,0 +1,3004 @@
+{
+  "cartas": [
+    {
+      "masculino": 1,
+      "dica1": "Foi o primeiro homem criado por Deus.",
+      "dica2": "Viveu no jardim do Éden.",
+      "dica3": "Seu pecado trouxe consequências para a humanidade.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 1,
+      "resposta": "Adão"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Foi a primeira mulher criada por Deus.",
+      "dica2": "Viveu no Éden.",
+      "dica3": "É chamada de mãe de todos os viventes.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 1,
+      "resposta": "Eva"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Adão e Eva.",
+      "dica2": "Matou seu irmão.",
+      "dica3": "Foi condenado a ser fugitivo e vagabundo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 2,
+      "resposta": "Caim"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Adão e Eva.",
+      "dica2": "Ofereceu um sacrifício aceitável.",
+      "dica3": "Foi morto por seu irmão.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 3,
+      "resposta": "Abel"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Adão e Eva.",
+      "dica2": "Nasceu após a morte de Abel.",
+      "dica3": "De sua linhagem veio Noé.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Sete"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Homem que andou com Deus.",
+      "dica2": "Não experimentou a morte.",
+      "dica3": "Foi pai de Matusalém.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Enoque"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Viveu muitos anos.",
+      "dica2": "Pertenceu à linhagem fiel antes do Dilúvio.",
+      "dica3": "Era avô de Noé.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Matusalém"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Construiu a arca por fé.",
+      "dica2": "Sobreviveu ao Dilúvio com sua família.",
+      "dica3": "Foi pregador da justiça.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 2,
+      "resposta": "Noé"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Noé.",
+      "dica2": "De sua linhagem vieram os semitas.",
+      "dica3": "Antepassado de Abraão.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Sem"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Noé.",
+      "dica2": "Pai de Canaã.",
+      "dica3": "Envolvido em episódio após o Dilúvio.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Cam"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Noé.",
+      "dica2": "Seu nome aparece na tabela das nações.",
+      "dica3": "Associado a povos de territórios ao norte.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Jafé"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Descrito como poderoso caçador.",
+      "dica2": "Ligado à construção de Babel.",
+      "dica3": "Associado ao início de reinos antigos.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Ninrode"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Saiu de Ur por fé.",
+      "dica2": "Foi chamado amigo de Deus.",
+      "dica3": "Pai de Isaque.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 2,
+      "resposta": "Abraão"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Esposa de Abraão.",
+      "dica2": "Deu à luz em idade avançada.",
+      "dica3": "Seu nome antes era Sarai.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 3,
+      "resposta": "Sara"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Sobrinho de Abraão.",
+      "dica2": "Foi tirado de Sodoma.",
+      "dica3": "Sua família teve dificuldades na fuga.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Ló"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Serva de Sara.",
+      "dica2": "Mãe de Ismael.",
+      "dica3": "Teve de lidar com a vida no deserto.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Agar"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Abraão com Agar.",
+      "dica2": "Tornou-se pai de uma grande nação.",
+      "dica3": "Teve conflitos familiares.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Ismael"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho prometido de Abraão.",
+      "dica2": "Quase foi oferecido como sacrifício.",
+      "dica3": "Pai de Jacó e Esaú.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 3,
+      "resposta": "Isaque"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Esposa de Isaque.",
+      "dica2": "Mãe de Esaú e Jacó.",
+      "dica3": "Teve papel na bênção de Jacó.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Rebeca"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Irmão gêmeo de Jacó.",
+      "dica2": "Era caçador.",
+      "dica3": "Vendeu seu direito de primogenitura.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Esaú"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Também foi chamado Israel.",
+      "dica2": "Teve 12 filhos.",
+      "dica3": "Viu uma escada em sonho.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 3,
+      "resposta": "Jacó"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Esposa amada de Jacó.",
+      "dica2": "Mãe de José e Benjamim.",
+      "dica3": "Morreu ao dar à luz Benjamim.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Raquel"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Primeira esposa de Jacó.",
+      "dica2": "Mãe de vários filhos de Jacó.",
+      "dica3": "Sentiu-se rejeitada por muito tempo.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Lia"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Jacó.",
+      "dica2": "Foi vendido como escravo.",
+      "dica3": "Tornou-se governador no Egito.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 3,
+      "resposta": "José"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho mais novo de Jacó.",
+      "dica2": "Irmão de José.",
+      "dica3": "De sua tribo veio o primeiro rei de Israel.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Benjamim"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Jacó.",
+      "dica2": "Sua tribo recebeu destaque profético.",
+      "dica3": "Antepassado da linhagem real.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Judá"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Jacó.",
+      "dica2": "De sua tribo vieram os sacerdotes.",
+      "dica3": "Ligado ao serviço sagrado em Israel.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Levi"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Teve ligação com Judá.",
+      "dica2": "Aparece em Gênesis em um episódio difícil.",
+      "dica3": "Faz parte da linhagem de Judá.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Tamar"
+    },
+    {
+      "masculino": 1,
+      "dica1": "O governante do Egito na época de Moisés.",
+      "dica2": "Endureceu o coração diante das pragas.",
+      "dica3": "Perseguiu Israel até o Mar Vermelho.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Faraó (Êxodo)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Foi usado para libertar Israel do Egito.",
+      "dica2": "Recebeu a Lei no Sinai.",
+      "dica3": "Liderou o povo no deserto.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 2,
+      "resposta": "Moisés"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Irmão de Moisés.",
+      "dica2": "Primeiro sumo sacerdote de Israel.",
+      "dica3": "Participou do episódio do bezerro de ouro.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 3,
+      "resposta": "Arão"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Irmã de Moisés.",
+      "dica2": "Chamada profetisa.",
+      "dica3": "Liderou cântico após a travessia do mar.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Miriã"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Sogro de Moisés.",
+      "dica2": "Sacerdote de Midiã.",
+      "dica3": "Aconselhou Moisés sobre organização do povo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Jetro"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Esposa de Moisés.",
+      "dica2": "Filha de Jetro.",
+      "dica3": "Envolvida em episódio relacionado à circuncisão.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Zipora"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Sucessor de Moisés.",
+      "dica2": "Liderou a entrada na Terra Prometida.",
+      "dica3": "Derrubou os muros de Jericó.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Josué"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Um dos 12 espias.",
+      "dica2": "Manteve fé quando outros desanimaram.",
+      "dica3": "Recebeu herança em Hebrom.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Calebe"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Foi contratado para amaldiçoar Israel.",
+      "dica2": "Deus o fez pronunciar bênçãos.",
+      "dica3": "Seu jumento falou em certa ocasião.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Balaão"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Moabe.",
+      "dica2": "Contratou Balaão.",
+      "dica3": "Temia a aproximação de Israel.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Balaque"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Sacerdote zeloso.",
+      "dica2": "Agiu firmemente contra a imoralidade.",
+      "dica3": "Recebeu elogio por seu zelo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Fineias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Liderou uma rebelião contra Moisés e Arão.",
+      "dica2": "Questionou a autoridade estabelecida.",
+      "dica3": "Seu grupo sofreu julgamento severo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Corá"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Participou da rebelião de Corá.",
+      "dica2": "Opositor de Moisés.",
+      "dica3": "Foi atingido por julgamento divino.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Datã"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Associado a Datã e Corá.",
+      "dica2": "Opositor de Moisés.",
+      "dica3": "Sofreu julgamento junto com os rebeldes.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Abirão"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Foi juíza em Israel.",
+      "dica2": "Incentivou Baraque a agir.",
+      "dica3": "Cantou um cântico de vitória.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Débora"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Liderou tropas de Israel.",
+      "dica2": "Atendeu ao chamado de Débora.",
+      "dica3": "Derrotou Sísera.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Baraque"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Comandante do exército inimigo.",
+      "dica2": "Fugiu a pé após derrota.",
+      "dica3": "Morreu na tenda de Jael.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Sísera"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Matou Sísera na tenda.",
+      "dica2": "Usou uma estaca.",
+      "dica3": "Foi elogiada no cântico de Débora.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Jael"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Foi juiz de Israel.",
+      "dica2": "Derrotou midianitas com pequeno exército.",
+      "dica3": "Também foi chamado Jerubaal.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Gideão"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Gideão.",
+      "dica2": "Buscou reinar por ambição.",
+      "dica3": "Morreu de modo incomum em batalha.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Abimeleque"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Juiz de Israel.",
+      "dica2": "Fez um voto precipitado.",
+      "dica3": "Liderou Israel contra amonitas.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Jefté"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Juiz de Israel.",
+      "dica2": "Teve força extraordinária.",
+      "dica3": "Caiu por causa de sua fraqueza por mulheres.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 3,
+      "resposta": "Sansão"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Relacionada a Sansão.",
+      "dica2": "Insistiu para descobrir seu segredo.",
+      "dica3": "Foi usada pelos filisteus.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Dalila"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Moabita que mostrou lealdade.",
+      "dica2": "Disse: 'Teu povo será meu povo'.",
+      "dica3": "Casou-se com Boaz.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 3,
+      "resposta": "Rute"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Sogra de Rute.",
+      "dica2": "Voltou de Moabe para Belém.",
+      "dica3": "Ensinou Rute sobre a família de Boaz.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Noemi"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Parente resgatador.",
+      "dica2": "Mostrou bondade a Rute.",
+      "dica3": "Casou-se com Rute em Belém.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Boaz"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Mãe de Samuel.",
+      "dica2": "Orava com perseverança.",
+      "dica3": "Dedicou seu filho ao serviço de Jeová.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Ana"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta e juiz.",
+      "dica2": "Ungiu Saul e Davi.",
+      "dica3": "Serviu fielmente desde jovem.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Samuel"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Sumo sacerdote em Silo.",
+      "dica2": "Teve filhos corruptos.",
+      "dica3": "Morreu ao receber notícia da arca.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Eli"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Eli.",
+      "dica2": "Cometeu abusos no serviço sacerdotal.",
+      "dica3": "Morreu no dia em que a arca foi capturada.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Hofni"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Eli.",
+      "dica2": "Sacerdote corrupto.",
+      "dica3": "Morreu quando a arca foi capturada.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Fineias (filho de Eli)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Primeiro rei de Israel.",
+      "dica2": "Desobedeceu e perdeu o favor de Jeová.",
+      "dica3": "Perseguiu Davi.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Saul"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Saul.",
+      "dica2": "Amigo leal de Davi.",
+      "dica3": "Morreu em batalha.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Jônatas"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Derrotou Golias.",
+      "dica2": "Tornou-se rei de Israel.",
+      "dica3": "Escreveu muitos salmos.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 2,
+      "resposta": "Davi"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Gigante filisteu.",
+      "dica2": "Desafiou Israel.",
+      "dica3": "Foi derrotado por Davi com uma funda.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 3,
+      "resposta": "Golias"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Filha de Saul.",
+      "dica2": "Primeira esposa de Davi.",
+      "dica3": "Desprezou Davi por dançar diante de Jeová.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Mical"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Comandante do exército de Saul.",
+      "dica2": "Apoiou a casa de Saul.",
+      "dica3": "Foi morto por Joabe.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Abner"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Comandante do exército de Davi.",
+      "dica2": "Matou Abner.",
+      "dica3": "Teve fim trágico por causa de violência.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Joabe"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Esposa de Urias.",
+      "dica2": "Tornou-se esposa de Davi.",
+      "dica3": "Mãe de Salomão.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Bate-Seba"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Hitita no exército de Davi.",
+      "dica2": "Marido de Bate-Seba.",
+      "dica3": "Morreu em batalha por ordem indireta de Davi.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Urias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta na época de Davi.",
+      "dica2": "Confrontou Davi por seu pecado.",
+      "dica3": "Apoiou a sucessão de Salomão.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Natã"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Davi.",
+      "dica2": "Rebelou-se contra o pai.",
+      "dica3": "Morreu preso pelos cabelos.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Absalão"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Davi.",
+      "dica2": "Cometeu grave pecado contra Tamar.",
+      "dica3": "Foi morto por ordem de Absalão.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Amnom"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Davi.",
+      "dica2": "Tentou tomar o trono.",
+      "dica3": "Foi impedido quando Salomão foi ungido.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Adonias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Famoso por sabedoria.",
+      "dica2": "Construiu o templo.",
+      "dica3": "Escreveu provérbios e cânticos.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 2,
+      "resposta": "Salomão"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Salomão.",
+      "dica2": "Sua dureza dividiu o reino.",
+      "dica3": "Reinou em Judá.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Roboão"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Primeiro rei do reino do norte.",
+      "dica2": "Fez bezerros de ouro.",
+      "dica3": "Levou Israel à idolatria.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Jeroboão"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta em Israel.",
+      "dica2": "Confrontou profetas de Baal no Carmelo.",
+      "dica3": "Foi levado num redemoinho.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Elias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Sucessor de Elias.",
+      "dica2": "Realizou muitos milagres.",
+      "dica3": "Curou Naamã da lepra.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Eliseu"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Comandante sírio.",
+      "dica2": "Era leproso.",
+      "dica3": "Foi curado ao se lavar no Jordão.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Naamã"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Servo de Eliseu.",
+      "dica2": "Mentiu por ganância.",
+      "dica3": "Ficou leproso.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Geazi"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Israel.",
+      "dica2": "Casado com Jezabel.",
+      "dica3": "Perseguiu profetas de Jeová.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Acabe"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Esposa de Acabe.",
+      "dica2": "Promoveu adoração a Baal.",
+      "dica3": "Teve morte violenta.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Jezabel"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Israel.",
+      "dica2": "Eliminou a casa de Acabe.",
+      "dica3": "Executou Jezabel.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Jeú"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá.",
+      "dica2": "Buscou a Jeová em tempos de ameaça.",
+      "dica3": "Aliou-se imprudentemente com Israel.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Josafá"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá.",
+      "dica2": "Começou bem espiritualmente.",
+      "dica3": "Mais tarde confiou em ajuda humana.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Asa"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá.",
+      "dica2": "Confiou em Jeová contra a Assíria.",
+      "dica3": "Recebeu extensão de vida.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Ezequias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei da Assíria.",
+      "dica2": "Ameaçou Jerusalém.",
+      "dica3": "Seu exército foi derrotado por intervenção divina.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Senaqueribe"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá.",
+      "dica2": "Praticou idolatria extrema.",
+      "dica3": "Arrependeu-se após ser levado cativo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Manassés"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá.",
+      "dica2": "Promoveu grande reforma.",
+      "dica3": "Encontrou o livro da Lei.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Josias"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Profetisa em Jerusalém.",
+      "dica2": "Consultada no reinado de Josias.",
+      "dica3": "Confirmou mensagem de julgamento.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Hulda"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta em Judá.",
+      "dica2": "Advertiu antes da destruição de Jerusalém.",
+      "dica3": "Sofreu oposição intensa.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Jeremias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Escriba de Jeremias.",
+      "dica2": "Registrou mensagens proféticas.",
+      "dica3": "Compartilhou dificuldades com Jeremias.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Baruc"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei babilônico.",
+      "dica2": "Conquistou Jerusalém.",
+      "dica3": "Foi humilhado por orgulho.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Nabucodonosor"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Exilado na Babilônia.",
+      "dica2": "Interpretou sonhos e visões.",
+      "dica3": "Sobreviveu à cova dos leões.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 3,
+      "resposta": "Daniel"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei babilônico.",
+      "dica2": "Viu escrita misteriosa na parede.",
+      "dica3": "Seu reino caiu naquela noite.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Belsazar"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Governante meda-persa.",
+      "dica2": "Assinou decreto que levou Daniel à cova.",
+      "dica3": "Reconheceu o Deus de Daniel após o livramento.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Dario (o medo)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei persa.",
+      "dica2": "Permitiu retorno dos judeus.",
+      "dica3": "Cumpriu profecia sobre reconstrução.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Ciro"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Escriba e sacerdote.",
+      "dica2": "Liderou retorno a Jerusalém.",
+      "dica3": "Ensinou a Lei ao povo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Esdras"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Copero do rei persa.",
+      "dica2": "Reconstruiu os muros de Jerusalém.",
+      "dica3": "Enfrentou oposição e desânimo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Neemias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Governador judaíta pós-exílio.",
+      "dica2": "Liderou reconstrução do templo.",
+      "dica3": "Descendente da linhagem real.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Zorobabel"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta pós-exílio.",
+      "dica2": "Incentivou reconstrução do templo.",
+      "dica3": "Repreendeu a apatia do povo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Ageu"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta pós-exílio.",
+      "dica2": "Teve visões simbólicas.",
+      "dica3": "Incentivou reconstrução do templo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Zacarias (profeta)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta pós-exílio.",
+      "dica2": "Repreendeu sacerdotes negligentes.",
+      "dica3": "Falou sobre o dia de Jeová.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Malaquias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Deus.",
+      "dica2": "Ensinou por parábolas e milagres.",
+      "dica3": "Deu sua vida como resgate.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 0,
+      "resposta": "Jesus"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Mãe de Jesus.",
+      "dica2": "Recebeu anúncio do anjo Gabriel.",
+      "dica3": "Visitou Isabel.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 2,
+      "resposta": "Maria"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Mãe de João Batista.",
+      "dica2": "Era parente de Maria.",
+      "dica3": "Foi idosa quando engravidou.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Isabel"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pai de João Batista.",
+      "dica2": "Sacerdote.",
+      "dica3": "Ficou mudo por um tempo por duvidar.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Zacarias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Precursor de Jesus.",
+      "dica2": "Batizava no Jordão.",
+      "dica3": "Denunciou o pecado de Herodes.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 3,
+      "resposta": "João Batista"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Governante na Galileia.",
+      "dica2": "Mandou matar João Batista.",
+      "dica3": "Interrogou Jesus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Herodes (Antipas)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Governador romano.",
+      "dica2": "Julgou Jesus.",
+      "dica3": "Cedeu à pressão para a execução.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Pilatos"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Apóstolo.",
+      "dica2": "Negou Jesus três vezes.",
+      "dica3": "Mais tarde fortaleceu os irmãos.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 3,
+      "resposta": "Simão Pedro"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Apóstolo.",
+      "dica2": "Irmão de Pedro.",
+      "dica3": "Pescador da Galileia.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "André"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Apóstolo.",
+      "dica2": "Irmão de João.",
+      "dica3": "Primeiro apóstolo martirizado.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Tiago (filho de Zebedeu)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Apóstolo amado.",
+      "dica2": "Escreveu evangelho e cartas.",
+      "dica3": "Recebeu visões em Apocalipse.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "João"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Apóstolo.",
+      "dica2": "Apresentou Natanael a Jesus.",
+      "dica3": "Fez perguntas durante a última noite.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Filipe (apóstolo)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Também chamado Natanael.",
+      "dica2": "Foi elogiado por Jesus como sem dolo.",
+      "dica3": "Um dos doze apóstolos.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Bartolomeu"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Apóstolo.",
+      "dica2": "Antes era cobrador de impostos.",
+      "dica3": "Escreveu um evangelho.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Mateus"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Apóstolo.",
+      "dica2": "Duvidou da ressurreição.",
+      "dica3": "Disse: 'Meu Senhor e meu Deus!'",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Tomé"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Um dos doze.",
+      "dica2": "Menos mencionado nos evangelhos.",
+      "dica3": "Diferente do Tiago filho de Zebedeu.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Tiago (filho de Alfeu)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Também chamado Judas (não Iscariotes).",
+      "dica2": "Fez pergunta a Jesus na última noite.",
+      "dica3": "Um dos doze.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Tadeu"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Apóstolo.",
+      "dica2": "Chamado o zelote.",
+      "dica3": "Um dos doze.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Simão (o zelote)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Traiu Jesus.",
+      "dica2": "Recebeu 30 moedas de prata.",
+      "dica3": "Teve fim trágico após a traição.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 3,
+      "resposta": "Judas Iscariotes"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Seguidora fiel de Jesus.",
+      "dica2": "Esteve perto da execução.",
+      "dica3": "Foi uma das primeiras a ver Jesus ressuscitado.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Maria Madalena"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Amiga de Jesus em Betânia.",
+      "dica2": "Irmã de Maria e Lázaro.",
+      "dica3": "Aprendeu sobre prioridades espirituais.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Marta"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Sentou-se aos pés de Jesus para aprender.",
+      "dica2": "Irmã de Marta.",
+      "dica3": "Mostrou devoção a Jesus.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Maria (irmã de Marta)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Amigo de Jesus.",
+      "dica2": "Ressuscitado após quatro dias.",
+      "dica3": "Morava em Betânia.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Lázaro"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Encontrou Jesus num poço.",
+      "dica2": "Conversou sobre 'água viva'.",
+      "dica3": "Falou a outros sobre Jesus.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Mulher samaritana"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Ajudou Elias durante a fome.",
+      "dica2": "Tinha pouco alimento.",
+      "dica3": "Seu filho foi ressuscitado.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Viúva de Sarepta"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Oficial romano.",
+      "dica2": "Demonstrou grande fé.",
+      "dica3": "Pediu cura para seu servo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Centurião (servo curado)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Cobrador de impostos.",
+      "dica2": "Subiu numa árvore para ver Jesus.",
+      "dica3": "Mudou de vida e fez restituição.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Zaqueu"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Convidou Jesus para uma refeição.",
+      "dica2": "Julgou uma mulher que ungiu Jesus.",
+      "dica3": "Aprendeu lição sobre perdão.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Simão (fariseu)"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Demonstrou grande gratidão.",
+      "dica2": "Ungiu os pés de Jesus.",
+      "dica3": "Foi usada em lição sobre perdão.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Mulher pecadora (ungiu Jesus)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Fariseu influente.",
+      "dica2": "Visitou Jesus à noite.",
+      "dica3": "Ajudou no sepultamento de Jesus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Nicodemos"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Membro respeitado do conselho.",
+      "dica2": "Pediu o corpo de Jesus.",
+      "dica3": "Providenciou sepultamento.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "José de Arimateia"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Primeiro mártir cristão.",
+      "dica2": "Fez defesa poderosa da fé.",
+      "dica3": "Foi apedrejado.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Estevão"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Um dos sete homens escolhidos.",
+      "dica2": "Pregou em Samaria.",
+      "dica3": "Batizou o eunuco etíope.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Filipe (evangelizador)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Oficial etíope.",
+      "dica2": "Lia Isaías no carro.",
+      "dica3": "Foi batizado por Filipe.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Eunuco etíope"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Perseguiu cristãos.",
+      "dica2": "Converteu-se no caminho de Damasco.",
+      "dica3": "Tornou-se apóstolo aos gentios.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 3,
+      "resposta": "Saulo"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Chamado 'filho da consolação'.",
+      "dica2": "Apoiou Paulo.",
+      "dica3": "Foi missionário.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Barnabé"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Companheiro de Paulo.",
+      "dica2": "Cantou na prisão com Paulo.",
+      "dica3": "Participou de viagens missionárias.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Silas"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Jovem colaborador de Paulo.",
+      "dica2": "Recebeu conselhos em cartas.",
+      "dica3": "Serviu em várias congregações.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Timóteo"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Colaborador de Paulo.",
+      "dica2": "Serviu em Creta.",
+      "dica3": "Recebeu carta com instruções.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Tito"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Médico amado.",
+      "dica2": "Companheiro de Paulo.",
+      "dica3": "Escreveu Lucas e Atos.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Lucas"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Também chamado João Marcos.",
+      "dica2": "Ajudou Pedro e Paulo em períodos diferentes.",
+      "dica3": "Escreveu o evangelho de Marcos.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Marcos"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Cristão judeu.",
+      "dica2": "Fabricante de tendas.",
+      "dica3": "Trabalhou com Paulo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Áquila"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Esposa de Áquila.",
+      "dica2": "Ajudou a instruir Apolo.",
+      "dica3": "Trabalhou com Paulo.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Priscila"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Orador eloquente de Alexandria.",
+      "dica2": "Foi instruído por Priscila e Áquila.",
+      "dica3": "Ajudou congregações com ensino.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Apolo"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Centurião romano.",
+      "dica2": "Primeiro gentio não circuncidado a ser batizado.",
+      "dica3": "Recebeu visita de Pedro.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Cornélio"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Vendedora de púrpura.",
+      "dica2": "Aceitou a mensagem cristã.",
+      "dica3": "Hospedou missionários.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Lídia"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Discípulo em Damasco.",
+      "dica2": "Foi enviado a Saulo.",
+      "dica3": "Ajudou-o a recuperar a visão.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Ananias (Damasco)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Mentiu sobre uma doação.",
+      "dica2": "Caiu morto.",
+      "dica3": "Seu caso trouxe temor saudável.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Ananias (com Safira)"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Esposa de Ananias.",
+      "dica2": "Participou da mentira.",
+      "dica3": "Sofreu o mesmo julgamento.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Safira"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Cristão que recebeu carta de Paulo.",
+      "dica2": "Dono de Onésimo.",
+      "dica3": "Foi incentivado ao perdão.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Filemom"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Escravo fugitivo.",
+      "dica2": "Tornou-se cristão.",
+      "dica3": "Voltou com recomendação de Paulo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Onésimo"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Jovem que adormeceu numa reunião.",
+      "dica2": "Caiu de uma janela.",
+      "dica3": "Foi revivido por Paulo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Eutico"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Fariseu e instrutor da Lei.",
+      "dica2": "Aconselhou moderação no Sinédrio.",
+      "dica3": "Professor de Saulo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Gamaliel"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Governador romano.",
+      "dica2": "Ouvia Paulo, mas procrastinou.",
+      "dica3": "Esperava suborno.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Félix"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Governador romano.",
+      "dica2": "Ouviu o caso de Paulo.",
+      "dica3": "Enviou Paulo a César.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Festo"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei que ouviu a defesa de Paulo.",
+      "dica2": "Disse que Paulo quase o persuadiu.",
+      "dica3": "Conhecia costumes judaicos.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Agripa"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Comandante romano em Jerusalém.",
+      "dica2": "Protegeu Paulo de uma multidão.",
+      "dica3": "Enviou relatório aos governadores.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Cláudio Lísias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Advogado/acusador no caso de Paulo.",
+      "dica2": "Apresentou acusações a Félix.",
+      "dica3": "Usou bajulação e distorções.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Tertulo"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Serva/ministra de uma congregação.",
+      "dica2": "Recomendada por Paulo.",
+      "dica3": "Ajudou muitos, inclusive Paulo.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Febe"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Cristã em Filipos.",
+      "dica2": "Mencionada por Paulo.",
+      "dica3": "Precisava buscar união com Síntique.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Evodia"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Cristã em Filipos.",
+      "dica2": "Mencionada com Evódia.",
+      "dica3": "Incentivada a ter a mesma mente.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Síntique"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Colaborador de Paulo.",
+      "dica2": "Quase morreu por causa do serviço.",
+      "dica3": "Levou ajuda da congregação de Filipos.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Epafrodito"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Cristão associado a Colossos.",
+      "dica2": "Trabalhou arduamente em oração.",
+      "dica3": "Cooperador de Paulo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Epafras"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Mensageiro de Paulo.",
+      "dica2": "Levou cartas às congregações.",
+      "dica3": "Descrito como irmão amado e fiel.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Tíquico"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Companheiro de Paulo.",
+      "dica2": "Esteve com Paulo em viagens.",
+      "dica3": "Compartilhou riscos e prisões.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Aristarco"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Promoveu tumulto em Éfeso.",
+      "dica2": "Temia prejuízo por causa de ídolos.",
+      "dica3": "Liderou protesto contra Paulo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Demétrio (ourives)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Associado a Paulo no início.",
+      "dica2": "Mais tarde abandonou o serviço.",
+      "dica3": "Amou o presente sistema.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Demas"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá.",
+      "dica2": "Teve conflitos com Jeroboão.",
+      "dica3": "Fez discurso lembrando o pacto com Davi.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Abias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá.",
+      "dica2": "Promoveu ensino da Lei.",
+      "dica3": "Buscou a Jeová quando ameaçado por inimigos.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Jeosafá"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá.",
+      "dica2": "Influenciado pela casa de Acabe.",
+      "dica3": "Enfrentou rebeliões e dificuldades.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Jeorão"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá.",
+      "dica2": "Associou-se com a casa de Acabe.",
+      "dica3": "Morreu durante o julgamento trazido por Jeú.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Acazias"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Rainha usurpadora em Judá.",
+      "dica2": "Tentou eliminar a linhagem real.",
+      "dica3": "Foi derrubada quando Joás foi coroado.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Atalia"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá coroado ainda menino.",
+      "dica2": "Restaurou o templo por um tempo.",
+      "dica3": "Mais tarde se desviou e sofreu consequências.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Joás"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá.",
+      "dica2": "Teve vitórias e depois orgulho.",
+      "dica3": "Sofreu conspiração e morreu assassinado.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Amazias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá.",
+      "dica2": "Fortaleceu o reino.",
+      "dica3": "Ficou leproso por agir com presunção no templo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Uzias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá.",
+      "dica2": "Fez obras de construção.",
+      "dica3": "Manteve-se relativamente fiel.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Jotão"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá.",
+      "dica2": "Praticou idolatria.",
+      "dica3": "Buscou ajuda da Assíria.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Acaz"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá.",
+      "dica2": "Seguiu maus caminhos.",
+      "dica3": "Foi morto por servos conspiradores.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Amom"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá.",
+      "dica2": "Reinou pouco tempo.",
+      "dica3": "Foi deposto pelo Egito.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Jeoacaz"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá.",
+      "dica2": "Rebelou-se e sofreu pressão estrangeira.",
+      "dica3": "Desprezou advertências proféticas.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Jeoaquim"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Judá.",
+      "dica2": "Levado cativo à Babilônia.",
+      "dica3": "Reinou por pouco tempo antes do exílio.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Joaquim"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Último rei de Judá.",
+      "dica2": "Rebelou-se contra Babilônia.",
+      "dica3": "Viu a queda final de Jerusalém.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Zedequias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Israel.",
+      "dica2": "Filho de Jeroboão.",
+      "dica3": "Foi assassinado por Baasa.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Nadabe"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Israel.",
+      "dica2": "Tomou o trono por conspiração.",
+      "dica3": "Enfrentou condenação profética.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Baasa"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Israel.",
+      "dica2": "Reinou pouco tempo.",
+      "dica3": "Foi assassinado por Zinri.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Elá"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Israel por poucos dias.",
+      "dica2": "Incendiou o palácio sobre si.",
+      "dica3": "Conhecido por fim trágico.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Zinri"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Israel.",
+      "dica2": "Fundou Samaria como capital.",
+      "dica3": "Estabeleceu dinastia poderosa.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Onri"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Israel.",
+      "dica2": "Filho de Acabe.",
+      "dica3": "Foi morto por Jeú.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Jorão"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Israel.",
+      "dica2": "Visitou Eliseu em seus últimos dias.",
+      "dica3": "Enfrentou conflitos com Judá.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Jeoás"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Israel.",
+      "dica2": "Expandiu território.",
+      "dica3": "Período marcado por prosperidade e injustiça.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Jeroboão II"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Israel.",
+      "dica2": "Reinou apenas um mês.",
+      "dica3": "Foi morto por Menaém.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Salum"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Israel.",
+      "dica2": "Pagou tributo à Assíria.",
+      "dica3": "Governou com crueldade.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Menaém"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Israel.",
+      "dica2": "Filho de Menaém.",
+      "dica3": "Foi morto por Peca.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Pecaías"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Israel.",
+      "dica2": "Aliou-se contra Judá.",
+      "dica3": "Foi morto por Oséias.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Peca"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Último rei de Israel.",
+      "dica2": "Rebelião levou ao fim do reino.",
+      "dica3": "Israel foi levado ao exílio assírio.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Oséias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta na época de Davi.",
+      "dica2": "Deu orientação ao rei.",
+      "dica3": "Ligado a registros históricos.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Gade"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta em Israel.",
+      "dica2": "Anunciou divisão do reino.",
+      "dica3": "Falou contra a casa de Jeroboão.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Aías"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta em Judá.",
+      "dica2": "Impediu guerra civil imediata.",
+      "dica3": "Falou a Roboão.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Semaías"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta.",
+      "dica2": "Repreendeu Jeosafá por aliança errada.",
+      "dica3": "Também profetizou contra Baasa.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Jeú (filho de Hanani)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta.",
+      "dica2": "Repreendeu Asa por confiar em alianças.",
+      "dica3": "Foi preso por Asa.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Hanani"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta.",
+      "dica2": "Incentivou Asa a agir com coragem.",
+      "dica3": "Falou sobre buscar a Jeová.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Azarias (filho de Odede)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta.",
+      "dica2": "Predisse derrota de Acabe.",
+      "dica3": "Foi preso por falar a verdade.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Micaías"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta enviado a Nínive.",
+      "dica2": "Tentou fugir da missão.",
+      "dica3": "Aprendeu sobre misericórdia divina.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 3,
+      "resposta": "Jonas"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta.",
+      "dica2": "Profetizou contra Nínive.",
+      "dica3": "Mostrou que Jeová executa justiça.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Naum"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta.",
+      "dica2": "Questionou injustiças.",
+      "dica3": "Aprendeu a viver pela fé.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Habacuque"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta.",
+      "dica2": "Falou do dia de Jeová.",
+      "dica3": "Advertiu Judá contra idolatria.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Sofonias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta.",
+      "dica2": "Usou praga de gafanhotos como ilustração.",
+      "dica3": "Falou de derramamento do espírito.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Joel"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta pastor.",
+      "dica2": "Condenou injustiça social.",
+      "dica3": "Falou ao reino do norte.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Amós"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta.",
+      "dica2": "Predisse local de nascimento do Messias.",
+      "dica3": "Condenou líderes corruptos.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Miqueias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta.",
+      "dica2": "Livro curto.",
+      "dica3": "Profetizou contra Edom.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Obadias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Profeta.",
+      "dica2": "Escreveu muitas profecias messiânicas.",
+      "dica3": "Serviu em Judá por décadas.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Isaías"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Homem justo em Jerusalém.",
+      "dica2": "Reconheceu o menino Jesus.",
+      "dica3": "Disse palavras proféticas a Maria.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Simeão"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Profetisa idosa.",
+      "dica2": "Falava sobre o resgate em Jerusalém.",
+      "dica3": "Reconheceu a importância de Jesus.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Ana (profetisa)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei na Judeia.",
+      "dica2": "Tentou matar o menino Jesus.",
+      "dica3": "Mandou matar meninos em Belém.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Herodes (o Grande)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Sumo sacerdote.",
+      "dica2": "Participou do julgamento de Jesus.",
+      "dica3": "Defendeu a morte de um para 'salvar a nação'.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Caifás"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Ex-sumo sacerdote influente.",
+      "dica2": "Ligado ao julgamento de Jesus.",
+      "dica3": "Manteve grande influência religiosa.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Anás"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Prisioneiro libertado no lugar de Jesus.",
+      "dica2": "Envolvido em sedição.",
+      "dica3": "Foi escolhido pela multidão.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Barrabás"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Homem que ajudou a carregar a estaca.",
+      "dica2": "Forçado por soldados.",
+      "dica3": "Vinha do campo ao passar pelo local.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Simão de Cirene"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Esposa de Nabal.",
+      "dica2": "Mostrou bom senso com Davi.",
+      "dica3": "Tornou-se esposa de Davi.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Abigail"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Homem rico, mas insensato.",
+      "dica2": "Ofendeu Davi.",
+      "dica3": "Morreu após grande susto.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Nabal"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Filho de Jônatas.",
+      "dica2": "Aleijado dos pés.",
+      "dica3": "Recebeu bondade de Davi.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Mefibosete"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Amaldiçoou Davi durante fuga.",
+      "dica2": "Mais tarde pediu perdão.",
+      "dica3": "Recebeu restrições de Salomão.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Simei"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Conselheiro de Davi.",
+      "dica2": "Apoiou Absalão.",
+      "dica3": "Suicidou-se quando conselho foi rejeitado.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Aitofel"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Sacerdote leal a Davi.",
+      "dica2": "Apoiou a unção de Salomão.",
+      "dica3": "Serviu no sacerdócio em Jerusalém.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Zadoque"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Sacerdote associado a Davi.",
+      "dica2": "Depois apoiou Adonias.",
+      "dica3": "Foi removido do sacerdócio principal.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Abiatar"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei de Tiro.",
+      "dica2": "Ajudou na construção do templo.",
+      "dica3": "Forneceu materiais e artesãos.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Hirão"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Visitou Salomão para testar sua sabedoria.",
+      "dica2": "Trouxe presentes valiosos.",
+      "dica3": "Ficou impressionada com a sabedoria e prosperidade.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Reina de Sabá"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pregador eloquente.",
+      "dica2": "Conhecia bem as Escrituras.",
+      "dica3": "Foi ajudado por Priscila e Áquila.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Apolos"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Chefe da sinagoga em Corinto.",
+      "dica2": "Tornou-se crente.",
+      "dica3": "Sua casa também creu.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Crispo"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Associado à sinagoga em Corinto.",
+      "dica2": "Mencionado em carta aos coríntios.",
+      "dica3": "Possivelmente sofreu agressão pública.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Sóstenes"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Hospedou Paulo ou missionários.",
+      "dica2": "Mencionado em cartas.",
+      "dica3": "Mostrou hospitalidade cristã.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Gaio"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Administrador da cidade.",
+      "dica2": "Mencionado como colaborador.",
+      "dica3": "Ligado a Corinto.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Erasto"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Companheiro de Paulo.",
+      "dica2": "Foi deixado doente em Mileto.",
+      "dica3": "Mencionado em contexto de viagem.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Trófimo"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Cristã trabalhadora.",
+      "dica2": "Mencionada por Paulo.",
+      "dica3": "Associada a serviço diligente.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Trifena"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Cristã trabalhadora.",
+      "dica2": "Mencionada com Trifena.",
+      "dica3": "Elogiada por esforço.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Trifosa"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Cristã amada.",
+      "dica2": "Trabalhou muito no Senhor.",
+      "dica3": "Mencionada por Paulo.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Pérside"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Escolhido no Senhor.",
+      "dica2": "Mencionado por Paulo.",
+      "dica3": "Sua mãe foi como mãe para Paulo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Rúfio"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Mostrou cuidado maternal a Paulo.",
+      "dica2": "Mencionada em Romanos.",
+      "dica3": "Exemplo de apoio cristão.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "A mãe de Rúfio"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Primeiro fruto da Ásia para Cristo.",
+      "dica2": "Mencionado por Paulo.",
+      "dica3": "Exemplo de pioneirismo espiritual.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Epaêneto"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Opositor da reconstrução em Jerusalém.",
+      "dica2": "Ridicularizou o trabalho de Neemias.",
+      "dica3": "Tentou intimidar o povo.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Sambalate"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Opositor na época de Neemias.",
+      "dica2": "Fez alianças para prejudicar o trabalho.",
+      "dica3": "Tentou desacreditar os construtores.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Tobias"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Opositor de Neemias.",
+      "dica2": "Participou de tentativas de ameaça.",
+      "dica3": "Quis atrapalhar a reconstrução.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Gesém"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Liderou retorno do exílio.",
+      "dica2": "Ensinou a Lei.",
+      "dica3": "Trabalhou por reformas espirituais.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Esdras (sacerdote)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Rei persa na época de Ester.",
+      "dica2": "Marido de Ester.",
+      "dica3": "Emitiu decretos decisivos.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Assuero"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Rainha antes de Ester.",
+      "dica2": "Recusou ordem do rei.",
+      "dica3": "Foi removida da posição.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Vasti"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Inimigo dos judeus.",
+      "dica2": "Planejou exterminar o povo.",
+      "dica3": "Foi executado em sua própria forca.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Hamã"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Esposa de Oséias.",
+      "dica2": "Usada como ilustração profética.",
+      "dica3": "Representa infidelidade espiritual.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Gômer"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Governador romano.",
+      "dica2": "Julgou Jesus.",
+      "dica3": "Tentou se isentar de culpa publicamente.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Pilatos (Pôncio)"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Uma viúva em Jerusalém.",
+      "dica2": "Deu duas pequenas moedas.",
+      "dica3": "Jesus elogiou sua generosidade.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Viúva pobre (duas moedas)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Um menino mencionado em um milagre.",
+      "dica2": "Tinha cinco pães e dois peixes.",
+      "dica3": "Jesus alimentou uma multidão.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Menino com pães e peixes"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Homem curado por Jesus.",
+      "dica2": "Era cego desde o nascimento.",
+      "dica3": "Seu caso gerou discussão com fariseus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Cego de nascença"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Sofria por muitos anos.",
+      "dica2": "Tocou na roupa de Jesus com fé.",
+      "dica3": "Foi curada imediatamente.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Mulher com fluxo de sangue"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Filha de um dirigente da sinagoga.",
+      "dica2": "Morreu e foi ressuscitada por Jesus.",
+      "dica3": "Mostrou o poder de Jesus sobre a morte.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Filha de Jairo"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Dirigente da sinagoga.",
+      "dica2": "Pediu ajuda a Jesus pela filha.",
+      "dica3": "Viu um milagre de ressurreição.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "resposta": "Jairo"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Criminoso executado ao lado de Jesus.",
+      "dica2": "Reconheceu a inocência de Jesus.",
+      "dica3": "Recebeu promessa de futuro.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Ladrão arrependido"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Homem coxo desde o nascimento.",
+      "dica2": "Foi curado por Pedro e João.",
+      "dica3": "O milagre atraiu grande atenção.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Coxo na porta Formosa"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Guardava Paulo e Silas na prisão.",
+      "dica2": "Foi abalado por um terremoto.",
+      "dica3": "Ele e sua casa foram batizados.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Carcereiro de Filipos"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Teve a orelha cortada no Getsêmani.",
+      "dica2": "Jesus a curou.",
+      "dica3": "Estava com os que prenderam Jesus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Servo do sumo sacerdote"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Pediu ajuda a Jesus por sua filha.",
+      "dica2": "Demonstrou fé e persistência.",
+      "dica3": "Recebeu resposta favorável.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Mulher cananeia"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Jovem que havia morrido.",
+      "dica2": "Jesus teve compaixão de sua mãe.",
+      "dica3": "Foi ressuscitado a caminho do sepultamento.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Filho da viúva de Naim"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Mulher que perdeu o único filho.",
+      "dica2": "Recebeu compaixão de Jesus.",
+      "dica3": "Viu seu filho ser ressuscitado.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Viúva de Naim"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Mensageiro enviado por Cornélio.",
+      "dica2": "Acompanhou Pedro até Cesareia.",
+      "dica3": "Ligado à primeira conversão gentílica.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Servo de Cornélio"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Levada a Jesus para ser julgada.",
+      "dica2": "Jesus destacou misericórdia e justiça.",
+      "dica3": "Recebeu orientação para não pecar mais.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Mulher adúltera (perdão)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Um dos dez leprosos curados.",
+      "dica2": "Voltou para agradecer.",
+      "dica3": "Era samaritano.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "resposta": "Leprário curado que voltou"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Cego que pediu ajuda a Jesus.",
+      "dica2": "Gritou apesar da multidão.",
+      "dica3": "Recuperou a visão e seguiu Jesus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "resposta": "Bartimeu"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Morava em Betânia.",
+      "dica2": "Em sua casa Jesus foi recebido para refeição.",
+      "dica3": "Ligado ao episódio de unção.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "resposta": "Simão, o leproso"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Demonstrou devoção a Jesus.",
+      "dica2": "Ungiu Jesus com perfume.",
+      "dica3": "Sentava-se aos pés de Jesus.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 4,
+      "resposta": "Maria (de Betânia)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pai de Tiago e João.",
+      "dica2": "Pescador.",
+      "dica3": "Seus filhos seguiram Jesus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Zebedeu"
+    },
+    {
+      "masculino": 0,
+      "dica1": "Associada aos apóstolos.",
+      "dica2": "Fez um pedido a Jesus sobre posições.",
+      "dica3": "Esteve presente em eventos finais.",
+      "feminino": 1,
+      "genero": null,
+      "dificuldade": 8,
+      "resposta": "Salomé"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (272)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (273)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (274)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (275)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (276)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (277)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (278)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (279)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (280)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (281)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (282)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (283)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (284)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (285)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (286)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (287)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (288)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (289)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (290)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (291)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (292)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (293)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (294)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (295)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (296)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (297)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (298)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (299)"
+    },
+    {
+      "masculino": 1,
+      "dica1": "Pessoa mencionada em relato de cura nos evangelhos.",
+      "dica2": "Teve necessidade e buscou ajuda.",
+      "dica3": "O milagre destacou compaixão e poder de Deus.",
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "resposta": "Homem curado por Jesus (300)"
+    }
+  ]
+}
