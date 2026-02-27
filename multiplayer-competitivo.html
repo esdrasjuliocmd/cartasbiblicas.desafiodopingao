@@ -805,6 +805,76 @@
     #tela-jogo.sala-b-spectator #aviso-sala-b-assistindo {
       display: block;
     }
+
+    /* ================================
+       UI CLEANUP (Competitivo)
+       - painéis recolhíveis
+       - linha compacta de info
+       ================================ */
+    .linha-info {
+      background: rgba(30,58,95,0.08);
+      border: 1px solid rgba(30,58,95,0.15);
+      color: var(--jw-azul-escuro);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .linha-info strong { color: var(--jw-azul-principal); }
+
+    .painel-colapsavel {
+      background: var(--jw-cinza-claro);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--jw-cinza-medio);
+    }
+
+    .painel-colapsavel summary {
+      list-style: none;
+      cursor: pointer;
+      user-select: none;
+      padding: 10px 12px;
+      font-weight: bold;
+      color: var(--jw-azul-principal);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .painel-colapsavel summary::-webkit-details-marker { display: none; }
+
+    .painel-colapsavel summary .seta {
+      transition: transform 0.15s ease;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .painel-colapsavel[open] summary .seta {
+      transform: rotate(180deg);
+    }
+
+    .painel-colapsavel .conteudo {
+      padding: 8px 10px 10px 10px;
+      border-top: 1px solid var(--jw-cinza-medio);
+      background: rgba(255,255,255,0.7);
+    }
+
+    /* deixa a tela-jogo mais “arejada” */
+    #tela-jogo {
+      gap: 8px;
+    }
+
+    /* no modo spectator, aplica borda também nos painéis novos */
+    #tela-jogo.sala-b-spectator .painel-colapsavel,
+    #tela-jogo.sala-b-spectator .linha-info {
+      border: 2px dashed rgba(30,58,95,0.35);
+      background: rgba(255,255,255,0.85);
+    }
   </style>
 </head>
 
@@ -925,20 +995,27 @@
         </button>
       </div>
 
-      <!-- TELA 3: JOGO (SEM CHAT - OTIMIZADO) -->
+      <!-- TELA 3: JOGO (MAIS LIMPO) -->
       <div id="tela-jogo" class="tela">
         <div class="rodada-info">
           <span id="rodada-atual">Rodada 1</span> de <span id="rodada-total">100</span>
+        </div>
+
+        <div class="linha-info">
+          <div>📌 <strong>Próxima eliminação:</strong> <span id="proxima-eliminacao">—</span></div>
+          <div>🎯 <strong>Seus pontos:</strong> <span id="meus-pontos-mini">0</span></div>
         </div>
 
         <div id="aviso-sala-b-assistindo">
           📚 Você está na SALA B (assistindo) — aguarde ser resgatado para voltar a responder.
         </div>
 
-        <div class="placar">
-          <h3>📊 Status dos Jogadores:</h3>
-          <div id="status-jogadores"></div>
-        </div>
+        <details class="painel-colapsavel" id="painel-status">
+          <summary>📊 Status dos jogadores <span class="seta">▾</span></summary>
+          <div class="conteudo">
+            <div id="status-jogadores" class="placar"></div>
+          </div>
+        </details>
 
         <div class="carta-jogo">
           <h2 style="margin-bottom: 6px; font-size: 1.1rem;">❓ QUEM SOU EU?</h2>
@@ -957,10 +1034,12 @@
           <div class="alternativas-container" id="alternativas-container"></div>
         </div>
 
-        <div class="placar">
-          <h3>📊 Placar da Rodada:</h3>
-          <div id="placar-lista"></div>
-        </div>
+        <details class="painel-colapsavel" id="painel-placar">
+          <summary>📊 Placar da rodada <span class="seta">▾</span></summary>
+          <div class="conteudo">
+            <div id="placar-lista" class="placar"></div>
+          </div>
+        </details>
       </div>
 
       <!-- TELA 4: SALA B (Assistindo) -->
@@ -1194,7 +1273,7 @@
     function desativarModoSalaBSpectator() {
       document.body.classList.remove('sala-b-spectator');
       const telaJogo = document.getElementById('tela-jogo');
-      if (telaJogo) telaJogo.classList.remove('sala-b-spectator');
+      if (telaJogo) telaJogo.classList.add('sala-b-spectator');
     }
 
     function criarSala() {
@@ -1417,6 +1496,9 @@
       meuEstado = 'sala-a';
       desativarModoSalaBSpectator();
 
+      const elPts = document.getElementById('meus-pontos-mini');
+      if (elPts) elPts.textContent = meusPontos;
+
       mostrarNotificacao(`🎮 Jogo iniciado! ${rodadaTotal} rodadas`, 'sucesso');
 
       document.getElementById('rodada-total').textContent = rodadaTotal;
@@ -1433,6 +1515,23 @@
       dicasLiberadas = 1;
 
       tocarSom('inicio_rodada');
+
+      // UI limpa: preenche “próxima eliminação” e fecha painéis por padrão
+      const elProx = document.getElementById('proxima-eliminacao');
+      if (elProx) {
+        const prox = data.proximaEliminacao;
+        elProx.textContent = (prox && Number.isFinite(prox.rodada))
+          ? `Rodada ${prox.rodada}${Number.isFinite(prox.quantidade) ? ` (x${prox.quantidade})` : ''}`
+          : '—';
+      }
+
+      const elPts = document.getElementById('meus-pontos-mini');
+      if (elPts) elPts.textContent = meusPontos;
+
+      const painelStatus = document.getElementById('painel-status');
+      const painelPlacar = document.getElementById('painel-placar');
+      if (painelStatus) painelStatus.open = false;
+      if (painelPlacar) painelPlacar.open = false;
 
       if (data.jogadoresPulando && data.jogadoresPulando.includes(nomeJogador)) {
         meuEstado = 'pulando';
@@ -1696,6 +1795,8 @@
 
       if (data.nome === nomeJogador) {
         meusPontos += data.pontos;
+        const elPts = document.getElementById('meus-pontos-mini');
+        if (elPts) elPts.textContent = meusPontos;
       }
     }
 
@@ -1820,6 +1921,9 @@
       } else {
         mostrarNotificacao(`${data.quemResgatou} resgatou ${data.resgatado}! 🤝`, 'aviso');
       }
+
+      const elPts = document.getElementById('meus-pontos-mini');
+      if (elPts) elPts.textContent = meusPontos;
 
       resgatesRealizados++;
 
