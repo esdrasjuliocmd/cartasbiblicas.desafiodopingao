@@ -1,4 +1,4 @@
-﻿﻿﻿// ============================================
+﻿﻿// ============================================
 // QUEM SOU EU? - Backend Cloudflare Workers
 // Sistema Completo: Solo + Multiplayer + Competitivo
 // COM MEMÓRIA GLOBAL DE CARTAS
@@ -527,6 +527,9 @@ export class SalaCompetitivaDO {
   constructor(state, env) {
     this.state = state;
     this.env = env;
+
+    this.STATE_KEY = 'estado_competitivo_v1';
+
     this.sessions = new Map();
     this.jogadores = new Map();
     this.salaA = new Set();
@@ -545,7 +548,53 @@ export class SalaCompetitivaDO {
     this.timerRodada = null;
   }
 
+  exportarEstado() {
+    return {
+      host: this.host,
+      categoria: this.categoria,
+      rodadaAtual: this.rodadaAtual,
+      totalRodadas: this.totalRodadas,
+      totalJogadoresInicial: this.totalJogadoresInicial,
+      cartaAtual: this.cartaAtual,
+      rodadaAtiva: this.rodadaAtiva,
+      estadoSala: this.estadoSala,
+      resgatesRealizados: this.resgatesRealizados,
+      inicioJogo: this.inicioJogo,
+      jogadores: Array.from(this.jogadores.values()),
+      salaA: Array.from(this.salaA),
+      salaB: Array.from(this.salaB),
+    };
+  }
+
+  async salvarEstado() {
+    await this.state.storage.put(this.STATE_KEY, this.exportarEstado());
+  }
+
+  async carregarEstado() {
+    const data = await this.state.storage.get(this.STATE_KEY);
+    if (!data) return;
+
+    this.host = data.host ?? this.host;
+    this.categoria = data.categoria ?? this.categoria;
+    this.rodadaAtual = data.rodadaAtual ?? this.rodadaAtual;
+    this.totalRodadas = data.totalRodadas ?? this.totalRodadas;
+    this.totalJogadoresInicial = data.totalJogadoresInicial ?? this.totalJogadoresInicial;
+    this.cartaAtual = data.cartaAtual ?? this.cartaAtual;
+    this.rodadaAtiva = data.rodadaAtiva ?? this.rodadaAtiva;
+    this.estadoSala = data.estadoSala ?? this.estadoSala;
+    this.resgatesRealizados = data.resgatesRealizados ?? this.resgatesRealizados;
+    this.inicioJogo = data.inicioJogo ?? this.inicioJogo;
+
+    this.jogadores = new Map((data.jogadores || []).map(j => [j.nome, j]));
+    this.salaA = new Set(data.salaA || []);
+    this.salaB = new Set(data.salaB || []);
+  }
+
   async fetch(request) {
+    await this.state.blockConcurrencyWhile(async () => {
+      await this.carregarEstado();
+    });
+
     const webSocketPair = new WebSocketPair();
     const [client, server] = Object.values(webSocketPair);
 
@@ -602,6 +651,8 @@ export class SalaCompetitivaDO {
         });
 
         this.salaA.add(nome);
+
+        await this.salvarEstado();
 
         session.ws.send(JSON.stringify({
           tipo: 'bem_vindo',
@@ -664,6 +715,8 @@ export class SalaCompetitivaDO {
     this.totalJogadoresInicial = totalJogadores;
     this.totalRodadas = this.calcularTotalRodadas(totalJogadores);
 
+    await this.salvarEstado();
+
     this.broadcast({
       tipo: 'jogo_iniciado',
       totalRodadas: this.totalRodadas,
@@ -687,6 +740,8 @@ export class SalaCompetitivaDO {
     this.rodadaAtual++;
     this.rodadaAtiva = true;
     this.respostas.clear();
+
+    await this.salvarEstado();
 
     if (this.rodadaAtual > 1 && this.rodadaAtual % 4 === 1) {
       await this.iniciarSalaConversa();
@@ -713,6 +768,8 @@ export class SalaCompetitivaDO {
       }
 
       const proximaEliminacao = this.getProximaEliminacao();
+
+      await this.salvarEstado();
 
       this.broadcast({
         tipo: 'nova_rodada',
@@ -787,6 +844,8 @@ export class SalaCompetitivaDO {
     this.respostas.set(nome, { acertou, pontos });
     jogador.pontos += pontos;
 
+    await this.salvarEstado();
+
     this.broadcast({
       tipo: 'resposta_registrada',
       nome: nome,
@@ -833,6 +892,8 @@ export class SalaCompetitivaDO {
       this.timerRodada = null;
     }
 
+    await this.salvarEstado();
+
     this.broadcast({
       tipo: 'fim_rodada',
       respostaCorreta: this.cartaAtual.resposta
@@ -865,6 +926,7 @@ export class SalaCompetitivaDO {
 
     const jogadoresSalaA = Array.from(this.salaA)
       .map(nome => this.jogadores.get(nome))
+      .filter(Boolean)
       .sort((a, b) => a.pontos - b.pontos);
 
     const eliminados = jogadoresSalaA.slice(0, quantidade);
@@ -874,6 +936,8 @@ export class SalaCompetitivaDO {
       this.salaA.delete(jogador.nome);
       this.salaB.add(jogador.nome);
     }
+
+    await this.salvarEstado();
 
     this.broadcast({
       tipo: 'eliminacao',
@@ -899,6 +963,8 @@ export class SalaCompetitivaDO {
     this.estadoSala = 'conversa';
 
     const proximaEliminacao = this.getProximaEliminacao();
+
+    await this.salvarEstado();
 
     this.broadcast({
       tipo: 'sala_conversa',
@@ -934,6 +1000,8 @@ export class SalaCompetitivaDO {
 
     const proximaEliminacao = this.getProximaEliminacao();
 
+    await this.salvarEstado();
+
     this.broadcast({
       tipo: 'resgate_realizado',
       quemResgatou: nomeResgatador,
@@ -953,6 +1021,8 @@ export class SalaCompetitivaDO {
   async continuarJogo() {
     this.estadoSala = 'jogo';
 
+    await this.salvarEstado();
+
     this.broadcast({
       tipo: 'continuar_jogo'
     });
@@ -966,6 +1036,9 @@ export class SalaCompetitivaDO {
     this.estadoSala = 'final';
 
     const duracao = this.inicioJogo ? Math.floor((Date.now() - this.inicioJogo) / 60000) : 0;
+
+    // salva async sem await (função não é async)
+    this.state.storage.put(this.STATE_KEY, this.exportarEstado()).catch(() => {});
 
     this.broadcast({
       tipo: 'fim_jogo',
@@ -1004,6 +1077,9 @@ export class SalaCompetitivaDO {
         });
       }
     }
+
+    // salva async sem await (função não é async)
+    this.state.storage.put(this.STATE_KEY, this.exportarEstado()).catch(() => {});
 
     this.broadcast({
       tipo: 'jogador_saiu',
