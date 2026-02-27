@@ -34,6 +34,10 @@ class_name = "BancoDadosMimicaDO"
 name = "BancoDadosPregacaoDO"
 class_name = "BancoDadosPregacaoDO"
 
+[[durable_objects.bindings]]
+name = "BancoDadosVerdadeiroFalsoDO"
+class_name = "BancoDadosVerdadeiroFalsoDO"
+
 [[migrations]]
 tag = "v1"
 new_sqlite_classes = [ "SalaDO", "SalaCompetitivaDO", "BancoDadosDO", "PontosGlobaisDO" ]
@@ -41,6 +45,10 @@ new_sqlite_classes = [ "SalaDO", "SalaCompetitivaDO", "BancoDadosDO", "PontosGlo
 [[migrations]]
 tag = "v2"
 new_sqlite_classes = [ "BancoDadosPersonagensDO", "BancoDadosProfeciasDO", "BancoDadosMimicaDO", "BancoDadosPregacaoDO" ]
+
+[[migrations]]
+tag = "v3"
+new_sqlite_classes = [ "BancoDadosVerdadeiroFalsoDO" ]
 
 [[d1_databases]]
 binding = "pingao_personagens"

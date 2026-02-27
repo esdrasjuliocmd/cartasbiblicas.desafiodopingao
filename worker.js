@@ -1,4 +1,4 @@
-﻿// ============================================
+﻿﻿// ============================================
 // QUEM SOU EU? - Backend Cloudflare Workers
 // Sistema Completo: Solo + Multiplayer + Competitivo
 // COM MEMÓRIA GLOBAL DE CARTAS
@@ -210,58 +210,68 @@ export default {
     // API REST - CARTAS
     // ============================================
     if (path.endsWith('/popular') && request.method === 'POST' && path.startsWith('/cartas/')) {
-  const categoria = path.split('/')[2];
+      const categoria = path.split('/')[2];
 
-  let doNamespace;
-  let bancoName;
+      let doNamespace;
+      let bancoName;
 
-  switch (categoria) {
-    case 'personagens':
-      doNamespace = env.BancoDadosPersonagensDO; bancoName = 'banco-personagens'; break;
-    case 'profecias':
-      doNamespace = env.BancoDadosProfeciasDO; bancoName = 'banco-profecias'; break;
-    case 'mimica':
-      doNamespace = env.BancoDadosMimicaDO; bancoName = 'banco-mimica'; break;
-    case 'pregacao':
-      doNamespace = env.BancoDadosPregacaoDO; bancoName = 'banco-pregacao'; break;
-    default:
-      return new Response(JSON.stringify({ sucesso: false, erro: 'Categoria inválida', categoria }), {
-        status: 400,
-        headers: { 'content-type': 'application/json; charset=utf-8' }
-      });
-  }
+      switch (categoria) {
+        case 'personagens':
+          doNamespace = env.BancoDadosPersonagensDO; bancoName = 'banco-personagens'; break;
+        case 'profecias':
+          doNamespace = env.BancoDadosProfeciasDO; bancoName = 'banco-profecias'; break;
+        case 'mimica':
+          doNamespace = env.BancoDadosMimicaDO; bancoName = 'banco-mimica'; break;
+        case 'pregacao':
+          doNamespace = env.BancoDadosPregacaoDO; bancoName = 'banco-pregacao'; break;
 
-  const id = doNamespace.idFromName(bancoName);
-  const stub = doNamespace.get(id);
-  return stub.fetch(request);
-}
+        // NOVO
+        case 'verdadeirofalso':
+          doNamespace = env.BancoDadosVerdadeiroFalsoDO; bancoName = 'banco-verdadeirofalso'; break;
+
+        default:
+          return new Response(JSON.stringify({ sucesso: false, erro: 'Categoria inválida', categoria }), {
+            status: 400,
+            headers: { 'content-type': 'application/json; charset=utf-8' }
+          });
+      }
+
+      const id = doNamespace.idFromName(bancoName);
+      const stub = doNamespace.get(id);
+      return stub.fetch(request);
+    }
 
     if (path.startsWith('/cartas/') && !path.endsWith('/popular')) {
-  const categoria = path.split('/')[2];
+      const categoria = path.split('/')[2];
 
-  let doNamespace;
-  let bancoName;
+      let doNamespace;
+      let bancoName;
 
-  switch (categoria) {
-    case 'personagens':
-      doNamespace = env.BancoDadosPersonagensDO; bancoName = 'banco-personagens'; break;
-    case 'profecias':
-      doNamespace = env.BancoDadosProfeciasDO; bancoName = 'banco-profecias'; break;
-    case 'mimica':
-      doNamespace = env.BancoDadosMimicaDO; bancoName = 'banco-mimica'; break;
-    case 'pregacao':
-      doNamespace = env.BancoDadosPregacaoDO; bancoName = 'banco-pregacao'; break;
-    default:
-      return new Response(JSON.stringify({ sucesso: false, erro: 'Categoria inválida', categoria }), {
-        status: 400,
-        headers: { 'content-type': 'application/json; charset=utf-8' }
-      });
-  }
+      switch (categoria) {
+        case 'personagens':
+          doNamespace = env.BancoDadosPersonagensDO; bancoName = 'banco-personagens'; break;
+        case 'profecias':
+          doNamespace = env.BancoDadosProfeciasDO; bancoName = 'banco-profecias'; break;
+        case 'mimica':
+          doNamespace = env.BancoDadosMimicaDO; bancoName = 'banco-mimica'; break;
+        case 'pregacao':
+          doNamespace = env.BancoDadosPregacaoDO; bancoName = 'banco-pregacao'; break;
 
-  const id = doNamespace.idFromName(bancoName);
-  const stub = doNamespace.get(id);
-  return stub.fetch(request);
-}
+        // NOVO
+        case 'verdadeirofalso':
+          doNamespace = env.BancoDadosVerdadeiroFalsoDO; bancoName = 'banco-verdadeirofalso'; break;
+
+        default:
+          return new Response(JSON.stringify({ sucesso: false, erro: 'Categoria inválida', categoria }), {
+            status: 400,
+            headers: { 'content-type': 'application/json; charset=utf-8' }
+          });
+      }
+
+      const id = doNamespace.idFromName(bancoName);
+      const stub = doNamespace.get(id);
+      return stub.fetch(request);
+    }
 
     // ============================================
     // API REST - RECOMPENSAS
@@ -1241,10 +1251,14 @@ export class BancoDadosProfeciasDO extends BancoDadosDO {}
 export class BancoDadosMimicaDO extends BancoDadosDO {}
 export class BancoDadosPregacaoDO extends BancoDadosDO {}
 
+// NOVO: banco separado para /cartas/verdadeirofalso
+export class BancoDadosVerdadeiroFalsoDO extends BancoDadosDO {}
+
 
 // ============================================
 // DURABLE OBJECT: PONTOS GLOBAIS + RECOMPENSAS
 // ============================================
+// (restante do arquivo permanece igual ao seu atual)
 export class PontosGlobaisDO {
   constructor(state, env) {
     this.state = state;
@@ -1449,7 +1463,7 @@ export class PontosGlobaisDO {
           headers: { 'Content-Type': 'application/json', ...corsHeaders }
         });
       } catch (erro) {
-        console.error('Erro ao limpar histórico de cartas:', erro);
+        console.error('Erro ao limpar histórico:', erro);
         return new Response(JSON.stringify({
           success: false,
           erro: erro.message
@@ -1515,9 +1529,9 @@ export class PontosGlobaisDO {
         const novoNome = typeof body?.novoNome === 'string' ? body.novoNome.trim() : '';
         const pontos = body?.pontos;
 
-        if (pontos === undefined || pontos === null || pontos === '') throw new Error('Campo \"pontos\" é obrigatório');
+        if (pontos === undefined || pontos === null || pontos === '') throw new Error('Campo "pontos" é obrigatório');
         const pontosNumero = Number(pontos);
-        if (!Number.isFinite(pontosNumero) || pontosNumero < 0) throw new Error('Campo \"pontos\" inválido');
+        if (!Number.isFinite(pontosNumero) || pontosNumero < 0) throw new Error('Campo "pontos" inválido');
 
         const existe = this.sql.exec('SELECT nome FROM jogadores WHERE nome = ? LIMIT 1', nomeAtual).toArray();
         if (existe.length === 0) throw new Error('Jogador não encontrado');
@@ -2000,7 +2014,3 @@ Desenvolvido com ❤️ para JW.ORG
 // Compatibilidade retroativa para migrations antigas do Durable Object
 // que ainda referenciam a classe PontosBiblicoDO.
 export class PontosBiblicoDO extends PontosGlobaisDO {}
-
-
-
-
