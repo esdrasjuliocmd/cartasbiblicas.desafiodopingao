@@ -535,6 +535,7 @@ export class SalaCompetitivaDO {
     this.categoria = 'personagens';
     this.rodadaAtual = 0;
     this.totalRodadas = 20;
+    this.totalJogadoresInicial = 0;
     this.cartaAtual = null;
     this.respostas = new Map();
     this.rodadaAtiva = false;
@@ -660,6 +661,7 @@ export class SalaCompetitivaDO {
     this.inicioJogo = Date.now();
 
     const totalJogadores = this.jogadores.size;
+    this.totalJogadoresInicial = totalJogadores;
     this.totalRodadas = this.calcularTotalRodadas(totalJogadores);
 
     this.broadcast({
@@ -674,11 +676,9 @@ export class SalaCompetitivaDO {
   }
 
   calcularTotalRodadas(total) {
-    if (total <= 2) return 20;
-    if (total <= 6) return 20;
-    if (total <= 9) return 25;
-    if (total <= 15) return 30;
-    return 40;
+    if (total <= 2) return 10;
+    if (total === 3) return 15;
+    return 20; // 4+ jogadores → 20 rodadas fixas
   }
 
   async proximaRodada() {
@@ -742,22 +742,27 @@ export class SalaCompetitivaDO {
   }
 
   verificarEliminacao() {
-    return [5, 9, 13, 17].includes(this.rodadaAtual);
+    if (this.totalJogadoresInicial <= 2) return false;
+    return this.rodadaAtual % 5 === 0 && this.rodadaAtual < this.totalRodadas;
   }
 
   getProximaEliminacao() {
-    const rodadasEliminacao = [5, 9, 13, 17];
-    const proxima = rodadasEliminacao.find(r => r > this.rodadaAtual);
+    if (this.totalJogadoresInicial <= 2) return null;
+
+    let proxima = null;
+    for (let r = 5; r < this.totalRodadas; r += 5) {
+      if (r > this.rodadaAtual) {
+        proxima = r;
+        break;
+      }
+    }
 
     if (!proxima) return null;
 
     const jogadoresRestantes = this.salaA.size;
-    let quantidade = 1;
-
-    if (proxima === 5) quantidade = Math.max(1, Math.floor(jogadoresRestantes * 0.2));
-    else if (proxima === 9) quantidade = Math.max(1, Math.floor(jogadoresRestantes * 0.3));
-    else if (proxima === 13) quantidade = Math.max(1, Math.floor(jogadoresRestantes * 0.4));
-    else if (proxima === 17) quantidade = Math.max(1, Math.floor(jogadoresRestantes * 0.5));
+    const quantidade = this.totalJogadoresInicial <= 4
+      ? 1
+      : Math.max(1, Math.floor(jogadoresRestantes * 0.2));
 
     return { rodada: proxima, quantidade };
   }
@@ -886,13 +891,8 @@ export class SalaCompetitivaDO {
 
   calcularQuantidadeEliminacao() {
     const total = this.salaA.size;
-
-    if (this.rodadaAtual === 5) return Math.max(1, Math.floor(total * 0.2));
-    if (this.rodadaAtual === 9) return Math.max(1, Math.floor(total * 0.3));
-    if (this.rodadaAtual === 13) return Math.max(1, Math.floor(total * 0.4));
-    if (this.rodadaAtual === 17) return Math.max(1, Math.floor(total * 0.5));
-
-    return 1;
+    if (this.totalJogadoresInicial <= 4) return 1;
+    return Math.max(1, Math.floor(total * 0.2));
   }
 
   async iniciarSalaConversa() {
@@ -919,6 +919,7 @@ export class SalaCompetitivaDO {
     const resgatado = this.jogadores.get(nomeResgatado);
 
     if (!resgatador || !resgatado) return;
+    if (this.totalJogadoresInicial <= 2) return; // sem Sala B no modo 2 jogadores
     if (resgatador.sala !== 'A' || resgatado.sala !== 'B') return;
     if (resgatador.pontos < 5) return;
 
