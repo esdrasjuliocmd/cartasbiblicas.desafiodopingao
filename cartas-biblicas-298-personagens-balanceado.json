@@ -1,0 +1,2984 @@
+{
+  "cartas": [
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Abede-Nego"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Abel"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 4,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Abigail"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Abimeleque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Abiú"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Abner"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Abraão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Absalão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Acã"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Acabe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Acaz"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Acazias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 0,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Adão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Adonias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Agague"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 0,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em mensagens e relatos proféticos.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Ageu"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Aías"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Aitofel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Amazias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Amnom"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Amom"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 0,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em mensagens e relatos proféticos.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Amós"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 1,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Ana"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Ananias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece nos relatos do cristianismo primitivo.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "André"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece nos relatos do cristianismo primitivo.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Apolo"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 0,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Arão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece ligado a autoridades e governantes.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Artaxerxes"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Asa"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 3,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Asenate"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece ligado a autoridades e governantes.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Assuero"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 3,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Atalia"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Balaão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Baraque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece nos relatos do cristianismo primitivo.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Barnabé"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 0,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Barrabás"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Baruque"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 3,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Bate-Seba"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Belsazar"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Benjamim"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Bildade"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 0,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Boaz"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'C'.",
+      "resposta": "Caim"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'C'.",
+      "resposta": "Calebe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'C'.",
+      "resposta": "Ciro"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 0,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'C'.",
+      "resposta": "Coré"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'C'.",
+      "resposta": "Cornélio"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 2,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'D'.",
+      "resposta": "Dalila"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'D'.",
+      "resposta": "Daniel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'D'.",
+      "resposta": "Dario"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'D'.",
+      "resposta": "Davi"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 0,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'D'.",
+      "resposta": "Débora"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 4,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'D'.",
+      "resposta": "Diná"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 0,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Efraim"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Eleazar"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 0,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Eli"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Elias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Eliezer"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Elifaz"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 0,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Elimeleque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Eliseu"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Eliú"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Enoque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Epafrodito"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Esaú"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Esdras"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 0,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Ester"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 0,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece nos relatos do cristianismo primitivo.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Estêvão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Eúde"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 1,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Eva"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Ezequias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em mensagens e relatos proféticos.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Ezequiel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 0,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece ligado a autoridades e governantes.",
+      "dica3": "Meu nome começa com 'F'.",
+      "resposta": "Faraó"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'F'.",
+      "resposta": "Filemom"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece nos relatos do cristianismo primitivo.",
+      "dica3": "Meu nome começa com 'F'.",
+      "resposta": "Filipe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'F'.",
+      "resposta": "Fineias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 0,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'G'.",
+      "resposta": "Gamaliel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'G'.",
+      "resposta": "Gedalias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'G'.",
+      "resposta": "Gideão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'G'.",
+      "resposta": "Golias"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 4,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'G'.",
+      "resposta": "Gomer"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 4,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'H'.",
+      "resposta": "Hagar"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'H'.",
+      "resposta": "Hamã"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece ligado a autoridades e governantes.",
+      "dica3": "Meu nome começa com 'H'.",
+      "resposta": "Herodes Antipas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 0,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'H'.",
+      "resposta": "Hiram"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'H'.",
+      "resposta": "Hofni"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 3,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'H'.",
+      "resposta": "Hulda"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'H'.",
+      "resposta": "Hur"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'H'.",
+      "resposta": "Husai"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 3,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'I'.",
+      "resposta": "Isabel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 0,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em mensagens e relatos proféticos.",
+      "dica3": "Meu nome começa com 'I'.",
+      "resposta": "Isaías"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'I'.",
+      "resposta": "Isaque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'I'.",
+      "resposta": "Isbosete"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jacó"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 2,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jael"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jairo"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jefté"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em mensagens e relatos proféticos.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jeremias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Abias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Abisague"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Abisai"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Abiatar"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Abinadabe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Abnerias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Absalom"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Acabeel"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 3,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Ada"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Adriel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Aimaás"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Airão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Almodá"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Aminadabe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Amon"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Amzi"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Anrão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Antipas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Apolos"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Arfaxade"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Ariel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Aristarco"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Asael"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Asafe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Azarias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Azor"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Benaia"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Ben-Hadade"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Bezalel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Bíscila"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Boanerges"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Buz"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'C'.",
+      "resposta": "Caifás"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'C'.",
+      "resposta": "Candece"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'C'.",
+      "resposta": "Carpo"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece ligado a autoridades e governantes.",
+      "dica3": "Meu nome começa com 'C'.",
+      "resposta": "César Augusto"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'C'.",
+      "resposta": "Cimri"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'C'.",
+      "resposta": "Cléopas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'C'.",
+      "resposta": "Cloé"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'C'.",
+      "resposta": "Crescentes"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'C'.",
+      "resposta": "Crispo"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'C'.",
+      "resposta": "Cusa"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'D'.",
+      "resposta": "Dã"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'D'.",
+      "resposta": "Damaris"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'D'.",
+      "resposta": "Demas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'D'.",
+      "resposta": "Demétrio"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'D'.",
+      "resposta": "Dorcas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Ebed-Meleque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Elcana"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Eliasafe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Eliseba"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Elisama"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Elisete"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Elisá"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Eliúde"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Eliã"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Eliakim"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Elioenai"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Eliézer"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Elpaal"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Enos"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Epaíneto"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Epafras"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Erasto"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Esau"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Eútrico"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Eutico"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'E'.",
+      "resposta": "Evodia"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece ligado a autoridades e governantes.",
+      "dica3": "Meu nome começa com 'F'.",
+      "resposta": "Faraó Neco"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'F'.",
+      "resposta": "Felipe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'F'.",
+      "resposta": "Festus"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'G'.",
+      "resposta": "Gaio"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'G'.",
+      "resposta": "Gedeão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'G'.",
+      "resposta": "Górgias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'H'.",
+      "resposta": "Hananias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'H'.",
+      "resposta": "Hazael"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'H'.",
+      "resposta": "Heber"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'H'.",
+      "resposta": "Helem"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'H'.",
+      "resposta": "Heman"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'H'.",
+      "resposta": "Hilel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'H'.",
+      "resposta": "Hizquias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'I'.",
+      "resposta": "Ismael"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'I'.",
+      "resposta": "Issacar"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'I'.",
+      "resposta": "Itamar"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jabes"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jabez"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jadon"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jair"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jaquim"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jaazias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jazom"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jeconias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jedutun"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Joel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Joás"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Joatão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Joiaribe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jonadabe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em mensagens e relatos proféticos.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jonas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jônatas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jotão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Josias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Josué"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Jozadaque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Judas (irmão de Tiago)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'J'.",
+      "resposta": "Justo"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 4,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'L'.",
+      "resposta": "Lídia"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'L'.",
+      "resposta": "Loide"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'L'.",
+      "resposta": "Ló"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 5,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Maaca"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Maaseias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Madalena"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Mahalaleel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Malco"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Manoá"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Matatias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Matias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Melquias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Menaém"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Micaías"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Mica"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Mical"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em mensagens e relatos proféticos.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Miqueias"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 4,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Miriã"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Mefibosete"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Merabe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'M'.",
+      "resposta": "Mordecai"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'N'.",
+      "resposta": "Natanael"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'N'.",
+      "resposta": "Nabote"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'N'.",
+      "resposta": "Ner"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'N'.",
+      "resposta": "Noadia"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 8,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'N'.",
+      "resposta": "Noemi"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'O'.",
+      "resposta": "Ocozias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'O'.",
+      "resposta": "Ofni"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'O'.",
+      "resposta": "Onri"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'O'.",
+      "resposta": "Onésiforo"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'O'.",
+      "resposta": "Oreb"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'O'.",
+      "resposta": "Orpa"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'O'.",
+      "resposta": "Osias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'P'.",
+      "resposta": "Pármenas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'P'.",
+      "resposta": "Patrobas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'P'.",
+      "resposta": "Pedael"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 7,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'P'.",
+      "resposta": "Perse"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'P'.",
+      "resposta": "Públio"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'Q'.",
+      "resposta": "Quirino"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'R'.",
+      "resposta": "Raguel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'R'.",
+      "resposta": "Roboão"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 4,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'R'.",
+      "resposta": "Rode"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 5,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'S'.",
+      "resposta": "Safira"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'S'.",
+      "resposta": "Senaqueribe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'S'.",
+      "resposta": "Sete"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'S'.",
+      "resposta": "Sefora"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'S'.",
+      "resposta": "Simeão (o Justo)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em mensagens e relatos proféticos.",
+      "dica3": "Meu nome começa com 'S'.",
+      "resposta": "Sofonias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'T'.",
+      "resposta": "Tadeu"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 4,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'T'.",
+      "resposta": "Tamar (filha de Davi)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'T'.",
+      "resposta": "Tértio"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'T'.",
+      "resposta": "Tíquico"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'T'.",
+      "resposta": "Tito"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'T'.",
+      "resposta": "Trófimo"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'T'.",
+      "resposta": "Tulio"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'U'.",
+      "resposta": "Uria"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'U'.",
+      "resposta": "Uzzi"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'Z'.",
+      "resposta": "Zacarias (pai de João)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'Z'.",
+      "resposta": "Zebedeu"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'Z'.",
+      "resposta": "Zedequias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'Z'.",
+      "resposta": "Zenas"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 4,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'Z'.",
+      "resposta": "Zilpa"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'Z'.",
+      "resposta": "Zimri"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Abdiel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Abede"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Abiasafe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Abner (outro)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Absalão (outro)"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 3,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Acsa"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Adaías"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Ado"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Adrameleque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Afeque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Agar"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Amazias (outro)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Amom (outro)"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 10,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Ana (profetisa)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Anás"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Ananias (outro)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Aquila"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Areopagita"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Arioque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Arão (outro)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Asiel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'A'.",
+      "resposta": "Asenate (outro)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Balaque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Bar-Jesus"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Bartolomeu"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Basa"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 6,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Basemate"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Beeri"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Belial"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Benjamim (outro)"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 5,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Meu nome aparece em narrativas e genealogias bíblicas.",
+      "dica3": "Meu nome começa com 'B'.",
+      "resposta": "Berenice"
+    }
+  ]
+}
