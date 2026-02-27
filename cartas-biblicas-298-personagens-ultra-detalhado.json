@@ -1,0 +1,2984 @@
+{
+  "cartas": [
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 10 letras (desconsiderando espaços).",
+      "resposta": "Abede-Nego"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Abel"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 8,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Abigail"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 10 letras (desconsiderando espaços).",
+      "resposta": "Abimeleque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Abiú"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Abner"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Abraão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Absalão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 3 letras (desconsiderando espaços).",
+      "resposta": "Acã"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Acabe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Acaz"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Acazias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 0,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Adão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Adonias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Agague"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Ageu"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Aías"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Aitofel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Amazias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Amnom"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Amom"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Amós"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 10,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 3 letras (desconsiderando espaços).",
+      "resposta": "Ana"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Ananias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "André"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Apolo"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Arão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 10 letras (desconsiderando espaços).",
+      "resposta": "Artaxerxes"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 3 letras (desconsiderando espaços).",
+      "resposta": "Asa"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 10,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Asenate"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Assuero"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 9,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Atalia"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Balaão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Baraque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Barnabé"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Barrabás"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Baruque"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 6,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 9 letras (desconsiderando espaços).",
+      "resposta": "Bate-Seba"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Belsazar"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Benjamim"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Bildade"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Boaz"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'C' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Caim"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'C' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Calebe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'C' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Ciro"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'C' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Coré"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'C' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Cornélio"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 9,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'D' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Dalila"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 1,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'D' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Daniel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'D' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Dario"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 2,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'D' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Davi"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 5,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'D' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Débora"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 7,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'D' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Diná"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Efraim"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Eleazar"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 3 letras (desconsiderando espaços).",
+      "resposta": "Eli"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Elias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Eliezer"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Elifaz"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 10 letras (desconsiderando espaços).",
+      "resposta": "Elimeleque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 4,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Eliseu"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Eliú"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Enoque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 10 letras (desconsiderando espaços).",
+      "resposta": "Epafrodito"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Esaú"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 6,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Esdras"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 3,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Ester"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Estêvão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Eúde"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 1,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 3 letras (desconsiderando espaços).",
+      "resposta": "Eva"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Ezequias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Ezequiel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'F' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Faraó"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'F' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Filemom"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'F' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Filipe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'F' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Fineias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'G' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Gamaliel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'G' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Gedalias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'G' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Gideão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'G' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Golias"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 10,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'G' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Gomer"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 8,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'H' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Hagar"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'H' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Hamã"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'H' e tem 14 letras (desconsiderando espaços).",
+      "resposta": "Herodes Antipas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'H' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Hiram"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'H' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Hofni"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 10,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'H' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Hulda"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'H' e tem 3 letras (desconsiderando espaços).",
+      "resposta": "Hur"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'H' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Husai"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 7,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'I' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Isabel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'I' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Isaías"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'I' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Isaque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'I' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Isbosete"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Jacó"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 10,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Jael"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Jairo"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Jefté"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Jeremias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Abias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Abisague"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Abisai"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Abiatar"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 9 letras (desconsiderando espaços).",
+      "resposta": "Abinadabe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Abnerias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Absalom"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Acabeel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 3 letras (desconsiderando espaços).",
+      "resposta": "Ada"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Adriel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Aimaás"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Airão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Almodá"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 9 letras (desconsiderando espaços).",
+      "resposta": "Aminadabe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Amon"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Amzi"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Anrão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Antipas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Apolos"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Arfaxade"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Ariel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 9 letras (desconsiderando espaços).",
+      "resposta": "Aristarco"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Asael"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Asafe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Azarias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Azor"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Benaia"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 10 letras (desconsiderando espaços).",
+      "resposta": "Ben-Hadade"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Bezalel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Bíscila"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 9 letras (desconsiderando espaços).",
+      "resposta": "Boanerges"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 3 letras (desconsiderando espaços).",
+      "resposta": "Buz"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'C' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Caifás"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'C' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Candece"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'C' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Carpo"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'C' e tem 12 letras (desconsiderando espaços).",
+      "resposta": "César Augusto"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'C' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Cimri"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'C' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Cléopas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'C' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Cloé"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'C' e tem 10 letras (desconsiderando espaços).",
+      "resposta": "Crescentes"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'C' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Crispo"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'C' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Cusa"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'D' e tem 2 letras (desconsiderando espaços).",
+      "resposta": "Dã"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'D' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Damaris"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'D' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Demas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'D' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Demétrio"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'D' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Dorcas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 12 letras (desconsiderando espaços).",
+      "resposta": "Ebed-Meleque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Elcana"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Eliasafe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Eliseba"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Elisama"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Elisete"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Elisá"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Eliúde"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Eliã"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Eliakim"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Elioenai"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Eliézer"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Elpaal"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Enos"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Epaíneto"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Epafras"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Erasto"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Esau"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Eútrico"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Eutico"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'E' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Evodia"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'F' e tem 9 letras (desconsiderando espaços).",
+      "resposta": "Faraó Neco"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'F' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Felipe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'F' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Festus"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'G' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Gaio"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'G' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Gedeão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'G' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Górgias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'H' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Hananias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'H' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Hazael"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'H' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Heber"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'H' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Helem"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'H' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Heman"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'H' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Hilel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'H' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Hizquias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'I' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Ismael"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'I' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Issacar"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'I' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Itamar"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Jabes"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Jabez"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Jadon"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Jair"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Jaquim"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Jaazias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Jazom"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Jeconias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Jedutun"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Joel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Joás"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Joatão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Joiaribe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Jonadabe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 3,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Jonas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Jônatas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Jotão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Josias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 5,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Josué"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 9 letras (desconsiderando espaços).",
+      "resposta": "Jozadaque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 19 letras (desconsiderando espaços).",
+      "resposta": "Judas (irmão de Tiago)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'J' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Justo"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 10,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'L' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Lídia"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'L' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Loide"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'L' e tem 2 letras (desconsiderando espaços).",
+      "resposta": "Ló"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Maaca"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Maaseias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Madalena"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 10 letras (desconsiderando espaços).",
+      "resposta": "Mahalaleel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Malco"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Manoá"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Matatias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Matias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Melquias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Menaém"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Micaías"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Mica"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Mical"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Miqueias"
+    },
+    {
+      "masculino": 0,
+      "feminino": 1,
+      "genero": "F",
+      "dificuldade": 9,
+      "dica1": "Sou uma personagem mencionada na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Miriã"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 10 letras (desconsiderando espaços).",
+      "resposta": "Mefibosete"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Merabe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'M' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Mordecai"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'N' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Natanael"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'N' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Nabote"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'N' e tem 3 letras (desconsiderando espaços).",
+      "resposta": "Ner"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'N' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Noadia"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'N' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Noemi"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'O' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Ocozias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'O' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Ofni"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'O' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Onri"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'O' e tem 9 letras (desconsiderando espaços).",
+      "resposta": "Onésiforo"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'O' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Oreb"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'O' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Orpa"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'O' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Osias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'P' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Pármenas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'P' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Patrobas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'P' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Pedael"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'P' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Perse"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'P' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Públio"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'Q' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Quirino"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'R' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Raguel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'R' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Roboão"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'R' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Rode"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'S' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Safira"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'S' e tem 11 letras (desconsiderando espaços).",
+      "resposta": "Senaqueribe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'S' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Sete"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'S' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Sefora"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'S' e tem 14 letras (desconsiderando espaços).",
+      "resposta": "Simeão (o Justo)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'S' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Sofonias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'T' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Tadeu"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'T' e tem 18 letras (desconsiderando espaços).",
+      "resposta": "Tamar (filha de Davi)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'T' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Tértio"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'T' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Tíquico"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'T' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Tito"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'T' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Trófimo"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'T' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Tulio"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'U' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Uria"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'U' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Uzzi"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'Z' e tem 19 letras (desconsiderando espaços).",
+      "resposta": "Zacarias (pai de João)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'Z' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Zebedeu"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'Z' e tem 9 letras (desconsiderando espaços).",
+      "resposta": "Zedequias"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'Z' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Zenas"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'Z' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Zilpa"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'Z' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Zimri"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Abdiel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Abede"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Abiasafe"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 12 letras (desconsiderando espaços).",
+      "resposta": "Abner (outro)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 14 letras (desconsiderando espaços).",
+      "resposta": "Absalão (outro)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Acsa"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Adaías"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 3 letras (desconsiderando espaços).",
+      "resposta": "Ado"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 11 letras (desconsiderando espaços).",
+      "resposta": "Adrameleque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Afeque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Agar"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 14 letras (desconsiderando espaços).",
+      "resposta": "Amazias (outro)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 11 letras (desconsiderando espaços).",
+      "resposta": "Amom (outro)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 14 letras (desconsiderando espaços).",
+      "resposta": "Ana (profetisa)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Anás"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 14 letras (desconsiderando espaços).",
+      "resposta": "Ananias (outro)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Aquila"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 10 letras (desconsiderando espaços).",
+      "resposta": "Areopagita"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Arioque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 11 letras (desconsiderando espaços).",
+      "resposta": "Arão (outro)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Asiel"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'A' e tem 14 letras (desconsiderando espaços).",
+      "resposta": "Asenate (outro)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 7 letras (desconsiderando espaços).",
+      "resposta": "Balaque"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 9 letras (desconsiderando espaços).",
+      "resposta": "Bar-Jesus"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 10 letras (desconsiderando espaços).",
+      "resposta": "Bartolomeu"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 4 letras (desconsiderando espaços).",
+      "resposta": "Basa"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 8,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Basemate"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 5 letras (desconsiderando espaços).",
+      "resposta": "Beeri"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 10,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 6 letras (desconsiderando espaços).",
+      "resposta": "Belial"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 9,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 15 letras (desconsiderando espaços).",
+      "resposta": "Benjamim (outro)"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": "M",
+      "dificuldade": 7,
+      "dica1": "Sou um personagem mencionado na Bíblia.",
+      "dica2": "Minha história está ligada a acontecimentos importantes no relato bíblico.",
+      "dica3": "Meu nome começa com 'B' e tem 8 letras (desconsiderando espaços).",
+      "resposta": "Berenice"
+    }
+  ]
+}
