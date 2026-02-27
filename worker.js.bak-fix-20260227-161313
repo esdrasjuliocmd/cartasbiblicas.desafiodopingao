@@ -1231,7 +1231,7 @@ export class BancoDadosDO {
       await this.popularCartas(categoria, cartas);
     }
   }
-}
+}.Value
 
 // ============================================
 // NOVO: bancos separados (1 DO SQLite por categoria)
@@ -2000,7 +2000,6 @@ Desenvolvido com ❤️ para JW.ORG
 // Compatibilidade retroativa para migrations antigas do Durable Object
 // que ainda referenciam a classe PontosBiblicoDO.
 export class PontosBiblicoDO extends PontosGlobaisDO {}
-
 
 
 

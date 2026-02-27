@@ -1,0 +1,14 @@
+﻿{
+    "cartas":  [
+                   {
+                       "masculino":  0,
+                       "dica2":  "",
+                       "dificuldade":  5,
+                       "dica1":  "",
+                       "dica3":  "",
+                       "feminino":  0,
+                       "genero":  null,
+                       "resposta":  ""
+                   }
+               ]
+}

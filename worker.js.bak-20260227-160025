@@ -210,58 +210,17 @@ export default {
     // API REST - CARTAS
     // ============================================
     if (path.endsWith('/popular') && request.method === 'POST' && path.startsWith('/cartas/')) {
-  const categoria = path.split('/')[2];
-
-  let doNamespace;
-  let bancoName;
-
-  switch (categoria) {
-    case 'personagens':
-      doNamespace = env.BancoDadosPersonagensDO; bancoName = 'banco-personagens'; break;
-    case 'profecias':
-      doNamespace = env.BancoDadosProfeciasDO; bancoName = 'banco-profecias'; break;
-    case 'mimica':
-      doNamespace = env.BancoDadosMimicaDO; bancoName = 'banco-mimica'; break;
-    case 'pregacao':
-      doNamespace = env.BancoDadosPregacaoDO; bancoName = 'banco-pregacao'; break;
-    default:
-      return new Response(JSON.stringify({ sucesso: false, erro: 'Categoria inválida', categoria }), {
-        status: 400,
-        headers: { 'content-type': 'application/json; charset=utf-8' }
-      });
-  }
-
-  const id = doNamespace.idFromName(bancoName);
-  const stub = doNamespace.get(id);
-  return stub.fetch(request);
-}
+      const id = env.BancoDadosDO.idFromName('banco-principal');
+      const stub = env.BancoDadosDO.get(id);
+      return stub.fetch(request);
+    }
 
     if (path.startsWith('/cartas/') && !path.endsWith('/popular')) {
-  const categoria = path.split('/')[2];
-
-  let doNamespace;
-  let bancoName;
-
-  switch (categoria) {
-    case 'personagens':
-      doNamespace = env.BancoDadosPersonagensDO; bancoName = 'banco-personagens'; break;
-    case 'profecias':
-      doNamespace = env.BancoDadosProfeciasDO; bancoName = 'banco-profecias'; break;
-    case 'mimica':
-      doNamespace = env.BancoDadosMimicaDO; bancoName = 'banco-mimica'; break;
-    case 'pregacao':
-      doNamespace = env.BancoDadosPregacaoDO; bancoName = 'banco-pregacao'; break;
-    default:
-      return new Response(JSON.stringify({ sucesso: false, erro: 'Categoria inválida', categoria }), {
-        status: 400,
-        headers: { 'content-type': 'application/json; charset=utf-8' }
-      });
-  }
-
-  const id = doNamespace.idFromName(bancoName);
-  const stub = doNamespace.get(id);
-  return stub.fetch(request);
-}
+      const categoria = path.split('/')[2];
+      const id = env.BancoDadosDO.idFromName('banco-principal');
+      const stub = env.BancoDadosDO.get(id);
+      return stub.fetch(request);
+    }
 
     // ============================================
     // API REST - RECOMPENSAS
@@ -1234,15 +1193,6 @@ export class BancoDadosDO {
 }
 
 // ============================================
-// NOVO: bancos separados (1 DO SQLite por categoria)
-// ============================================
-export class BancoDadosPersonagensDO extends BancoDadosDO {}
-export class BancoDadosProfeciasDO extends BancoDadosDO {}
-export class BancoDadosMimicaDO extends BancoDadosDO {}
-export class BancoDadosPregacaoDO extends BancoDadosDO {}
-
-
-// ============================================
 // DURABLE OBJECT: PONTOS GLOBAIS + RECOMPENSAS
 // ============================================
 export class PontosGlobaisDO {
@@ -2000,7 +1950,5 @@ Desenvolvido com ❤️ para JW.ORG
 // Compatibilidade retroativa para migrations antigas do Durable Object
 // que ainda referenciam a classe PontosBiblicoDO.
 export class PontosBiblicoDO extends PontosGlobaisDO {}
-
-
 
 
