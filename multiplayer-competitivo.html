@@ -108,6 +108,7 @@
       display: flex;
       flex-direction: column;
       padding: 5px 10px !important;
+      gap: 8px; /* UI cleanup */
     }
 
     #tela-jogo > * {
@@ -222,9 +223,7 @@
       padding-bottom: 20px;
     }
 
-    .input-group {
-      margin: 15px 0;
-    }
+    .input-group { margin: 15px 0; }
 
     .input-group label {
       display: block;
@@ -258,24 +257,11 @@
       user-select: none;
     }
 
-    .btn:active {
-      transform: scale(0.98);
-    }
+    .btn:active { transform: scale(0.98); }
 
-    .btn-primary {
-      background: var(--jw-azul-principal);
-      color: var(--jw-branco);
-    }
-
-    .btn-success {
-      background: var(--jw-verde-sucesso);
-      color: var(--jw-branco);
-    }
-
-    .btn-danger {
-      background: var(--jw-vermelho-erro);
-      color: var(--jw-branco);
-    }
+    .btn-primary { background: var(--jw-azul-principal); color: var(--jw-branco); }
+    .btn-success { background: var(--jw-verde-sucesso); color: var(--jw-branco); }
+    .btn-danger { background: var(--jw-vermelho-erro); color: var(--jw-branco); }
 
     .btn-small {
       padding: 10px 16px;
@@ -364,10 +350,7 @@
       backdrop-filter: blur(10px);
     }
 
-    .dica.bloqueada {
-      opacity: 0.3;
-      filter: blur(3px);
-    }
+    .dica.bloqueada { opacity: 0.3; filter: blur(3px); }
 
     .alternativas-container {
       display: grid;
@@ -393,9 +376,7 @@
       min-height: 60px;
     }
 
-    .alternativa-btn:active {
-      transform: scale(0.98);
-    }
+    .alternativa-btn:active { transform: scale(0.98); }
 
     .alternativa-btn .letra {
       background: var(--jw-azul-principal);
@@ -411,11 +392,7 @@
       flex-shrink: 0;
     }
 
-    .alternativa-btn .texto {
-      flex: 1;
-      font-weight: 500;
-      word-break: break-word;
-    }
+    .alternativa-btn .texto { flex: 1; font-weight: 500; word-break: break-word; }
 
     .alternativa-btn.correta {
       background: var(--jw-verde-sucesso) !important;
@@ -424,10 +401,7 @@
       animation: pulsar 0.5s;
     }
 
-    .alternativa-btn.correta .letra {
-      background: var(--jw-branco);
-      color: var(--jw-verde-sucesso);
-    }
+    .alternativa-btn.correta .letra { background: var(--jw-branco); color: var(--jw-verde-sucesso); }
 
     .alternativa-btn.errada {
       background: var(--jw-vermelho-erro) !important;
@@ -436,21 +410,10 @@
       animation: shake 0.5s;
     }
 
-    .alternativa-btn.errada .letra {
-      background: var(--jw-branco);
-      color: var(--jw-vermelho-erro);
-    }
+    .alternativa-btn.errada .letra { background: var(--jw-branco); color: var(--jw-vermelho-erro); }
 
-    @keyframes pulsar {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.03); }
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-8px); }
-      75% { transform: translateX(8px); }
-    }
+    @keyframes pulsar { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
 
     .placar {
       background: var(--jw-cinza-claro);
@@ -487,13 +450,8 @@
       font-size: 0.9rem;
     }
 
-    .status-item.respondeu {
-      border-left: 4px solid var(--jw-verde-sucesso);
-    }
-
-    .status-item.pensando {
-      border-left: 4px solid var(--jw-amarelo-aviso);
-    }
+    .status-item.respondeu { border-left: 4px solid var(--jw-verde-sucesso); }
+    .status-item.pensando { border-left: 4px solid var(--jw-amarelo-aviso); }
 
     /* ============================================
        CHAT ESTILO WHATSAPP - CORRIGIDO
@@ -635,9 +593,7 @@
       flex-shrink: 0;
     }
 
-    .chat-input-whatsapp button:active {
-      transform: scale(0.95);
-    }
+    .chat-input-whatsapp button:active { transform: scale(0.95); }
 
     .notificacao {
       position: fixed;
@@ -655,14 +611,8 @@
       word-wrap: break-word;
     }
 
-    .notificacao.erro {
-      background: var(--jw-vermelho-erro);
-    }
-
-    .notificacao.aviso {
-      background: var(--jw-amarelo-aviso);
-      color: var(--jw-azul-escuro);
-    }
+    .notificacao.erro { background: var(--jw-vermelho-erro); }
+    .notificacao.aviso { background: var(--jw-amarelo-aviso); color: var(--jw-azul-escuro); }
 
     @keyframes slideDown {
       from { transform: translateY(-100px); opacity: 0; }
@@ -689,24 +639,15 @@
       user-select: none;
     }
 
-    .categoria-card:active {
-      transform: scale(0.95);
-    }
+    .categoria-card:active { transform: scale(0.95); }
 
     .categoria-card.selecionada {
       background: var(--jw-azul-principal);
       color: var(--jw-branco);
     }
 
-    .categoria-card .icone {
-      font-size: 2rem;
-      margin-bottom: 5px;
-    }
-
-    .categoria-card .nome {
-      font-size: 0.85rem;
-      font-weight: bold;
-    }
+    .categoria-card .icone { font-size: 2rem; margin-bottom: 5px; }
+    .categoria-card .nome { font-size: 0.85rem; font-weight: bold; }
 
     .versiculo {
       background: var(--jw-azul-claro);
@@ -720,10 +661,7 @@
       line-height: 1.5;
     }
 
-    .vencedores {
-      text-align: center;
-      padding: 20px;
-    }
+    .vencedores { text-align: center; padding: 20px; }
 
     .vencedor-item {
       background: linear-gradient(135deg, #FFD700, #FFA500);
@@ -734,13 +672,8 @@
       font-weight: bold;
     }
 
-    .vencedor-item:nth-child(2) {
-      background: linear-gradient(135deg, #C0C0C0, #A9A9A9);
-    }
-
-    .vencedor-item:nth-child(3) {
-      background: linear-gradient(135deg, #CD7F32, #8B4513);
-    }
+    .vencedor-item:nth-child(2) { background: linear-gradient(135deg, #C0C0C0, #A9A9A9); }
+    .vencedor-item:nth-child(3) { background: linear-gradient(135deg, #CD7F32, #8B4513); }
 
     .aviso-lobby {
       background: var(--jw-amarelo-aviso);
@@ -753,9 +686,7 @@
       font-weight: bold;
     }
 
-    h2, h3 {
-      color: var(--jw-azul-principal);
-    }
+    h2, h3 { color: var(--jw-azul-principal); }
 
     .btn, .alternativa-btn, .categoria-card {
       -webkit-user-select: none;
@@ -779,7 +710,9 @@
     }
 
     #tela-jogo.sala-b-spectator .rodada-info,
-    #tela-jogo.sala-b-spectator .placar {
+    #tela-jogo.sala-b-spectator .placar,
+    #tela-jogo.sala-b-spectator .painel-colapsavel,
+    #tela-jogo.sala-b-spectator .linha-info {
       border: 2px dashed rgba(30,58,95,0.35);
       background: rgba(255,255,255,0.85);
     }
@@ -802,9 +735,7 @@
       font-size: 0.9rem;
     }
 
-    #tela-jogo.sala-b-spectator #aviso-sala-b-assistindo {
-      display: block;
-    }
+    #tela-jogo.sala-b-spectator #aviso-sala-b-assistindo { display: block; }
 
     /* ================================
        UI CLEANUP (Competitivo)
@@ -854,26 +785,12 @@
       opacity: 0.8;
     }
 
-    .painel-colapsavel[open] summary .seta {
-      transform: rotate(180deg);
-    }
+    .painel-colapsavel[open] summary .seta { transform: rotate(180deg); }
 
     .painel-colapsavel .conteudo {
       padding: 8px 10px 10px 10px;
       border-top: 1px solid var(--jw-cinza-medio);
       background: rgba(255,255,255,0.7);
-    }
-
-    /* deixa a tela-jogo mais “arejada” */
-    #tela-jogo {
-      gap: 8px;
-    }
-
-    /* no modo spectator, aplica borda também nos painéis novos */
-    #tela-jogo.sala-b-spectator .painel-colapsavel,
-    #tela-jogo.sala-b-spectator .linha-info {
-      border: 2px dashed rgba(30,58,95,0.35);
-      background: rgba(255,255,255,0.85);
     }
   </style>
 </head>
@@ -1179,14 +1096,13 @@
     let respondeu = false;
     let todosJogadores = [];
     let salaAJogadores = [];
-    let salaBJogadores = [];
+    let salaBJogadores = []; // SEMPRE string[] com nomes (normalizado)
     let meusPontos = 0;
     let resgatesRealizados = 0;
     let alternativasAtuais = [];
     let respostaCorretaIndex = -1;
 
-    // ✅ NOVO: quantas dicas já estavam liberadas quando eu respondi
-    // 1 = só dica1, 2 = dica1+dica2, 3 = dica1+dica2+dica3
+    // ✅ quantas dicas já estavam liberadas quando eu respondi
     let dicasLiberadas = 1;
 
     // ============================================
@@ -1273,7 +1189,7 @@
     function desativarModoSalaBSpectator() {
       document.body.classList.remove('sala-b-spectator');
       const telaJogo = document.getElementById('tela-jogo');
-      if (telaJogo) telaJogo.classList.add('sala-b-spectator');
+      if (telaJogo) telaJogo.classList.remove('sala-b-spectator');
     }
 
     function criarSala() {
@@ -1493,11 +1409,20 @@
       rodadaAtual = 0;
       meusPontos = 0;
       resgatesRealizados = 0;
+
+      // ✅ FIX: força estado limpo no início do jogo
       meuEstado = 'sala-a';
+      salaBJogadores = [];
       desativarModoSalaBSpectator();
 
       const elPts = document.getElementById('meus-pontos-mini');
       if (elPts) elPts.textContent = meusPontos;
+
+      const elAviso = document.getElementById('aviso-sala-b-assistindo');
+      if (elAviso) elAviso.style.display = 'none';
+
+      const elProx = document.getElementById('proxima-eliminacao');
+      if (elProx) elProx.textContent = '—';
 
       mostrarNotificacao(`🎮 Jogo iniciado! ${rodadaTotal} rodadas`, 'sucesso');
 
@@ -1533,18 +1458,19 @@
       if (painelStatus) painelStatus.open = false;
       if (painelPlacar) painelPlacar.open = false;
 
+      // ✅ FIX: não ativa spectator sem receber "eliminacao"
+      // Se estiver em sala-b, deve ter vindo de processarEliminacao.
+      if (meuEstado === 'sala-b') {
+        ativarModoSalaBSpectator();
+      } else {
+        desativarModoSalaBSpectator();
+      }
+
       if (data.jogadoresPulando && data.jogadoresPulando.includes(nomeJogador)) {
         meuEstado = 'pulando';
         mostrarTela('tela-pulando');
         document.getElementById('rodada-pulando').textContent = `Rodada ${rodadaAtual}`;
         return;
-      }
-
-      // Sala B assiste na tela do jogo, mas bloqueado e amarelado
-      if (meuEstado === 'sala-b') {
-        ativarModoSalaBSpectator();
-      } else {
-        desativarModoSalaBSpectator();
       }
 
       mostrarTela('tela-jogo');
@@ -1608,6 +1534,7 @@
 
       container.innerHTML = '';
 
+      // ✅ salaBJogadores é string[] (nomes)
       const jogadoresSalaA = todosJogadores.filter(j => !salaBJogadores.includes(j.nome));
 
       jogadoresSalaA.forEach(jogador => {
@@ -1628,9 +1555,8 @@
       const container = document.getElementById('alternativas-container');
       container.innerHTML = '';
 
-      // 2 botões fixos
       alternativasAtuais = ['Verdadeiro', 'Falso'];
-      respostaCorretaIndex = -1; // no VF a gente não usa index local; backend valida pela string
+      respostaCorretaIndex = -1;
 
       const opcoes = [
         { label: 'V', texto: 'VERDADEIRO', valor: 'Verdadeiro' },
@@ -1651,8 +1577,6 @@
 
     function selecionarAlternativaVerdadeiroFalso(valor, indexBtn) {
       if (respondeu) return;
-
-      // Sala B não pode responder mesmo que clique (defesa extra)
       if (meuEstado === 'sala-b') return;
 
       respondeu = true;
@@ -1665,11 +1589,9 @@
         nome: nomeJogador,
         resposta: valor,
         tempo: tempoRestante,
-        // ✅ NOVO: dicas usadas (1/2/3)
         dicas: dicasLiberadas
       }));
 
-      // Feedback visual otimista (o backend confirma depois em resposta_registrada)
       botoes[indexBtn].classList.add('correta');
 
       botoes.forEach(btn => {
@@ -1729,8 +1651,6 @@
 
     function selecionarAlternativa(index) {
       if (respondeu) return;
-
-      // Sala B não pode responder mesmo que clique (defesa extra)
       if (meuEstado === 'sala-b') return;
 
       respondeu = true;
@@ -1744,7 +1664,6 @@
         nome: nomeJogador,
         resposta: respostaSelecionada,
         tempo: tempoRestante,
-        // ✅ NOVO: dicas usadas (1/2/3)
         dicas: dicasLiberadas
       }));
 
@@ -1808,30 +1727,48 @@
       }
     }
 
+    function nomesFromLista(lista) {
+      if (!Array.isArray(lista)) return [];
+      return lista
+        .map(item => {
+          if (typeof item === 'string') return item;
+          if (item && typeof item === 'object' && typeof item.nome === 'string') return item.nome;
+          return null;
+        })
+        .filter(Boolean);
+    }
+
     function processarEliminacao(data) {
-      const eliminados = data.eliminados || [];
+      const eliminados = nomesFromLista(data.eliminados);
+
+      // Normaliza salaA/salaB (pode vir string[] ou objeto[])
+      salaAJogadores = data.salaA || [];
+      salaBJogadores = nomesFromLista(data.salaB);
+
+      const euFuiEliminado = eliminados.includes(nomeJogador);
+
+      // Só muda meu estado se eu REALMENTE estiver na lista de eliminados
+      if (euFuiEliminado) {
+        meuEstado = 'sala-b';
+        ativarModoSalaBSpectator();
+        mostrarNotificacao('📚 Você foi para SALA B! Continue estudando!', 'aviso');
+        const el = document.getElementById('pontos-sala-b');
+        if (el) el.textContent = meusPontos;
+        tocarSom('eliminacao');
+      }
 
       eliminados.forEach(nome => {
-        if (nome === nomeJogador) {
-          meuEstado = 'sala-b';
-          ativarModoSalaBSpectator();
-          mostrarNotificacao('📚 Você foi para SALA B! Continue estudando!', 'aviso');
-          document.getElementById('pontos-sala-b').textContent = meusPontos;
-          tocarSom('eliminacao');
-        } else {
+        if (nome !== nomeJogador) {
           mostrarNotificacao(`📚 ${nome} foi para SALA B`, 'aviso');
         }
       });
-
-      salaAJogadores = data.salaA || [];
-      salaBJogadores = data.salaB || [];
     }
 
     function entrarSalaConversa(data) {
       mostrarTela('tela-conversa');
 
       salaAJogadores = data.salaA || [];
-      salaBJogadores = data.salaB || [];
+      salaBJogadores = nomesFromLista(data.salaB);
 
       const listaSalaA = document.getElementById('lista-sala-a-conversa');
       listaSalaA.innerHTML = '';
@@ -1857,21 +1794,27 @@
         const listaSalaB = document.getElementById('lista-sala-b-conversa');
         listaSalaB.innerHTML = '';
 
-        salaBJogadores.forEach(jogador => {
+        // Se o backend mandou objetos, mantenha uma lista amigável pra render
+        const salaBRender = Array.isArray(data.salaB) ? data.salaB : [];
+        salaBRender.forEach(jogador => {
+          const nomeB = (typeof jogador === 'string') ? jogador : jogador?.nome;
+          const pontosB = (typeof jogador === 'string') ? 0 : (jogador?.pontos || 0);
+          if (!nomeB) return;
+
           const item = document.createElement('div');
           item.className = 'placar-item';
           item.style.borderLeft = '4px solid var(--jw-vermelho-erro)';
 
           const podeResgatar = meuEstado === 'sala-a' && meusPontos >= 5;
-          const eu = jogador.nome === nomeJogador ? ' ⬅️ VOCÊ' : '';
+          const eu = nomeB === nomeJogador ? ' ⬅️ VOCÊ' : '';
 
           item.innerHTML = `
             <div>
-              <div style="font-weight: bold;">🔴 ${jogador.nome}${eu}</div>
-              <div style="font-size: 0.85rem; color: var(--jw-cinza-escuro);">${jogador.pontos} pontos</div>
+              <div style="font-weight: bold;">🔴 ${nomeB}${eu}</div>
+              <div style="font-size: 0.85rem; color: var(--jw-cinza-escuro);">${pontosB} pontos</div>
             </div>
-            ${meuEstado === 'sala-a' && jogador.nome !== nomeJogador ? `
-              <button class="btn btn-success btn-small" onclick="resgatarJogador('${jogador.nome}')" ${!podeResgatar ? 'disabled' : ''}>
+            ${meuEstado === 'sala-a' && nomeB !== nomeJogador ? `
+              <button class="btn btn-success btn-small" onclick="resgatarJogador('${nomeB}')" ${!podeResgatar ? 'disabled' : ''}>
                 🤝 RESGATAR<br>
                 <small>-5pts</small>
               </button>
@@ -1928,7 +1871,7 @@
       resgatesRealizados++;
 
       salaAJogadores = data.salaA || [];
-      salaBJogadores = data.salaB || [];
+      salaBJogadores = nomesFromLista(data.salaB);
 
       entrarSalaConversa(data);
     }
@@ -1976,11 +1919,15 @@
         listaSalaB.innerHTML = '';
 
         salaBFinal.forEach((jogador, index) => {
+          const nomeB = (typeof jogador === 'string') ? jogador : jogador?.nome;
+          const pontosB = (typeof jogador === 'string') ? 0 : (jogador?.pontos || 0);
+          if (!nomeB) return;
+
           const item = document.createElement('div');
           item.className = 'placar-item';
           item.innerHTML = `
-            <span>${index + vencedores.length + 1}. 📖 ${jogador.nome}</span>
-            <span>${jogador.pontos} pts</span>
+            <span>${index + vencedores.length + 1}. 📖 ${nomeB}</span>
+            <span>${pontosB} pts</span>
           `;
           listaSalaB.appendChild(item);
         });
