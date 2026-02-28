@@ -303,13 +303,9 @@ export default {
     }
 
     // ============================================
-    // API REST - ADMIN
-    // ============================================
-    // ============================================
     // API REST - ADMIN (Jogadores) - PROTEGIDO POR TOKEN
     // Header obrigatório: X-Admin-Token
     // ============================================
-
     if (path.startsWith('/admin/jogadores/') && (request.method === 'PUT' || request.method === 'DELETE')) {
       const token = request.headers.get('X-Admin-Token') || '';
       if (!env.ADMIN_TOKEN || token !== env.ADMIN_TOKEN) {
@@ -546,6 +542,13 @@ export class SalaCompetitivaDO {
     this.resgatesRealizados = 0;
     this.inicioJogo = null;
     this.timerRodada = null;
+
+    // ✅ NOVO: controle para "sala_conversa" só na eliminação
+    this.aguardandoConversaEliminacao = false;
+
+    // ✅ NOVO: dedupe de eventos para evitar spam no cliente
+    this.ultimaConversaRodada = 0;
+    this.ultimoContinuarJogoRodada = 0;
   }
 
   exportarEstado() {
@@ -563,6 +566,11 @@ export class SalaCompetitivaDO {
       jogadores: Array.from(this.jogadores.values()),
       salaA: Array.from(this.salaA),
       salaB: Array.from(this.salaB),
+
+      // ✅ persistir flags novas
+      aguardandoConversaEliminacao: this.aguardandoConversaEliminacao,
+      ultimaConversaRodada: this.ultimaConversaRodada,
+      ultimoContinuarJogoRodada: this.ultimoContinuarJogoRodada,
     };
   }
 
@@ -588,6 +596,11 @@ export class SalaCompetitivaDO {
     this.jogadores = new Map((data.jogadores || []).map(j => [j.nome, j]));
     this.salaA = new Set(data.salaA || []);
     this.salaB = new Set(data.salaB || []);
+
+    // ✅ restore novos campos
+    this.aguardandoConversaEliminacao = data.aguardandoConversaEliminacao ?? this.aguardandoConversaEliminacao;
+    this.ultimaConversaRodada = data.ultimaConversaRodada ?? this.ultimaConversaRodada;
+    this.ultimoContinuarJogoRodada = data.ultimoContinuarJogoRodada ?? this.ultimoContinuarJogoRodada;
   }
 
   async fetch(request) {
@@ -678,7 +691,6 @@ export class SalaCompetitivaDO {
         break;
 
       case 'responder':
-        // ✅ PATCH: passa "dicas" para aplicar a nova regra de pontos
         await this.processarResposta(nome, data.resposta, data.tempo, data.dicas);
         break;
 
@@ -711,6 +723,11 @@ export class SalaCompetitivaDO {
     this.rodadaAtual = 0;
     this.inicioJogo = Date.now();
 
+    // ✅ reset flags do novo comportamento
+    this.aguardandoConversaEliminacao = false;
+    this.ultimaConversaRodada = 0;
+    this.ultimoContinuarJogoRodada = 0;
+
     const totalJogadores = this.jogadores.size;
     this.totalJogadoresInicial = totalJogadores;
     this.totalRodadas = this.calcularTotalRodadas(totalJogadores);
@@ -731,7 +748,7 @@ export class SalaCompetitivaDO {
   calcularTotalRodadas(total) {
     if (total <= 2) return 10;
     if (total === 3) return 15;
-    return 20; // 4+ jogadores → 20 rodadas fixas
+    return 20;
   }
 
   async proximaRodada() {
@@ -741,12 +758,16 @@ export class SalaCompetitivaDO {
     this.rodadaAtiva = true;
     this.respostas.clear();
 
+    // ✅ a cada rodada, limpa o gatilho de conversa de eliminação
+    this.aguardandoConversaEliminacao = false;
+
     await this.salvarEstado();
 
-    if (this.rodadaAtual > 1 && this.rodadaAtual % 4 === 1) {
-      await this.iniciarSalaConversa();
-      return;
-    }
+    // ❌ REMOVIDO: pausa automática a cada 4 rodadas
+    // if (this.rodadaAtual > 1 && this.rodadaAtual % 4 === 1) {
+    //   await this.iniciarSalaConversa();
+    //   return;
+    // }
 
     const id = this.env.BancoDadosDO.idFromName('banco-principal');
     const stub = this.env.BancoDadosDO.get(id);
@@ -788,7 +809,6 @@ export class SalaCompetitivaDO {
         clearTimeout(this.timerRodada);
       }
 
-      // ⏱️ Mantém 60s por rodada
       this.timerRodada = setTimeout(() => {
         if (this.rodadaAtiva) {
           console.log('⏰ [COMPETITIVO] Tempo esgotado! Finalizando rodada...');
@@ -824,7 +844,6 @@ export class SalaCompetitivaDO {
     return { rodada: proxima, quantidade };
   }
 
-  // ✅ PATCH: nova regra de pontos por dicas (tempo não conta)
   async processarResposta(nome, resposta, tempo, dicas) {
     const jogador = this.jogadores.get(nome);
 
@@ -837,7 +856,7 @@ export class SalaCompetitivaDO {
     let pontos = 0;
     if (acertou) {
       const dicasLiberadas = Math.min(3, Math.max(1, parseInt(dicas ?? 1, 10) || 1));
-      pontos = 10 - (dicasLiberadas - 1) * 3; // 10, 7, 4
+      pontos = 10 - (dicasLiberadas - 1) * 3;
       if (pontos < 1) pontos = 1;
     }
 
@@ -901,6 +920,9 @@ export class SalaCompetitivaDO {
 
     if (this.verificarEliminacao()) {
       await this.eliminarJogadores();
+
+      // ✅ após eliminar, marca que precisamos abrir a conversa (para resgates)
+      this.aguardandoConversaEliminacao = true;
     }
 
     if (this.rodadaAtual >= this.totalRodadas) {
@@ -910,15 +932,18 @@ export class SalaCompetitivaDO {
       return;
     }
 
-    if (this.rodadaAtual % 4 === 0 && this.rodadaAtual < this.totalRodadas) {
+    // ✅ Só abre sala de conversa se houve eliminação
+    if (this.aguardandoConversaEliminacao) {
       setTimeout(() => {
         this.iniciarSalaConversa();
       }, 3000);
-    } else {
-      setTimeout(() => {
-        this.proximaRodada();
-      }, 3000);
+      return;
     }
+
+    // ✅ sem eliminação: próxima rodada direto
+    setTimeout(() => {
+      this.proximaRodada();
+    }, 3000);
   }
 
   async eliminarJogadores() {
@@ -960,7 +985,23 @@ export class SalaCompetitivaDO {
   }
 
   async iniciarSalaConversa() {
+    // ✅ só entra em conversa se foi acionada por eliminação
+    if (!this.aguardandoConversaEliminacao) {
+      console.log('⚠️ [COMPETITIVO] iniciarSalaConversa ignorado (sem eliminacao)');
+      return;
+    }
+
+    // ✅ dedupe: não mandar duas conversas na mesma rodada
+    if (this.ultimaConversaRodada === this.rodadaAtual) {
+      console.log('⚠️ [COMPETITIVO] sala_conversa duplicada ignorada (rodada)', this.rodadaAtual);
+      return;
+    }
+
     this.estadoSala = 'conversa';
+    this.ultimaConversaRodada = this.rodadaAtual;
+
+    // consumiu gatilho (evita reabrir)
+    this.aguardandoConversaEliminacao = false;
 
     const proximaEliminacao = this.getProximaEliminacao();
 
@@ -985,7 +1026,7 @@ export class SalaCompetitivaDO {
     const resgatado = this.jogadores.get(nomeResgatado);
 
     if (!resgatador || !resgatado) return;
-    if (this.totalJogadoresInicial <= 2) return; // sem Sala B no modo 2 jogadores
+    if (this.totalJogadoresInicial <= 2) return;
     if (resgatador.sala !== 'A' || resgatado.sala !== 'B') return;
     if (resgatador.pontos < 5) return;
 
@@ -1019,6 +1060,19 @@ export class SalaCompetitivaDO {
   }
 
   async continuarJogo() {
+    // ✅ dedupe: não mandar continuar_jogo repetido na mesma rodada
+    if (this.ultimoContinuarJogoRodada === this.rodadaAtual) {
+      console.log('⚠️ [COMPETITIVO] continuar_jogo duplicado ignorado (rodada)', this.rodadaAtual);
+      return;
+    }
+
+    // Só faz sentido continuar se estiver na conversa
+    if (this.estadoSala !== 'conversa') {
+      console.log('⚠️ [COMPETITIVO] continuar_jogo ignorado (estadoSala != conversa):', this.estadoSala);
+      return;
+    }
+
+    this.ultimoContinuarJogoRodada = this.rodadaAtual;
     this.estadoSala = 'jogo';
 
     await this.salvarEstado();
@@ -1037,7 +1091,6 @@ export class SalaCompetitivaDO {
 
     const duracao = this.inicioJogo ? Math.floor((Date.now() - this.inicioJogo) / 60000) : 0;
 
-    // salva async sem await (função não é async)
     this.state.storage.put(this.STATE_KEY, this.exportarEstado()).catch(() => {});
 
     this.broadcast({
@@ -1078,7 +1131,6 @@ export class SalaCompetitivaDO {
       }
     }
 
-    // salva async sem await (função não é async)
     this.state.storage.put(this.STATE_KEY, this.exportarEstado()).catch(() => {});
 
     this.broadcast({
@@ -1225,11 +1277,9 @@ export class BancoDadosDO {
       throw new Error('Formato inválido para cartas: esperado array');
     }
 
-    // Função melhorada para garantir UTF-8 correto
     const normalizarTexto = (valor) => {
       if (valor == null) return '';
       let texto = String(valor).trim();
-      // Remove caracteres de controle mas mantém caracteres UTF-8 válidos
       texto = texto.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
       return texto;
     };
@@ -1323,17 +1373,11 @@ export class BancoDadosDO {
   }
 }
 
-// ============================================
-// NOVO: bancos separados (1 DO SQLite por categoria)
-// ============================================
 export class BancoDadosPersonagensDO extends BancoDadosDO {}
 export class BancoDadosProfeciasDO extends BancoDadosDO {}
 export class BancoDadosMimicaDO extends BancoDadosDO {}
 export class BancoDadosPregacaoDO extends BancoDadosDO {}
-
-// NOVO: banco separado para /cartas/verdadeirofalso
 export class BancoDadosVerdadeiroFalsoDO extends BancoDadosDO {}
-
 
 // ============================================
 // DURABLE OBJECT: PONTOS GLOBAIS + RECOMPENSAS
@@ -1474,7 +1518,6 @@ export class PontosGlobaisDO {
       });
     }
 
-    // NOVO: Endpoint para obter cartas recentes globais
     if (path === '/cartas-recentes-globais') {
       try {
         const cartas = await this.obterCartasRecentesGlobais();
@@ -1498,12 +1541,11 @@ export class PontosGlobaisDO {
       }
     }
 
-    // NOVO: Endpoint para registrar cartas globais  
     if (path === '/registrar-cartas' && request.method === 'POST') {
       try {
         const body = await request.json();
         const input = Array.isArray(body.cartas) ? body.cartas : [];
-        
+
         if (input.length === 0) {
           return new Response(JSON.stringify({
             success: true,
@@ -1532,7 +1574,6 @@ export class PontosGlobaisDO {
       }
     }
 
-    // NOVO: Endpoint para limpar histórico de cartas
     if (path === '/limpar-historico-cartas' && request.method === 'POST') {
       try {
         const resultado = await this.limparCartasGlobais();
@@ -1554,7 +1595,6 @@ export class PontosGlobaisDO {
       }
     }
 
-    // NOVO: Admin - Listar salas (atualmente vazio pois salas não são persistidas)
     if (path === '/admin/salas') {
       try {
         return new Response(JSON.stringify({
@@ -1573,7 +1613,6 @@ export class PontosGlobaisDO {
       }
     }
 
-    // NOVO: Admin - Listar jogadores solo com última partida
     if (path === '/admin/jogadores-completos') {
       try {
         const jogadores = await this.obterJogadoresCompletos();
@@ -1594,12 +1633,9 @@ export class PontosGlobaisDO {
       }
     }
 
-    
     // ============================
     // ADMIN: Atualizar / Excluir jogador
     // ============================
-
-    // PUT /admin/jogadores/:nome
     if (path.startsWith('/admin/jogadores/') && request.method === 'PUT') {
       try {
         const nomeAtual = decodeURIComponent(path.split('/')[3] || '').trim();
@@ -1645,7 +1681,6 @@ export class PontosGlobaisDO {
       }
     }
 
-    // DELETE /admin/jogadores/:nome
     if (path.startsWith('/admin/jogadores/') && request.method === 'DELETE') {
       try {
         const nome = decodeURIComponent(path.split('/')[3] || '').trim();
@@ -1665,7 +1700,8 @@ export class PontosGlobaisDO {
         });
       }
     }
-return new Response('Not Found', { status: 404 });
+
+    return new Response('Not Found', { status: 404 });
   }
 
   async inicializar() {
@@ -1703,7 +1739,6 @@ return new Response('Not Found', { status: 404 });
       )
     `);
 
-    // IMPORTANTE: Recriar historico_fases com schema correto (pontosBonus com 's')
     try {
       this.sql.exec('DROP TABLE IF EXISTS historico_fases');
       console.log('✅ Tabela historico_fases dropada e será recriada');
@@ -1725,7 +1760,6 @@ return new Response('Not Found', { status: 404 });
       )
     `);
 
-    // NOVO: Tabela para histórico global de cartas usadas
     this.sql.exec(`
       CREATE TABLE IF NOT EXISTS historico_cartas_globais (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -1788,46 +1822,38 @@ return new Response('Not Found', { status: 404 });
   }
 
   async adicionarPontosFase(nome, faseNumero, pontosTotal, pontosNormal, pontosBonusTotal, categoria) {
-    // VALIDAÇÃO 1: Nome não pode ser vazio
     const nomeLimpo = String(nome || '').trim();
     if (!nomeLimpo) {
       throw new Error('Nome do jogador não pode estar vazio');
     }
 
-    // VALIDAÇÃO 2: Pontos devem ser número válido
     const pontosNumero = Number(pontosTotal);
     if (!Number.isFinite(pontosNumero) || pontosNumero < 0) {
       throw new Error(`Valor de pontos inválido: ${pontosTotal}`);
     }
 
-    // VALIDAÇÃO 3: Fase deve ser válida
     const faseNum = Number(faseNumero);
     if (!Number.isFinite(faseNum) || faseNum < 1 || faseNum > 10) {
       throw new Error(`Número de fase inválido: ${faseNumero}`);
     }
 
-    // Obtém pontos atuais (cria jogador se não existir)
     const atual = await this.obterPontos(nomeLimpo);
     const nomeCanonical = this.obterNomeCanonical(nomeLimpo);
-    
-    // VALIDAÇÃO 4: Nome canonical deve existir
+
     if (!nomeCanonical) {
       throw new Error('Falha ao normalizar nome do jogador');
     }
-    
+
     const novo = atual + pontosNumero;
 
-    // Atualiza os pontos no banco
     this.sql.exec(
       'UPDATE jogadores SET pontos = ? WHERE nome = ?',
       novo,
       nomeCanonical
     );
 
-    // Atualiza o nível baseado nos novos pontos totais
     await this.atualizarNivel(nomeCanonical, novo);
 
-    // Registra o histórico de fase (tabela já criada no inicializar com schema correto)
     this.sql.exec(
       `INSERT INTO historico_fases (nome, faseNumero, pontosNormal, pontosBonus, pontosTotal, categoria)
        VALUES (?, ?, ?, ?, ?, ?)`,
@@ -1852,15 +1878,13 @@ return new Response('Not Found', { status: 404 });
   }
 
   async obterCartasRecentesGlobais() {
-    // Remove cartas com mais de 1 hora
     const umaHoraAtras = new Date(Date.now() - 60 * 60 * 1000).toISOString();
-    
+
     this.sql.exec(
       `DELETE FROM historico_cartas_globais WHERE dataSolicitacao < ?`,
       umaHoraAtras
     );
 
-    // Retorna as cartas recentes (máximo 100)
     const result = this.sql.exec(
       `SELECT chaveKey FROM historico_cartas_globais ORDER BY dataSolicitacao DESC LIMIT 100`
     ).toArray();
@@ -1878,7 +1902,6 @@ return new Response('Not Found', { status: 404 });
       if (!chave || typeof chave !== 'string') continue;
 
       try {
-        // INSERT OR IGNORE para evitar duplicatas
         this.sql.exec(
           `INSERT OR IGNORE INTO historico_cartas_globais (chaveKey) VALUES (?)`,
           chave
@@ -1927,7 +1950,6 @@ return new Response('Not Found', { status: 404 });
   }
 
   async obterJogadoresCompletos() {
-    // Obter jogadores com pontos (que completaram pelo menos uma fase)
     const jogadores = this.sql.exec(`
       SELECT 
         j.nome, 
@@ -2090,7 +2112,4 @@ Desenvolvido com ❤️ para JW.ORG
 `;
 }
 
-
-// Compatibilidade retroativa para migrations antigas do Durable Object
-// que ainda referenciam a classe PontosBiblicoDO.
 export class PontosBiblicoDO extends PontosGlobaisDO {}
