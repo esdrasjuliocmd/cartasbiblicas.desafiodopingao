@@ -23,9 +23,6 @@
       --whatsapp-outro: #FFFFFF;
     }
 
-    /* ============================================
-       CONFIGURAÇÃO GERAL DE SCROLL
-       ============================================ */
     html, body {
       margin: 0;
       padding: 0;
@@ -100,7 +97,7 @@
     }
 
     /* ============================================
-       TELA DE JOGO - OTIMIZADA COM SCROLL
+       TELA DE JOGO
        ============================================ */
     #tela-jogo {
       overflow-y: auto;
@@ -108,12 +105,10 @@
       display: flex;
       flex-direction: column;
       padding: 5px 10px !important;
-      gap: 8px; /* UI cleanup */
+      gap: 8px;
     }
 
-    #tela-jogo > * {
-      flex-shrink: 0;
-    }
+    #tela-jogo > * { flex-shrink: 0; }
 
     #tela-jogo .rodada-info {
       padding: 6px;
@@ -129,22 +124,10 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    #tela-jogo .placar h3 {
-      font-size: 0.85rem;
-      margin-bottom: 6px;
-    }
+    #tela-jogo .placar h3 { font-size: 0.85rem; margin-bottom: 6px; }
 
-    #tela-jogo .status-item {
-      padding: 5px 8px;
-      margin: 3px 0;
-      font-size: 0.8rem;
-    }
-
-    #tela-jogo .placar-item {
-      padding: 5px 8px;
-      margin: 3px 0;
-      font-size: 0.8rem;
-    }
+    #tela-jogo .status-item { padding: 5px 8px; margin: 3px 0; font-size: 0.8rem; }
+    #tela-jogo .placar-item { padding: 5px 8px; margin: 3px 0; font-size: 0.8rem; }
 
     #tela-jogo .carta-jogo {
       padding: 10px 8px;
@@ -155,16 +138,9 @@
       overflow: hidden;
     }
 
-    #tela-jogo .carta-jogo h2 {
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-    }
+    #tela-jogo .carta-jogo h2 { font-size: 1.1rem; margin-bottom: 6px; }
 
-    #tela-jogo .timer {
-      padding: 6px;
-      font-size: 1.3rem;
-      margin: 6px 0;
-    }
+    #tela-jogo .timer { padding: 6px; font-size: 1.3rem; margin: 6px 0; }
 
     #tela-jogo .dica {
       padding: 8px;
@@ -208,9 +184,7 @@
       -webkit-box-orient: vertical;
     }
 
-    /* ============================================
-       OTIMIZAÇÕES DE SCROLL PARA OUTRAS TELAS
-       ============================================ */
+    /* OUTRAS TELAS */
     #tela-lobby,
     #tela-conversa,
     #tela-pulando,
@@ -224,7 +198,6 @@
     }
 
     .input-group { margin: 15px 0; }
-
     .input-group label {
       display: block;
       margin-bottom: 8px;
@@ -232,7 +205,6 @@
       color: var(--jw-azul-principal);
       font-size: 0.95rem;
     }
-
     .input-group input {
       width: 100%;
       padding: 14px;
@@ -256,19 +228,12 @@
       -webkit-user-select: none;
       user-select: none;
     }
-
     .btn:active { transform: scale(0.98); }
-
     .btn-primary { background: var(--jw-azul-principal); color: var(--jw-branco); }
     .btn-success { background: var(--jw-verde-sucesso); color: var(--jw-branco); }
     .btn-danger { background: var(--jw-vermelho-erro); color: var(--jw-branco); }
 
-    .btn-small {
-      padding: 10px 16px;
-      font-size: 0.9rem;
-      width: auto;
-      display: inline-block;
-    }
+    .btn-small { padding: 10px 16px; font-size: 0.9rem; width: auto; display: inline-block; }
 
     .sala-info {
       background: var(--jw-cinza-claro);
@@ -349,7 +314,6 @@
       line-height: 1.5;
       backdrop-filter: blur(10px);
     }
-
     .dica.bloqueada { opacity: 0.3; filter: blur(3px); }
 
     .alternativas-container {
@@ -375,7 +339,6 @@
       touch-action: manipulation;
       min-height: 60px;
     }
-
     .alternativa-btn:active { transform: scale(0.98); }
 
     .alternativa-btn .letra {
@@ -400,7 +363,6 @@
       border-color: var(--jw-verde-sucesso);
       animation: pulsar 0.5s;
     }
-
     .alternativa-btn.correta .letra { background: var(--jw-branco); color: var(--jw-verde-sucesso); }
 
     .alternativa-btn.errada {
@@ -409,7 +371,6 @@
       border-color: var(--jw-vermelho-erro);
       animation: shake 0.5s;
     }
-
     .alternativa-btn.errada .letra { background: var(--jw-branco); color: var(--jw-vermelho-erro); }
 
     @keyframes pulsar { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
@@ -421,12 +382,7 @@
       padding: 15px;
       margin: 15px 0;
     }
-
-    .placar h3 {
-      color: var(--jw-azul-principal);
-      margin-bottom: 12px;
-      font-size: 1.1rem;
-    }
+    .placar h3 { color: var(--jw-azul-principal); margin-bottom: 12px; font-size: 1.1rem; }
 
     .placar-item {
       display: flex;
@@ -453,9 +409,7 @@
     .status-item.respondeu { border-left: 4px solid var(--jw-verde-sucesso); }
     .status-item.pensando { border-left: 4px solid var(--jw-amarelo-aviso); }
 
-    /* ============================================
-       CHAT ESTILO WHATSAPP - CORRIGIDO
-       ============================================ */
+    /* CHAT */
     .chat-whatsapp {
       background: var(--whatsapp-bg);
       border-radius: 12px;
@@ -694,7 +648,7 @@
     }
 
     /* ============================================
-       MODO SALA B (ASSISTINDO) - AMARELO/ESMAECIDO
+       MODO SALA B (ASSISTINDO)
        ============================================ */
     body.sala-b-spectator {
       background: linear-gradient(135deg, #b88a00 0%, #f0ad4e 100%) !important;
@@ -737,11 +691,7 @@
 
     #tela-jogo.sala-b-spectator #aviso-sala-b-assistindo { display: block; }
 
-    /* ================================
-       UI CLEANUP (Competitivo)
-       - painéis recolhíveis
-       - linha compacta de info
-       ================================ */
+    /* UI CLEANUP */
     .linha-info {
       background: rgba(30,58,95,0.08);
       border: 1px solid rgba(30,58,95,0.15);
@@ -754,7 +704,6 @@
       align-items: center;
       gap: 10px;
     }
-
     .linha-info strong { color: var(--jw-azul-principal); }
 
     .painel-colapsavel {
@@ -776,17 +725,9 @@
       justify-content: space-between;
       gap: 10px;
     }
-
     .painel-colapsavel summary::-webkit-details-marker { display: none; }
-
-    .painel-colapsavel summary .seta {
-      transition: transform 0.15s ease;
-      font-size: 0.9rem;
-      opacity: 0.8;
-    }
-
+    .painel-colapsavel summary .seta { transition: transform 0.15s ease; font-size: 0.9rem; opacity: 0.8; }
     .painel-colapsavel[open] summary .seta { transform: rotate(180deg); }
-
     .painel-colapsavel .conteudo {
       padding: 8px 10px 10px 10px;
       border-top: 1px solid var(--jw-cinza-medio);
@@ -859,7 +800,6 @@
           💬 Bata papo enquanto o Anfitrião inicia a partida
         </div>
 
-        <!-- CHAT ESTILO WHATSAPP NO LOBBY -->
         <div class="chat-whatsapp">
           <h3>💬 Chat da Sala</h3>
           <div class="chat-messages" id="chat-lobby"></div>
@@ -893,8 +833,6 @@
                 <div class="icone">🎭</div>
                 <div class="nome">MÍMICA</div>
               </div>
-
-              <!-- NOVA CATEGORIA: VERDADEIRO/FALSO -->
               <div class="categoria-card" onclick="selecionarCategoria('verdadeirofalso', event)">
                 <div class="icone">✅❌</div>
                 <div class="nome">V/F</div>
@@ -912,7 +850,7 @@
         </button>
       </div>
 
-      <!-- TELA 3: JOGO (MAIS LIMPO) -->
+      <!-- TELA 3: JOGO -->
       <div id="tela-jogo" class="tela">
         <div class="rodada-info">
           <span id="rodada-atual">Rodada 1</span> de <span id="rodada-total">100</span>
@@ -959,7 +897,7 @@
         </details>
       </div>
 
-      <!-- TELA 4: SALA B (Assistindo) -->
+      <!-- TELA 4: SALA B -->
       <div id="tela-sala-b" class="tela">
         <div class="versiculo">
           📚 Você está na SALA B<br>
@@ -978,14 +916,13 @@
         </div>
       </div>
 
-      <!-- TELA 5: SALA DE CONVERSA (CHAT WHATSAPP) -->
+      <!-- TELA 5: CONVERSA -->
       <div id="tela-conversa" class="tela">
         <div style="background: var(--jw-amarelo-aviso); padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 15px;">
           <h2 style="color: var(--jw-azul-escuro); font-size: 1.3rem;">⏸️ SALA DE CONVERSA</h2>
           <p style="margin-top: 8px; font-size: 0.9rem;">🎯 Pausa estratégica - Resgates permitidos!</p>
         </div>
 
-        <!-- CHAT ESTILO WHATSAPP -->
         <div class="chat-whatsapp">
           <h3>💬 Chat Geral (Sala A + B)</h3>
           <div class="chat-messages" id="chat-conversa"></div>
@@ -1019,7 +956,7 @@
         </p>
       </div>
 
-      <!-- TELA 6: PULANDO VEZ -->
+      <!-- TELA 6: PULANDO -->
       <div id="tela-pulando" class="tela">
         <div style="background: var(--jw-amarelo-aviso); padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 20px;">
           <h2 style="color: var(--jw-azul-escuro); font-size: 1.3rem;">⏭️ VOCÊ ESTÁ PULANDO</h2>
@@ -1041,7 +978,7 @@
         </p>
       </div>
 
-      <!-- TELA 7: FIM DO JOGO -->
+      <!-- TELA 7: FINAL -->
       <div id="tela-final" class="tela">
         <div style="text-align: center; padding: 25px; background: linear-gradient(135deg, var(--jw-azul-claro), var(--jw-azul-principal)); color: white; border-radius: 12px; margin-bottom: 20px;">
           <h1 style="font-size: 2.5rem; margin-bottom: 15px;">🎉 FIM!</h1>
@@ -1088,7 +1025,6 @@
     let souAnfitriao = false;
     let rodadaAtual = 0;
 
-    // Alinhado com o solo (10 fases x 10)
     let rodadaTotal = 100;
 
     let timerInterval = null;
@@ -1096,18 +1032,20 @@
     let respondeu = false;
     let todosJogadores = [];
     let salaAJogadores = [];
-    let salaBJogadores = []; // SEMPRE string[] com nomes (normalizado)
+    let salaBJogadores = []; // string[] nomes
     let meusPontos = 0;
     let resgatesRealizados = 0;
     let alternativasAtuais = [];
     let respostaCorretaIndex = -1;
 
-    // ✅ quantas dicas já estavam liberadas quando eu respondi
     let dicasLiberadas = 1;
 
-    // ============================================
-    // SISTEMA DE SONS (Web Audio API)
-    // ============================================
+    // ✅ anti-duplicação de eventos
+    let ultimaRodadaProcessada = 0;
+    let conversaAberta = false;
+    let continuarJogoProcessado = false;
+
+    // SONS
     let somAtivado = false;
     let audioCtx = null;
 
@@ -1236,7 +1174,6 @@
 
     function conectarWebSocket() {
       const wsUrl = `${WS_BASE}/ws-competitivo?sala=${salaAtual}`;
-
       console.log('🔌 Conectando ao WebSocket:', wsUrl);
 
       ws = new WebSocket(wsUrl);
@@ -1303,6 +1240,17 @@
           break;
 
         case 'nova_rodada':
+          // ✅ ignora rodadas duplicadas / fora de ordem
+          if (Number.isFinite(data.rodada) && data.rodada <= ultimaRodadaProcessada) {
+            console.warn('⚠️ Ignorando nova_rodada duplicada:', data.rodada);
+            break;
+          }
+          if (Number.isFinite(data.rodada)) ultimaRodadaProcessada = data.rodada;
+
+          // cada rodada nova reseta guardas de conversa/continuar
+          conversaAberta = false;
+          continuarJogoProcessado = false;
+
           iniciarRodadaLocal(data);
           break;
 
@@ -1319,6 +1267,13 @@
           break;
 
         case 'sala_conversa':
+          // ✅ ignora sala_conversa repetida (evita piscar)
+          if (conversaAberta) {
+            console.warn('⚠️ Ignorando sala_conversa duplicada');
+            break;
+          }
+          conversaAberta = true;
+          continuarJogoProcessado = false;
           entrarSalaConversa(data);
           break;
 
@@ -1327,6 +1282,12 @@
           break;
 
         case 'continuar_jogo':
+          // ✅ ignora continuar_jogo duplicado
+          if (continuarJogoProcessado) {
+            console.warn('⚠️ Ignorando continuar_jogo duplicado');
+            break;
+          }
+          continuarJogoProcessado = true;
           voltarAoJogo(data);
           break;
 
@@ -1404,13 +1365,17 @@
     }
 
     function iniciarJogoLocal(data) {
-      // Preferir o que o backend manda; senão, cai no padrão 100
       rodadaTotal = Number.isFinite(data.totalRodadas) ? data.totalRodadas : 100;
       rodadaAtual = 0;
       meusPontos = 0;
       resgatesRealizados = 0;
 
-      // ✅ FIX: força estado limpo no início do jogo
+      // resets anti-duplicação
+      ultimaRodadaProcessada = 0;
+      conversaAberta = false;
+      continuarJogoProcessado = false;
+
+      // força estado limpo no início do jogo
       meuEstado = 'sala-a';
       salaBJogadores = [];
       desativarModoSalaBSpectator();
@@ -1436,12 +1401,10 @@
       respondeu = false;
       tempoRestante = 60;
 
-      // ✅ reset por rodada: começou só com dica 1
       dicasLiberadas = 1;
 
       tocarSom('inicio_rodada');
 
-      // UI limpa: preenche “próxima eliminação” e fecha painéis por padrão
       const elProx = document.getElementById('proxima-eliminacao');
       if (elProx) {
         const prox = data.proximaEliminacao;
@@ -1458,8 +1421,6 @@
       if (painelStatus) painelStatus.open = false;
       if (painelPlacar) painelPlacar.open = false;
 
-      // ✅ FIX: não ativa spectator sem receber "eliminacao"
-      // Se estiver em sala-b, deve ter vindo de processarEliminacao.
       if (meuEstado === 'sala-b') {
         ativarModoSalaBSpectator();
       } else {
@@ -1490,9 +1451,6 @@
 
       atualizarStatusJogadores();
 
-      // ===============================
-      // GERAR ALTERNATIVAS (4 opções ou VF)
-      // ===============================
       if (categoriaSelecionada === 'verdadeirofalso') {
         gerarAlternativasVerdadeiroFalso();
       } else {
@@ -1533,8 +1491,6 @@
       if (!container) return;
 
       container.innerHTML = '';
-
-      // ✅ salaBJogadores é string[] (nomes)
       const jogadoresSalaA = todosJogadores.filter(j => !salaBJogadores.includes(j.nome));
 
       jogadoresSalaA.forEach(jogador => {
@@ -1605,16 +1561,12 @@
       container.innerHTML = '';
 
       const respostasErradas = gerarRespostasErradas(carta.resposta);
-
       respostaCorretaIndex = Math.floor(Math.random() * 4);
 
       alternativasAtuais = [];
       for (let i = 0; i < 4; i++) {
-        if (i === respostaCorretaIndex) {
-          alternativasAtuais.push(carta.resposta);
-        } else {
-          alternativasAtuais.push(respostasErradas.shift());
-        }
+        if (i === respostaCorretaIndex) alternativasAtuais.push(carta.resposta);
+        else alternativasAtuais.push(respostasErradas.shift());
       }
 
       const letras = ['A', 'B', 'C', 'D'];
@@ -1641,11 +1593,8 @@
       const erradas = [];
       while (erradas.length < 3) {
         const random = alternativasGenericas[Math.floor(Math.random() * alternativasGenericas.length)];
-        if (random !== respostaCorreta && !erradas.includes(random)) {
-          erradas.push(random);
-        }
+        if (random !== respostaCorreta && !erradas.includes(random)) erradas.push(random);
       }
-
       return erradas;
     }
 
@@ -1721,7 +1670,6 @@
 
     function finalizarRodada(data) {
       clearInterval(timerInterval);
-
       if (meuEstado === 'sala-a') {
         mostrarNotificacao(`Resposta: ${data.respostaCorreta}`, 'aviso');
       }
@@ -1741,14 +1689,10 @@
     function processarEliminacao(data) {
       const eliminados = nomesFromLista(data.eliminados);
 
-      // Normaliza salaA/salaB (pode vir string[] ou objeto[])
       salaAJogadores = data.salaA || [];
       salaBJogadores = nomesFromLista(data.salaB);
 
-      const euFuiEliminado = eliminados.includes(nomeJogador);
-
-      // Só muda meu estado se eu REALMENTE estiver na lista de eliminados
-      if (euFuiEliminado) {
+      if (eliminados.includes(nomeJogador)) {
         meuEstado = 'sala-b';
         ativarModoSalaBSpectator();
         mostrarNotificacao('📚 Você foi para SALA B! Continue estudando!', 'aviso');
@@ -1758,9 +1702,7 @@
       }
 
       eliminados.forEach(nome => {
-        if (nome !== nomeJogador) {
-          mostrarNotificacao(`📚 ${nome} foi para SALA B`, 'aviso');
-        }
+        if (nome !== nomeJogador) mostrarNotificacao(`📚 ${nome} foi para SALA B`, 'aviso');
       });
     }
 
@@ -1794,7 +1736,6 @@
         const listaSalaB = document.getElementById('lista-sala-b-conversa');
         listaSalaB.innerHTML = '';
 
-        // Se o backend mandou objetos, mantenha uma lista amigável pra render
         const salaBRender = Array.isArray(data.salaB) ? data.salaB : [];
         salaBRender.forEach(jogador => {
           const nomeB = (typeof jogador === 'string') ? jogador : jogador?.nome;
@@ -1842,9 +1783,7 @@
         return;
       }
 
-      if (!confirm(`Resgatar ${nomeResgatado}?\n\nCusto: -5 pontos\nVocê pulará a próxima rodada`)) {
-        return;
-      }
+      if (!confirm(`Resgatar ${nomeResgatado}?\n\nCusto: -5 pontos\nVocê pulará a próxima rodada`)) return;
 
       ws.send(JSON.stringify({
         tipo: 'resgatar',
@@ -1893,8 +1832,7 @@
       mostrarTela('tela-final');
       tocarSom('fim_jogo');
 
-      document.getElementById('info-final').textContent =
-        `${data.totalRodadas} Rodadas!`;
+      document.getElementById('info-final').textContent = `${data.totalRodadas} Rodadas!`;
 
       const listaVencedores = document.getElementById('lista-vencedores');
       listaVencedores.innerHTML = '';
@@ -1941,21 +1879,13 @@
       `;
     }
 
-    // ============================================
-    // CHAT ESTILO WHATSAPP
-    // ============================================
-    function enviarChatLobby() {
-      enviarMensagemChat('input-chat-lobby', 'chat-lobby');
-    }
+    // CHAT
+    function enviarChatLobby() { enviarMensagemChat('input-chat-lobby'); }
+    function enviarChatConversa() { enviarMensagemChat('input-chat-conversa'); }
 
-    function enviarChatConversa() {
-      enviarMensagemChat('input-chat-conversa', 'chat-conversa');
-    }
-
-    function enviarMensagemChat(inputId, chatId) {
+    function enviarMensagemChat(inputId) {
       const input = document.getElementById(inputId);
       const mensagem = input.value.trim();
-
       if (!mensagem) return;
 
       ws.send(JSON.stringify({
@@ -1972,24 +1902,24 @@
 
       chats.forEach(chatId => {
         const chat = document.getElementById(chatId);
-        if (chat) {
-          const bubble = document.createElement('div');
-          const ehMinha = data.nome === nomeJogador;
+        if (!chat) return;
 
-          bubble.className = `chat-bubble ${ehMinha ? 'minha' : 'outro'}`;
+        const bubble = document.createElement('div');
+        const ehMinha = data.nome === nomeJogador;
 
-          const agora = new Date();
-          const hora = `${agora.getHours().toString().padStart(2, '0')}:${agora.getMinutes().toString().padStart(2, '0')}`;
+        bubble.className = `chat-bubble ${ehMinha ? 'minha' : 'outro'}`;
 
-          bubble.innerHTML = `
-            ${!ehMinha ? `<div class="nome">${data.nome}</div>` : ''}
-            <div class="texto">${data.mensagem}</div>
-            <div class="hora">${hora}</div>
-          `;
+        const agora = new Date();
+        const hora = `${agora.getHours().toString().padStart(2, '0')}:${agora.getMinutes().toString().padStart(2, '0')}`;
 
-          chat.appendChild(bubble);
-          chat.scrollTop = chat.scrollHeight;
-        }
+        bubble.innerHTML = `
+          ${!ehMinha ? `<div class="nome">${data.nome}</div>` : ''}
+          <div class="texto">${data.mensagem}</div>
+          <div class="hora">${hora}</div>
+        `;
+
+        chat.appendChild(bubble);
+        chat.scrollTop = chat.scrollHeight;
       });
     }
 
@@ -1998,13 +1928,13 @@
 
       chats.forEach(chatId => {
         const chat = document.getElementById(chatId);
-        if (chat) {
-          const bubble = document.createElement('div');
-          bubble.className = 'chat-bubble sistema';
-          bubble.innerHTML = `<div class="texto">🔔 ${mensagem}</div>`;
-          chat.appendChild(bubble);
-          chat.scrollTop = chat.scrollHeight;
-        }
+        if (!chat) return;
+
+        const bubble = document.createElement('div');
+        bubble.className = 'chat-bubble sistema';
+        bubble.innerHTML = `<div class="texto">🔔 ${mensagem}</div>`;
+        chat.appendChild(bubble);
+        chat.scrollTop = chat.scrollHeight;
       });
     }
 
@@ -2025,10 +1955,7 @@
       notif.textContent = mensagem;
 
       document.body.appendChild(notif);
-
-      setTimeout(() => {
-        notif.remove();
-      }, 5000);
+      setTimeout(() => notif.remove(), 5000);
     }
 
     function mostrarTela(id) {
