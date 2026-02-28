@@ -987,7 +987,7 @@
   </div>
 
   <script>
-    console.log('VERSAO UI:', 'conversa-so-eliminacao-v2', 'build:', '2026-02-28');
+    console.log('VERSAO UI:', 'conversa-so-eliminacao-v3', 'build:', '2026-02-28');
 
     const API_BASE = 'https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
     const WS_BASE = 'wss://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
@@ -1017,10 +1017,9 @@
     let dicasLiberadas = 1;
 
     // ✅ Controle: abrir sala_conversa somente quando houve eliminação
-    // Se o backend mandar sala_conversa sem eliminação, o cliente ignora.
     let teveEliminacaoNaPausa = false;
 
-    // ✅ anti-duplicação (porque seu backend manda eventos repetidos às vezes)
+    // ✅ anti-duplicação
     let conversaAberta = false;
     let continuarJogoProcessado = false;
     let ultimaRodadaProcessada = 0;
@@ -1220,17 +1219,13 @@
           break;
 
         case 'nova_rodada':
-          // ignora duplicada / fora de ordem
           if (Number.isFinite(data.rodada) && data.rodada <= ultimaRodadaProcessada) {
             console.warn('⚠️ Ignorando nova_rodada duplicada:', data.rodada);
             break;
           }
           if (Number.isFinite(data.rodada)) ultimaRodadaProcessada = data.rodada;
 
-          // ✅ toda rodada nova: por padrão ainda NÃO pode abrir sala_conversa
           teveEliminacaoNaPausa = false;
-
-          // reset guardas de duplicação
           conversaAberta = false;
           continuarJogoProcessado = false;
 
@@ -1246,18 +1241,21 @@
           break;
 
         case 'eliminacao':
-          // ✅ só agora libera a sala de conversa (rodada de eliminação)
           teveEliminacaoNaPausa = true;
           processarEliminacao(data);
           break;
 
         case 'sala_conversa':
-          // ✅ NÃO abre conversa se não houve eliminação (remove conversas "sem eliminação")
           if (!teveEliminacaoNaPausa) {
             console.warn('⚠️ Ignorando sala_conversa (sem eliminacao nesta pausa)');
+
+            // ✅ airbag: se por bug o backend mandou conversa sem eliminação,
+            // o HOST manda continuar para destravar.
+            if (souAnfitriao && ws && ws.readyState === WebSocket.OPEN) {
+              ws.send(JSON.stringify({ tipo: 'continuar_jogo', nome: nomeJogador }));
+            }
             break;
           }
-          // anti-duplicação
           if (conversaAberta) {
             console.warn('⚠️ Ignorando sala_conversa duplicada');
             break;
@@ -1411,11 +1409,18 @@
       if (meuEstado === 'sala-b') ativarModoSalaBSpectator();
       else desativarModoSalaBSpectator();
 
-      if (data.jogadoresPulando && data.jogadoresPulando.includes(nomeJogador)) {
+      const estouPulando = Array.isArray(data.jogadoresPulando) && data.jogadoresPulando.includes(nomeJogador);
+
+      if (estouPulando) {
         meuEstado = 'pulando';
         mostrarTela('tela-pulando');
         document.getElementById('rodada-pulando').textContent = `Rodada ${rodadaAtual}`;
         return;
+      } else {
+        // ✅ Se eu NÃO estou pulando nesta rodada, eu não posso ficar preso em "pulando"
+        if (meuEstado === 'pulando') {
+          meuEstado = 'sala-a';
+        }
       }
 
       mostrarTela('tela-jogo');
@@ -1426,7 +1431,10 @@
       document.getElementById('dica1-jogo').classList.remove('bloqueada');
 
       document.getElementById('dica2-jogo').innerHTML = '<strong>DICA 2:</strong> 🔒 Aguarde...';
+      document.getElementById('dica2-jogo').classList.add('bloquequeada');
+      // correção de typo: remove se não existir no CSS; garantindo classe correta:
       document.getElementById('dica2-jogo').classList.add('bloqueada');
+      document.getElementById('dica2-jogo').classList.remove('bloquequeada');
 
       document.getElementById('dica3-jogo').innerHTML = '<strong>DICA 3:</strong> 🔒 Aguarde...';
       document.getElementById('dica3-jogo').classList.add('bloqueada');
@@ -1686,8 +1694,6 @@
     }
 
     function entrarSalaConversa(data) {
-      // ✅ abre para todos os jogadores, porque essa tela é necessária para resgates
-      // (o backend precisa enviar sala_conversa para todos; o cliente não restringe por estado)
       mostrarTela('tela-conversa');
 
       salaAJogadores = data.salaA || [];
@@ -1793,7 +1799,6 @@
       salaAJogadores = data.salaA || [];
       salaBJogadores = nomesFromLista(data.salaB);
 
-      // como resgate acontece na sala_conversa, mantém a tela aberta e atualiza listas
       entrarSalaConversa(data);
     }
 
@@ -1806,9 +1811,36 @@
       }));
     }
 
+    // ✅ PATCH: fechar sala_conversa imediatamente para todos ao receber continuar_jogo
     function voltarAoJogo(data) {
       mostrarNotificacao('🎮 Voltando ao jogo...', 'sucesso');
-      // (o backend vai mandar nova_rodada em seguida)
+
+      // fecha a tela de conversa já (não espera nova_rodada)
+      mostrarTela('tela-jogo');
+
+      // estado visual "aguardando"
+      const container = document.getElementById('alternativas-container');
+      if (container) container.innerHTML = '';
+
+      const timer = document.getElementById('timer-jogo');
+      if (timer) timer.textContent = '...';
+
+      const dica1 = document.getElementById('dica1-jogo');
+      const dica2 = document.getElementById('dica2-jogo');
+      const dica3 = document.getElementById('dica3-jogo');
+
+      if (dica1) dica1.innerHTML = '<strong>DICA 1:</strong> ⏳ Aguardando próxima rodada...';
+      if (dica2) {
+        dica2.innerHTML = '<strong>DICA 2:</strong> 🔒 Aguarde...';
+        dica2.classList.add('bloqueada');
+      }
+      if (dica3) {
+        dica3.innerHTML = '<strong>DICA 3:</strong> 🔒 Aguarde...';
+        dica3.classList.add('bloqueada');
+      }
+
+      if (meuEstado === 'sala-b') ativarModoSalaBSpectator();
+      else desativarModoSalaBSpectator();
     }
 
     function mostrarTelaFinal(data) {
