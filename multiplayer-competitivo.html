@@ -64,14 +64,8 @@
       text-align: center;
     }
 
-    .header h1 {
-      font-size: 1.6rem;
-      margin-bottom: 5px;
-    }
-
-    .header p {
-      font-size: 0.9rem;
-    }
+    .header h1 { font-size: 1.6rem; margin-bottom: 5px; }
+    .header p { font-size: 0.9rem; }
 
     .content {
       padding: 20px 15px;
@@ -110,22 +104,9 @@
 
     #tela-jogo > * { flex-shrink: 0; }
 
-    #tela-jogo .rodada-info {
-      padding: 6px;
-      font-size: 0.9rem;
-      margin-bottom: 6px;
-    }
-
-    #tela-jogo .placar {
-      padding: 8px;
-      margin: 6px 0;
-      max-height: 90px;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
+    #tela-jogo .rodada-info { padding: 6px; font-size: 0.9rem; margin-bottom: 6px; }
+    #tela-jogo .placar { padding: 8px; margin: 6px 0; max-height: 90px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
     #tela-jogo .placar h3 { font-size: 0.85rem; margin-bottom: 6px; }
-
     #tela-jogo .status-item { padding: 5px 8px; margin: 3px 0; font-size: 0.8rem; }
     #tela-jogo .placar-item { padding: 5px 8px; margin: 3px 0; font-size: 0.8rem; }
 
@@ -139,15 +120,9 @@
     }
 
     #tela-jogo .carta-jogo h2 { font-size: 1.1rem; margin-bottom: 6px; }
-
     #tela-jogo .timer { padding: 6px; font-size: 1.3rem; margin: 6px 0; }
 
-    #tela-jogo .dica {
-      padding: 8px;
-      margin: 4px 0;
-      font-size: 0.82rem;
-      line-height: 1.2;
-    }
+    #tela-jogo .dica { padding: 8px; margin: 4px 0; font-size: 0.82rem; line-height: 1.2; }
 
     #tela-jogo .alternativas-container {
       gap: 6px;
@@ -232,7 +207,6 @@
     .btn-primary { background: var(--jw-azul-principal); color: var(--jw-branco); }
     .btn-success { background: var(--jw-verde-sucesso); color: var(--jw-branco); }
     .btn-danger { background: var(--jw-vermelho-erro); color: var(--jw-branco); }
-
     .btn-small { padding: 10px 16px; font-size: 0.9rem; width: auto; display: inline-block; }
 
     .sala-info {
@@ -405,7 +379,6 @@
       border-radius: 6px;
       font-size: 0.9rem;
     }
-
     .status-item.respondeu { border-left: 4px solid var(--jw-verde-sucesso); }
     .status-item.pensando { border-left: 4px solid var(--jw-amarelo-aviso); }
 
@@ -1013,6 +986,9 @@
   </div>
 
   <script>
+    // marcador de versão para confirmar cache
+    console.log('VERSAO UI:', 'conversa-so-eliminacao-v1', 'build:', '2026-02-28');
+
     const API_BASE = 'https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
     const WS_BASE = 'wss://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
 
@@ -1040,10 +1016,8 @@
 
     let dicasLiberadas = 1;
 
-    // ✅ anti-duplicação de eventos
-    let ultimaRodadaProcessada = 0;
-    let conversaAberta = false;
-    let continuarJogoProcessado = false;
+    // ✅ Só abrir conversa quando houve eliminação
+    let teveEliminacaoNaPausa = false;
 
     // SONS
     let somAtivado = false;
@@ -1240,17 +1214,7 @@
           break;
 
         case 'nova_rodada':
-          // ✅ ignora rodadas duplicadas / fora de ordem
-          if (Number.isFinite(data.rodada) && data.rodada <= ultimaRodadaProcessada) {
-            console.warn('⚠️ Ignorando nova_rodada duplicada:', data.rodada);
-            break;
-          }
-          if (Number.isFinite(data.rodada)) ultimaRodadaProcessada = data.rodada;
-
-          // cada rodada nova reseta guardas de conversa/continuar
-          conversaAberta = false;
-          continuarJogoProcessado = false;
-
+          teveEliminacaoNaPausa = false; // reseta o gatilho
           iniciarRodadaLocal(data);
           break;
 
@@ -1263,17 +1227,16 @@
           break;
 
         case 'eliminacao':
+          teveEliminacaoNaPausa = true; // ✅ agora sim pode abrir conversa
           processarEliminacao(data);
           break;
 
         case 'sala_conversa':
-          // ✅ ignora sala_conversa repetida (evita piscar)
-          if (conversaAberta) {
-            console.warn('⚠️ Ignorando sala_conversa duplicada');
+          // ✅ NÃO abre conversa se não houve eliminação
+          if (!teveEliminacaoNaPausa) {
+            console.warn('⚠️ Ignorando sala_conversa (sem eliminacao nesta pausa)');
             break;
           }
-          conversaAberta = true;
-          continuarJogoProcessado = false;
           entrarSalaConversa(data);
           break;
 
@@ -1282,12 +1245,6 @@
           break;
 
         case 'continuar_jogo':
-          // ✅ ignora continuar_jogo duplicado
-          if (continuarJogoProcessado) {
-            console.warn('⚠️ Ignorando continuar_jogo duplicado');
-            break;
-          }
-          continuarJogoProcessado = true;
           voltarAoJogo(data);
           break;
 
@@ -1370,15 +1327,11 @@
       meusPontos = 0;
       resgatesRealizados = 0;
 
-      // resets anti-duplicação
-      ultimaRodadaProcessada = 0;
-      conversaAberta = false;
-      continuarJogoProcessado = false;
-
-      // força estado limpo no início do jogo
       meuEstado = 'sala-a';
       salaBJogadores = [];
       desativarModoSalaBSpectator();
+
+      teveEliminacaoNaPausa = false;
 
       const elPts = document.getElementById('meus-pontos-mini');
       if (elPts) elPts.textContent = meusPontos;
@@ -1421,11 +1374,8 @@
       if (painelStatus) painelStatus.open = false;
       if (painelPlacar) painelPlacar.open = false;
 
-      if (meuEstado === 'sala-b') {
-        ativarModoSalaBSpectator();
-      } else {
-        desativarModoSalaBSpectator();
-      }
+      if (meuEstado === 'sala-b') ativarModoSalaBSpectator();
+      else desativarModoSalaBSpectator();
 
       if (data.jogadoresPulando && data.jogadoresPulando.includes(nomeJogador)) {
         meuEstado = 'pulando';
@@ -1451,11 +1401,8 @@
 
       atualizarStatusJogadores();
 
-      if (categoriaSelecionada === 'verdadeirofalso') {
-        gerarAlternativasVerdadeiroFalso();
-      } else {
-        gerarAlternativas(data.carta);
-      }
+      if (categoriaSelecionada === 'verdadeirofalso') gerarAlternativasVerdadeiroFalso();
+      else gerarAlternativas(data.carta);
 
       setTimeout(() => {
         if (!respondeu) {
@@ -1479,10 +1426,7 @@
       timerInterval = setInterval(() => {
         tempoRestante--;
         document.getElementById('timer-jogo').textContent = `${tempoRestante}s`;
-
-        if (tempoRestante <= 0) {
-          clearInterval(timerInterval);
-        }
+        if (tempoRestante <= 0) clearInterval(timerInterval);
       }, 1000);
     }
 
@@ -1670,6 +1614,7 @@
 
     function finalizarRodada(data) {
       clearInterval(timerInterval);
+
       if (meuEstado === 'sala-a') {
         mostrarNotificacao(`Resposta: ${data.respostaCorreta}`, 'aviso');
       }
