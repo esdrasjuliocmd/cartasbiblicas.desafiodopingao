@@ -306,6 +306,7 @@ export default {
     // API REST - ADMIN (Jogadores) - PROTEGIDO POR TOKEN
     // Header obrigatório: X-Admin-Token
     // ============================================
+
     if (path.startsWith('/admin/jogadores/') && (request.method === 'PUT' || request.method === 'DELETE')) {
       const token = request.headers.get('X-Admin-Token') || '';
       if (!env.ADMIN_TOKEN || token !== env.ADMIN_TOKEN) {
@@ -518,6 +519,7 @@ export class SalaDO {
 
 // ============================================
 // DURABLE OBJECT: SALA COMPETITIVA (A vs B)
+// (PATCH) Removida pausa estratégica. Sala de conversa só abre após eliminação.
 // ============================================
 export class SalaCompetitivaDO {
   constructor(state, env) {
@@ -543,10 +545,10 @@ export class SalaCompetitivaDO {
     this.inicioJogo = null;
     this.timerRodada = null;
 
-    // ✅ NOVO: controle para "sala_conversa" só na eliminação
+    // ✅ PATCH: controle de conversa apenas quando houve eliminação
     this.aguardandoConversaEliminacao = false;
 
-    // ✅ NOVO: dedupe de eventos para evitar spam no cliente
+    // ✅ PATCH: dedupe de mensagens para evitar spam no cliente
     this.ultimaConversaRodada = 0;
     this.ultimoContinuarJogoRodada = 0;
   }
@@ -567,7 +569,6 @@ export class SalaCompetitivaDO {
       salaA: Array.from(this.salaA),
       salaB: Array.from(this.salaB),
 
-      // ✅ persistir flags novas
       aguardandoConversaEliminacao: this.aguardandoConversaEliminacao,
       ultimaConversaRodada: this.ultimaConversaRodada,
       ultimoContinuarJogoRodada: this.ultimoContinuarJogoRodada,
@@ -597,7 +598,6 @@ export class SalaCompetitivaDO {
     this.salaA = new Set(data.salaA || []);
     this.salaB = new Set(data.salaB || []);
 
-    // ✅ restore novos campos
     this.aguardandoConversaEliminacao = data.aguardandoConversaEliminacao ?? this.aguardandoConversaEliminacao;
     this.ultimaConversaRodada = data.ultimaConversaRodada ?? this.ultimaConversaRodada;
     this.ultimoContinuarJogoRodada = data.ultimoContinuarJogoRodada ?? this.ultimoContinuarJogoRodada;
@@ -723,7 +723,6 @@ export class SalaCompetitivaDO {
     this.rodadaAtual = 0;
     this.inicioJogo = Date.now();
 
-    // ✅ reset flags do novo comportamento
     this.aguardandoConversaEliminacao = false;
     this.ultimaConversaRodada = 0;
     this.ultimoContinuarJogoRodada = 0;
@@ -748,7 +747,7 @@ export class SalaCompetitivaDO {
   calcularTotalRodadas(total) {
     if (total <= 2) return 10;
     if (total === 3) return 15;
-    return 20;
+    return 20; // 4+ jogadores → 20 rodadas fixas
   }
 
   async proximaRodada() {
@@ -758,16 +757,10 @@ export class SalaCompetitivaDO {
     this.rodadaAtiva = true;
     this.respostas.clear();
 
-    // ✅ a cada rodada, limpa o gatilho de conversa de eliminação
+    // ✅ a cada rodada, reseta gatilho de conversa
     this.aguardandoConversaEliminacao = false;
 
     await this.salvarEstado();
-
-    // ❌ REMOVIDO: pausa automática a cada 4 rodadas
-    // if (this.rodadaAtual > 1 && this.rodadaAtual % 4 === 1) {
-    //   await this.iniciarSalaConversa();
-    //   return;
-    // }
 
     const id = this.env.BancoDadosDO.idFromName('banco-principal');
     const stub = this.env.BancoDadosDO.get(id);
@@ -809,6 +802,7 @@ export class SalaCompetitivaDO {
         clearTimeout(this.timerRodada);
       }
 
+      // ⏱️ Mantém 60s por rodada
       this.timerRodada = setTimeout(() => {
         if (this.rodadaAtiva) {
           console.log('⏰ [COMPETITIVO] Tempo esgotado! Finalizando rodada...');
@@ -844,6 +838,7 @@ export class SalaCompetitivaDO {
     return { rodada: proxima, quantidade };
   }
 
+  // ✅ PATCH: nova regra de pontos por dicas (tempo não conta)
   async processarResposta(nome, resposta, tempo, dicas) {
     const jogador = this.jogadores.get(nome);
 
@@ -856,7 +851,7 @@ export class SalaCompetitivaDO {
     let pontos = 0;
     if (acertou) {
       const dicasLiberadas = Math.min(3, Math.max(1, parseInt(dicas ?? 1, 10) || 1));
-      pontos = 10 - (dicasLiberadas - 1) * 3;
+      pontos = 10 - (dicasLiberadas - 1) * 3; // 10, 7, 4
       if (pontos < 1) pontos = 1;
     }
 
@@ -918,11 +913,12 @@ export class SalaCompetitivaDO {
       respostaCorreta: this.cartaAtual.resposta
     });
 
-    if (this.verificarEliminacao()) {
-      await this.eliminarJogadores();
+    const houveEliminacao = this.verificarEliminacao();
 
-      // ✅ após eliminar, marca que precisamos abrir a conversa (para resgates)
+    if (houveEliminacao) {
+      await this.eliminarJogadores();
       this.aguardandoConversaEliminacao = true;
+      await this.salvarEstado();
     }
 
     if (this.rodadaAtual >= this.totalRodadas) {
@@ -932,7 +928,7 @@ export class SalaCompetitivaDO {
       return;
     }
 
-    // ✅ Só abre sala de conversa se houve eliminação
+    // ✅ somente após eliminação abre conversa (para resgates)
     if (this.aguardandoConversaEliminacao) {
       setTimeout(() => {
         this.iniciarSalaConversa();
@@ -940,7 +936,7 @@ export class SalaCompetitivaDO {
       return;
     }
 
-    // ✅ sem eliminação: próxima rodada direto
+    // ✅ sem eliminação: segue o jogo direto
     setTimeout(() => {
       this.proximaRodada();
     }, 3000);
@@ -985,7 +981,7 @@ export class SalaCompetitivaDO {
   }
 
   async iniciarSalaConversa() {
-    // ✅ só entra em conversa se foi acionada por eliminação
+    // ✅ só entra em conversa quando gatilho estiver true
     if (!this.aguardandoConversaEliminacao) {
       console.log('⚠️ [COMPETITIVO] iniciarSalaConversa ignorado (sem eliminacao)');
       return;
@@ -1000,7 +996,7 @@ export class SalaCompetitivaDO {
     this.estadoSala = 'conversa';
     this.ultimaConversaRodada = this.rodadaAtual;
 
-    // consumiu gatilho (evita reabrir)
+    // consumiu gatilho
     this.aguardandoConversaEliminacao = false;
 
     const proximaEliminacao = this.getProximaEliminacao();
@@ -1026,7 +1022,7 @@ export class SalaCompetitivaDO {
     const resgatado = this.jogadores.get(nomeResgatado);
 
     if (!resgatador || !resgatado) return;
-    if (this.totalJogadoresInicial <= 2) return;
+    if (this.totalJogadoresInicial <= 2) return; // sem Sala B no modo 2 jogadores
     if (resgatador.sala !== 'A' || resgatado.sala !== 'B') return;
     if (resgatador.pontos < 5) return;
 
@@ -1091,6 +1087,7 @@ export class SalaCompetitivaDO {
 
     const duracao = this.inicioJogo ? Math.floor((Date.now() - this.inicioJogo) / 60000) : 0;
 
+    // salva async sem await (função não é async)
     this.state.storage.put(this.STATE_KEY, this.exportarEstado()).catch(() => {});
 
     this.broadcast({
@@ -1131,6 +1128,7 @@ export class SalaCompetitivaDO {
       }
     }
 
+    // salva async sem await (função não é async)
     this.state.storage.put(this.STATE_KEY, this.exportarEstado()).catch(() => {});
 
     this.broadcast({
@@ -1277,9 +1275,11 @@ export class BancoDadosDO {
       throw new Error('Formato inválido para cartas: esperado array');
     }
 
+    // Função melhorada para garantir UTF-8 correto
     const normalizarTexto = (valor) => {
       if (valor == null) return '';
       let texto = String(valor).trim();
+      // Remove caracteres de controle mas mantém caracteres UTF-8 válidos
       texto = texto.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
       return texto;
     };
@@ -1373,6 +1373,7 @@ export class BancoDadosDO {
   }
 }
 
+// NOVO: bancos separados (1 DO SQLite por categoria)
 export class BancoDadosPersonagensDO extends BancoDadosDO {}
 export class BancoDadosProfeciasDO extends BancoDadosDO {}
 export class BancoDadosMimicaDO extends BancoDadosDO {}
@@ -1518,6 +1519,7 @@ export class PontosGlobaisDO {
       });
     }
 
+    // NOVO: Endpoint para obter cartas recentes globais
     if (path === '/cartas-recentes-globais') {
       try {
         const cartas = await this.obterCartasRecentesGlobais();
@@ -1541,6 +1543,7 @@ export class PontosGlobaisDO {
       }
     }
 
+    // NOVO: Endpoint para registrar cartas globais
     if (path === '/registrar-cartas' && request.method === 'POST') {
       try {
         const body = await request.json();
@@ -1574,6 +1577,7 @@ export class PontosGlobaisDO {
       }
     }
 
+    // NOVO: Endpoint para limpar histórico de cartas
     if (path === '/limpar-historico-cartas' && request.method === 'POST') {
       try {
         const resultado = await this.limparCartasGlobais();
@@ -1595,6 +1599,7 @@ export class PontosGlobaisDO {
       }
     }
 
+    // NOVO: Admin - Listar salas
     if (path === '/admin/salas') {
       try {
         return new Response(JSON.stringify({
@@ -1613,6 +1618,7 @@ export class PontosGlobaisDO {
       }
     }
 
+    // NOVO: Admin - Listar jogadores solo com última partida
     if (path === '/admin/jogadores-completos') {
       try {
         const jogadores = await this.obterJogadoresCompletos();
@@ -1636,6 +1642,8 @@ export class PontosGlobaisDO {
     // ============================
     // ADMIN: Atualizar / Excluir jogador
     // ============================
+
+    // PUT /admin/jogadores/:nome
     if (path.startsWith('/admin/jogadores/') && request.method === 'PUT') {
       try {
         const nomeAtual = decodeURIComponent(path.split('/')[3] || '').trim();
@@ -1681,6 +1689,7 @@ export class PontosGlobaisDO {
       }
     }
 
+    // DELETE /admin/jogadores/:nome
     if (path.startsWith('/admin/jogadores/') && request.method === 'DELETE') {
       try {
         const nome = decodeURIComponent(path.split('/')[3] || '').trim();
@@ -1739,6 +1748,7 @@ export class PontosGlobaisDO {
       )
     `);
 
+    // IMPORTANTE: Recriar historico_fases com schema correto (pontosBonus com 's')
     try {
       this.sql.exec('DROP TABLE IF EXISTS historico_fases');
       console.log('✅ Tabela historico_fases dropada e será recriada');
@@ -1760,6 +1770,7 @@ export class PontosGlobaisDO {
       )
     `);
 
+    // NOVO: Tabela para histórico global de cartas usadas
     this.sql.exec(`
       CREATE TABLE IF NOT EXISTS historico_cartas_globais (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -1878,6 +1889,7 @@ export class PontosGlobaisDO {
   }
 
   async obterCartasRecentesGlobais() {
+    // Remove cartas com mais de 1 hora
     const umaHoraAtras = new Date(Date.now() - 60 * 60 * 1000).toISOString();
 
     this.sql.exec(
@@ -1885,6 +1897,7 @@ export class PontosGlobaisDO {
       umaHoraAtras
     );
 
+    // Retorna as cartas recentes (máximo 100)
     const result = this.sql.exec(
       `SELECT chaveKey FROM historico_cartas_globais ORDER BY dataSolicitacao DESC LIMIT 100`
     ).toArray();
@@ -1902,6 +1915,7 @@ export class PontosGlobaisDO {
       if (!chave || typeof chave !== 'string') continue;
 
       try {
+        // INSERT OR IGNORE para evitar duplicatas
         this.sql.exec(
           `INSERT OR IGNORE INTO historico_cartas_globais (chaveKey) VALUES (?)`,
           chave
@@ -1950,6 +1964,7 @@ export class PontosGlobaisDO {
   }
 
   async obterJogadoresCompletos() {
+    // Obter jogadores com pontos (que completaram pelo menos uma fase)
     const jogadores = this.sql.exec(`
       SELECT 
         j.nome, 
@@ -2101,7 +2116,7 @@ API REST - Histórico Global:
   • Multiplayer Casual
   • Multiplayer Competitivo (Sala A vs B)
 
-🌐 MEMÓRIA GLOBAL DE CARTAS:
+���� MEMÓRIA GLOBAL DE CARTAS:
   • Todos jogadores compartilham histórico
   • Auto-limpeza: 1 hora
   • Máximo: 100 cartas no histórico
@@ -2112,4 +2127,5 @@ Desenvolvido com ❤️ para JW.ORG
 `;
 }
 
+// Compatibilidade retroativa
 export class PontosBiblicoDO extends PontosGlobaisDO {}
