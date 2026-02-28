@@ -773,6 +773,7 @@
           💬 Bata papo enquanto o Anfitrião inicia a partida
         </div>
 
+        <!-- mantém chat do lobby -->
         <div class="chat-whatsapp">
           <h3>💬 Chat da Sala</h3>
           <div class="chat-messages" id="chat-lobby"></div>
@@ -889,7 +890,7 @@
         </div>
       </div>
 
-      <!-- TELA 5: CONVERSA -->
+      <!-- TELA 5: CONVERSA (Só deve abrir em rodada de eliminação) -->
       <div id="tela-conversa" class="tela">
         <div style="background: var(--jw-amarelo-aviso); padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 15px;">
           <h2 style="color: var(--jw-azul-escuro); font-size: 1.3rem;">⏸️ SALA DE CONVERSA</h2>
@@ -986,8 +987,7 @@
   </div>
 
   <script>
-    // marcador de versão para confirmar cache
-    console.log('VERSAO UI:', 'conversa-so-eliminacao-v1', 'build:', '2026-02-28');
+    console.log('VERSAO UI:', 'conversa-so-eliminacao-v2', 'build:', '2026-02-28');
 
     const API_BASE = 'https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
     const WS_BASE = 'wss://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
@@ -1016,8 +1016,14 @@
 
     let dicasLiberadas = 1;
 
-    // ✅ Só abrir conversa quando houve eliminação
+    // ✅ Controle: abrir sala_conversa somente quando houve eliminação
+    // Se o backend mandar sala_conversa sem eliminação, o cliente ignora.
     let teveEliminacaoNaPausa = false;
+
+    // ✅ anti-duplicação (porque seu backend manda eventos repetidos às vezes)
+    let conversaAberta = false;
+    let continuarJogoProcessado = false;
+    let ultimaRodadaProcessada = 0;
 
     // SONS
     let somAtivado = false;
@@ -1214,7 +1220,20 @@
           break;
 
         case 'nova_rodada':
-          teveEliminacaoNaPausa = false; // reseta o gatilho
+          // ignora duplicada / fora de ordem
+          if (Number.isFinite(data.rodada) && data.rodada <= ultimaRodadaProcessada) {
+            console.warn('⚠️ Ignorando nova_rodada duplicada:', data.rodada);
+            break;
+          }
+          if (Number.isFinite(data.rodada)) ultimaRodadaProcessada = data.rodada;
+
+          // ✅ toda rodada nova: por padrão ainda NÃO pode abrir sala_conversa
+          teveEliminacaoNaPausa = false;
+
+          // reset guardas de duplicação
+          conversaAberta = false;
+          continuarJogoProcessado = false;
+
           iniciarRodadaLocal(data);
           break;
 
@@ -1227,16 +1246,23 @@
           break;
 
         case 'eliminacao':
-          teveEliminacaoNaPausa = true; // ✅ agora sim pode abrir conversa
+          // ✅ só agora libera a sala de conversa (rodada de eliminação)
+          teveEliminacaoNaPausa = true;
           processarEliminacao(data);
           break;
 
         case 'sala_conversa':
-          // ✅ NÃO abre conversa se não houve eliminação
+          // ✅ NÃO abre conversa se não houve eliminação (remove conversas "sem eliminação")
           if (!teveEliminacaoNaPausa) {
             console.warn('⚠️ Ignorando sala_conversa (sem eliminacao nesta pausa)');
             break;
           }
+          // anti-duplicação
+          if (conversaAberta) {
+            console.warn('⚠️ Ignorando sala_conversa duplicada');
+            break;
+          }
+          conversaAberta = true;
           entrarSalaConversa(data);
           break;
 
@@ -1245,6 +1271,11 @@
           break;
 
         case 'continuar_jogo':
+          if (continuarJogoProcessado) {
+            console.warn('⚠️ Ignorando continuar_jogo duplicado');
+            break;
+          }
+          continuarJogoProcessado = true;
           voltarAoJogo(data);
           break;
 
@@ -1332,6 +1363,9 @@
       desativarModoSalaBSpectator();
 
       teveEliminacaoNaPausa = false;
+      conversaAberta = false;
+      continuarJogoProcessado = false;
+      ultimaRodadaProcessada = 0;
 
       const elPts = document.getElementById('meus-pontos-mini');
       if (elPts) elPts.textContent = meusPontos;
@@ -1652,6 +1686,8 @@
     }
 
     function entrarSalaConversa(data) {
+      // ✅ abre para todos os jogadores, porque essa tela é necessária para resgates
+      // (o backend precisa enviar sala_conversa para todos; o cliente não restringe por estado)
       mostrarTela('tela-conversa');
 
       salaAJogadores = data.salaA || [];
@@ -1757,6 +1793,7 @@
       salaAJogadores = data.salaA || [];
       salaBJogadores = nomesFromLista(data.salaB);
 
+      // como resgate acontece na sala_conversa, mantém a tela aberta e atualiza listas
       entrarSalaConversa(data);
     }
 
@@ -1771,6 +1808,7 @@
 
     function voltarAoJogo(data) {
       mostrarNotificacao('🎮 Voltando ao jogo...', 'sucesso');
+      // (o backend vai mandar nova_rodada em seguida)
     }
 
     function mostrarTelaFinal(data) {
