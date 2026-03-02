@@ -987,7 +987,7 @@
   </div>
 
   <script>
-    console.log('VERSAO UI:', 'conversa-so-eliminacao-v3', 'build:', '2026-02-28');
+    console.log('VERSAO UI:', 'conversa-so-eliminacao-v3', 'build:', '2026-03-02');
 
     const API_BASE = 'https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
     const WS_BASE = 'wss://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
@@ -1431,10 +1431,7 @@
       document.getElementById('dica1-jogo').classList.remove('bloqueada');
 
       document.getElementById('dica2-jogo').innerHTML = '<strong>DICA 2:</strong> 🔒 Aguarde...';
-      document.getElementById('dica2-jogo').classList.add('bloquequeada');
-      // correção de typo: remove se não existir no CSS; garantindo classe correta:
       document.getElementById('dica2-jogo').classList.add('bloqueada');
-      document.getElementById('dica2-jogo').classList.remove('bloquequeada');
 
       document.getElementById('dica3-jogo').innerHTML = '<strong>DICA 3:</strong> 🔒 Aguarde...';
       document.getElementById('dica3-jogo').classList.add('bloqueada');

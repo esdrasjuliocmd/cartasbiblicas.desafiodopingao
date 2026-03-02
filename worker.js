@@ -520,6 +520,8 @@ export class SalaDO {
 // ============================================
 // DURABLE OBJECT: SALA COMPETITIVA (A vs B)
 // (PATCH) Removida pausa estratégica. Sala de conversa só abre após eliminação.
+// (PATCH 2026-03-02) Resgate limitado: 1 resgate por jogador da Sala A por conversa/rodada,
+//                    e um jogador da Sala B não pode ser resgatado 2x na mesma conversa.
 // ============================================
 export class SalaCompetitivaDO {
   constructor(state, env) {
@@ -551,6 +553,10 @@ export class SalaCompetitivaDO {
     // ✅ PATCH: dedupe de mensagens para evitar spam no cliente
     this.ultimaConversaRodada = 0;
     this.ultimoContinuarJogoRodada = 0;
+
+    // ✅ PATCH 2026-03-02: trava de resgates por conversa/rodada (1 por resgatador; 1 por resgatado)
+    this.resgatesPorResgatadorRodada = new Set();
+    this.resgatadosNaRodada = new Set();
   }
 
   exportarEstado() {
@@ -572,6 +578,10 @@ export class SalaCompetitivaDO {
       aguardandoConversaEliminacao: this.aguardandoConversaEliminacao,
       ultimaConversaRodada: this.ultimaConversaRodada,
       ultimoContinuarJogoRodada: this.ultimoContinuarJogoRodada,
+
+      // ✅ PATCH 2026-03-02
+      resgatesPorResgatadorRodada: Array.from(this.resgatesPorResgatadorRodada),
+      resgatadosNaRodada: Array.from(this.resgatadosNaRodada),
     };
   }
 
@@ -601,6 +611,10 @@ export class SalaCompetitivaDO {
     this.aguardandoConversaEliminacao = data.aguardandoConversaEliminacao ?? this.aguardandoConversaEliminacao;
     this.ultimaConversaRodada = data.ultimaConversaRodada ?? this.ultimaConversaRodada;
     this.ultimoContinuarJogoRodada = data.ultimoContinuarJogoRodada ?? this.ultimoContinuarJogoRodada;
+
+    // ✅ PATCH 2026-03-02
+    this.resgatesPorResgatadorRodada = new Set(data.resgatesPorResgatadorRodada || []);
+    this.resgatadosNaRodada = new Set(data.resgatadosNaRodada || []);
   }
 
   async fetch(request) {
@@ -727,6 +741,10 @@ export class SalaCompetitivaDO {
     this.ultimaConversaRodada = 0;
     this.ultimoContinuarJogoRodada = 0;
 
+    // ✅ PATCH 2026-03-02: reset travas
+    this.resgatesPorResgatadorRodada.clear();
+    this.resgatadosNaRodada.clear();
+
     const totalJogadores = this.jogadores.size;
     this.totalJogadoresInicial = totalJogadores;
     this.totalRodadas = this.calcularTotalRodadas(totalJogadores);
@@ -759,6 +777,10 @@ export class SalaCompetitivaDO {
 
     // ✅ a cada rodada, reseta gatilho de conversa
     this.aguardandoConversaEliminacao = false;
+
+    // ✅ PATCH 2026-03-02: a cada rodada reseta travas de resgate (vale por conversa/rodada)
+    this.resgatesPorResgatadorRodada.clear();
+    this.resgatadosNaRodada.clear();
 
     await this.salvarEstado();
 
@@ -996,6 +1018,10 @@ export class SalaCompetitivaDO {
     this.estadoSala = 'conversa';
     this.ultimaConversaRodada = this.rodadaAtual;
 
+    // ✅ PATCH 2026-03-02: ao abrir conversa, garante travas limpas
+    this.resgatesPorResgatadorRodada.clear();
+    this.resgatadosNaRodada.clear();
+
     // consumiu gatilho
     this.aguardandoConversaEliminacao = false;
 
@@ -1025,6 +1051,23 @@ export class SalaCompetitivaDO {
     if (this.totalJogadoresInicial <= 2) return; // sem Sala B no modo 2 jogadores
     if (resgatador.sala !== 'A' || resgatado.sala !== 'B') return;
     if (resgatador.pontos < 5) return;
+
+    // ✅ PATCH 2026-03-02: resgate só permitido durante a conversa
+    if (this.estadoSala !== 'conversa') return;
+
+    // ✅ PATCH 2026-03-02: cada jogador da Sala A resgata apenas 1 por conversa/rodada
+    if (this.resgatesPorResgatadorRodada.has(nomeResgatador)) {
+      return;
+    }
+
+    // ✅ PATCH 2026-03-02: um jogador da Sala B só pode ser resgatado uma vez (protege corrida)
+    if (this.resgatadosNaRodada.has(nomeResgatado)) {
+      return;
+    }
+
+    // trava antes de efetivar (importante contra corrida)
+    this.resgatesPorResgatadorRodada.add(nomeResgatador);
+    this.resgatadosNaRodada.add(nomeResgatado);
 
     resgatador.pontos -= 5;
     resgatador.pulandoAte = this.rodadaAtual + 1;
