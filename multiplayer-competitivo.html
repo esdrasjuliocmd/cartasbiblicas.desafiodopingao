@@ -706,6 +706,89 @@
       border-top: 1px solid var(--jw-cinza-medio);
       background: rgba(255,255,255,0.7);
     }
+
+    /* ============================================
+       ✅ UI HOST - Lobby mais limpo + botão iniciar bem visível
+       ============================================ */
+    .host-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(74, 109, 167, 0.25);
+      border-radius: 12px;
+      padding: 10px;
+      margin: 10px 0 12px 0;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    .host-bar .host-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-weight: 900;
+      color: var(--jw-azul-escuro);
+    }
+
+    .host-bar .host-title small {
+      font-weight: 800;
+      color: var(--jw-azul-principal);
+      opacity: 0.9;
+    }
+
+    .btn-host-start {
+      background: linear-gradient(135deg, #34c759, #22a94f) !important;
+      color: #fff !important;
+      font-size: 1.15rem !important;
+      padding: 16px 18px !important;
+      border-radius: 14px !important;
+      box-shadow: 0 10px 22px rgba(34, 169, 79, 0.25);
+      border: none !important;
+    }
+
+    .host-hint {
+      font-size: 0.86rem;
+      color: var(--jw-azul-escuro);
+      background: rgba(74, 109, 167, 0.08);
+      border: 1px dashed rgba(74,109,167,0.35);
+      padding: 10px 10px;
+      border-radius: 10px;
+      margin-top: 8px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .categorias-mini {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .categoria-mini {
+      background: var(--jw-cinza-claro);
+      border: 2px solid rgba(74,109,167,0.35);
+      padding: 10px 8px;
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      font-weight: 900;
+      font-size: 0.78rem;
+      line-height: 1.15;
+      color: var(--jw-azul-escuro);
+    }
+    .categoria-mini:active { transform: scale(0.98); }
+    .categoria-mini.selecionada {
+      background: var(--jw-azul-principal);
+      color: #fff;
+      border-color: var(--jw-azul-principal);
+    }
+
+    body.host-mode #tela-lobby .aviso-lobby { display: none; }
   </style>
 </head>
 
@@ -763,6 +846,40 @@
           </button>
         </div>
 
+        <!-- ✅ HOST: barra fixa com botão iniciar bem visível -->
+        <div id="config-anfitriao" style="display: none;">
+          <div class="host-bar">
+            <div class="host-title">
+              <div>👑 Painel do Anfitrião</div>
+              <small>Controle da sala</small>
+            </div>
+
+            <button class="btn btn-success btn-host-start" onclick="iniciarJogo()">
+              🎮 INICIAR JOGO AGORA
+            </button>
+
+            <div class="host-hint" id="host-hint">
+              ⏳ <strong>Importante (Anfitrião):</strong><br>
+              • Aguarde todos entrarem na sala antes de iniciar.<br>
+              • Você é o responsável por iniciar o jogo.<br>
+              • Nas rodadas de eliminação (Sala de Conversa), <strong>você também precisa apertar “CONTINUAR JOGO”</strong> após as negociações.
+            </div>
+
+            <div style="margin-top: 10px; font-weight: 900; color: var(--jw-azul-principal);">
+              📚 Categoria:
+            </div>
+
+            <div class="categorias-mini" id="categorias-mini">
+              <div class="categoria-mini selecionada" onclick="selecionarCategoriaMini('personagens', event)">👤<br>PERSON</div>
+              <div class="categoria-mini" onclick="selecionarCategoriaMini('profecias', event)">📜<br>PROF</div>
+              <div class="categoria-mini" onclick="selecionarCategoriaMini('pregacao', event)">🎯<br>PREG</div>
+              <div class="categoria-mini" onclick="selecionarCategoriaMini('desenho', event)">🎨<br>DES</div>
+              <div class="categoria-mini" onclick="selecionarCategoriaMini('mimica', event)">🎭<br>MIM</div>
+              <div class="categoria-mini" onclick="selecionarCategoriaMini('verdadeirofalso', event)">✅❌<br>V/F</div>
+            </div>
+          </div>
+        </div>
+
         <h3 style="margin: 15px 0; font-size: 1.1rem;">
           👥 Jogadores (<span id="total-jogadores">0</span>):
         </h3>
@@ -781,42 +898,6 @@
             <input type="text" id="input-chat-lobby" placeholder="Digite uma mensagem..." />
             <button onclick="enviarChatLobby()">📤</button>
           </div>
-        </div>
-
-        <div id="config-anfitriao" style="display: none;">
-          <div class="input-group">
-            <label>Escolha a Categoria:</label>
-            <div class="categorias-select">
-              <div class="categoria-card selecionada" onclick="selecionarCategoria('personagens', event)">
-                <div class="icone">👤</div>
-                <div class="nome">PERSONAGENS</div>
-              </div>
-              <div class="categoria-card" onclick="selecionarCategoria('profecias', event)">
-                <div class="icone">📜</div>
-                <div class="nome">PROFECIAS</div>
-              </div>
-              <div class="categoria-card" onclick="selecionarCategoria('pregacao', event)">
-                <div class="icone">🎯</div>
-                <div class="nome">PREGAÇÃO</div>
-              </div>
-              <div class="categoria-card" onclick="selecionarCategoria('desenho', event)">
-                <div class="icone">🎨</div>
-                <div class="nome">DESENHO</div>
-              </div>
-              <div class="categoria-card" onclick="selecionarCategoria('mimica', event)">
-                <div class="icone">🎭</div>
-                <div class="nome">MÍMICA</div>
-              </div>
-              <div class="categoria-card" onclick="selecionarCategoria('verdadeirofalso', event)">
-                <div class="icone">✅❌</div>
-                <div class="nome">V/F</div>
-              </div>
-            </div>
-          </div>
-
-          <button class="btn btn-success" onclick="iniciarJogo()">
-            🎮 INICIAR JOGO
-          </button>
         </div>
 
         <button class="btn btn-danger" onclick="sairSala()">
@@ -897,6 +978,11 @@
           <p style="margin-top: 8px; font-size: 0.9rem;">🎯 Pausa estratégica - Resgates permitidos!</p>
         </div>
 
+        <!-- ✅ Aviso específico do HOST -->
+        <div id="aviso-host-conversa" style="display:none; background: rgba(74,109,167,0.12); border: 1px dashed rgba(74,109,167,0.45); padding: 12px; border-radius: 10px; margin-bottom: 12px; color: var(--jw-azul-escuro); font-size: 0.9rem; font-weight: 700;">
+          👑 <strong>Anfitrião:</strong> quando todos terminarem as negociações/resgates, clique em <strong>“CONTINUAR JOGO”</strong> para iniciar a próxima rodada.
+        </div>
+
         <div class="chat-whatsapp">
           <h3>💬 Chat Geral (Sala A + B)</h3>
           <div class="chat-messages" id="chat-conversa"></div>
@@ -922,7 +1008,7 @@
         </div>
 
         <button class="btn btn-success" id="btn-continuar-anfitriao" onclick="continuarJogo()" style="display: none;">
-          🎮 CONTINUAR JOGO
+          ▶️ CONTINUAR JOGO (ANFITRIÃO)
         </button>
 
         <p style="text-align: center; color: var(--jw-cinza-escuro); margin-top: 15px; font-size: 0.9rem;" id="msg-aguardando-anfitriao">
@@ -987,7 +1073,7 @@
   </div>
 
   <script>
-    console.log('VERSAO UI:', 'conversa-so-eliminacao-v3', 'build:', '2026-03-02');
+    console.log('VERSAO UI:', 'host-ui-sticky-v1', 'build:', '2026-03-02');
 
     const API_BASE = 'https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
     const WS_BASE = 'wss://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
@@ -1107,6 +1193,23 @@
       document.body.classList.remove('sala-b-spectator');
       const telaJogo = document.getElementById('tela-jogo');
       if (telaJogo) telaJogo.classList.remove('sala-b-spectator');
+    }
+
+    function ativarModoHostUI() { document.body.classList.add('host-mode'); }
+    function desativarModoHostUI() { document.body.classList.remove('host-mode'); }
+
+    function selecionarCategoriaMini(categoria, evt) {
+      categoriaSelecionada = categoria;
+
+      document.querySelectorAll('#categorias-mini .categoria-mini').forEach(card => {
+        card.classList.remove('selecionada');
+      });
+
+      if (evt && evt.target) {
+        evt.target.closest('.categoria-mini').classList.add('selecionada');
+      } else if (window.event && window.event.target) {
+        window.event.target.closest('.categoria-mini').classList.add('selecionada');
+      }
     }
 
     function criarSala() {
@@ -1249,8 +1352,6 @@
           if (!teveEliminacaoNaPausa) {
             console.warn('⚠️ Ignorando sala_conversa (sem eliminacao nesta pausa)');
 
-            // ✅ airbag: se por bug o backend mandou conversa sem eliminação,
-            // o HOST manda continuar para destravar.
             if (souAnfitriao && ws && ws.readyState === WebSocket.OPEN) {
               ws.send(JSON.stringify({ tipo: 'continuar_jogo', nome: nomeJogador }));
             }
@@ -1297,6 +1398,10 @@
 
       if (souAnfitriao) {
         document.getElementById('config-anfitriao').style.display = 'block';
+        ativarModoHostUI();
+      } else {
+        document.getElementById('config-anfitriao').style.display = 'none';
+        desativarModoHostUI();
       }
     }
 
@@ -1320,20 +1425,6 @@
       });
 
       document.getElementById('total-jogadores').textContent = todosJogadores.length;
-    }
-
-    function selecionarCategoria(categoria, evt) {
-      categoriaSelecionada = categoria;
-
-      document.querySelectorAll('.categoria-card').forEach(card => {
-        card.classList.remove('selecionada');
-      });
-
-      if (evt && evt.target) {
-        evt.target.closest('.categoria-card').classList.add('selecionada');
-      } else if (window.event && window.event.target) {
-        window.event.target.closest('.categoria-card').classList.add('selecionada');
-      }
     }
 
     function iniciarJogo() {
@@ -1385,7 +1476,6 @@
       rodadaAtual = data.rodada;
       respondeu = false;
       tempoRestante = 60;
-
       dicasLiberadas = 1;
 
       tocarSom('inicio_rodada');
@@ -1417,7 +1507,6 @@
         document.getElementById('rodada-pulando').textContent = `Rodada ${rodadaAtual}`;
         return;
       } else {
-        // ✅ Se eu NÃO estou pulando nesta rodada, eu não posso ficar preso em "pulando"
         if (meuEstado === 'pulando') {
           meuEstado = 'sala-a';
         }
@@ -1696,6 +1785,12 @@
       salaAJogadores = data.salaA || [];
       salaBJogadores = nomesFromLista(data.salaB);
 
+      // ✅ aviso específico do host
+      const avisoHost = document.getElementById('aviso-host-conversa');
+      if (avisoHost) {
+        avisoHost.style.display = souAnfitriao ? 'block' : 'none';
+      }
+
       const listaSalaA = document.getElementById('lista-sala-a-conversa');
       listaSalaA.innerHTML = '';
 
@@ -1808,14 +1903,10 @@
       }));
     }
 
-    // ✅ PATCH: fechar sala_conversa imediatamente para todos ao receber continuar_jogo
     function voltarAoJogo(data) {
       mostrarNotificacao('🎮 Voltando ao jogo...', 'sucesso');
-
-      // fecha a tela de conversa já (não espera nova_rodada)
       mostrarTela('tela-jogo');
 
-      // estado visual "aguardando"
       const container = document.getElementById('alternativas-container');
       if (container) container.innerHTML = '';
 
