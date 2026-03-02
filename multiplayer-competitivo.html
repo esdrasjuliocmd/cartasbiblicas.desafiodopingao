@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>🏆 Modo Competitivo - Quem Sou Eu?</title>
   <style>
     :root {
@@ -546,36 +546,6 @@
       to { transform: translateY(0); opacity: 1; }
     }
 
-    .categorias-select {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin: 15px 0;
-    }
-
-    .categoria-card {
-      background: var(--jw-cinza-claro);
-      border: 3px solid var(--jw-azul-principal);
-      padding: 15px 10px;
-      border-radius: 10px;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s;
-      touch-action: manipulation;
-      -webkit-user-select: none;
-      user-select: none;
-    }
-
-    .categoria-card:active { transform: scale(0.95); }
-
-    .categoria-card.selecionada {
-      background: var(--jw-azul-principal);
-      color: var(--jw-branco);
-    }
-
-    .categoria-card .icone { font-size: 2rem; margin-bottom: 5px; }
-    .categoria-card .nome { font-size: 0.85rem; font-weight: bold; }
-
     .versiculo {
       background: var(--jw-azul-claro);
       color: var(--jw-branco);
@@ -615,7 +585,7 @@
 
     h2, h3 { color: var(--jw-azul-principal); }
 
-    .btn, .alternativa-btn, .categoria-card {
+    .btn, .alternativa-btn {
       -webkit-user-select: none;
       user-select: none;
     }
@@ -634,14 +604,6 @@
     #tela-jogo.sala-b-spectator .carta-jogo {
       background: linear-gradient(135deg, #f6c76a, #f0ad4e) !important;
       color: #1E3A5F !important;
-    }
-
-    #tela-jogo.sala-b-spectator .rodada-info,
-    #tela-jogo.sala-b-spectator .placar,
-    #tela-jogo.sala-b-spectator .painel-colapsavel,
-    #tela-jogo.sala-b-spectator .linha-info {
-      border: 2px dashed rgba(30,58,95,0.35);
-      background: rgba(255,255,255,0.85);
     }
 
     #tela-jogo.sala-b-spectator .alternativa-btn {
@@ -707,9 +669,7 @@
       background: rgba(255,255,255,0.7);
     }
 
-    /* ============================================
-       ✅ UI HOST - Lobby mais limpo + botão iniciar bem visível
-       ============================================ */
+    /* HOST UI */
     .host-bar {
       position: sticky;
       top: 0;
@@ -846,7 +806,7 @@
           </button>
         </div>
 
-        <!-- ✅ HOST: barra fixa com botão iniciar bem visível -->
+        <!-- HOST -->
         <div id="config-anfitriao" style="display: none;">
           <div class="host-bar">
             <div class="host-title">
@@ -862,7 +822,7 @@
               ⏳ <strong>Importante (Anfitrião):</strong><br>
               • Aguarde todos entrarem na sala antes de iniciar.<br>
               • Você é o responsável por iniciar o jogo.<br>
-              • Nas rodadas de eliminação (Sala de Conversa), <strong>você também precisa apertar “CONTINUAR JOGO”</strong> após as negociações.
+              • Nas rodadas de eliminação (Sala de Conversa), <strong>você precisa apertar “CONTINUAR JOGO”</strong>.
             </div>
 
             <div style="margin-top: 10px; font-weight: 900; color: var(--jw-azul-principal);">
@@ -890,7 +850,6 @@
           💬 Bata papo enquanto o Anfitrião inicia a partida
         </div>
 
-        <!-- mantém chat do lobby -->
         <div class="chat-whatsapp">
           <h3>💬 Chat da Sala</h3>
           <div class="chat-messages" id="chat-lobby"></div>
@@ -971,16 +930,15 @@
         </div>
       </div>
 
-      <!-- TELA 5: CONVERSA (Só deve abrir em rodada de eliminação) -->
+      <!-- TELA 5: CONVERSA -->
       <div id="tela-conversa" class="tela">
         <div style="background: var(--jw-amarelo-aviso); padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 15px;">
           <h2 style="color: var(--jw-azul-escuro); font-size: 1.3rem;">⏸️ SALA DE CONVERSA</h2>
           <p style="margin-top: 8px; font-size: 0.9rem;">🎯 Pausa estratégica - Resgates permitidos!</p>
         </div>
 
-        <!-- ✅ Aviso específico do HOST -->
         <div id="aviso-host-conversa" style="display:none; background: rgba(74,109,167,0.12); border: 1px dashed rgba(74,109,167,0.45); padding: 12px; border-radius: 10px; margin-bottom: 12px; color: var(--jw-azul-escuro); font-size: 0.9rem; font-weight: 700;">
-          👑 <strong>Anfitrião:</strong> quando todos terminarem as negociações/resgates, clique em <strong>“CONTINUAR JOGO”</strong> para iniciar a próxima rodada.
+          👑 <strong>Anfitrião:</strong> quando todos terminarem, clique em <strong>“CONTINUAR JOGO”</strong>.
         </div>
 
         <div class="chat-whatsapp">
@@ -1073,16 +1031,14 @@
   </div>
 
   <script>
-    console.log('VERSAO UI:', 'host-ui-sticky-v1', 'build:', '2026-03-02');
+    console.log('VERSAO UI:', 'dicas-fix-v1', 'build:', '2026-03-02');
 
-    const API_BASE = 'https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
     const WS_BASE = 'wss://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
 
     let ws = null;
     let nomeJogador = '';
     let salaAtual = '';
     let categoriaSelecionada = 'personagens';
-    let salaEstado = 'lobby';
     let meuEstado = 'sala-a';
     let souAnfitriao = false;
     let rodadaAtual = 0;
@@ -1096,11 +1052,17 @@
     let salaAJogadores = [];
     let salaBJogadores = []; // string[] nomes
     let meusPontos = 0;
-    let resgatesRealizados = 0;
     let alternativasAtuais = [];
     let respostaCorretaIndex = -1;
 
+    // ✅ Dicas
     let dicasLiberadas = 1;
+    let dica2Timeout = null;
+    let dica3Timeout = null;
+
+    // ✅ Guarda carta da rodada para evitar "dicas de outra carta"
+    let cartaRodadaAtual = null; // {dica1,dica2,dica3,resposta}
+    let rodadaToken = 0;         // token crescente por rodada (anti-timeout velho)
 
     // ✅ Controle: abrir sala_conversa somente quando houve eliminação
     let teveEliminacaoNaPausa = false;
@@ -1115,12 +1077,8 @@
     let audioCtx = null;
 
     function inicializarAudio() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
     }
 
     function tocarTom(freq, duracao, delay = 0, tipo = 'sine', vol = 0.3) {
@@ -1168,10 +1126,7 @@
       if (salaUrl) {
         document.getElementById('input-sala').value = salaUrl;
         document.getElementById('btn-criar-sala').style.display = 'none';
-
-        if (nomeUrl) {
-          document.getElementById('input-nome').value = nomeUrl;
-        }
+        if (nomeUrl) document.getElementById('input-nome').value = nomeUrl;
       }
 
       document.getElementById('input-chat-lobby').addEventListener('keypress', (e) => {
@@ -1205,34 +1160,25 @@
         card.classList.remove('selecionada');
       });
 
-      if (evt && evt.target) {
-        evt.target.closest('.categoria-mini').classList.add('selecionada');
-      } else if (window.event && window.event.target) {
-        window.event.target.closest('.categoria-mini').classList.add('selecionada');
-      }
+      const el = evt?.target?.closest?.('.categoria-mini') || window.event?.target?.closest?.('.categoria-mini');
+      if (el) el.classList.add('selecionada');
     }
 
     function criarSala() {
       nomeJogador = document.getElementById('input-nome').value.trim();
-
       if (!nomeJogador || nomeJogador.length < 2) {
         alert('Digite seu nome antes de criar a sala!');
         return;
       }
-
-      const codigo = gerarCodigoSala();
-      salaAtual = codigo;
+      salaAtual = gerarCodigoSala();
       souAnfitriao = true;
-
       conectarWebSocket();
     }
 
     function gerarCodigoSala() {
       const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
       let codigo = '';
-      for (let i = 0; i < 6; i++) {
-        codigo += chars[Math.floor(Math.random() * chars.length)];
-      }
+      for (let i = 0; i < 6; i++) codigo += chars[Math.floor(Math.random() * chars.length)];
       return codigo;
     }
 
@@ -1244,7 +1190,6 @@
         alert('Digite um nome válido!');
         return;
       }
-
       if (!salaAtual || salaAtual.length !== 6) {
         alert('Digite um código de sala válido (6 caracteres)!');
         return;
@@ -1283,9 +1228,7 @@
         alert('Erro ao conectar. Tente novamente!');
       };
 
-      ws.onclose = () => {
-        console.log('🔴 Desconectado');
-      };
+      ws.onclose = () => console.log('🔴 Desconectado');
     }
 
     function handleWebSocketMessage(data) {
@@ -1315,6 +1258,8 @@
             todosJogadores = data.jogadores;
             atualizarListaJogadoresLobby();
           }
+          // atualiza host UI
+          if (souAnfitriao) ativarModoHostUI(); else desativarModoHostUI();
           break;
 
         case 'jogo_iniciado':
@@ -1351,7 +1296,6 @@
         case 'sala_conversa':
           if (!teveEliminacaoNaPausa) {
             console.warn('⚠️ Ignorando sala_conversa (sem eliminacao nesta pausa)');
-
             if (souAnfitriao && ws && ws.readyState === WebSocket.OPEN) {
               ws.send(JSON.stringify({ tipo: 'continuar_jogo', nome: nomeJogador }));
             }
@@ -1375,7 +1319,7 @@
             break;
           }
           continuarJogoProcessado = true;
-          voltarAoJogo(data);
+          voltarAoJogo();
           break;
 
         case 'fim_jogo':
@@ -1429,7 +1373,6 @@
 
     function iniciarJogo() {
       if (!souAnfitriao) return;
-
       if (todosJogadores.length < 2) {
         alert('Aguarde pelo menos 2 jogadores!');
         return;
@@ -1441,11 +1384,17 @@
       }));
     }
 
+    function limparTimersDicas() {
+      if (dica2Timeout) clearTimeout(dica2Timeout);
+      if (dica3Timeout) clearTimeout(dica3Timeout);
+      dica2Timeout = null;
+      dica3Timeout = null;
+    }
+
     function iniciarJogoLocal(data) {
       rodadaTotal = Number.isFinite(data.totalRodadas) ? data.totalRodadas : 100;
       rodadaAtual = 0;
       meusPontos = 0;
-      resgatesRealizados = 0;
 
       meuEstado = 'sala-a';
       salaBJogadores = [];
@@ -1456,11 +1405,12 @@
       continuarJogoProcessado = false;
       ultimaRodadaProcessada = 0;
 
+      limparTimersDicas();
+      cartaRodadaAtual = null;
+      rodadaToken = 0;
+
       const elPts = document.getElementById('meus-pontos-mini');
       if (elPts) elPts.textContent = meusPontos;
-
-      const elAviso = document.getElementById('aviso-sala-b-assistindo');
-      if (elAviso) elAviso.style.display = 'none';
 
       const elProx = document.getElementById('proxima-eliminacao');
       if (elProx) elProx.textContent = '—';
@@ -1473,10 +1423,23 @@
     }
 
     function iniciarRodadaLocal(data) {
+      // ✅ Anti-bug: cancela timeouts/intervalos da rodada anterior
+      limparTimersDicas();
+      if (timerInterval) clearInterval(timerInterval);
+
       rodadaAtual = data.rodada;
       respondeu = false;
       tempoRestante = 60;
       dicasLiberadas = 1;
+
+      // ✅ salva carta desta rodada e gera token (pra timeout antigo não mexer)
+      cartaRodadaAtual = data.carta ? {
+        dica1: data.carta.dica1,
+        dica2: data.carta.dica2,
+        dica3: data.carta.dica3,
+        resposta: data.carta.resposta
+      } : null;
+      rodadaToken++;
 
       tocarSom('inicio_rodada');
 
@@ -1500,54 +1463,62 @@
       else desativarModoSalaBSpectator();
 
       const estouPulando = Array.isArray(data.jogadoresPulando) && data.jogadoresPulando.includes(nomeJogador);
-
       if (estouPulando) {
         meuEstado = 'pulando';
         mostrarTela('tela-pulando');
         document.getElementById('rodada-pulando').textContent = `Rodada ${rodadaAtual}`;
         return;
-      } else {
-        if (meuEstado === 'pulando') {
-          meuEstado = 'sala-a';
-        }
+      } else if (meuEstado === 'pulando') {
+        meuEstado = 'sala-a';
       }
 
       mostrarTela('tela-jogo');
-
       document.getElementById('rodada-atual').textContent = `Rodada ${rodadaAtual}`;
 
-      document.getElementById('dica1-jogo').innerHTML = `<strong>DICA 1:</strong> ${data.carta.dica1}`;
-      document.getElementById('dica1-jogo').classList.remove('bloqueada');
+      // ✅ DICAS NA ORDEM CORRETA (sempre da cartaRodadaAtual)
+      const dica1 = document.getElementById('dica1-jogo');
+      const dica2 = document.getElementById('dica2-jogo');
+      const dica3 = document.getElementById('dica3-jogo');
 
-      document.getElementById('dica2-jogo').innerHTML = '<strong>DICA 2:</strong> 🔒 Aguarde...';
-      document.getElementById('dica2-jogo').classList.add('bloqueada');
+      dica1.innerHTML = `<strong>DICA 1:</strong> ${cartaRodadaAtual?.dica1 ?? '...'}`;
+      dica1.classList.remove('bloqueada');
 
-      document.getElementById('dica3-jogo').innerHTML = '<strong>DICA 3:</strong> 🔒 Aguarde...';
-      document.getElementById('dica3-jogo').classList.add('bloqueada');
+      dica2.innerHTML = '<strong>DICA 2:</strong> 🔒 Aguarde...';
+      dica2.classList.add('bloqueada');
+
+      dica3.innerHTML = '<strong>DICA 3:</strong> 🔒 Aguarde...';
+      dica3.classList.add('bloqueada');
 
       document.getElementById('placar-lista').innerHTML = '';
 
       atualizarStatusJogadores();
 
       if (categoriaSelecionada === 'verdadeirofalso') gerarAlternativasVerdadeiroFalso();
-      else gerarAlternativas(data.carta);
+      else gerarAlternativas(cartaRodadaAtual);
 
-      setTimeout(() => {
-        if (!respondeu) {
-          document.getElementById('dica2-jogo').innerHTML = `<strong>DICA 2:</strong> ${data.carta.dica2}`;
-          document.getElementById('dica2-jogo').classList.remove('bloqueada');
-          dicasLiberadas = Math.max(dicasLiberadas, 2);
-          tocarSom('dica');
-        }
+      const tokenLocal = rodadaToken;
+
+      dica2Timeout = setTimeout(() => {
+        // ✅ só libera se ainda for a mesma rodada e não respondeu
+        if (tokenLocal !== rodadaToken) return;
+        if (respondeu) return;
+        if (!cartaRodadaAtual) return;
+
+        dica2.innerHTML = `<strong>DICA 2:</strong> ${cartaRodadaAtual.dica2}`;
+        dica2.classList.remove('bloqueada');
+        dicasLiberadas = Math.max(dicasLiberadas, 2);
+        tocarSom('dica');
       }, 20000);
 
-      setTimeout(() => {
-        if (!respondeu) {
-          document.getElementById('dica3-jogo').innerHTML = `<strong>DICA 3:</strong> ${data.carta.dica3}`;
-          document.getElementById('dica3-jogo').classList.remove('bloqueada');
-          dicasLiberadas = Math.max(dicasLiberadas, 3);
-          tocarSom('dica');
-        }
+      dica3Timeout = setTimeout(() => {
+        if (tokenLocal !== rodadaToken) return;
+        if (respondeu) return;
+        if (!cartaRodadaAtual) return;
+
+        dica3.innerHTML = `<strong>DICA 3:</strong> ${cartaRodadaAtual.dica3}`;
+        dica3.classList.remove('bloqueada');
+        dicasLiberadas = Math.max(dicasLiberadas, 3);
+        tocarSom('dica');
       }, 40000);
 
       document.getElementById('timer-jogo').textContent = `${tempoRestante}s`;
@@ -1569,12 +1540,10 @@
         const item = document.createElement('div');
         item.className = 'status-item pensando';
         item.id = `status-${jogador.nome}`;
-
         item.innerHTML = `
           <span>${jogador.nome}</span>
           <span style="color: var(--jw-amarelo-aviso); font-weight: bold;">⏳ Pensando...</span>
         `;
-
         container.appendChild(item);
       });
     }
@@ -1608,6 +1577,7 @@
       if (meuEstado === 'sala-b') return;
 
       respondeu = true;
+      limparTimersDicas();
       clearInterval(timerInterval);
 
       const botoes = document.querySelectorAll('.alternativa-btn');
@@ -1621,23 +1591,22 @@
       }));
 
       botoes[indexBtn].classList.add('correta');
-
-      botoes.forEach(btn => {
-        btn.style.pointerEvents = 'none';
-        btn.style.opacity = '0.7';
-      });
+      botoes.forEach(btn => { btn.style.pointerEvents = 'none'; btn.style.opacity = '0.7'; });
     }
 
     function gerarAlternativas(carta) {
       const container = document.getElementById('alternativas-container');
       container.innerHTML = '';
 
-      const respostasErradas = gerarRespostasErradas(carta.resposta);
-      respostaCorretaIndex = Math.floor(Math.random() * 4);
+      // ✅ usa sempre a resposta da cartaRodadaAtual (evita mismatch)
+      const respostaCorreta = carta?.resposta ?? '';
+      const respostasErradas = gerarRespostasErradas(respostaCorreta);
 
+      respostaCorretaIndex = Math.floor(Math.random() * 4);
       alternativasAtuais = [];
+
       for (let i = 0; i < 4; i++) {
-        if (i === respostaCorretaIndex) alternativasAtuais.push(carta.resposta);
+        if (i === respostaCorretaIndex) alternativasAtuais.push(respostaCorreta);
         else alternativasAtuais.push(respostasErradas.shift());
       }
 
@@ -1675,6 +1644,7 @@
       if (meuEstado === 'sala-b') return;
 
       respondeu = true;
+      limparTimersDicas();
       clearInterval(timerInterval);
 
       const botoes = document.querySelectorAll('.alternativa-btn');
@@ -1694,15 +1664,12 @@
         tocarSom('acerto');
       } else {
         botoes[index].classList.add('errada');
-        botoes[respostaCorretaIndex].classList.add('correta');
+        if (botoes[respostaCorretaIndex]) botoes[respostaCorretaIndex].classList.add('correta');
         mostrarNotificacao('❌ ERRADO!', 'erro');
         tocarSom('erro');
       }
 
-      botoes.forEach(btn => {
-        btn.style.pointerEvents = 'none';
-        btn.style.opacity = '0.7';
-      });
+      botoes.forEach(btn => { btn.style.pointerEvents = 'none'; btn.style.opacity = '0.7'; });
     }
 
     function registrarResposta(data) {
@@ -1730,7 +1697,6 @@
         <span>${data.nome}</span>
         <span style="color: ${cor}; font-weight: bold;">${emoji} ${data.pontos} pts</span>
       `;
-
       placar.appendChild(item);
 
       if (data.nome === nomeJogador) {
@@ -1742,6 +1708,7 @@
 
     function finalizarRodada(data) {
       clearInterval(timerInterval);
+      limparTimersDicas();
 
       if (meuEstado === 'sala-a') {
         mostrarNotificacao(`Resposta: ${data.respostaCorreta}`, 'aviso');
@@ -1751,11 +1718,7 @@
     function nomesFromLista(lista) {
       if (!Array.isArray(lista)) return [];
       return lista
-        .map(item => {
-          if (typeof item === 'string') return item;
-          if (item && typeof item === 'object' && typeof item.nome === 'string') return item.nome;
-          return null;
-        })
+        .map(item => (typeof item === 'string') ? item : (item?.nome ?? null))
         .filter(Boolean);
     }
 
@@ -1785,11 +1748,8 @@
       salaAJogadores = data.salaA || [];
       salaBJogadores = nomesFromLista(data.salaB);
 
-      // ✅ aviso específico do host
       const avisoHost = document.getElementById('aviso-host-conversa');
-      if (avisoHost) {
-        avisoHost.style.display = souAnfitriao ? 'block' : 'none';
-      }
+      if (avisoHost) avisoHost.style.display = souAnfitriao ? 'block' : 'none';
 
       const listaSalaA = document.getElementById('lista-sala-a-conversa');
       listaSalaA.innerHTML = '';
@@ -1805,7 +1765,6 @@
           <span>${icone}${jogador.nome}${eu}</span>
           <span style="font-weight: bold;">${jogador.pontos} pts</span>
         `;
-
         listaSalaA.appendChild(item);
       });
 
@@ -1840,7 +1799,6 @@
               </button>
             ` : ''}
           `;
-
           listaSalaB.appendChild(item);
         });
       } else {
@@ -1886,8 +1844,6 @@
       const elPts = document.getElementById('meus-pontos-mini');
       if (elPts) elPts.textContent = meusPontos;
 
-      resgatesRealizados++;
-
       salaAJogadores = data.salaA || [];
       salaBJogadores = nomesFromLista(data.salaB);
 
@@ -1903,7 +1859,7 @@
       }));
     }
 
-    function voltarAoJogo(data) {
+    function voltarAoJogo() {
       mostrarNotificacao('🎮 Voltando ao jogo...', 'sucesso');
       mostrarTela('tela-jogo');
 
@@ -1918,14 +1874,8 @@
       const dica3 = document.getElementById('dica3-jogo');
 
       if (dica1) dica1.innerHTML = '<strong>DICA 1:</strong> ⏳ Aguardando próxima rodada...';
-      if (dica2) {
-        dica2.innerHTML = '<strong>DICA 2:</strong> 🔒 Aguarde...';
-        dica2.classList.add('bloqueada');
-      }
-      if (dica3) {
-        dica3.innerHTML = '<strong>DICA 3:</strong> 🔒 Aguarde...';
-        dica3.classList.add('bloqueada');
-      }
+      if (dica2) { dica2.innerHTML = '<strong>DICA 2:</strong> 🔒 Aguarde...'; dica2.classList.add('bloqueada'); }
+      if (dica3) { dica3.innerHTML = '<strong>DICA 3:</strong> 🔒 Aguarde...'; dica3.classList.add('bloqueada'); }
 
       if (meuEstado === 'sala-b') ativarModoSalaBSpectator();
       else desativarModoSalaBSpectator();
@@ -1944,10 +1894,8 @@
       vencedores.forEach((jogador, index) => {
         const item = document.createElement('div');
         item.className = 'vencedor-item';
-
         const medalhas = ['🥇', '🥈', '🥉'];
         const medalha = medalhas[index] || '🏆';
-
         item.textContent = `${medalha} ${jogador.nome} - ${jogador.pontos} pts`;
         listaVencedores.appendChild(item);
       });
