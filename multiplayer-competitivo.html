@@ -1,63 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multiplayer Competitivo</title>
-    <script>
-        // Enable sound by default
-        const audioEnabled = true;
-        let audioInitialized = false;
-
-        function initializeAudio() {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const soundButton = document.getElementById('soundButton');
-            soundButton.innerText = '🔊 SOM';
-            audioInitialized = true;
-        }
-
-        function handleUserInteraction() {
-            if (!audioInitialized) {
-                initializeAudio();
-            }
-        }
-
-        // Function to play funny sound on elimination
-        function playFunnySound() {
-            if (audioEnabled) {
-                const audio = new Audio('funny_sound.mp3');
-                audio.play();
-            }
-        }
-
-        function onPlayerEliminated(sala) {
-            if (sala === 'B') {
-                playFunnySound();
-                // Show Sala B overlay
-                document.getElementById('salaBOverlay').style.display = 'block';
-            }
-        }
-
-        // Function to handle round logic
-        function handleRoundLogic() {
-            // Ensure correct handling of jogadoresPulando and pulandoAte
-            if (jogadoresPulando && pulandoAte) {
-                // Logic for current active players in Sala A
-                // Send responder for active Sala A players
-                socket.emit('responder', { activePlayers: getActiveSalaAPlayers() });
-            }
-            // Finalize the round early if all active players have answered
-            if (allActivePlayersAnswered()) {
-                finalizeRoundEarly();
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <button id="soundButton" onclick="handleUserInteraction()">🔊 SOM</button>
-    <div id="salaBOverlay" style="display:none;">Sala B Overlay</div>
+    <h1>Multiplayer Competitivo</h1>
+    <button id="btn-som">Sound On</button>
+    <div id="game-area">
+        <!-- Game content goes here -->
+    </div>
+
     <script>
-        // Other game initialization code here
+        // Enable sound by default
+        const soundEnabled = true;
+        document.getElementById('btn-som').innerText = soundEnabled ? 'Sound On' : 'Sound Off';
+
+        // Fun Sala B overlay animation
+        function moveToSalaB() {
+            const overlay = document.createElement('div');
+            overlay.classList.add('overlay');
+            document.body.appendChild(overlay);
+            // Play funny WebAudio tune
+            const audio = new Audio('funny-tune.mp3');
+            audio.play();
+
+            setTimeout(() => {
+                overlay.remove();
+            }, 3000);
+        }
+
+        // Existing spectator styles retained
     </script>
 </body>
 </html>
