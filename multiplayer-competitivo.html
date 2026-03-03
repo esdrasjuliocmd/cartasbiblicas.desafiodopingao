@@ -1030,10 +1030,12 @@
     </div>
   </div>
 
+  <script src="config.js"></script>
   <script>
     console.log('VERSAO UI:', 'dicas-fix-v1', 'build:', '2026-03-02');
 
-    const WS_BASE = 'wss://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
+    const API_BASE = window.APP_CONFIG.API_BASE;
+    const WS_BASE = API_BASE.replace(/^https:/, 'wss:').replace(/^http:/, 'ws:');
 
     let ws = null;
     let nomeJogador = '';

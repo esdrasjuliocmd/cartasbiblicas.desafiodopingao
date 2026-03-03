@@ -34,7 +34,7 @@
     <div class="row">
       <div>
         <label for="apiBase">API Base</label>
-        <input id="apiBase" type="text" value="https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev" />
+        <input id="apiBase" type="text" />
         <div class="muted">Ex.: https://...workers.dev</div>
       </div>
 
@@ -89,7 +89,13 @@
     <button class="danger" id="btnLimparLog">Limpar log</button>
   </fieldset>
 
+<script src="config.js"></script>
 <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const el = document.getElementById('apiBase');
+    if (el && !el.value && window.APP_CONFIG) el.value = window.APP_CONFIG.API_BASE;
+  });
+
   const $ = (id) => document.getElementById(id);
   const logEl = $("log");
   const statusEl = $("status");
