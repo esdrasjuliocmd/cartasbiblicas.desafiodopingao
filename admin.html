@@ -403,7 +403,7 @@
         <div class="secao">
           <div class="secao-titulo">🏆 Jogadores (solo) + última partida</div>
           <div class="aviso">
-            A coluna "Última partida" é atualizada quando o jogo solo chama <code>POST /adicionar</code>.
+            A coluna "Última partida" e "Partidas" são atualizadas quando o jogo solo chama <code>POST /fase-completa</code>.
           </div>
           <div id="jogadores-erro" style="display:none; color: var(--jw-vermelho-erro); font-weight:bold;"></div>
           <div id="jogadores-container"></div>
@@ -566,15 +566,19 @@
         }
 
         let html = `<table class="table"><thead><tr>
-          <th>Código</th><th>Tipo</th><th>Criada em</th><th>Última vez</th>
+          <th>Código</th><th>Tipo</th><th>Criada em</th><th>Última vez</th><th>Jogadores</th>
         </tr></thead><tbody>`;
 
         for (const s of salas) {
+          const jogadoresList = (s.jogadoresRecentes || []).length > 0
+            ? s.jogadoresRecentes.map(j => `<span class="badge info">${j}</span>`).join(' ')
+            : '<span class="muted">-</span>';
           html += `<tr>
             <td><span class="badge info">${s.codigo}</span></td>
             <td>${s.tipo || 'casual'}</td>
             <td>${fmtData(s.criadaEm)}</td>
             <td>${fmtData(s.ultimaVez)}</td>
+            <td>${jogadoresList}</td>
           </tr>`;
         }
 
@@ -604,7 +608,7 @@
         }
 
         let html = `<table class="table"><thead><tr>
-          <th>Jogador</th><th>Pontos</th><th>Nível</th><th>Última partida</th><th>Ações</th>
+          <th>Jogador</th><th>Pontos</th><th>Nível</th><th>Última partida</th><th>Últ. pontuação</th><th>Partidas</th><th>Ações</th>
         </tr></thead><tbody>`;
 
         for (const j of jogadores) {
@@ -613,6 +617,8 @@
             <td>${(j.pontos ?? 0).toLocaleString('pt-BR')}</td>
             <td>${j.nivel ?? '-'}</td>
             <td>${fmtData(j.ultimaPartidaEm)}</td>
+            <td>${j.ultimaPontuacao != null ? j.ultimaPontuacao : '-'}</td>
+            <td>${j.totalPartidas || 0}</td>
             <td>
               <button class="btn-acao" onclick="editarJogador(${JSON.stringify(j.nome)}, ${Number(j.pontos ?? 0)})">Editar</button>
               <button class="btn-acao danger" onclick="excluirJogador(${JSON.stringify(j.nome)})">Excluir</button>

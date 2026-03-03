@@ -159,6 +159,16 @@ export default {
         return new Response('Sala não especificada', { status: 400 });
       }
 
+      try {
+        const pgId = env.PontosGlobaisDO.idFromName('pontos-globais');
+        const pgStub = env.PontosGlobaisDO.get(pgId);
+        pgStub.fetch(new Request('http://internal/registrar-sala', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ codigo: sala, tipo: 'casual' })
+        })).catch((err) => console.error('Falha ao registrar sala casual:', err));
+      } catch {}
+
       const id = env.SALA_DO.idFromName(sala);
       const stub = env.SALA_DO.get(id);
       return stub.fetch(request);
@@ -172,6 +182,16 @@ export default {
       if (!sala) {
         return new Response('Sala não especificada', { status: 400 });
       }
+
+      try {
+        const pgId = env.PontosGlobaisDO.idFromName('pontos-globais');
+        const pgStub = env.PontosGlobaisDO.get(pgId);
+        pgStub.fetch(new Request('http://internal/registrar-sala', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ codigo: sala, tipo: 'competitivo' })
+        })).catch((err) => console.error('Falha ao registrar sala competitiva:', err));
+      } catch {}
 
       const id = env.SALA_COMPETITIVA_DO.idFromName(sala);
       const stub = env.SALA_COMPETITIVA_DO.get(id);
@@ -358,6 +378,9 @@ export class SalaDO {
   }
 
   async fetch(request) {
+    const url = new URL(request.url);
+    this.salaCodigo = url.searchParams.get('sala') || '';
+
     const webSocketPair = new WebSocketPair();
     const [client, server] = Object.values(webSocketPair);
 
@@ -387,6 +410,17 @@ export class SalaDO {
     webSocket.addEventListener('close', () => {
       const session = this.sessions.get(id);
       if (session && session.nome) {
+        if (this.salaCodigo) {
+          try {
+            const pgId = this.env.PontosGlobaisDO.idFromName('pontos-globais');
+            const pgStub = this.env.PontosGlobaisDO.get(pgId);
+            pgStub.fetch(new Request('http://internal/registrar-evento-sala', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ salaCodigo: this.salaCodigo, tipo: 'casual', jogador: session.nome, evento: 'leave' })
+            })).catch((err) => console.error('Falha ao registrar saída casual:', err));
+          } catch {}
+        }
         this.jogadores.delete(session.nome);
         this.broadcast({
           tipo: 'jogador_saiu',
@@ -404,6 +438,18 @@ export class SalaDO {
       case 'entrar':
         session.nome = data.nome;
         this.jogadores.set(data.nome, { nome: data.nome, pontos: 0 });
+
+        if (this.salaCodigo) {
+          try {
+            const pgId = this.env.PontosGlobaisDO.idFromName('pontos-globais');
+            const pgStub = this.env.PontosGlobaisDO.get(pgId);
+            pgStub.fetch(new Request('http://internal/registrar-evento-sala', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ salaCodigo: this.salaCodigo, tipo: 'casual', jogador: data.nome, evento: 'join' })
+            })).catch((err) => console.error('Falha ao registrar entrada casual:', err));
+          } catch {}
+        }
 
         session.ws.send(JSON.stringify({
           tipo: 'bem_vindo',
@@ -622,6 +668,9 @@ export class SalaCompetitivaDO {
       await this.carregarEstado();
     });
 
+    const url = new URL(request.url);
+    this.salaCodigo = url.searchParams.get('sala') || '';
+
     const webSocketPair = new WebSocketPair();
     const [client, server] = Object.values(webSocketPair);
 
@@ -651,6 +700,17 @@ export class SalaCompetitivaDO {
     webSocket.addEventListener('close', () => {
       const session = this.sessions.get(id);
       if (session && session.nome) {
+        if (this.salaCodigo) {
+          try {
+            const pgId = this.env.PontosGlobaisDO.idFromName('pontos-globais');
+            const pgStub = this.env.PontosGlobaisDO.get(pgId);
+            pgStub.fetch(new Request('http://internal/registrar-evento-sala', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ salaCodigo: this.salaCodigo, tipo: 'competitivo', jogador: session.nome, evento: 'leave' })
+            })).catch((err) => console.error('Falha ao registrar saída competitiva:', err));
+          } catch {}
+        }
         this.removerJogador(session.nome);
       }
       this.sessions.delete(id);
@@ -680,6 +740,18 @@ export class SalaCompetitivaDO {
         this.salaA.add(nome);
 
         await this.salvarEstado();
+
+        if (this.salaCodigo) {
+          try {
+            const pgId = this.env.PontosGlobaisDO.idFromName('pontos-globais');
+            const pgStub = this.env.PontosGlobaisDO.get(pgId);
+            pgStub.fetch(new Request('http://internal/registrar-evento-sala', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ salaCodigo: this.salaCodigo, tipo: 'competitivo', jogador: nome, evento: 'join' })
+            })).catch((err) => console.error('Falha ao registrar entrada competitiva:', err));
+          } catch {}
+        }
 
         session.ws.send(JSON.stringify({
           tipo: 'bem_vindo',
@@ -1645,8 +1717,9 @@ export class PontosGlobaisDO {
     // NOVO: Admin - Listar salas
     if (path === '/admin/salas') {
       try {
+        const salas = await this.obterSalasAdmin();
         return new Response(JSON.stringify({
-          salas: []
+          salas: salas
         }), {
           headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
         });
@@ -1657,6 +1730,38 @@ export class PontosGlobaisDO {
         }), {
           status: 200,
           headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+    }
+
+    // NOVO: Registrar sala (chamado pelo worker principal ao receber WebSocket)
+    if (path === '/registrar-sala' && request.method === 'POST') {
+      try {
+        const body = await request.json();
+        await this.registrarSala(body.codigo, body.tipo || 'casual');
+        return new Response(JSON.stringify({ sucesso: true }), {
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      } catch (erro) {
+        return new Response(JSON.stringify({ sucesso: false, erro: erro.message }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      }
+    }
+
+    // NOVO: Registrar evento de sala (join/leave)
+    if (path === '/registrar-evento-sala' && request.method === 'POST') {
+      try {
+        const body = await request.json();
+        await this.registrarEventoSala(body.salaCodigo, body.tipo || 'casual', body.jogador, body.evento);
+        return new Response(JSON.stringify({ sucesso: true }), {
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      } catch (erro) {
+        return new Response(JSON.stringify({ sucesso: false, erro: erro.message }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
         });
       }
     }
@@ -1791,14 +1896,6 @@ export class PontosGlobaisDO {
       )
     `);
 
-    // IMPORTANTE: Recriar historico_fases com schema correto (pontosBonus com 's')
-    try {
-      this.sql.exec('DROP TABLE IF EXISTS historico_fases');
-      console.log('✅ Tabela historico_fases dropada e será recriada');
-    } catch (e) {
-      console.log('Tabela historico_fases não existia:', e.message);
-    }
-
     this.sql.exec(`
       CREATE TABLE IF NOT EXISTS historico_fases (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -1813,12 +1910,45 @@ export class PontosGlobaisDO {
       )
     `);
 
+    // Migração: garantir coluna timestampMs em historico_fases
+    try {
+      const colsFases = this.sql.exec('PRAGMA table_info(historico_fases)').toArray().map(c => c.name);
+      if (!colsFases.includes('timestampMs')) {
+        this.sql.exec('ALTER TABLE historico_fases ADD COLUMN timestampMs INTEGER');
+      }
+    } catch (e) {
+      console.log('Migração timestampMs:', e.message);
+    }
+
     // NOVO: Tabela para histórico global de cartas usadas
     this.sql.exec(`
       CREATE TABLE IF NOT EXISTS historico_cartas_globais (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         chaveKey TEXT NOT NULL UNIQUE,
         dataSolicitacao TEXT DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // NOVO: Tabela de salas registradas (casual e competitivo)
+    this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS salas (
+        codigo TEXT NOT NULL,
+        tipo TEXT NOT NULL DEFAULT 'casual',
+        criadaEm INTEGER NOT NULL,
+        ultimaVez INTEGER NOT NULL,
+        PRIMARY KEY (codigo, tipo)
+      )
+    `);
+
+    // NOVO: Tabela de eventos de jogadores em salas
+    this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS eventos_sala (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        salaCodigo TEXT NOT NULL,
+        tipo TEXT NOT NULL DEFAULT 'casual',
+        jogador TEXT NOT NULL,
+        evento TEXT NOT NULL,
+        timestamp INTEGER NOT NULL
       )
     `);
 
@@ -1909,14 +2039,15 @@ export class PontosGlobaisDO {
     await this.atualizarNivel(nomeCanonical, novo);
 
     this.sql.exec(
-      `INSERT INTO historico_fases (nome, faseNumero, pontosNormal, pontosBonus, pontosTotal, categoria)
-       VALUES (?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO historico_fases (nome, faseNumero, pontosNormal, pontosBonus, pontosTotal, categoria, timestampMs)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
       nomeCanonical,
       faseNum,
       Number(pontosNormal) || 0,
       Number(pontosBonusTotal) || 0,
       pontosNumero,
-      categoria || 'personagens'
+      categoria || 'personagens',
+      Date.now()
     );
 
     console.log(`✅ [WORKER] Fase ${faseNum} salva para ${nomeCanonical}: +${pontosNumero} pontos (Total: ${novo})`);
@@ -2007,13 +2138,14 @@ export class PontosGlobaisDO {
   }
 
   async obterJogadoresCompletos() {
-    // Obter jogadores com pontos (que completaram pelo menos uma fase)
     const jogadores = this.sql.exec(`
       SELECT 
         j.nome, 
         j.pontos, 
         j.nivel, 
-        MAX(hf.dataConclusao) as ultimaPartidaEm
+        MAX(hf.timestampMs) as ultimaPartidaEm,
+        (SELECT hf2.pontosTotal FROM historico_fases hf2 WHERE hf2.nome = j.nome ORDER BY hf2.id DESC LIMIT 1) as ultimaPontuacao,
+        COUNT(hf.id) as totalPartidas
       FROM jogadores j
       LEFT JOIN historico_fases hf ON j.nome = hf.nome
       WHERE j.pontos > 0
@@ -2021,7 +2153,56 @@ export class PontosGlobaisDO {
       ORDER BY j.pontos DESC
     `).toArray();
 
-    return jogadores;
+    return jogadores.map(j => ({
+      nome: j.nome,
+      pontos: j.pontos,
+      nivel: j.nivel,
+      ultimaPartidaEm: j.ultimaPartidaEm || null,
+      ultimaPontuacao: j.ultimaPontuacao != null ? j.ultimaPontuacao : null,
+      totalPartidas: j.totalPartidas || 0
+    }));
+  }
+
+  async registrarSala(codigo, tipo) {
+    const agora = Date.now();
+    this.sql.exec(
+      `INSERT INTO salas (codigo, tipo, criadaEm, ultimaVez) VALUES (?, ?, ?, ?)
+       ON CONFLICT(codigo, tipo) DO UPDATE SET ultimaVez = excluded.ultimaVez`,
+      codigo, tipo, agora, agora
+    );
+  }
+
+  async registrarEventoSala(salaCodigo, tipo, jogador, evento) {
+    const agora = Date.now();
+    this.sql.exec(
+      `INSERT INTO eventos_sala (salaCodigo, tipo, jogador, evento, timestamp) VALUES (?, ?, ?, ?, ?)`,
+      salaCodigo, tipo, jogador, evento, agora
+    );
+  }
+
+  async obterSalasAdmin() {
+    const salas = this.sql.exec(`
+      SELECT s.codigo, s.tipo, s.criadaEm, s.ultimaVez,
+        GROUP_CONCAT(DISTINCT es.jogador) as jogadoresStr
+      FROM salas s
+      LEFT JOIN eventos_sala es ON s.codigo = es.salaCodigo AND s.tipo = es.tipo AND es.evento = 'join'
+      GROUP BY s.codigo, s.tipo
+      ORDER BY s.ultimaVez DESC
+    `).toArray();
+
+    return salas.map(s => {
+      const jogadoresUnicos = s.jogadoresStr
+        ? [...new Set(s.jogadoresStr.split(',').filter(Boolean))]
+        : [];
+      return {
+        codigo: s.codigo,
+        tipo: s.tipo,
+        criadaEm: s.criadaEm,
+        ultimaVez: s.ultimaVez,
+        jogadoresRecentes: jogadoresUnicos,
+        jogadoresUnicos: jogadoresUnicos.length
+      };
+    });
   }
 
   async obterPerfil(nome) {
