@@ -824,6 +824,7 @@
     </div>
   </div>
 
+  <script src="config.js"></script>
   <script>
     const AudioSystem = {
       context: null,
@@ -909,7 +910,7 @@
       setTimeout(() => elemento.remove(), 2000);
     }
 
-    const API_BASE = 'https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev';
+    const API_BASE = window.APP_CONFIG.API_BASE;
     const SOLO_BUILD_VERSION = "2026-02-26-phase10-full";
     const TOTAL_FASES = 10;
     const CARTAS_POR_FASE = 10;
