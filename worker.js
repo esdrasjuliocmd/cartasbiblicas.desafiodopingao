@@ -1,4 +1,4 @@
-﻿﻿// ============================================
+﻿﻿﻿// ============================================
 // QUEM SOU EU? - Backend Cloudflare Workers
 // Sistema Completo: Solo + Multiplayer + Competitivo
 // COM MEMÓRIA GLOBAL DE CARTAS
@@ -159,16 +159,6 @@ export default {
         return new Response('Sala não especificada', { status: 400 });
       }
 
-      try {
-        const pgId = env.PontosGlobaisDO.idFromName('pontos-globais');
-        const pgStub = env.PontosGlobaisDO.get(pgId);
-        pgStub.fetch(new Request('http://internal/registrar-sala', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ codigo: sala, tipo: 'casual' })
-        })).catch((err) => console.error('Falha ao registrar sala casual:', err));
-      } catch {}
-
       const id = env.SALA_DO.idFromName(sala);
       const stub = env.SALA_DO.get(id);
       return stub.fetch(request);
@@ -182,16 +172,6 @@ export default {
       if (!sala) {
         return new Response('Sala não especificada', { status: 400 });
       }
-
-      try {
-        const pgId = env.PontosGlobaisDO.idFromName('pontos-globais');
-        const pgStub = env.PontosGlobaisDO.get(pgId);
-        pgStub.fetch(new Request('http://internal/registrar-sala', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ codigo: sala, tipo: 'competitivo' })
-        })).catch((err) => console.error('Falha ao registrar sala competitiva:', err));
-      } catch {}
 
       const id = env.SALA_COMPETITIVA_DO.idFromName(sala);
       const stub = env.SALA_COMPETITIVA_DO.get(id);
@@ -378,9 +358,6 @@ export class SalaDO {
   }
 
   async fetch(request) {
-    const url = new URL(request.url);
-    this.salaCodigo = url.searchParams.get('sala') || '';
-
     const webSocketPair = new WebSocketPair();
     const [client, server] = Object.values(webSocketPair);
 
@@ -410,17 +387,6 @@ export class SalaDO {
     webSocket.addEventListener('close', () => {
       const session = this.sessions.get(id);
       if (session && session.nome) {
-        if (this.salaCodigo) {
-          try {
-            const pgId = this.env.PontosGlobaisDO.idFromName('pontos-globais');
-            const pgStub = this.env.PontosGlobaisDO.get(pgId);
-            pgStub.fetch(new Request('http://internal/registrar-evento-sala', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ salaCodigo: this.salaCodigo, tipo: 'casual', jogador: session.nome, evento: 'leave' })
-            })).catch((err) => console.error('Falha ao registrar saída casual:', err));
-          } catch {}
-        }
         this.jogadores.delete(session.nome);
         this.broadcast({
           tipo: 'jogador_saiu',
@@ -438,18 +404,6 @@ export class SalaDO {
       case 'entrar':
         session.nome = data.nome;
         this.jogadores.set(data.nome, { nome: data.nome, pontos: 0 });
-
-        if (this.salaCodigo) {
-          try {
-            const pgId = this.env.PontosGlobaisDO.idFromName('pontos-globais');
-            const pgStub = this.env.PontosGlobaisDO.get(pgId);
-            pgStub.fetch(new Request('http://internal/registrar-evento-sala', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ salaCodigo: this.salaCodigo, tipo: 'casual', jogador: data.nome, evento: 'join' })
-            })).catch((err) => console.error('Falha ao registrar entrada casual:', err));
-          } catch {}
-        }
 
         session.ws.send(JSON.stringify({
           tipo: 'bem_vindo',
@@ -668,9 +622,6 @@ export class SalaCompetitivaDO {
       await this.carregarEstado();
     });
 
-    const url = new URL(request.url);
-    this.salaCodigo = url.searchParams.get('sala') || '';
-
     const webSocketPair = new WebSocketPair();
     const [client, server] = Object.values(webSocketPair);
 
@@ -700,17 +651,6 @@ export class SalaCompetitivaDO {
     webSocket.addEventListener('close', () => {
       const session = this.sessions.get(id);
       if (session && session.nome) {
-        if (this.salaCodigo) {
-          try {
-            const pgId = this.env.PontosGlobaisDO.idFromName('pontos-globais');
-            const pgStub = this.env.PontosGlobaisDO.get(pgId);
-            pgStub.fetch(new Request('http://internal/registrar-evento-sala', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ salaCodigo: this.salaCodigo, tipo: 'competitivo', jogador: session.nome, evento: 'leave' })
-            })).catch((err) => console.error('Falha ao registrar saída competitiva:', err));
-          } catch {}
-        }
         this.removerJogador(session.nome);
       }
       this.sessions.delete(id);
@@ -740,18 +680,6 @@ export class SalaCompetitivaDO {
         this.salaA.add(nome);
 
         await this.salvarEstado();
-
-        if (this.salaCodigo) {
-          try {
-            const pgId = this.env.PontosGlobaisDO.idFromName('pontos-globais');
-            const pgStub = this.env.PontosGlobaisDO.get(pgId);
-            pgStub.fetch(new Request('http://internal/registrar-evento-sala', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ salaCodigo: this.salaCodigo, tipo: 'competitivo', jogador: nome, evento: 'join' })
-            })).catch((err) => console.error('Falha ao registrar entrada competitiva:', err));
-          } catch {}
-        }
 
         session.ws.send(JSON.stringify({
           tipo: 'bem_vindo',
@@ -975,6 +903,7 @@ export class SalaCompetitivaDO {
 
       if (this.timerRodada) {
         clearTimeout(this.timerRodada);
+        this.timerRodada = null;
       }
 
       setTimeout(() => {
@@ -1059,7 +988,7 @@ export class SalaCompetitivaDO {
       eliminados: eliminados.map(j => j.nome),
       salaA: Array.from(this.salaA).map(nome => {
         const j = this.jogadores.get(nome);
-        return { nome: j.nome, pontos: j.pontos };
+        return { nome: j.nome, pontos: j.pontos, host: j.host };
       }),
       salaB: Array.from(this.salaB).map(nome => {
         const j = this.jogadores.get(nome);
@@ -1094,7 +1023,7 @@ export class SalaCompetitivaDO {
     this.resgatesPorResgatadorRodada.clear();
     this.resgatadosNaRodada.clear();
 
-    // consumiu gatilho
+    // consome gatilho
     this.aguardandoConversaEliminacao = false;
 
     const proximaEliminacao = this.getProximaEliminacao();
@@ -1498,7 +1427,6 @@ export class BancoDadosVerdadeiroFalsoDO extends BancoDadosDO {}
 // ============================================
 // DURABLE OBJECT: PONTOS GLOBAIS + RECOMPENSAS
 // ============================================
-// (restante do arquivo permanece igual ao seu atual)
 export class PontosGlobaisDO {
   constructor(state, env) {
     this.state = state;
@@ -1717,9 +1645,8 @@ export class PontosGlobaisDO {
     // NOVO: Admin - Listar salas
     if (path === '/admin/salas') {
       try {
-        const salas = await this.obterSalasAdmin();
         return new Response(JSON.stringify({
-          salas: salas
+          salas: []
         }), {
           headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
         });
@@ -1730,38 +1657,6 @@ export class PontosGlobaisDO {
         }), {
           status: 200,
           headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
-        });
-      }
-    }
-
-    // NOVO: Registrar sala (chamado pelo worker principal ao receber WebSocket)
-    if (path === '/registrar-sala' && request.method === 'POST') {
-      try {
-        const body = await request.json();
-        await this.registrarSala(body.codigo, body.tipo || 'casual');
-        return new Response(JSON.stringify({ sucesso: true }), {
-          headers: { 'Content-Type': 'application/json', ...corsHeaders }
-        });
-      } catch (erro) {
-        return new Response(JSON.stringify({ sucesso: false, erro: erro.message }), {
-          status: 400,
-          headers: { 'Content-Type': 'application/json', ...corsHeaders }
-        });
-      }
-    }
-
-    // NOVO: Registrar evento de sala (join/leave)
-    if (path === '/registrar-evento-sala' && request.method === 'POST') {
-      try {
-        const body = await request.json();
-        await this.registrarEventoSala(body.salaCodigo, body.tipo || 'casual', body.jogador, body.evento);
-        return new Response(JSON.stringify({ sucesso: true }), {
-          headers: { 'Content-Type': 'application/json', ...corsHeaders }
-        });
-      } catch (erro) {
-        return new Response(JSON.stringify({ sucesso: false, erro: erro.message }), {
-          status: 400,
-          headers: { 'Content-Type': 'application/json', ...corsHeaders }
         });
       }
     }
@@ -1866,33 +1761,8 @@ export class PontosGlobaisDO {
       CREATE TABLE IF NOT EXISTS jogadores (
         nome TEXT PRIMARY KEY,
         pontos INTEGER DEFAULT 0,
-        totalAcertos INTEGER DEFAULT 0,
-        totalErros INTEGER DEFAULT 0,
-        maiorSequencia INTEGER DEFAULT 0,
-        nivel TEXT DEFAULT 'Bronze',
-        dataCriacao TEXT DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-
-    this.sql.exec(`
-      CREATE TABLE IF NOT EXISTS resgates (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXT NOT NULL,
-        itemId INTEGER NOT NULL,
-        itemNome TEXT NOT NULL,
-        custo INTEGER NOT NULL,
-        dataResgate TEXT DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (nome) REFERENCES jogadores(nome)
-      )
-    `);
-
-    this.sql.exec(`
-      CREATE TABLE IF NOT EXISTS loja (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXT NOT NULL,
-        descricao TEXT NOT NULL,
-        custo INTEGER NOT NULL,
-        categoria TEXT NOT NULL
+        nivel INTEGER DEFAULT 1,
+        ultima_partida INTEGER DEFAULT 0
       )
     `);
 
@@ -1901,454 +1771,260 @@ export class PontosGlobaisDO {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         nome TEXT NOT NULL,
         faseNumero INTEGER NOT NULL,
-        pontosNormal INTEGER DEFAULT 0,
-        pontosBonus INTEGER DEFAULT 0,
         pontosTotal INTEGER DEFAULT 0,
+        pontosNormal INTEGER DEFAULT 0,
+        pontosBonusTotal INTEGER DEFAULT 0,
         categoria TEXT,
-        dataConclusao TEXT DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (nome) REFERENCES jogadores(nome)
+        data INTEGER DEFAULT 0
       )
     `);
 
-    // Migração: garantir coluna timestampMs em historico_fases
-    try {
-      const colsFases = this.sql.exec('PRAGMA table_info(historico_fases)').toArray().map(c => c.name);
-      if (!colsFases.includes('timestampMs')) {
-        this.sql.exec('ALTER TABLE historico_fases ADD COLUMN timestampMs INTEGER');
-      }
-    } catch (e) {
-      console.log('Migração timestampMs:', e.message);
-    }
+    this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS resgates (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL,
+        item TEXT NOT NULL,
+        custo INTEGER NOT NULL,
+        data INTEGER DEFAULT 0
+      )
+    `);
 
-    // NOVO: Tabela para histórico global de cartas usadas
+    this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS conquistas (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL,
+        conquista TEXT NOT NULL,
+        data INTEGER DEFAULT 0
+      )
+    `);
+
     this.sql.exec(`
       CREATE TABLE IF NOT EXISTS historico_cartas_globais (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        chaveKey TEXT NOT NULL UNIQUE,
-        dataSolicitacao TEXT DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-
-    // NOVO: Tabela de salas registradas (casual e competitivo)
-    this.sql.exec(`
-      CREATE TABLE IF NOT EXISTS salas (
-        codigo TEXT NOT NULL,
-        tipo TEXT NOT NULL DEFAULT 'casual',
-        criadaEm INTEGER NOT NULL,
-        ultimaVez INTEGER NOT NULL,
-        PRIMARY KEY (codigo, tipo)
-      )
-    `);
-
-    // NOVO: Tabela de eventos de jogadores em salas
-    this.sql.exec(`
-      CREATE TABLE IF NOT EXISTS eventos_sala (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        salaCodigo TEXT NOT NULL,
-        tipo TEXT NOT NULL DEFAULT 'casual',
-        jogador TEXT NOT NULL,
-        evento TEXT NOT NULL,
+        key TEXT NOT NULL,
         timestamp INTEGER NOT NULL
       )
     `);
 
-    const countLoja = this.sql.exec('SELECT COUNT(*) as total FROM loja').toArray()[0].total;
-    if (countLoja === 0) {
+    // índices
+    this.sql.exec('CREATE INDEX IF NOT EXISTS idx_hcg_ts ON historico_cartas_globais(timestamp)');
+    this.sql.exec('CREATE INDEX IF NOT EXISTS idx_hcg_key ON historico_cartas_globais(key)');
+
+    // loja
+    this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS loja (
+        item TEXT PRIMARY KEY,
+        custo INTEGER NOT NULL,
+        descricao TEXT NOT NULL
+      )
+    `);
+
+    // popula loja se vazia
+    const totalLoja = this.sql.exec('SELECT COUNT(*) as total FROM loja').toArray()[0].total;
+    if (totalLoja === 0) {
       await this.popularLoja();
     }
   }
 
   async obterPontos(nome) {
-    const nomeCanonical = this.obterNomeCanonical(nome);
-    if (!nomeCanonical) return 0;
+    const canon = this.obterNomeCanonical(nome);
+    if (!canon) return 0;
 
-    const result = this.sql.exec(
-      'SELECT pontos FROM jogadores WHERE nome = ?',
-      nomeCanonical
-    ).toArray();
-
-    if (result.length === 0) {
-      this.sql.exec('INSERT INTO jogadores (nome, pontos) VALUES (?, 0)', nomeCanonical);
-      return 0;
-    }
-
-    return result[0].pontos;
+    const result = this.sql.exec('SELECT pontos FROM jogadores WHERE nome = ? LIMIT 1', canon).toArray();
+    return result.length > 0 ? (result[0].pontos || 0) : 0;
   }
 
   async adicionarPontos(nome, pontos) {
-    const nomeCanonical = this.obterNomeCanonical(nome);
-    if (!nomeCanonical) {
-      throw new Error('Nome inválido para adicionar pontos');
-    }
+    const canon = this.obterNomeCanonical(nome);
+    if (!canon) throw new Error('Nome inválido');
 
     const pontosNumero = Number(pontos);
-    if (!Number.isFinite(pontosNumero) || pontosNumero <= 0) {
-      throw new Error('Valor de pontos inválido');
+    if (!Number.isFinite(pontosNumero) || pontosNumero < 0) throw new Error('Pontos inválidos');
+
+    const existente = this.sql.exec('SELECT pontos FROM jogadores WHERE nome = ? LIMIT 1', canon).toArray();
+    if (existente.length === 0) {
+      this.sql.exec('INSERT INTO jogadores (nome, pontos, nivel, ultima_partida) VALUES (?, ?, ?, ?)', canon, pontosNumero, 1, Date.now());
+    } else {
+      const novoTotal = (existente[0].pontos || 0) + pontosNumero;
+      this.sql.exec('UPDATE jogadores SET pontos = ?, ultima_partida = ? WHERE nome = ?', novoTotal, Date.now(), canon);
+      await this.atualizarNivel(canon, novoTotal);
     }
 
-    const atual = await this.obterPontos(nomeCanonical);
-    const novo = atual + pontosNumero;
-
-    this.sql.exec(
-      'UPDATE jogadores SET pontos = ? WHERE nome = ?',
-      novo,
-      nomeCanonical
-    );
-
-    await this.atualizarNivel(nomeCanonical, novo);
-
-    return {
-      nome: nomeCanonical,
-      pontosAnteriores: atual,
-      pontosAdicionados: pontosNumero,
-      pontosAtuais: novo,
-    };
+    const pontosAtual = await this.obterPontos(canon);
+    return { nome: canon, pontos: pontosAtual };
   }
 
   async adicionarPontosFase(nome, faseNumero, pontosTotal, pontosNormal, pontosBonusTotal, categoria) {
-    const nomeLimpo = String(nome || '').trim();
-    if (!nomeLimpo) {
-      throw new Error('Nome do jogador não pode estar vazio');
-    }
+    const canon = this.obterNomeCanonical(nome);
+    if (!canon) throw new Error('Nome inválido');
 
-    const pontosNumero = Number(pontosTotal);
-    if (!Number.isFinite(pontosNumero) || pontosNumero < 0) {
-      throw new Error(`Valor de pontos inválido: ${pontosTotal}`);
-    }
+    const fase = Number(faseNumero);
+    if (!Number.isFinite(fase) || fase < 0) throw new Error('Fase inválida');
 
-    const faseNum = Number(faseNumero);
-    if (!Number.isFinite(faseNum) || faseNum < 1 || faseNum > 10) {
-      throw new Error(`Número de fase inválido: ${faseNumero}`);
-    }
+    const pt = Number(pontosTotal) || 0;
+    const pn = Number(pontosNormal) || 0;
+    const pb = Number(pontosBonusTotal) || 0;
 
-    const atual = await this.obterPontos(nomeLimpo);
-    const nomeCanonical = this.obterNomeCanonical(nomeLimpo);
-
-    if (!nomeCanonical) {
-      throw new Error('Falha ao normalizar nome do jogador');
-    }
-
-    const novo = atual + pontosNumero;
+    const now = Date.now();
 
     this.sql.exec(
-      'UPDATE jogadores SET pontos = ? WHERE nome = ?',
-      novo,
-      nomeCanonical
+      'INSERT INTO historico_fases (nome, faseNumero, pontosTotal, pontosNormal, pontosBonusTotal, categoria, data) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      canon, fase, pt, pn, pb, categoria || null, now
     );
 
-    await this.atualizarNivel(nomeCanonical, novo);
+    const existente = this.sql.exec('SELECT pontos FROM jogadores WHERE nome = ? LIMIT 1', canon).toArray();
+    if (existente.length === 0) {
+      this.sql.exec('INSERT INTO jogadores (nome, pontos, nivel, ultima_partida) VALUES (?, ?, ?, ?)', canon, pt, 1, now);
+      await this.atualizarNivel(canon, pt);
+    } else {
+      const novoTotal = (existente[0].pontos || 0) + pt;
+      this.sql.exec('UPDATE jogadores SET pontos = ?, ultima_partida = ? WHERE nome = ?', novoTotal, now, canon);
+      await this.atualizarNivel(canon, novoTotal);
+    }
 
-    this.sql.exec(
-      `INSERT INTO historico_fases (nome, faseNumero, pontosNormal, pontosBonus, pontosTotal, categoria, timestampMs)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      nomeCanonical,
-      faseNum,
-      Number(pontosNormal) || 0,
-      Number(pontosBonusTotal) || 0,
-      pontosNumero,
-      categoria || 'personagens',
-      Date.now()
-    );
-
-    console.log(`✅ [WORKER] Fase ${faseNum} salva para ${nomeCanonical}: +${pontosNumero} pontos (Total: ${novo})`);
-
-    return {
-      nome: nomeCanonical,
-      faseNumero: faseNum,
-      pontosAnteriores: atual,
-      pontosAdicionados: pontosNumero,
-      pontosAtuais: novo,
-      mensagem: `Fase ${faseNum} registrada com sucesso`
-    };
+    const pontosAtual = await this.obterPontos(canon);
+    return { nome: canon, pontos: pontosAtual };
   }
 
   async obterCartasRecentesGlobais() {
-    // Remove cartas com mais de 1 hora
-    const umaHoraAtras = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+    const agora = Date.now();
+    const umaHoraAtras = agora - (60 * 60 * 1000);
 
-    this.sql.exec(
-      `DELETE FROM historico_cartas_globais WHERE dataSolicitacao < ?`,
+    const rows = this.sql.exec(
+      'SELECT key, timestamp FROM historico_cartas_globais WHERE timestamp > ? ORDER BY timestamp ASC',
       umaHoraAtras
-    );
-
-    // Retorna as cartas recentes (máximo 100)
-    const result = this.sql.exec(
-      `SELECT chaveKey FROM historico_cartas_globais ORDER BY dataSolicitacao DESC LIMIT 100`
     ).toArray();
 
-    return result.map(r => r.chaveKey);
+    // migração/dedup in-memory (garante padronização)
+    const historico = { cartas: rows.map(r => ({ key: r.key, timestamp: r.timestamp })) };
+    const migrado = migrarHistoricoParaKeys(historico, agora);
+    return migrado.map(x => x.key);
   }
 
   async registrarCartasGlobais(chaves) {
-    if (!Array.isArray(chaves) || chaves.length === 0) {
-      return { registradas: 0 };
+    const agora = Date.now();
+    const input = Array.isArray(chaves) ? chaves : [];
+
+    const keys = input
+      .map(v => normalizarParaKey(v))
+      .filter(Boolean);
+
+    if (keys.length === 0) return { registradas: 0 };
+
+    for (const key of keys) {
+      this.sql.exec(
+        'INSERT INTO historico_cartas_globais (key, timestamp) VALUES (?, ?)',
+        key,
+        agora
+      );
     }
 
-    let registradas = 0;
-    for (const chave of chaves) {
-      if (!chave || typeof chave !== 'string') continue;
+    // limpa mais antigas que 1h
+    const umaHoraAtras = agora - (60 * 60 * 1000);
+    this.sql.exec('DELETE FROM historico_cartas_globais WHERE timestamp <= ?', umaHoraAtras);
 
-      try {
-        // INSERT OR IGNORE para evitar duplicatas
-        this.sql.exec(
-          `INSERT OR IGNORE INTO historico_cartas_globais (chaveKey) VALUES (?)`,
-          chave
-        );
-        registradas++;
-      } catch (e) {
-        console.log(`Falha ao registrar carta ${chave}:`, e.message);
-      }
-    }
-
-    console.log(`✅ [WORKER] ${registradas} cartas registradas no histórico global`);
-
-    return { registradas };
+    return { registradas: keys.length };
   }
 
   async limparCartasGlobais() {
-    try {
-      this.sql.exec('DELETE FROM historico_cartas_globais');
-      console.log('✅ [WORKER] Histórico global de cartas limpo');
-      return { sucesso: true, mensagem: 'Histórico global limpo com sucesso' };
-    } catch (e) {
-      throw new Error(`Falha ao limpar histórico: ${e.message}`);
-    }
+    this.sql.exec('DELETE FROM historico_cartas_globais');
+    return { removidas: true };
   }
 
   async atualizarNivel(nome, pontos) {
-    let nivel = 'Bronze';
-    if (pontos >= 5000) nivel = 'Mestre';
-    else if (pontos >= 2000) nivel = 'Diamante';
-    else if (pontos >= 1000) nivel = 'Ouro';
-    else if (pontos >= 500) nivel = 'Prata';
-
-    this.sql.exec(
-      'UPDATE jogadores SET nivel = ? WHERE nome = ?',
-      nivel,
-      nome
-    );
+    const p = Number(pontos) || 0;
+    // regra simples: nível a cada 100 pontos
+    const nivel = Math.max(1, Math.floor(p / 100) + 1);
+    this.sql.exec('UPDATE jogadores SET nivel = ? WHERE nome = ?', nivel, nome);
+    return nivel;
   }
 
   async obterRanking() {
-    const result = this.sql.exec(
-      'SELECT nome, pontos, nivel FROM jogadores ORDER BY pontos DESC LIMIT 100'
-    ).toArray();
-
-    return result;
+    return this.sql.exec('SELECT nome, pontos, nivel FROM jogadores ORDER BY pontos DESC LIMIT 50').toArray();
   }
 
   async obterJogadoresCompletos() {
-    const jogadores = this.sql.exec(`
-      SELECT 
-        j.nome, 
-        j.pontos, 
-        j.nivel, 
-        MAX(hf.timestampMs) as ultimaPartidaEm,
-        (SELECT hf2.pontosTotal FROM historico_fases hf2 WHERE hf2.nome = j.nome ORDER BY hf2.id DESC LIMIT 1) as ultimaPontuacao,
-        COUNT(hf.id) as totalPartidas
-      FROM jogadores j
-      LEFT JOIN historico_fases hf ON j.nome = hf.nome
-      WHERE j.pontos > 0
-      GROUP BY j.nome
-      ORDER BY j.pontos DESC
-    `).toArray();
-
-    return jogadores.map(j => ({
-      nome: j.nome,
-      pontos: j.pontos,
-      nivel: j.nivel,
-      ultimaPartidaEm: j.ultimaPartidaEm || null,
-      ultimaPontuacao: j.ultimaPontuacao != null ? j.ultimaPontuacao : null,
-      totalPartidas: j.totalPartidas || 0
-    }));
-  }
-
-  async registrarSala(codigo, tipo) {
-    const agora = Date.now();
-    this.sql.exec(
-      `INSERT INTO salas (codigo, tipo, criadaEm, ultimaVez) VALUES (?, ?, ?, ?)
-       ON CONFLICT(codigo, tipo) DO UPDATE SET ultimaVez = excluded.ultimaVez`,
-      codigo, tipo, agora, agora
-    );
-  }
-
-  async registrarEventoSala(salaCodigo, tipo, jogador, evento) {
-    const agora = Date.now();
-    this.sql.exec(
-      `INSERT INTO eventos_sala (salaCodigo, tipo, jogador, evento, timestamp) VALUES (?, ?, ?, ?, ?)`,
-      salaCodigo, tipo, jogador, evento, agora
-    );
-  }
-
-  async obterSalasAdmin() {
-    const salas = this.sql.exec(`
-      SELECT s.codigo, s.tipo, s.criadaEm, s.ultimaVez,
-        GROUP_CONCAT(DISTINCT es.jogador) as jogadoresStr
-      FROM salas s
-      LEFT JOIN eventos_sala es ON s.codigo = es.salaCodigo AND s.tipo = es.tipo AND es.evento = 'join'
-      GROUP BY s.codigo, s.tipo
-      ORDER BY s.ultimaVez DESC
-    `).toArray();
-
-    return salas.map(s => {
-      const jogadoresUnicos = s.jogadoresStr
-        ? [...new Set(s.jogadoresStr.split(',').filter(Boolean))]
-        : [];
-      return {
-        codigo: s.codigo,
-        tipo: s.tipo,
-        criadaEm: s.criadaEm,
-        ultimaVez: s.ultimaVez,
-        jogadoresRecentes: jogadoresUnicos,
-        jogadoresUnicos: jogadoresUnicos.length
-      };
-    });
+    return this.sql.exec('SELECT nome, pontos, nivel, ultima_partida FROM jogadores ORDER BY ultima_partida DESC LIMIT 200').toArray();
   }
 
   async obterPerfil(nome) {
-    const jogador = this.sql.exec(
-      'SELECT * FROM jogadores WHERE nome = ?',
-      nome
-    ).toArray();
+    const canon = this.obterNomeCanonical(nome);
+    if (!canon) return { nome: '', pontos: 0, nivel: 1, historico: [], resgates: [] };
 
-    if (jogador.length === 0) {
-      return { erro: 'Jogador não encontrado' };
-    }
+    const jogador = this.sql.exec('SELECT nome, pontos, nivel, ultima_partida FROM jogadores WHERE nome = ? LIMIT 1', canon).toArray()[0]
+      || { nome: canon, pontos: 0, nivel: 1, ultima_partida: 0 };
+
+    const historico = this.sql.exec(
+      'SELECT faseNumero, pontosTotal, pontosNormal, pontosBonusTotal, categoria, data FROM historico_fases WHERE nome = ? ORDER BY data DESC LIMIT 50',
+      canon
+    ).toArray();
 
     const resgates = this.sql.exec(
-      'SELECT itemId, itemNome, custo, dataResgate FROM resgates WHERE nome = ? ORDER BY dataResgate DESC',
-      nome
+      'SELECT item, custo, data FROM resgates WHERE nome = ? ORDER BY data DESC LIMIT 50',
+      canon
     ).toArray();
 
-    return {
-      ...jogador[0],
-      resgates
-    };
+    const conquistas = this.sql.exec(
+      'SELECT conquista, data FROM conquistas WHERE nome = ? ORDER BY data DESC LIMIT 50',
+      canon
+    ).toArray();
+
+    return { jogador, historico, resgates, conquistas };
   }
 
   async obterLoja() {
-    const itens = this.sql.exec(
-      'SELECT * FROM loja ORDER BY categoria, custo'
-    ).toArray();
-
+    const itens = this.sql.exec('SELECT item, custo, descricao FROM loja ORDER BY custo ASC').toArray();
     return { itens };
   }
 
   async resgatarItem(nome, item, custo) {
-    const pontosAtuais = await this.obterPontos(nome);
+    const canon = this.obterNomeCanonical(nome);
+    if (!canon) throw new Error('Nome inválido');
 
-    if (pontosAtuais < custo) {
-      return { erro: 'Pontos insuficientes' };
-    }
+    const it = String(item || '').trim();
+    if (!it) throw new Error('Item inválido');
 
-    const novoPontos = pontosAtuais - custo;
-    this.sql.exec(
-      'UPDATE jogadores SET pontos = ? WHERE nome = ?',
-      novoPontos,
-      nome
-    );
+    const custoNum = Number(custo);
+    if (!Number.isFinite(custoNum) || custoNum < 0) throw new Error('Custo inválido');
 
-    this.sql.exec(
-      'INSERT INTO resgates (nome, itemId, itemNome, custo) VALUES (?, ?, ?, ?)',
-      nome,
-      item.id,
-      item.nome,
-      custo
-    );
+    const jogador = this.sql.exec('SELECT pontos FROM jogadores WHERE nome = ? LIMIT 1', canon).toArray();
+    if (jogador.length === 0) throw new Error('Jogador não encontrado');
 
-    return {
-      sucesso: true,
-      pontosRestantes: novoPontos,
-      itemResgatado: item.nome
-    };
+    const pontosAtual = jogador[0].pontos || 0;
+    if (pontosAtual < custoNum) throw new Error('Pontos insuficientes');
+
+    const novoTotal = pontosAtual - custoNum;
+    this.sql.exec('UPDATE jogadores SET pontos = ? WHERE nome = ?', novoTotal, canon);
+    await this.atualizarNivel(canon, novoTotal);
+
+    this.sql.exec('INSERT INTO resgates (nome, item, custo, data) VALUES (?, ?, ?, ?)', canon, it, custoNum, Date.now());
+
+    return { sucesso: true, nome: canon, pontos: novoTotal };
   }
 
   async obterConquistas(nome) {
-    const resgates = this.sql.exec(
-      'SELECT itemNome, dataResgate FROM resgates WHERE nome = ? ORDER BY dataResgate DESC',
-      nome
-    ).toArray();
+    const canon = this.obterNomeCanonical(nome);
+    if (!canon) return [];
 
-    return resgates;
+    const rows = this.sql.exec('SELECT conquista, data FROM conquistas WHERE nome = ? ORDER BY data DESC LIMIT 200', canon).toArray();
+    return rows;
   }
 
   async popularLoja() {
     const itens = [
-      { nome: '🏆 Troféu Bronze', descricao: 'Seu primeiro troféu!', custo: 50, categoria: 'trofeu' },
-      { nome: '🏆 Troféu Prata', descricao: 'Dominando o conhecimento', custo: 100, categoria: 'trofeu' },
-      { nome: '🏆 Troféu Ouro', descricao: 'Expert bíblico!', custo: 200, categoria: 'trofeu' },
-      { nome: '🏆 Troféu Diamante', descricao: 'Mestre das Escrituras', custo: 500, categoria: 'trofeu' },
-      { nome: '⭐ Badge Iniciante', descricao: 'Primeiros passos', custo: 30, categoria: 'badge' },
-      { nome: '⭐ Badge Estudioso', descricao: 'Dedicação exemplar', custo: 80, categoria: 'badge' },
-      { nome: '⭐ Badge Mestre', descricao: 'Conhecimento profundo', custo: 150, categoria: 'badge' },
-      { nome: '⭐ Badge Legendário', descricao: 'Lenda viva!', custo: 300, categoria: 'badge' },
-      { nome: '👑 Título: Sábio', descricao: 'Reconhecido pela sabedoria', custo: 100, categoria: 'titulo' },
-      { nome: '👑 Título: Doutor', descricao: 'PhD em conhecimento bíblico', custo: 250, categoria: 'titulo' },
-      { nome: '👑 Título: Professor', descricao: 'Ensine aos outros', custo: 400, categoria: 'titulo' },
-      { nome: '🎨 Avatar Especial 1', descricao: 'Destaque-se na sala', custo: 75, categoria: 'avatar' },
-      { nome: '🎨 Avatar Especial 2', descricao: 'Estilo único', custo: 120, categoria: 'avatar' },
-      { nome: '🎨 Avatar Premium', descricao: 'Exclusivo e raro', custo: 300, categoria: 'avatar' },
-      { nome: '🎁 Bônus +50 Pontos', descricao: 'Impulso instantâneo', custo: 25, categoria: 'bonus' },
-      { nome: '🎁 Bônus +100 Pontos', descricao: 'Grande impulso', custo: 50, categoria: 'bonus' },
-      { nome: '🎁 Bônus +500 Pontos', descricao: 'Mega impulso!', custo: 200, categoria: 'bonus' },
+      { item: 'Dica Extra', custo: 50, descricao: 'Ganhe 1 dica extra em uma rodada (solo).' },
+      { item: 'Pular Pergunta', custo: 80, descricao: 'Pule uma carta e vá para a próxima (solo).' },
+      { item: 'Tema Especial', custo: 120, descricao: 'Desbloqueia um tema especial (em breve).' },
     ];
 
-    for (const item of itens) {
-      this.sql.exec(
-        'INSERT INTO loja (nome, descricao, custo, categoria) VALUES (?, ?, ?, ?)',
-        item.nome,
-        item.descricao,
-        item.custo,
-        item.categoria
-      );
+    for (const it of itens) {
+      this.sql.exec('INSERT OR REPLACE INTO loja (item, custo, descricao) VALUES (?, ?, ?)', it.item, it.custo, it.descricao);
     }
   }
 }
 
 function paginaInicial() {
-  return `
-🎯 QUEM SOU EU? - Backend v4.2 COM HISTÓRICO GLOBAL PADRONIZADO (KEYS)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Status: ✅ ONLINE
-Paleta: 🎨 JW.ORG (Azul #4A6DA7)
-
-📡 ENDPOINTS:
-
-WebSocket Multiplayer Casual:
-  wss://[seu-worker].workers.dev/ws?sala=CODIGO
-
-WebSocket Competitivo (Sala A vs B):
-  wss://[seu-worker].workers.dev/ws-competitivo?sala=CODIGO
-
-API REST - Pontos:
-  GET  /pontos/:nome               → Pontos globais do jogador
-  POST /adicionar                  → Adicionar pontos
-  GET  /ranking                    → Top 100 jogadores
-
-API REST - Cartas:
-  GET  /cartas/:categoria          → Cartas da categoria
-  POST /cartas/:categoria/popular  → Popular cartas
-
-API REST - Histórico Global:
-  GET  /cartas-recentes            → KEYS usadas recentemente (global)
-  POST /registrar-cartas           → Registrar KEYS usadas
-  POST /limpar-historico           → Limpar histórico (admin)
-
-🎮 MODOS DE JOGO:
-  • Solo (com memória global)
-  • Multiplayer Casual
-  • Multiplayer Competitivo (Sala A vs B)
-
-���� MEMÓRIA GLOBAL DE CARTAS:
-  • Todos jogadores compartilham histórico
-  • Auto-limpeza: 1 hora
-  • Máximo: 100 cartas no histórico
-  • Evita repetição de cartas recentes
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Desenvolvido com ❤️ para JW.ORG
-`;
+  return `QUEM SOU EU? - Backend ativo`;
 }
 
 // Compatibilidade retroativa
