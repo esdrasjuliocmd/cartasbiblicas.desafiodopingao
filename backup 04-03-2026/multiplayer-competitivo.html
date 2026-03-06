@@ -1,0 +1,2034 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>🏆 Modo Competitivo - Quem Sou Eu?</title>
+  <style>
+    :root {
+      --jw-azul-principal: #4A6DA7;
+      --jw-azul-escuro: #1E3A5F;
+      --jw-azul-claro: #6B9BD1;
+      --jw-cinza-claro: #F5F5F5;
+      --jw-cinza-medio: #E0E0E0;
+      --jw-cinza-escuro: #333333;
+      --jw-branco: #FFFFFF;
+      --jw-laranja: #F47920;
+      --jw-verde-sucesso: #5CB85C;
+      --jw-vermelho-erro: #D9534F;
+      --jw-amarelo-aviso: #F0AD4E;
+      --whatsapp-verde: #25D366;
+      --whatsapp-bg: #ECE5DD;
+      --whatsapp-minha: #DCF8C6;
+      --whatsapp-outro: #FFFFFF;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, var(--jw-azul-escuro) 0%, var(--jw-azul-principal) 100%);
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: 10px;
+      padding-bottom: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto 20px auto;
+      background: var(--jw-branco);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+
+    .header {
+      background: var(--jw-azul-principal);
+      color: var(--jw-branco);
+      padding: 20px 15px;
+      text-align: center;
+    }
+
+    .header h1 { font-size: 1.6rem; margin-bottom: 5px; }
+    .header p { font-size: 0.9rem; }
+
+    .content {
+      padding: 20px 15px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .tela {
+      display: none;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .tela.ativa {
+      display: block;
+      animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================
+       TELA DE JOGO
+       ============================================ */
+    #tela-jogo {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      display: flex;
+      flex-direction: column;
+      padding: 5px 10px !important;
+      gap: 8px;
+    }
+
+    #tela-jogo > * { flex-shrink: 0; }
+
+    #tela-jogo .rodada-info { padding: 6px; font-size: 0.9rem; margin-bottom: 6px; }
+    #tela-jogo .placar { padding: 8px; margin: 6px 0; max-height: 90px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    #tela-jogo .placar h3 { font-size: 0.85rem; margin-bottom: 6px; }
+    #tela-jogo .status-item { padding: 5px 8px; margin: 3px 0; font-size: 0.8rem; }
+    #tela-jogo .placar-item { padding: 5px 8px; margin: 3px 0; font-size: 0.8rem; }
+
+    #tela-jogo .carta-jogo {
+      padding: 10px 8px;
+      margin: 6px 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #tela-jogo .carta-jogo h2 { font-size: 1.1rem; margin-bottom: 6px; }
+    #tela-jogo .timer { padding: 6px; font-size: 1.3rem; margin: 6px 0; }
+
+    #tela-jogo .dica { padding: 8px; margin: 4px 0; font-size: 0.82rem; line-height: 1.2; }
+
+    #tela-jogo .alternativas-container {
+      gap: 6px;
+      margin: 6px 0;
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    #tela-jogo .alternativa-btn {
+      padding: 8px;
+      min-height: 45px;
+      max-height: 55px;
+      font-size: 0.85rem;
+      gap: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    #tela-jogo .alternativa-btn .letra {
+      width: 32px;
+      height: 32px;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+
+    #tela-jogo .alternativa-btn .texto {
+      flex: 1;
+      font-size: 0.9rem;
+      line-height: 1.2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    /* OUTRAS TELAS */
+    #tela-lobby,
+    #tela-conversa,
+    #tela-pulando,
+    #tela-sala-b,
+    #tela-final,
+    #tela-entrada {
+      overflow-y: auto !important;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 20px;
+    }
+
+    .input-group { margin: 15px 0; }
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: var(--jw-azul-principal);
+      font-size: 0.95rem;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 14px;
+      font-size: 1.05rem;
+      border: 2px solid var(--jw-azul-principal);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .btn {
+      padding: 14px 20px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+      margin: 8px 0;
+      touch-action: manipulation;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background: var(--jw-azul-principal); color: var(--jw-branco); }
+    .btn-success { background: var(--jw-verde-sucesso); color: var(--jw-branco); }
+    .btn-danger { background: var(--jw-vermelho-erro); color: var(--jw-branco); }
+    .btn-small { padding: 10px 16px; font-size: 0.9rem; width: auto; display: inline-block; }
+
+    .sala-info {
+      background: var(--jw-cinza-claro);
+      padding: 18px 15px;
+      border-radius: 12px;
+      margin: 15px 0;
+      text-align: center;
+    }
+
+    .sala-codigo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--jw-azul-principal);
+      letter-spacing: 4px;
+      margin: 10px 0;
+    }
+
+    .jogadores-lista {
+      background: var(--jw-cinza-claro);
+      border-radius: 12px;
+      padding: 15px;
+      margin: 15px 0;
+    }
+
+    .jogador-item {
+      background: var(--jw-branco);
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 4px solid var(--jw-azul-principal);
+      font-size: 0.95rem;
+    }
+
+    .jogador-item.anfitriao {
+      border-left-color: var(--jw-laranja);
+      background: linear-gradient(90deg, #FFF7ED 0%, var(--jw-branco) 100%);
+    }
+
+    .carta-jogo {
+      background: linear-gradient(135deg, var(--jw-azul-claro), var(--jw-azul-principal));
+      color: var(--jw-branco);
+      border-radius: 12px;
+      padding: 18px 15px;
+      margin: 15px 0;
+    }
+
+    .timer {
+      background: var(--jw-laranja);
+      color: var(--jw-branco);
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+
+    .rodada-info {
+      background: var(--jw-azul-escuro);
+      color: var(--jw-branco);
+      padding: 12px;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+      border-radius: 8px;
+    }
+
+    .dica {
+      background: rgba(255,255,255,0.2);
+      border-radius: 8px;
+      padding: 14px;
+      margin: 12px 0;
+      font-size: 1rem;
+      line-height: 1.5;
+      backdrop-filter: blur(10px);
+    }
+    .dica.bloqueada { opacity: 0.3; filter: blur(3px); }
+
+    .alternativas-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin: 15px 0;
+    }
+
+    .alternativa-btn {
+      background: var(--jw-cinza-claro);
+      border: 3px solid var(--jw-branco);
+      border-radius: 12px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1rem;
+      text-align: left;
+      color: var(--jw-azul-escuro);
+      touch-action: manipulation;
+      min-height: 60px;
+    }
+    .alternativa-btn:active { transform: scale(0.98); }
+
+    .alternativa-btn .letra {
+      background: var(--jw-azul-principal);
+      color: var(--jw-branco);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .alternativa-btn .texto { flex: 1; font-weight: 500; word-break: break-word; }
+
+    .alternativa-btn.correta {
+      background: var(--jw-verde-sucesso) !important;
+      color: var(--jw-branco);
+      border-color: var(--jw-verde-sucesso);
+      animation: pulsar 0.5s;
+    }
+    .alternativa-btn.correta .letra { background: var(--jw-branco); color: var(--jw-verde-sucesso); }
+
+    .alternativa-btn.errada {
+      background: var(--jw-vermelho-erro) !important;
+      color: var(--jw-branco);
+      border-color: var(--jw-vermelho-erro);
+      animation: shake 0.5s;
+    }
+    .alternativa-btn.errada .letra { background: var(--jw-branco); color: var(--jw-vermelho-erro); }
+
+    @keyframes pulsar { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+
+    .placar {
+      background: var(--jw-cinza-claro);
+      border-radius: 12px;
+      padding: 15px;
+      margin: 15px 0;
+    }
+    .placar h3 { color: var(--jw-azul-principal); margin-bottom: 12px; font-size: 1.1rem; }
+
+    .placar-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      margin: 6px 0;
+      background: var(--jw-branco);
+      border-radius: 6px;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      margin: 6px 0;
+      background: var(--jw-branco);
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+    .status-item.respondeu { border-left: 4px solid var(--jw-verde-sucesso); }
+    .status-item.pensando { border-left: 4px solid var(--jw-amarelo-aviso); }
+
+    /* CHAT */
+    .chat-whatsapp {
+      background: var(--whatsapp-bg);
+      border-radius: 12px;
+      padding: 15px;
+      margin: 15px 0;
+      display: flex !important;
+      flex-direction: column;
+      min-height: 350px;
+      max-height: 450px;
+    }
+
+    .chat-whatsapp h3 {
+      color: var(--jw-azul-principal);
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+      text-align: center;
+      background: var(--jw-branco);
+      padding: 8px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .chat-messages {
+      display: flex !important;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 10px;
+      min-height: 200px;
+      max-height: 320px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      flex: 1;
+      background: rgba(255,255,255,0.3);
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .chat-bubble {
+      max-width: 75%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      position: relative;
+      word-wrap: break-word;
+      animation: slideUp 0.2s;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .chat-bubble.minha {
+      align-self: flex-end;
+      background: var(--whatsapp-minha);
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-bubble.outro {
+      align-self: flex-start;
+      background: var(--whatsapp-outro);
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .chat-bubble .nome {
+      font-weight: bold;
+      font-size: 0.85rem;
+      color: var(--jw-azul-principal);
+      margin-bottom: 3px;
+    }
+
+    .chat-bubble .texto {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: var(--jw-cinza-escuro);
+    }
+
+    .chat-bubble .hora {
+      font-size: 0.7rem;
+      color: #999;
+      text-align: right;
+      margin-top: 3px;
+    }
+
+    .chat-bubble.sistema {
+      align-self: center;
+      background: var(--jw-amarelo-aviso);
+      max-width: 90%;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: var(--jw-azul-escuro);
+      border-radius: 20px;
+    }
+
+    .chat-input-whatsapp {
+      display: flex !important;
+      gap: 8px;
+      margin-top: 10px;
+      background: var(--jw-branco);
+      padding: 8px;
+      border-radius: 25px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+
+    .chat-input-whatsapp input {
+      flex: 1;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      background: var(--jw-cinza-claro);
+    }
+
+    .chat-input-whatsapp input:focus {
+      outline: none;
+      background: var(--jw-branco);
+      box-shadow: inset 0 0 0 2px var(--jw-azul-claro);
+    }
+
+    .chat-input-whatsapp button {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: var(--whatsapp-verde);
+      color: var(--jw-branco);
+      border: none;
+      cursor: pointer;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
+      flex-shrink: 0;
+    }
+
+    .chat-input-whatsapp button:active { transform: scale(0.95); }
+
+    .notificacao {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      background: var(--jw-verde-sucesso);
+      color: var(--jw-branco);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      z-index: 9999;
+      animation: slideDown 0.3s;
+      font-size: 0.95rem;
+      word-wrap: break-word;
+    }
+
+    .notificacao.erro { background: var(--jw-vermelho-erro); }
+    .notificacao.aviso { background: var(--jw-amarelo-aviso); color: var(--jw-azul-escuro); }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .versiculo {
+      background: var(--jw-azul-claro);
+      color: var(--jw-branco);
+      padding: 15px;
+      border-radius: 10px;
+      margin: 15px 0;
+      font-style: italic;
+      text-align: center;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .vencedores { text-align: center; padding: 20px; }
+
+    .vencedor-item {
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .vencedor-item:nth-child(2) { background: linear-gradient(135deg, #C0C0C0, #A9A9A9); }
+    .vencedor-item:nth-child(3) { background: linear-gradient(135deg, #CD7F32, #8B4513); }
+
+    .aviso-lobby {
+      background: var(--jw-amarelo-aviso);
+      color: var(--jw-azul-escuro);
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      margin: 15px 0;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    h2, h3 { color: var(--jw-azul-principal); }
+
+    .btn, .alternativa-btn {
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    /* ============================================
+       MODO SALA B (ASSISTINDO)
+       ============================================ */
+    body.sala-b-spectator {
+      background: linear-gradient(135deg, #b88a00 0%, #f0ad4e 100%) !important;
+    }
+
+    #tela-jogo.sala-b-spectator {
+      filter: grayscale(0.35) brightness(0.95);
+    }
+
+    #tela-jogo.sala-b-spectator .carta-jogo {
+      background: linear-gradient(135deg, #f6c76a, #f0ad4e) !important;
+      color: #1E3A5F !important;
+    }
+
+    #tela-jogo.sala-b-spectator .alternativa-btn {
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    #aviso-sala-b-assistindo {
+      display: none;
+      background: rgba(255,255,255,0.92);
+      border: 2px solid rgba(30,58,95,0.25);
+      color: #1E3A5F;
+      padding: 10px 12px;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: bold;
+      margin: 8px 0 10px 0;
+      font-size: 0.9rem;
+    }
+
+    #tela-jogo.sala-b-spectator #aviso-sala-b-assistindo { display: block; }
+
+    /* UI CLEANUP */
+    .linha-info {
+      background: rgba(30,58,95,0.08);
+      border: 1px solid rgba(30,58,95,0.15);
+      color: var(--jw-azul-escuro);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .linha-info strong { color: var(--jw-azul-principal); }
+
+    .painel-colapsavel {
+      background: var(--jw-cinza-claro);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--jw-cinza-medio);
+    }
+
+    .painel-colapsavel summary {
+      list-style: none;
+      cursor: pointer;
+      user-select: none;
+      padding: 10px 12px;
+      font-weight: bold;
+      color: var(--jw-azul-principal);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .painel-colapsavel summary::-webkit-details-marker { display: none; }
+    .painel-colapsavel summary .seta { transition: transform 0.15s ease; font-size: 0.9rem; opacity: 0.8; }
+    .painel-colapsavel[open] summary .seta { transform: rotate(180deg); }
+    .painel-colapsavel .conteudo {
+      padding: 8px 10px 10px 10px;
+      border-top: 1px solid var(--jw-cinza-medio);
+      background: rgba(255,255,255,0.7);
+    }
+
+    /* HOST UI */
+    .host-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(74, 109, 167, 0.25);
+      border-radius: 12px;
+      padding: 10px;
+      margin: 10px 0 12px 0;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    .host-bar .host-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-weight: 900;
+      color: var(--jw-azul-escuro);
+    }
+
+    .host-bar .host-title small {
+      font-weight: 800;
+      color: var(--jw-azul-principal);
+      opacity: 0.9;
+    }
+
+    .btn-host-start {
+      background: linear-gradient(135deg, #34c759, #22a94f) !important;
+      color: #fff !important;
+      font-size: 1.15rem !important;
+      padding: 16px 18px !important;
+      border-radius: 14px !important;
+      box-shadow: 0 10px 22px rgba(34, 169, 79, 0.25);
+      border: none !important;
+    }
+
+    .host-hint {
+      font-size: 0.86rem;
+      color: var(--jw-azul-escuro);
+      background: rgba(74, 109, 167, 0.08);
+      border: 1px dashed rgba(74,109,167,0.35);
+      padding: 10px 10px;
+      border-radius: 10px;
+      margin-top: 8px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .categorias-mini {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .categoria-mini {
+      background: var(--jw-cinza-claro);
+      border: 2px solid rgba(74,109,167,0.35);
+      padding: 10px 8px;
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      font-weight: 900;
+      font-size: 0.78rem;
+      line-height: 1.15;
+      color: var(--jw-azul-escuro);
+    }
+    .categoria-mini:active { transform: scale(0.98); }
+    .categoria-mini.selecionada {
+      background: var(--jw-azul-principal);
+      color: #fff;
+      border-color: var(--jw-azul-principal);
+    }
+
+    body.host-mode #tela-lobby .aviso-lobby { display: none; }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🏆 MODO COMPETITIVO</h1>
+      <p>Sistema Sala A vs B</p>
+      <button id="btn-som" onclick="toggleSom()" style="margin-top: 8px; background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.5); border-radius: 20px; padding: 4px 14px; cursor: pointer; font-size: 0.85rem; touch-action: manipulation;">🔇 SOM</button>
+    </div>
+
+    <div class="content">
+
+      <!-- TELA 1: ENTRADA -->
+      <div id="tela-entrada" class="tela ativa">
+        <h2 style="text-align: center; margin-bottom: 20px; font-size: 1.4rem;">
+          Modo Competitivo! 🏆
+        </h2>
+
+        <div class="input-group">
+          <label>Seu Nome:</label>
+          <input type="text" id="input-nome" placeholder="Digite seu nome..." maxlength="20" />
+        </div>
+
+        <button class="btn btn-success" id="btn-criar-sala" onclick="criarSala()">
+          ✨ CRIAR NOVA SALA
+        </button>
+
+        <div style="text-align: center; margin: 15px 0; color: var(--jw-cinza-escuro); font-weight: bold;">
+          OU
+        </div>
+
+        <div class="input-group">
+          <label>Código da Sala (6 caracteres):</label>
+          <input type="text" id="input-sala" placeholder="Ex: ABC123" maxlength="6" style="text-transform: uppercase;" />
+        </div>
+
+        <button class="btn btn-primary" onclick="entrarSala()">
+          🚪 Entrar na Sala
+        </button>
+
+        <button class="btn btn-danger" onclick="voltarInicio()">
+          ← Voltar ao Menu
+        </button>
+      </div>
+
+      <!-- TELA 2: LOBBY COM CHAT -->
+      <div id="tela-lobby" class="tela">
+        <div class="sala-info">
+          <h3 style="margin-bottom: 8px;">Código da Sala:</h3>
+          <div class="sala-codigo" id="sala-codigo-display">------</div>
+
+          <button class="btn btn-success" onclick="compartilharWhatsApp()" style="margin-top: 12px;">
+            📱 Compartilhar
+          </button>
+        </div>
+
+        <!-- HOST -->
+        <div id="config-anfitriao" style="display: none;">
+          <div class="host-bar">
+            <div class="host-title">
+              <div>👑 Painel do Anfitrião</div>
+              <small>Controle da sala</small>
+            </div>
+
+            <button class="btn btn-success btn-host-start" onclick="iniciarJogo()">
+              🎮 INICIAR JOGO AGORA
+            </button>
+
+            <div class="host-hint" id="host-hint">
+              ⏳ <strong>Importante (Anfitrião):</strong><br>
+              • Aguarde todos entrarem na sala antes de iniciar.<br>
+              • Você é o responsável por iniciar o jogo.<br>
+              • Nas rodadas de eliminação (Sala de Conversa), <strong>você precisa apertar “CONTINUAR JOGO”</strong>.
+            </div>
+
+            <div style="margin-top: 10px; font-weight: 900; color: var(--jw-azul-principal);">
+              📚 Categoria:
+            </div>
+
+            <div class="categorias-mini" id="categorias-mini">
+              <div class="categoria-mini selecionada" onclick="selecionarCategoriaMini('personagens', event)">👤<br>PERSON</div>
+              <div class="categoria-mini" onclick="selecionarCategoriaMini('profecias', event)">📜<br>PROF</div>
+              <div class="categoria-mini" onclick="selecionarCategoriaMini('pregacao', event)">🎯<br>PREG</div>
+              <div class="categoria-mini" onclick="selecionarCategoriaMini('desenho', event)">🎨<br>DES</div>
+              <div class="categoria-mini" onclick="selecionarCategoriaMini('mimica', event)">🎭<br>MIM</div>
+              <div class="categoria-mini" onclick="selecionarCategoriaMini('verdadeirofalso', event)">✅❌<br>V/F</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin: 15px 0; font-size: 1.1rem;">
+          👥 Jogadores (<span id="total-jogadores">0</span>):
+        </h3>
+
+        <div class="jogadores-lista" id="jogadores-lista"></div>
+
+        <div class="aviso-lobby">
+          💬 Bata papo enquanto o Anfitrião inicia a partida
+        </div>
+
+        <div class="chat-whatsapp">
+          <h3>💬 Chat da Sala</h3>
+          <div class="chat-messages" id="chat-lobby"></div>
+          <div class="chat-input-whatsapp">
+            <input type="text" id="input-chat-lobby" placeholder="Digite uma mensagem..." />
+            <button onclick="enviarChatLobby()">📤</button>
+          </div>
+        </div>
+
+        <button class="btn btn-danger" onclick="sairSala()">
+          ← Sair da Sala
+        </button>
+      </div>
+
+      <!-- TELA 3: JOGO -->
+      <div id="tela-jogo" class="tela">
+        <div class="rodada-info">
+          <span id="rodada-atual">Rodada 1</span> de <span id="rodada-total">100</span>
+        </div>
+
+        <div class="linha-info">
+          <div>📌 <strong>Próxima eliminação:</strong> <span id="proxima-eliminacao">—</span></div>
+          <div>🎯 <strong>Seus pontos:</strong> <span id="meus-pontos-mini">0</span></div>
+        </div>
+
+        <div id="aviso-sala-b-assistindo">
+          📚 Você está na SALA B (assistindo) — aguarde ser resgatado para voltar a responder.
+        </div>
+
+        <details class="painel-colapsavel" id="painel-status">
+          <summary>📊 Status dos jogadores <span class="seta">▾</span></summary>
+          <div class="conteudo">
+            <div id="status-jogadores" class="placar"></div>
+          </div>
+        </details>
+
+        <div class="carta-jogo">
+          <h2 style="margin-bottom: 6px; font-size: 1.1rem;">❓ QUEM SOU EU?</h2>
+          <div class="timer" id="timer-jogo">60s</div>
+
+          <div class="dica" id="dica1-jogo">
+            <strong>DICA 1:</strong> 🔒 Aguarde...
+          </div>
+          <div class="dica bloqueada" id="dica2-jogo">
+            <strong>DICA 2:</strong> 🔒 Aguarde...
+          </div>
+          <div class="dica bloqueada" id="dica3-jogo">
+            <strong>DICA 3:</strong> 🔒 Aguarde...
+          </div>
+
+          <div class="alternativas-container" id="alternativas-container"></div>
+        </div>
+
+        <details class="painel-colapsavel" id="painel-placar">
+          <summary>📊 Placar da rodada <span class="seta">▾</span></summary>
+          <div class="conteudo">
+            <div id="placar-lista" class="placar"></div>
+          </div>
+        </details>
+      </div>
+
+      <!-- TELA 4: SALA B -->
+      <div id="tela-sala-b" class="tela">
+        <div class="versiculo">
+          📚 Você está na SALA B<br>
+          🎓 "Continue estudando!"
+        </div>
+
+        <div style="text-align: center; margin: 15px 0;">
+          <h2 style="font-size: 1.4rem;">Seus pontos: <span id="pontos-sala-b">0</span></h2>
+          <p style="color: var(--jw-cinza-escuro); margin-top: 8px; font-size: 0.9rem;">
+            🙏 Aguarde ser resgatado!
+          </p>
+        </div>
+
+        <div class="rodada-info">
+          <span id="rodada-sala-b">Rodada 1</span> de <span id="rodada-total-b">100</span>
+        </div>
+      </div>
+
+      <!-- TELA 5: CONVERSA -->
+      <div id="tela-conversa" class="tela">
+        <div style="background: var(--jw-amarelo-aviso); padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 15px;">
+          <h2 style="color: var(--jw-azul-escuro); font-size: 1.3rem;">⏸️ SALA DE CONVERSA</h2>
+          <p style="margin-top: 8px; font-size: 0.9rem;">🎯 Pausa estratégica - Resgates permitidos!</p>
+        </div>
+
+        <div id="aviso-host-conversa" style="display:none; background: rgba(74,109,167,0.12); border: 1px dashed rgba(74,109,167,0.45); padding: 12px; border-radius: 10px; margin-bottom: 12px; color: var(--jw-azul-escuro); font-size: 0.9rem; font-weight: 700;">
+          👑 <strong>Anfitrião:</strong> quando todos terminarem, clique em <strong>“CONTINUAR JOGO”</strong>.
+        </div>
+
+        <div class="chat-whatsapp">
+          <h3>💬 Chat Geral (Sala A + B)</h3>
+          <div class="chat-messages" id="chat-conversa"></div>
+          <div class="chat-input-whatsapp">
+            <input type="text" id="input-chat-conversa" placeholder="Negocie, ajude..." />
+            <button onclick="enviarChatConversa()">📤</button>
+          </div>
+        </div>
+
+        <div class="placar">
+          <h3>👥 SALA A (Ativos):</h3>
+          <div id="lista-sala-a-conversa"></div>
+        </div>
+
+        <div class="placar" id="sala-b-resgates" style="display: none;">
+          <h3 style="color: var(--jw-vermelho-erro);">📚 SALA B - Resgates:</h3>
+          <div id="lista-sala-b-conversa"></div>
+        </div>
+
+        <div class="versiculo">
+          🤝 "Melhor é serem dois do que um"<br>
+          💚 Ao resgatar: -5 pontos + pula rodada
+        </div>
+
+        <button class="btn btn-success" id="btn-continuar-anfitriao" onclick="continuarJogo()" style="display: none;">
+          ▶️ CONTINUAR JOGO (ANFITRIÃO)
+        </button>
+
+        <p style="text-align: center; color: var(--jw-cinza-escuro); margin-top: 15px; font-size: 0.9rem;" id="msg-aguardando-anfitriao">
+          ⏳ Aguardando o Anfitrião...
+        </p>
+      </div>
+
+      <!-- TELA 6: PULANDO -->
+      <div id="tela-pulando" class="tela">
+        <div style="background: var(--jw-amarelo-aviso); padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 20px;">
+          <h2 style="color: var(--jw-azul-escuro); font-size: 1.3rem;">⏭️ VOCÊ ESTÁ PULANDO</h2>
+          <p style="margin-top: 10px; font-size: 0.95rem;">
+            🤝 Você resgatou um amigo!
+          </p>
+        </div>
+
+        <div class="versiculo">
+          💚 "O amigo verdadeiro ama em todos os momentos"
+        </div>
+
+        <div class="rodada-info">
+          <span id="rodada-pulando">Rodada 5</span> de <span id="rodada-total-pulando">100</span>
+        </div>
+
+        <p style="text-align: center; color: var(--jw-verde-sucesso); font-size: 1.1rem; font-weight: bold; margin-top: 15px;">
+          ⏱️ Próxima rodada você volta!
+        </p>
+      </div>
+
+      <!-- TELA 7: FINAL -->
+      <div id="tela-final" class="tela">
+        <div style="text-align: center; padding: 25px; background: linear-gradient(135deg, var(--jw-azul-claro), var(--jw-azul-principal)); color: white; border-radius: 12px; margin-bottom: 20px;">
+          <h1 style="font-size: 2.5rem; margin-bottom: 15px;">🎉 FIM!</h1>
+          <p style="font-size: 1.1rem;" id="info-final">100 Rodadas!</p>
+        </div>
+
+        <div class="vencedores" id="vencedores-lista">
+          <h2 style="margin-bottom: 15px; font-size: 1.3rem;">🏆 CAMPEÕES!</h2>
+          <h3 style="color: var(--jw-verde-sucesso); margin-bottom: 12px; font-size: 1.1rem;">👑 SALA A - Vencedores:</h3>
+          <div id="lista-vencedores"></div>
+        </div>
+
+        <div class="placar" id="sala-b-final" style="display: none;">
+          <h3 style="color: var(--jw-vermelho-erro);">📚 SALA B:</h3>
+          <div id="lista-sala-b-final"></div>
+        </div>
+
+        <div style="background: var(--jw-cinza-claro); padding: 15px; border-radius: 10px; margin: 20px 0;">
+          <h3 style="margin-bottom: 12px; font-size: 1.1rem;">📊 Estatísticas:</h3>
+          <div id="estatisticas-final"></div>
+        </div>
+
+        <button class="btn btn-success" onclick="jogarNovamente()">
+          🎮 JOGAR NOVAMENTE
+        </button>
+
+        <button class="btn btn-primary" onclick="voltarInicio()">
+          🏠 MENU PRINCIPAL
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script>
+    console.log('VERSAO UI:', 'dicas-fix-v1', 'build:', '2026-03-02');
+
+    const API_BASE = window.APP_CONFIG.API_BASE;
+    const WS_BASE = API_BASE.replace(/^https:/, 'wss:').replace(/^http:/, 'ws:');
+
+    let ws = null;
+    let nomeJogador = '';
+    let salaAtual = '';
+    let categoriaSelecionada = 'personagens';
+    let meuEstado = 'sala-a';
+    let souAnfitriao = false;
+    let rodadaAtual = 0;
+
+    let rodadaTotal = 100;
+
+    let timerInterval = null;
+    let tempoRestante = 60;
+    let respondeu = false;
+    let todosJogadores = [];
+    let salaAJogadores = [];
+    let salaBJogadores = []; // string[] nomes
+    let meusPontos = 0;
+    let alternativasAtuais = [];
+    let respostaCorretaIndex = -1;
+
+    // ✅ Dicas
+    let dicasLiberadas = 1;
+    let dica2Timeout = null;
+    let dica3Timeout = null;
+
+    // ✅ Guarda carta da rodada para evitar "dicas de outra carta"
+    let cartaRodadaAtual = null; // {dica1,dica2,dica3,resposta}
+    let rodadaToken = 0;         // token crescente por rodada (anti-timeout velho)
+
+    // ✅ Controle: abrir sala_conversa somente quando houve eliminação
+    let teveEliminacaoNaPausa = false;
+
+    // ✅ anti-duplicação
+    let conversaAberta = false;
+    let continuarJogoProcessado = false;
+    let ultimaRodadaProcessada = 0;
+
+    // SONS
+    let somAtivado = false;
+    let audioCtx = null;
+
+    function inicializarAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function tocarTom(freq, duracao, delay = 0, tipo = 'sine', vol = 0.3) {
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.type = tipo;
+      osc.frequency.value = freq;
+      const t = audioCtx.currentTime + delay;
+      gain.gain.setValueAtTime(vol, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + duracao);
+      osc.start(t);
+      osc.stop(t + duracao + 0.05);
+    }
+
+    function tocarSom(tipo) {
+      if (!somAtivado || !audioCtx) return;
+      const sons = {
+        inicio_rodada: [[440, 0.12], [550, 0.15, 0.12]],
+        dica:          [[660, 0.08]],
+        acerto:        [[523, 0.1], [659, 0.1, 0.1], [784, 0.2, 0.2]],
+        erro:          [[200, 0.3, 0, 'sawtooth', 0.25]],
+        eliminacao:    [[300, 0.2], [200, 0.3, 0.2]],
+        fim_jogo:      [[784, 0.15], [880, 0.15, 0.15], [988, 0.3, 0.3]]
+      };
+      const seq = sons[tipo];
+      if (!seq) return;
+      seq.forEach(args => tocarTom(...args));
+    }
+
+    function toggleSom() {
+      inicializarAudio();
+      somAtivado = !somAtivado;
+      const btn = document.getElementById('btn-som');
+      if (btn) btn.textContent = somAtivado ? '🔊 SOM' : '🔇 SOM';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const salaUrl = urlParams.get('sala');
+      const nomeUrl = urlParams.get('nome');
+
+      if (salaUrl) {
+        document.getElementById('input-sala').value = salaUrl;
+        document.getElementById('btn-criar-sala').style.display = 'none';
+        if (nomeUrl) document.getElementById('input-nome').value = nomeUrl;
+      }
+
+      document.getElementById('input-chat-lobby').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') enviarChatLobby();
+      });
+
+      document.getElementById('input-chat-conversa').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') enviarChatConversa();
+      });
+    });
+
+    function ativarModoSalaBSpectator() {
+      document.body.classList.add('sala-b-spectator');
+      const telaJogo = document.getElementById('tela-jogo');
+      if (telaJogo) telaJogo.classList.add('sala-b-spectator');
+    }
+
+    function desativarModoSalaBSpectator() {
+      document.body.classList.remove('sala-b-spectator');
+      const telaJogo = document.getElementById('tela-jogo');
+      if (telaJogo) telaJogo.classList.remove('sala-b-spectator');
+    }
+
+    function ativarModoHostUI() { document.body.classList.add('host-mode'); }
+    function desativarModoHostUI() { document.body.classList.remove('host-mode'); }
+
+    function selecionarCategoriaMini(categoria, evt) {
+      categoriaSelecionada = categoria;
+
+      document.querySelectorAll('#categorias-mini .categoria-mini').forEach(card => {
+        card.classList.remove('selecionada');
+      });
+
+      const el = evt?.target?.closest?.('.categoria-mini') || window.event?.target?.closest?.('.categoria-mini');
+      if (el) el.classList.add('selecionada');
+    }
+
+    function criarSala() {
+      nomeJogador = document.getElementById('input-nome').value.trim();
+      if (!nomeJogador || nomeJogador.length < 2) {
+        alert('Digite seu nome antes de criar a sala!');
+        return;
+      }
+      salaAtual = gerarCodigoSala();
+      souAnfitriao = true;
+      conectarWebSocket();
+    }
+
+    function gerarCodigoSala() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let codigo = '';
+      for (let i = 0; i < 6; i++) codigo += chars[Math.floor(Math.random() * chars.length)];
+      return codigo;
+    }
+
+    function entrarSala() {
+      nomeJogador = document.getElementById('input-nome').value.trim();
+      salaAtual = document.getElementById('input-sala').value.trim().toUpperCase();
+
+      if (!nomeJogador || nomeJogador.length < 2) {
+        alert('Digite um nome válido!');
+        return;
+      }
+      if (!salaAtual || salaAtual.length !== 6) {
+        alert('Digite um código de sala válido (6 caracteres)!');
+        return;
+      }
+
+      souAnfitriao = false;
+      conectarWebSocket();
+    }
+
+    function conectarWebSocket() {
+      const wsUrl = `${WS_BASE}/ws-competitivo?sala=${salaAtual}`;
+      console.log('🔌 Conectando ao WebSocket:', wsUrl);
+
+      ws = new WebSocket(wsUrl);
+
+      ws.onopen = () => {
+        console.log('✅ Conectado ao servidor competitivo!');
+        document.getElementById('sala-codigo-display').textContent = salaAtual;
+
+        mostrarTela('tela-lobby');
+
+        ws.send(JSON.stringify({
+          tipo: 'entrar',
+          nome: nomeJogador,
+          host: souAnfitriao
+        }));
+      };
+
+      ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        handleWebSocketMessage(data);
+      };
+
+      ws.onerror = (error) => {
+        console.error('❌ Erro WebSocket:', error);
+        alert('Erro ao conectar. Tente novamente!');
+      };
+
+      ws.onclose = () => console.log('🔴 Desconectado');
+    }
+
+    function handleWebSocketMessage(data) {
+      console.log('📨 Mensagem recebida:', data);
+
+      switch (data.tipo) {
+        case 'bem_vindo':
+          atualizarLobby(data);
+          break;
+
+        case 'jogador_entrou':
+          mostrarNotificacao(`${data.nome} entrou na sala! 👋`, 'sucesso');
+          if (data.jogadores) {
+            todosJogadores = data.jogadores;
+            atualizarListaJogadoresLobby();
+          }
+          break;
+
+        case 'jogador_saiu':
+          mostrarNotificacao(`${data.nome} saiu da sala.`, 'aviso');
+          break;
+
+        case 'host_mudou':
+          souAnfitriao = (data.novoHost === nomeJogador);
+          mostrarNotificacao(`${data.novoHost} agora é o Anfitrião 👑`, 'aviso');
+          if (data.jogadores) {
+            todosJogadores = data.jogadores;
+            atualizarListaJogadoresLobby();
+          }
+          // atualiza host UI
+          if (souAnfitriao) ativarModoHostUI(); else desativarModoHostUI();
+          break;
+
+        case 'jogo_iniciado':
+          iniciarJogoLocal(data);
+          break;
+
+        case 'nova_rodada':
+          if (Number.isFinite(data.rodada) && data.rodada <= ultimaRodadaProcessada) {
+            console.warn('⚠️ Ignorando nova_rodada duplicada:', data.rodada);
+            break;
+          }
+          if (Number.isFinite(data.rodada)) ultimaRodadaProcessada = data.rodada;
+
+          teveEliminacaoNaPausa = false;
+          conversaAberta = false;
+          continuarJogoProcessado = false;
+
+          iniciarRodadaLocal(data);
+          break;
+
+        case 'resposta_registrada':
+          registrarResposta(data);
+          break;
+
+        case 'fim_rodada':
+          finalizarRodada(data);
+          break;
+
+        case 'eliminacao':
+          teveEliminacaoNaPausa = true;
+          processarEliminacao(data);
+          break;
+
+        case 'sala_conversa':
+          if (!teveEliminacaoNaPausa) {
+            console.warn('⚠️ Ignorando sala_conversa (sem eliminacao nesta pausa)');
+            if (souAnfitriao && ws && ws.readyState === WebSocket.OPEN) {
+              ws.send(JSON.stringify({ tipo: 'continuar_jogo', nome: nomeJogador }));
+            }
+            break;
+          }
+          if (conversaAberta) {
+            console.warn('⚠️ Ignorando sala_conversa duplicada');
+            break;
+          }
+          conversaAberta = true;
+          entrarSalaConversa(data);
+          break;
+
+        case 'resgate_realizado':
+          processarResgate(data);
+          break;
+
+        case 'continuar_jogo':
+          if (continuarJogoProcessado) {
+            console.warn('⚠️ Ignorando continuar_jogo duplicado');
+            break;
+          }
+          continuarJogoProcessado = true;
+          voltarAoJogo();
+          break;
+
+        case 'fim_jogo':
+          mostrarTelaFinal(data);
+          break;
+
+        case 'chat':
+          adicionarMensagemChat(data);
+          break;
+
+        case 'chat_sistema':
+          adicionarMensagemSistema(data.mensagem);
+          break;
+      }
+    }
+
+    function atualizarLobby(data) {
+      todosJogadores = data.jogadores || [];
+      atualizarListaJogadoresLobby();
+
+      if (souAnfitriao) {
+        document.getElementById('config-anfitriao').style.display = 'block';
+        ativarModoHostUI();
+      } else {
+        document.getElementById('config-anfitriao').style.display = 'none';
+        desativarModoHostUI();
+      }
+    }
+
+    function atualizarListaJogadoresLobby() {
+      const lista = document.getElementById('jogadores-lista');
+      lista.innerHTML = '';
+
+      todosJogadores.forEach(jogador => {
+        const item = document.createElement('div');
+        item.className = 'jogador-item' + (jogador.host ? ' anfitriao' : '');
+
+        const icone = jogador.host ? '👑 ' : '';
+        const label = jogador.host ? ' (ANFITRIÃO)' : '';
+
+        item.innerHTML = `
+          <span style="font-weight: bold;">${icone}${jogador.nome}${label}</span>
+          <span>${jogador.pontos || 0} pts</span>
+        `;
+
+        lista.appendChild(item);
+      });
+
+      document.getElementById('total-jogadores').textContent = todosJogadores.length;
+    }
+
+    function iniciarJogo() {
+      if (!souAnfitriao) return;
+      if (todosJogadores.length < 2) {
+        alert('Aguarde pelo menos 2 jogadores!');
+        return;
+      }
+
+      ws.send(JSON.stringify({
+        tipo: 'iniciar_jogo',
+        categoria: categoriaSelecionada
+      }));
+    }
+
+    function limparTimersDicas() {
+      if (dica2Timeout) clearTimeout(dica2Timeout);
+      if (dica3Timeout) clearTimeout(dica3Timeout);
+      dica2Timeout = null;
+      dica3Timeout = null;
+    }
+
+    function iniciarJogoLocal(data) {
+      rodadaTotal = Number.isFinite(data.totalRodadas) ? data.totalRodadas : 100;
+      rodadaAtual = 0;
+      meusPontos = 0;
+
+      meuEstado = 'sala-a';
+      salaBJogadores = [];
+      desativarModoSalaBSpectator();
+
+      teveEliminacaoNaPausa = false;
+      conversaAberta = false;
+      continuarJogoProcessado = false;
+      ultimaRodadaProcessada = 0;
+
+      limparTimersDicas();
+      cartaRodadaAtual = null;
+      rodadaToken = 0;
+
+      const elPts = document.getElementById('meus-pontos-mini');
+      if (elPts) elPts.textContent = meusPontos;
+
+      const elProx = document.getElementById('proxima-eliminacao');
+      if (elProx) elProx.textContent = '—';
+
+      mostrarNotificacao(`🎮 Jogo iniciado! ${rodadaTotal} rodadas`, 'sucesso');
+
+      document.getElementById('rodada-total').textContent = rodadaTotal;
+      document.getElementById('rodada-total-b').textContent = rodadaTotal;
+      document.getElementById('rodada-total-pulando').textContent = rodadaTotal;
+    }
+
+    function iniciarRodadaLocal(data) {
+      // ✅ Anti-bug: cancela timeouts/intervalos da rodada anterior
+      limparTimersDicas();
+      if (timerInterval) clearInterval(timerInterval);
+
+      rodadaAtual = data.rodada;
+      respondeu = false;
+      tempoRestante = 60;
+      dicasLiberadas = 1;
+
+      // ✅ salva carta desta rodada e gera token (pra timeout antigo não mexer)
+      cartaRodadaAtual = data.carta ? {
+        dica1: data.carta.dica1,
+        dica2: data.carta.dica2,
+        dica3: data.carta.dica3,
+        resposta: data.carta.resposta
+      } : null;
+      rodadaToken++;
+
+      tocarSom('inicio_rodada');
+
+      const elProx = document.getElementById('proxima-eliminacao');
+      if (elProx) {
+        const prox = data.proximaEliminacao;
+        elProx.textContent = (prox && Number.isFinite(prox.rodada))
+          ? `Rodada ${prox.rodada}${Number.isFinite(prox.quantidade) ? ` (x${prox.quantidade})` : ''}`
+          : '—';
+      }
+
+      const elPts = document.getElementById('meus-pontos-mini');
+      if (elPts) elPts.textContent = meusPontos;
+
+      const painelStatus = document.getElementById('painel-status');
+      const painelPlacar = document.getElementById('painel-placar');
+      if (painelStatus) painelStatus.open = false;
+      if (painelPlacar) painelPlacar.open = false;
+
+      if (meuEstado === 'sala-b') ativarModoSalaBSpectator();
+      else desativarModoSalaBSpectator();
+
+      const estouPulando = Array.isArray(data.jogadoresPulando) && data.jogadoresPulando.includes(nomeJogador);
+      if (estouPulando) {
+        meuEstado = 'pulando';
+        mostrarTela('tela-pulando');
+        document.getElementById('rodada-pulando').textContent = `Rodada ${rodadaAtual}`;
+        return;
+      } else if (meuEstado === 'pulando') {
+        meuEstado = 'sala-a';
+      }
+
+      mostrarTela('tela-jogo');
+      document.getElementById('rodada-atual').textContent = `Rodada ${rodadaAtual}`;
+
+      // ✅ DICAS NA ORDEM CORRETA (sempre da cartaRodadaAtual)
+      const dica1 = document.getElementById('dica1-jogo');
+      const dica2 = document.getElementById('dica2-jogo');
+      const dica3 = document.getElementById('dica3-jogo');
+
+      dica1.innerHTML = `<strong>DICA 1:</strong> ${cartaRodadaAtual?.dica1 ?? '...'}`;
+      dica1.classList.remove('bloqueada');
+
+      dica2.innerHTML = '<strong>DICA 2:</strong> 🔒 Aguarde...';
+      dica2.classList.add('bloqueada');
+
+      dica3.innerHTML = '<strong>DICA 3:</strong> 🔒 Aguarde...';
+      dica3.classList.add('bloqueada');
+
+      document.getElementById('placar-lista').innerHTML = '';
+
+      atualizarStatusJogadores();
+
+      if (categoriaSelecionada === 'verdadeirofalso') gerarAlternativasVerdadeiroFalso();
+      else gerarAlternativas(cartaRodadaAtual);
+
+      const tokenLocal = rodadaToken;
+
+      dica2Timeout = setTimeout(() => {
+        // ✅ só libera se ainda for a mesma rodada e não respondeu
+        if (tokenLocal !== rodadaToken) return;
+        if (respondeu) return;
+        if (!cartaRodadaAtual) return;
+
+        dica2.innerHTML = `<strong>DICA 2:</strong> ${cartaRodadaAtual.dica2}`;
+        dica2.classList.remove('bloqueada');
+        dicasLiberadas = Math.max(dicasLiberadas, 2);
+        tocarSom('dica');
+      }, 20000);
+
+      dica3Timeout = setTimeout(() => {
+        if (tokenLocal !== rodadaToken) return;
+        if (respondeu) return;
+        if (!cartaRodadaAtual) return;
+
+        dica3.innerHTML = `<strong>DICA 3:</strong> ${cartaRodadaAtual.dica3}`;
+        dica3.classList.remove('bloqueada');
+        dicasLiberadas = Math.max(dicasLiberadas, 3);
+        tocarSom('dica');
+      }, 40000);
+
+      document.getElementById('timer-jogo').textContent = `${tempoRestante}s`;
+      timerInterval = setInterval(() => {
+        tempoRestante--;
+        document.getElementById('timer-jogo').textContent = `${tempoRestante}s`;
+        if (tempoRestante <= 0) clearInterval(timerInterval);
+      }, 1000);
+    }
+
+    function atualizarStatusJogadores() {
+      const container = document.getElementById('status-jogadores');
+      if (!container) return;
+
+      container.innerHTML = '';
+      const jogadoresSalaA = todosJogadores.filter(j => !salaBJogadores.includes(j.nome));
+
+      jogadoresSalaA.forEach(jogador => {
+        const item = document.createElement('div');
+        item.className = 'status-item pensando';
+        item.id = `status-${jogador.nome}`;
+        item.innerHTML = `
+          <span>${jogador.nome}</span>
+          <span style="color: var(--jw-amarelo-aviso); font-weight: bold;">⏳ Pensando...</span>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function gerarAlternativasVerdadeiroFalso() {
+      const container = document.getElementById('alternativas-container');
+      container.innerHTML = '';
+
+      alternativasAtuais = ['Verdadeiro', 'Falso'];
+      respostaCorretaIndex = -1;
+
+      const opcoes = [
+        { label: 'V', texto: 'VERDADEIRO', valor: 'Verdadeiro' },
+        { label: 'F', texto: 'FALSO', valor: 'Falso' }
+      ];
+
+      opcoes.forEach((op, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'alternativa-btn';
+        btn.innerHTML = `
+          <span class="letra">${op.label}</span>
+          <span class="texto">${op.texto}</span>
+        `;
+        btn.onclick = () => selecionarAlternativaVerdadeiroFalso(op.valor, index);
+        container.appendChild(btn);
+      });
+    }
+
+    function selecionarAlternativaVerdadeiroFalso(valor, indexBtn) {
+      if (respondeu) return;
+      if (meuEstado === 'sala-b') return;
+
+      respondeu = true;
+      limparTimersDicas();
+      clearInterval(timerInterval);
+
+      const botoes = document.querySelectorAll('.alternativa-btn');
+
+      ws.send(JSON.stringify({
+        tipo: 'responder',
+        nome: nomeJogador,
+        resposta: valor,
+        tempo: tempoRestante,
+        dicas: dicasLiberadas
+      }));
+
+      botoes[indexBtn].classList.add('correta');
+      botoes.forEach(btn => { btn.style.pointerEvents = 'none'; btn.style.opacity = '0.7'; });
+    }
+
+    function gerarAlternativas(carta) {
+      const container = document.getElementById('alternativas-container');
+      container.innerHTML = '';
+
+      // ✅ usa sempre a resposta da cartaRodadaAtual (evita mismatch)
+      const respostaCorreta = carta?.resposta ?? '';
+      const respostasErradas = gerarRespostasErradas(respostaCorreta);
+
+      respostaCorretaIndex = Math.floor(Math.random() * 4);
+      alternativasAtuais = [];
+
+      for (let i = 0; i < 4; i++) {
+        if (i === respostaCorretaIndex) alternativasAtuais.push(respostaCorreta);
+        else alternativasAtuais.push(respostasErradas.shift());
+      }
+
+      const letras = ['A', 'B', 'C', 'D'];
+      alternativasAtuais.forEach((alternativa, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'alternativa-btn';
+        btn.innerHTML = `
+          <span class="letra">${letras[index]}</span>
+          <span class="texto">${alternativa}</span>
+        `;
+        btn.onclick = () => selecionarAlternativa(index);
+        container.appendChild(btn);
+      });
+    }
+
+    function gerarRespostasErradas(respostaCorreta) {
+      const alternativasGenericas = [
+        'Abraão', 'Moisés', 'Davi', 'Salomão', 'Jesus', 'Pedro', 'Paulo',
+        'João', 'Maria', 'José', 'Noé', 'Elias', 'Isaías', 'Daniel',
+        'Ester', 'Rute', 'Ana', 'Samuel', 'Josué', 'Gideão', 'Jeremias',
+        'Ezequiel', 'Jó', 'Adão', 'Eva', 'Caim', 'Abel', 'Jacó', 'Raquel'
+      ];
+
+      const erradas = [];
+      while (erradas.length < 3) {
+        const random = alternativasGenericas[Math.floor(Math.random() * alternativasGenericas.length)];
+        if (random !== respostaCorreta && !erradas.includes(random)) erradas.push(random);
+      }
+      return erradas;
+    }
+
+    function selecionarAlternativa(index) {
+      if (respondeu) return;
+      if (meuEstado === 'sala-b') return;
+
+      respondeu = true;
+      limparTimersDicas();
+      clearInterval(timerInterval);
+
+      const botoes = document.querySelectorAll('.alternativa-btn');
+      const respostaSelecionada = alternativasAtuais[index];
+
+      ws.send(JSON.stringify({
+        tipo: 'responder',
+        nome: nomeJogador,
+        resposta: respostaSelecionada,
+        tempo: tempoRestante,
+        dicas: dicasLiberadas
+      }));
+
+      if (index === respostaCorretaIndex) {
+        botoes[index].classList.add('correta');
+        mostrarNotificacao('✅ CORRETO!', 'sucesso');
+        tocarSom('acerto');
+      } else {
+        botoes[index].classList.add('errada');
+        if (botoes[respostaCorretaIndex]) botoes[respostaCorretaIndex].classList.add('correta');
+        mostrarNotificacao('❌ ERRADO!', 'erro');
+        tocarSom('erro');
+      }
+
+      botoes.forEach(btn => { btn.style.pointerEvents = 'none'; btn.style.opacity = '0.7'; });
+    }
+
+    function registrarResposta(data) {
+      const statusItem = document.getElementById(`status-${data.nome}`);
+      if (statusItem) {
+        const emoji = data.acertou ? '✅' : '❌';
+        const status = data.acertou ? 'ACERTOU!' : 'ERROU';
+        const cor = data.acertou ? 'var(--jw-verde-sucesso)' : 'var(--jw-vermelho-erro)';
+
+        statusItem.className = 'status-item respondeu';
+        statusItem.innerHTML = `
+          <span>${data.nome}</span>
+          <span style="color: ${cor}; font-weight: bold;">${emoji} ${status}</span>
+        `;
+      }
+
+      const placar = document.getElementById('placar-lista');
+      const item = document.createElement('div');
+      item.className = 'placar-item';
+
+      const emoji = data.acertou ? '✅' : '❌';
+      const cor = data.acertou ? 'var(--jw-verde-sucesso)' : 'var(--jw-vermelho-erro)';
+
+      item.innerHTML = `
+        <span>${data.nome}</span>
+        <span style="color: ${cor}; font-weight: bold;">${emoji} ${data.pontos} pts</span>
+      `;
+      placar.appendChild(item);
+
+      if (data.nome === nomeJogador) {
+        meusPontos += data.pontos;
+        const elPts = document.getElementById('meus-pontos-mini');
+        if (elPts) elPts.textContent = meusPontos;
+      }
+    }
+
+    function finalizarRodada(data) {
+      clearInterval(timerInterval);
+      limparTimersDicas();
+
+      if (meuEstado === 'sala-a') {
+        mostrarNotificacao(`Resposta: ${data.respostaCorreta}`, 'aviso');
+      }
+    }
+
+    function nomesFromLista(lista) {
+      if (!Array.isArray(lista)) return [];
+      return lista
+        .map(item => (typeof item === 'string') ? item : (item?.nome ?? null))
+        .filter(Boolean);
+    }
+
+    function processarEliminacao(data) {
+      const eliminados = nomesFromLista(data.eliminados);
+
+      salaAJogadores = data.salaA || [];
+      salaBJogadores = nomesFromLista(data.salaB);
+
+      if (eliminados.includes(nomeJogador)) {
+        meuEstado = 'sala-b';
+        ativarModoSalaBSpectator();
+        mostrarNotificacao('📚 Você foi para SALA B! Continue estudando!', 'aviso');
+        const el = document.getElementById('pontos-sala-b');
+        if (el) el.textContent = meusPontos;
+        tocarSom('eliminacao');
+      }
+
+      eliminados.forEach(nome => {
+        if (nome !== nomeJogador) mostrarNotificacao(`📚 ${nome} foi para SALA B`, 'aviso');
+      });
+    }
+
+    function entrarSalaConversa(data) {
+      mostrarTela('tela-conversa');
+
+      salaAJogadores = data.salaA || [];
+      salaBJogadores = nomesFromLista(data.salaB);
+
+      const avisoHost = document.getElementById('aviso-host-conversa');
+      if (avisoHost) avisoHost.style.display = souAnfitriao ? 'block' : 'none';
+
+      const listaSalaA = document.getElementById('lista-sala-a-conversa');
+      listaSalaA.innerHTML = '';
+
+      salaAJogadores.forEach(jogador => {
+        const item = document.createElement('div');
+        item.className = 'placar-item';
+
+        const icone = jogador.host ? '👑 ' : '🟢 ';
+        const eu = jogador.nome === nomeJogador ? ' (VOCÊ)' : '';
+
+        item.innerHTML = `
+          <span>${icone}${jogador.nome}${eu}</span>
+          <span style="font-weight: bold;">${jogador.pontos} pts</span>
+        `;
+        listaSalaA.appendChild(item);
+      });
+
+      if (salaBJogadores.length > 0) {
+        document.getElementById('sala-b-resgates').style.display = 'block';
+
+        const listaSalaB = document.getElementById('lista-sala-b-conversa');
+        listaSalaB.innerHTML = '';
+
+        const salaBRender = Array.isArray(data.salaB) ? data.salaB : [];
+        salaBRender.forEach(jogador => {
+          const nomeB = (typeof jogador === 'string') ? jogador : jogador?.nome;
+          const pontosB = (typeof jogador === 'string') ? 0 : (jogador?.pontos || 0);
+          if (!nomeB) return;
+
+          const item = document.createElement('div');
+          item.className = 'placar-item';
+          item.style.borderLeft = '4px solid var(--jw-vermelho-erro)';
+
+          const podeResgatar = meuEstado === 'sala-a' && meusPontos >= 5;
+          const eu = nomeB === nomeJogador ? ' ⬅️ VOCÊ' : '';
+
+          item.innerHTML = `
+            <div>
+              <div style="font-weight: bold;">🔴 ${nomeB}${eu}</div>
+              <div style="font-size: 0.85rem; color: var(--jw-cinza-escuro);">${pontosB} pontos</div>
+            </div>
+            ${meuEstado === 'sala-a' && nomeB !== nomeJogador ? `
+              <button class="btn btn-success btn-small" onclick="resgatarJogador('${nomeB}')" ${!podeResgatar ? 'disabled' : ''}>
+                🤝 RESGATAR<br>
+                <small>-5pts</small>
+              </button>
+            ` : ''}
+          `;
+          listaSalaB.appendChild(item);
+        });
+      } else {
+        document.getElementById('sala-b-resgates').style.display = 'none';
+      }
+
+      if (souAnfitriao) {
+        document.getElementById('btn-continuar-anfitriao').style.display = 'block';
+        document.getElementById('msg-aguardando-anfitriao').style.display = 'none';
+      } else {
+        document.getElementById('btn-continuar-anfitriao').style.display = 'none';
+        document.getElementById('msg-aguardando-anfitriao').style.display = 'block';
+      }
+    }
+
+    function resgatarJogador(nomeResgatado) {
+      if (meusPontos < 5) {
+        alert('Você precisa de pelo menos 5 pontos para resgatar!');
+        return;
+      }
+
+      if (!confirm(`Resgatar ${nomeResgatado}?\n\nCusto: -5 pontos\nVocê pulará a próxima rodada`)) return;
+
+      ws.send(JSON.stringify({
+        tipo: 'resgatar',
+        nome: nomeJogador,
+        nomeResgatado: nomeResgatado
+      }));
+    }
+
+    function processarResgate(data) {
+      if (data.quemResgatou === nomeJogador) {
+        meusPontos -= 5;
+        mostrarNotificacao(`Você resgatou ${data.resgatado}! -5 pontos`, 'sucesso');
+      } else if (data.resgatado === nomeJogador) {
+        meuEstado = 'sala-a';
+        desativarModoSalaBSpectator();
+        mostrarNotificacao(`${data.quemResgatou} te resgatou! 🎉`, 'sucesso');
+      } else {
+        mostrarNotificacao(`${data.quemResgatou} resgatou ${data.resgatado}! 🤝`, 'aviso');
+      }
+
+      const elPts = document.getElementById('meus-pontos-mini');
+      if (elPts) elPts.textContent = meusPontos;
+
+      salaAJogadores = data.salaA || [];
+      salaBJogadores = nomesFromLista(data.salaB);
+
+      entrarSalaConversa(data);
+    }
+
+    function continuarJogo() {
+      if (!souAnfitriao) return;
+
+      ws.send(JSON.stringify({
+        tipo: 'continuar_jogo',
+        nome: nomeJogador
+      }));
+    }
+
+    function voltarAoJogo() {
+      mostrarNotificacao('🎮 Voltando ao jogo...', 'sucesso');
+      mostrarTela('tela-jogo');
+
+      const container = document.getElementById('alternativas-container');
+      if (container) container.innerHTML = '';
+
+      const timer = document.getElementById('timer-jogo');
+      if (timer) timer.textContent = '...';
+
+      const dica1 = document.getElementById('dica1-jogo');
+      const dica2 = document.getElementById('dica2-jogo');
+      const dica3 = document.getElementById('dica3-jogo');
+
+      if (dica1) dica1.innerHTML = '<strong>DICA 1:</strong> ⏳ Aguardando próxima rodada...';
+      if (dica2) { dica2.innerHTML = '<strong>DICA 2:</strong> 🔒 Aguarde...'; dica2.classList.add('bloqueada'); }
+      if (dica3) { dica3.innerHTML = '<strong>DICA 3:</strong> 🔒 Aguarde...'; dica3.classList.add('bloqueada'); }
+
+      if (meuEstado === 'sala-b') ativarModoSalaBSpectator();
+      else desativarModoSalaBSpectator();
+    }
+
+    function mostrarTelaFinal(data) {
+      mostrarTela('tela-final');
+      tocarSom('fim_jogo');
+
+      document.getElementById('info-final').textContent = `${data.totalRodadas} Rodadas!`;
+
+      const listaVencedores = document.getElementById('lista-vencedores');
+      listaVencedores.innerHTML = '';
+
+      const vencedores = data.salaA || [];
+      vencedores.forEach((jogador, index) => {
+        const item = document.createElement('div');
+        item.className = 'vencedor-item';
+        const medalhas = ['🥇', '🥈', '🥉'];
+        const medalha = medalhas[index] || '🏆';
+        item.textContent = `${medalha} ${jogador.nome} - ${jogador.pontos} pts`;
+        listaVencedores.appendChild(item);
+      });
+
+      const salaBFinal = data.salaB || [];
+      if (salaBFinal.length > 0) {
+        document.getElementById('sala-b-final').style.display = 'block';
+
+        const listaSalaB = document.getElementById('lista-sala-b-final');
+        listaSalaB.innerHTML = '';
+
+        salaBFinal.forEach((jogador, index) => {
+          const nomeB = (typeof jogador === 'string') ? jogador : jogador?.nome;
+          const pontosB = (typeof jogador === 'string') ? 0 : (jogador?.pontos || 0);
+          if (!nomeB) return;
+
+          const item = document.createElement('div');
+          item.className = 'placar-item';
+          item.innerHTML = `
+            <span>${index + vencedores.length + 1}. 📖 ${nomeB}</span>
+            <span>${pontosB} pts</span>
+          `;
+          listaSalaB.appendChild(item);
+        });
+      }
+
+      const stats = document.getElementById('estatisticas-final');
+      stats.innerHTML = `
+        <p style="font-size: 0.9rem;">• Resgates: <strong>${data.resgatesRealizados || 0}</strong></p>
+        <p style="font-size: 0.9rem;">• Categoria: <strong>${data.categoria || categoriaSelecionada}</strong></p>
+        <p style="font-size: 0.9rem;">• Duração: <strong>${data.duracao || 'N/A'}</strong></p>
+      `;
+    }
+
+    // CHAT
+    function enviarChatLobby() { enviarMensagemChat('input-chat-lobby'); }
+    function enviarChatConversa() { enviarMensagemChat('input-chat-conversa'); }
+
+    function enviarMensagemChat(inputId) {
+      const input = document.getElementById(inputId);
+      const mensagem = input.value.trim();
+      if (!mensagem) return;
+
+      ws.send(JSON.stringify({
+        tipo: 'chat',
+        nome: nomeJogador,
+        mensagem: mensagem
+      }));
+
+      input.value = '';
+    }
+
+    function adicionarMensagemChat(data) {
+      const chats = ['chat-lobby', 'chat-conversa'];
+
+      chats.forEach(chatId => {
+        const chat = document.getElementById(chatId);
+        if (!chat) return;
+
+        const bubble = document.createElement('div');
+        const ehMinha = data.nome === nomeJogador;
+
+        bubble.className = `chat-bubble ${ehMinha ? 'minha' : 'outro'}`;
+
+        const agora = new Date();
+        const hora = `${agora.getHours().toString().padStart(2, '0')}:${agora.getMinutes().toString().padStart(2, '0')}`;
+
+        bubble.innerHTML = `
+          ${!ehMinha ? `<div class="nome">${data.nome}</div>` : ''}
+          <div class="texto">${data.mensagem}</div>
+          <div class="hora">${hora}</div>
+        `;
+
+        chat.appendChild(bubble);
+        chat.scrollTop = chat.scrollHeight;
+      });
+    }
+
+    function adicionarMensagemSistema(mensagem) {
+      const chats = ['chat-lobby', 'chat-conversa'];
+
+      chats.forEach(chatId => {
+        const chat = document.getElementById(chatId);
+        if (!chat) return;
+
+        const bubble = document.createElement('div');
+        bubble.className = 'chat-bubble sistema';
+        bubble.innerHTML = `<div class="texto">🔔 ${mensagem}</div>`;
+        chat.appendChild(bubble);
+        chat.scrollTop = chat.scrollHeight;
+      });
+    }
+
+    function compartilharWhatsApp() {
+      const urlSala = `${window.location.origin}${window.location.pathname}?sala=${salaAtual}&nome=`;
+      const mensagem = `🏆 *Modo Competitivo - Quem Sou Eu?*\n\n` +
+                       `Venha jogar comigo!\n\n` +
+                       `📍 *Código da Sala:* ${salaAtual}\n\n` +
+                       `🔗 Entre: ${urlSala}`;
+
+      const urlWhatsApp = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
+      window.open(urlWhatsApp, '_blank');
+    }
+
+    function mostrarNotificacao(mensagem, tipo = 'sucesso') {
+      const notif = document.createElement('div');
+      notif.className = `notificacao ${tipo}`;
+      notif.textContent = mensagem;
+
+      document.body.appendChild(notif);
+      setTimeout(() => notif.remove(), 5000);
+    }
+
+    function mostrarTela(id) {
+      document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
+      document.getElementById(id).classList.add('ativa');
+    }
+
+    function sairSala() {
+      if (ws) ws.close();
+      location.reload();
+    }
+
+    function voltarInicio() {
+      window.location.href = 'index.html';
+    }
+
+    function jogarNovamente() {
+      if (ws) ws.close();
+      location.reload();
+    }
+  </script>
+</body>
+</html>

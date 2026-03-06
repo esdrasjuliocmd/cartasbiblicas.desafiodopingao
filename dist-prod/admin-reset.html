@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🗑️ Reset Sistema - Admin</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #C62828 0%, #D32F2F 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      padding: 40px;
+      text-align: center;
+    }
+
+    .icone-aviso {
+      font-size: 5rem;
+      margin-bottom: 20px;
+      animation: pulsar 1.5s infinite;
+    }
+
+    @keyframes pulsar {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    h1 {
+      color: #C62828;
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .aviso {
+      background: #FFEBEE;
+      border: 3px solid #EF5350;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 30px 0;
+      text-align: left;
+    }
+
+    .aviso h3 {
+      color: #C62828;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+
+    .aviso ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .aviso li {
+      padding: 8px 0;
+      color: #D32F2F;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .confirmacao {
+      background: #FFF3CD;
+      border: 3px solid #FFC107;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .confirmacao label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #F57C00;
+      cursor: pointer;
+    }
+
+    .confirmacao input[type="checkbox"] {
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+    }
+
+    .botoes {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-resetar {
+      background: #D32F2F;
+      color: white;
+    }
+
+    .btn-resetar:not(:disabled):hover {
+      background: #B71C1C;
+      transform: scale(1.05);
+    }
+
+    .btn-cancelar {
+      background: #6c757d;
+      color: white;
+    }
+
+    .btn-cancelar:hover {
+      background: #5a6268;
+      transform: scale(1.05);
+    }
+
+    .resultado {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .resultado.sucesso {
+      background: #D4EDDA;
+      color: #155724;
+      border: 2px solid #28A745;
+      display: block;
+    }
+
+    .resultado.erro {
+      background: #F8D7DA;
+      color: #721C24;
+      border: 2px solid #DC3545;
+      display: block;
+    }
+
+    .loading {
+      display: none;
+      margin-top: 20px;
+      font-size: 2rem;
+      animation: girar 1s linear infinite;
+    }
+
+    @keyframes girar {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icone-aviso">⚠️</div>
+    <h1>RESET DO SISTEMA</h1>
+    <p style="color: #666; font-size: 1.1rem;">Operação irreversível</p>
+
+    <div class="aviso">
+      <h3>🗑️ Esta ação vai DELETAR permanentemente:</h3>
+      <ul>
+        <li>❌ Todo o ranking global</li>
+        <li>❌ Todos os jogadores cadastrados</li>
+        <li>❌ Todo o histórico de partidas</li>
+        <li>❌ Todas as pontuações</li>
+      </ul>
+    </div>
+
+    <div class="confirmacao">
+      <label>
+        <input type="checkbox" id="checkbox-confirma">
+        <span>Entendo que esta ação NÃO pode ser desfeita</span>
+      </label>
+    </div>
+
+    <div class="botoes">
+      <button class="btn btn-cancelar" onclick="window.location.href='admin.html'">
+        ❌ Cancelar
+      </button>
+      <button class="btn btn-resetar" id="btn-resetar" disabled onclick="resetarSistema()">
+        🗑️ RESETAR TUDO
+      </button>
+    </div>
+
+    <div class="loading" id="loading">⏳</div>
+    <div class="resultado" id="resultado"></div>
+  </div>
+
+  <script src="config.js"></script>
+  <script>
+    const API_BASE = window.APP_CONFIG.API_BASE;
+
+    document.getElementById('checkbox-confirma').addEventListener('change', function() {
+      document.getElementById('btn-resetar').disabled = !this.checked;
+    });
+
+    async function resetarSistema() {
+      if (!confirm('⚠️ ÚLTIMA CONFIRMAÇÃO!\n\nTem CERTEZA ABSOLUTA que deseja deletar TUDO?\n\nEsta ação é IRREVERSÍVEL!')) {
+        return;
+      }
+
+      const btnResetar = document.getElementById('btn-resetar');
+      const btnCancelar = document.querySelector('.btn-cancelar');
+      const loading = document.getElementById('loading');
+      const resultado = document.getElementById('resultado');
+
+      btnResetar.disabled = true;
+      btnCancelar.disabled = true;
+      loading.style.display = 'block';
+      resultado.style.display = 'none';
+
+      try {
+        console.log('🗑️ Iniciando reset...');
+
+        // Buscar todos os jogadores
+        const response = await fetch(`${API_BASE}/ranking`);
+        const data = await response.json();
+
+        if (!data.ranking || data.ranking.length === 0) {
+          resultado.className = 'resultado sucesso';
+          resultado.innerHTML = '✅ Sistema já estava vazio!';
+          resultado.style.display = 'block';
+          loading.style.display = 'none';
+          btnCancelar.disabled = false;
+          return;
+        }
+
+        console.log(`📋 Encontrados ${data.ranking.length} jogadores`);
+
+        let deletados = 0;
+        let erros = 0;
+
+        for (const jogador of data.ranking) {
+          try {
+            console.log(`🗑️ Deletando: ${jogador.nome}`);
+            
+            const deleteResponse = await fetch(`${API_BASE}/admin/jogador/${encodeURIComponent(jogador.nome)}`, {
+              method: 'DELETE'
+            });
+
+            if (deleteResponse.ok) {
+              deletados++;
+              console.log(`✅ ${jogador.nome} deletado`);
+            } else {
+              erros++;
+              console.error(`❌ Erro ao deletar ${jogador.nome}`);
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 200));
+
+          } catch (erro) {
+            erros++;
+            console.error(`❌ Erro ao deletar ${jogador.nome}:`, erro);
+          }
+        }
+
+        loading.style.display = 'none';
+        
+        if (erros === 0) {
+          resultado.className = 'resultado sucesso';
+          resultado.innerHTML = `
+            ✅ <strong>RESET CONCLUÍDO COM SUCESSO!</strong><br><br>
+            🗑️ ${deletados} jogadores deletados<br>
+            📊 0 jogadores restantes<br><br>
+            <a href="admin.html" style="color: #155724; text-decoration: underline;">Voltar ao Admin</a>
+          `;
+        } else {
+          resultado.className = 'resultado erro';
+          resultado.innerHTML = `
+            ⚠️ <strong>RESET PARCIAL</strong><br><br>
+            ✅ ${deletados} jogadores deletados<br>
+            ❌ ${erros} erros<br><br>
+            <a href="admin.html" style="color: #721C24; text-decoration: underline;">Voltar ao Admin</a>
+          `;
+        }
+        
+        resultado.style.display = 'block';
+        btnCancelar.disabled = false;
+
+      } catch (erro) {
+        console.error('❌ Erro geral:', erro);
+        loading.style.display = 'none';
+        resultado.className = 'resultado erro';
+        resultado.innerHTML = `❌ <strong>ERRO:</strong> ${erro.message}`;
+        resultado.style.display = 'block';
+        btnResetar.disabled = false;
+        btnCancelar.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>🎁 Loja de Recompensas - Quem Sou Eu?</title>
+  <style>
+    :root {
+      --jw-azul-principal: #4A6DA7;
+      --jw-azul-escuro: #1E3A5F;
+      --jw-azul-claro: #6B9BD1;
+      --jw-cinza-claro: #F5F5F5;
+      --jw-cinza-medio: #E0E0E0;
+      --jw-cinza-escuro: #333333;
+      --jw-branco: #FFFFFF;
+      --jw-laranja: #F47920;
+      --jw-verde-sucesso: #5CB85C;
+      --jw-vermelho-erro: #D9534F;
+      --jw-amarelo-aviso: #F0AD4E;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, var(--jw-azul-escuro) 0%, var(--jw-azul-principal) 100%);
+      min-height: 100vh;
+      padding: 10px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--jw-branco);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+
+    .header {
+      background: var(--jw-azul-principal);
+      color: var(--jw-branco);
+      padding: 20px 15px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 1.6rem;
+      margin-bottom: 5px;
+    }
+
+    .header p {
+      font-size: 0.95rem;
+    }
+
+    .pontos-display {
+      background: var(--jw-azul-escuro);
+      color: var(--jw-branco);
+      padding: 15px;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .content {
+      padding: 20px 15px;
+    }
+
+    .tela {
+      display: none;
+    }
+
+    .tela.ativa {
+      display: block;
+      animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .input-group {
+      margin: 15px 0;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: var(--jw-azul-principal);
+      font-size: 0.95rem;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px;
+      font-size: 1.05rem;
+      border: 2px solid var(--jw-azul-principal);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .btn {
+      padding: 14px 20px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+      margin: 8px 0;
+      touch-action: manipulation;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: var(--jw-azul-principal);
+      color: var(--jw-branco);
+    }
+
+    .btn-success {
+      background: var(--jw-verde-sucesso);
+      color: var(--jw-branco);
+    }
+
+    .btn-danger {
+      background: var(--jw-vermelho-erro);
+      color: var(--jw-branco);
+    }
+
+    .btn-small {
+      width: auto;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+    }
+
+    .perfil-card {
+      background: linear-gradient(135deg, var(--jw-azul-claro), var(--jw-azul-principal));
+      color: var(--jw-branco);
+      border-radius: 12px;
+      padding: 20px 15px;
+      margin: 15px 0;
+      text-align: center;
+    }
+
+    .perfil-card h2 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+    }
+
+    .perfil-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .stat-box {
+      background: rgba(255,255,255,0.2);
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    .stat-box .numero {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+
+    .stat-box .label {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    .categorias-tabs {
+      display: flex;
+      gap: 8px;
+      margin: 15px 0;
+      flex-wrap: wrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .tab-btn {
+      padding: 10px 16px;
+      background: var(--jw-cinza-claro);
+      border: 2px solid var(--jw-azul-principal);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: bold;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      touch-action: manipulation;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .tab-btn:active {
+      transform: scale(0.95);
+    }
+
+    .tab-btn.ativa {
+      background: var(--jw-azul-principal);
+      color: var(--jw-branco);
+    }
+
+    .loja-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin: 15px 0;
+    }
+
+    .item-card {
+      background: var(--jw-cinza-claro);
+      border: 3px solid var(--jw-azul-principal);
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .item-card:active {
+      transform: scale(0.98);
+    }
+
+    .item-card .icone {
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+    }
+
+    .item-card .nome {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--jw-azul-principal);
+      margin-bottom: 8px;
+    }
+
+    .item-card .descricao {
+      font-size: 0.9rem;
+      color: var(--jw-cinza-escuro);
+      margin-bottom: 12px;
+      min-height: 40px;
+    }
+
+    .item-card .custo {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--jw-laranja);
+      margin-bottom: 12px;
+    }
+
+    .item-card.resgatado {
+      opacity: 0.6;
+      border-color: var(--jw-verde-sucesso);
+    }
+
+    .item-card.resgatado::after {
+      content: '✓ RESGATADO';
+      display: block;
+      background: var(--jw-verde-sucesso);
+      color: var(--jw-branco);
+      padding: 6px;
+      border-radius: 6px;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    .conquistas-lista {
+      margin: 15px 0;
+    }
+
+    .conquista-item {
+      background: var(--jw-cinza-claro);
+      border-left: 4px solid var(--jw-azul-principal);
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .conquista-item .icone {
+      font-size: 1.8rem;
+    }
+
+    .conquista-item .info {
+      flex: 1;
+    }
+
+    .conquista-item .nome {
+      font-weight: bold;
+      color: var(--jw-azul-principal);
+      font-size: 0.95rem;
+    }
+
+    .conquista-item .data {
+      font-size: 0.8rem;
+      color: var(--jw-cinza-escuro);
+      margin-top: 3px;
+    }
+
+    .notificacao {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      background: var(--jw-verde-sucesso);
+      color: var(--jw-branco);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      z-index: 9999;
+      animation: slideDown 0.3s;
+      font-size: 0.95rem;
+      word-wrap: break-word;
+    }
+
+    .notificacao.erro {
+      background: var(--jw-vermelho-erro);
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    h2, h3 {
+      color: var(--jw-azul-principal);
+    }
+
+    /* Scroll suave */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎁 LOJA DE RECOMPENSAS</h1>
+      <p>Troque seus pontos por prêmios!</p>
+    </div>
+
+    <div class="pontos-display">
+      <span id="nome-jogador-display">Visitante</span> | 
+      💰 <span id="pontos-atuais">0</span> pts
+    </div>
+
+    <div class="content">
+      <!-- TELA 1: LOGIN -->
+      <div id="tela-login" class="tela ativa">
+        <h2 style="text-align: center; margin-bottom: 20px; font-size: 1.4rem;">
+          Acesse sua conta
+        </h2>
+
+        <div class="input-group">
+          <label>Digite seu nome:</label>
+          <input type="text" id="input-nome" placeholder="Seu nome..." maxlength="20" />
+        </div>
+
+        <button class="btn btn-primary" onclick="fazerLogin()">
+          🔓 ENTRAR
+        </button>
+
+        <button class="btn btn-danger" onclick="voltarInicio()">
+          ← Voltar ao Menu
+        </button>
+      </div>
+
+      <!-- TELA 2: PERFIL -->
+      <div id="tela-perfil" class="tela">
+        <div class="perfil-card">
+          <h2 id="perfil-nome">👤 Jogador</h2>
+          <div class="perfil-stats">
+            <div class="stat-box">
+              <div class="numero" id="perfil-pontos">0</div>
+              <div class="label">Pontos Totais</div>
+            </div>
+            <div class="stat-box">
+              <div class="numero" id="perfil-nivel">Bronze</div>
+              <div class="label">Nível</div>
+            </div>
+            <div class="stat-box">
+              <div class="numero" id="perfil-acertos">0</div>
+              <div class="label">Acertos</div>
+            </div>
+            <div class="stat-box">
+              <div class="numero" id="perfil-sequencia">0</div>
+              <div class="label">Maior Sequência</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="categorias-tabs">
+          <button class="tab-btn ativa" onclick="trocarAba('loja')">🏪 LOJA</button>
+          <button class="tab-btn" onclick="trocarAba('conquistas')">🏆 CONQUISTAS</button>
+        </div>
+
+        <!-- ABA LOJA -->
+        <div id="aba-loja">
+          <h3 style="margin: 15px 0; font-size: 1.1rem;">🛒 Itens Disponíveis</h3>
+
+          <div class="categorias-tabs">
+            <button class="tab-btn ativa" onclick="filtrarCategoria('todos')">📦 TODOS</button>
+            <button class="tab-btn" onclick="filtrarCategoria('trofeu')">🏆 TROFÉUS</button>
+            <button class="tab-btn" onclick="filtrarCategoria('badge')">⭐ BADGES</button>
+            <button class="tab-btn" onclick="filtrarCategoria('titulo')">👑 TÍTULOS</button>
+            <button class="tab-btn" onclick="filtrarCategoria('avatar')">🎨 AVATARES</button>
+            <button class="tab-btn" onclick="filtrarCategoria('bonus')">🎁 BÔNUS</button>
+          </div>
+
+          <div class="loja-grid" id="loja-itens">
+            <!-- Itens da loja aparecem aqui -->
+          </div>
+        </div>
+
+        <!-- ABA CONQUISTAS -->
+        <div id="aba-conquistas" style="display: none;">
+          <h3 style="margin: 15px 0; font-size: 1.1rem;">
+            🏆 Suas Conquistas (<span id="total-conquistas">0</span>)
+          </h3>
+
+          <div class="conquistas-lista" id="conquistas-lista">
+            <p style="text-align: center; padding: 30px; color: var(--jw-cinza-escuro);">
+              Você ainda não tem conquistas.<br>Resgate itens na loja!
+            </p>
+          </div>
+        </div>
+
+        <button class="btn btn-danger" onclick="voltarInicio()">
+          ← Voltar ao Menu
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script>
+    const API_BASE = window.APP_CONFIG.API_BASE;
+
+    let nomeJogador = '';
+    let pontosDisponiveis = 0;
+    let perfilCompleto = null;
+    let todosItens = [];
+    let itensResgatados = [];
+    let categoriaFiltro = 'todos';
+
+    async function fazerLogin() {
+      nomeJogador = document.getElementById('input-nome').value.trim();
+
+      if (!nomeJogador || nomeJogador.length < 2) {
+        alert('Digite um nome válido!');
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_BASE}/perfil/${encodeURIComponent(nomeJogador)}`);
+        const data = await response.json();
+
+        if (data.erro) {
+          alert('Jogador não encontrado! Jogue primeiro para criar uma conta.');
+          return;
+        }
+
+        perfilCompleto = data;
+        pontosDisponiveis = data.pontos;
+        itensResgatados = data.resgates || [];
+
+        atualizarPerfil();
+        await carregarLoja();
+        
+        mostrarTela('tela-perfil');
+      } catch (e) {
+        console.error('Erro ao carregar perfil:', e);
+        alert('Erro ao carregar perfil. Tente novamente!');
+      }
+    }
+
+    function atualizarPerfil() {
+      document.getElementById('nome-jogador-display').textContent = nomeJogador;
+      document.getElementById('pontos-atuais').textContent = pontosDisponiveis;
+      
+      document.getElementById('perfil-nome').textContent = `👤 ${nomeJogador}`;
+      document.getElementById('perfil-pontos').textContent = perfilCompleto.pontos;
+      document.getElementById('perfil-nivel').textContent = perfilCompleto.nivel || 'Bronze';
+      document.getElementById('perfil-acertos').textContent = perfilCompleto.totalAcertos || 0;
+      document.getElementById('perfil-sequencia').textContent = perfilCompleto.maiorSequencia || 0;
+
+      const conquistas = perfilCompleto.resgates || [];
+      document.getElementById('total-conquistas').textContent = conquistas.length;
+
+      const listaConquistas = document.getElementById('conquistas-lista');
+      listaConquistas.innerHTML = '';
+
+      if (conquistas.length === 0) {
+        listaConquistas.innerHTML = '<p style="text-align: center; padding: 30px; color: var(--jw-cinza-escuro);">Você ainda não tem conquistas.<br>Resgate itens na loja!</p>';
+      } else {
+        conquistas.forEach(conquista => {
+          const item = document.createElement('div');
+          item.className = 'conquista-item';
+          
+          const icone = conquista.itemNome.includes('🏆') || conquista.itemNome.includes('⭐') || 
+                        conquista.itemNome.includes('👑') || conquista.itemNome.includes('🎨') || 
+                        conquista.itemNome.includes('🎁') ? 
+                        conquista.itemNome.split(' ')[0] : '🎁';
+          
+          item.innerHTML = `
+            <div class="icone">${icone}</div>
+            <div class="info">
+              <div class="nome">${conquista.itemNome}</div>
+              <div class="data">${new Date(conquista.dataResgate).toLocaleDateString('pt-BR')}</div>
+            </div>
+          `;
+          
+          listaConquistas.appendChild(item);
+        });
+      }
+    }
+
+    async function carregarLoja() {
+      try {
+        const response = await fetch(`${API_BASE}/loja`);
+        const data = await response.json();
+        
+        todosItens = data.itens || [];
+        renderizarLoja();
+      } catch (e) {
+        console.error('Erro ao carregar loja:', e);
+        alert('Erro ao carregar loja!');
+      }
+    }
+
+    function renderizarLoja() {
+      const container = document.getElementById('loja-itens');
+      container.innerHTML = '';
+
+      let itensFiltrados = todosItens;
+      
+      if (categoriaFiltro !== 'todos') {
+        itensFiltrados = todosItens.filter(item => item.categoria === categoriaFiltro);
+      }
+
+      if (itensFiltrados.length === 0) {
+        container.innerHTML = '<p style="text-align: center; padding: 30px; color: var(--jw-cinza-escuro);">Nenhum item nesta categoria.</p>';
+        return;
+      }
+
+      itensFiltrados.forEach(item => {
+        const jaResgatado = itensResgatados.some(r => r.itemId === item.id);
+        
+        const card = document.createElement('div');
+        card.className = 'item-card' + (jaResgatado ? ' resgatado' : '');
+        
+        const icone = item.nome.split(' ')[0];
+        
+        card.innerHTML = `
+          <div class="icone">${icone}</div>
+          <div class="nome">${item.nome.substring(item.nome.indexOf(' ') + 1)}</div>
+          <div class="descricao">${item.descricao}</div>
+          <div class="custo">💰 ${item.custo} pts</div>
+          ${!jaResgatado ? `<button class="btn btn-success btn-small" onclick="resgatarItem(${item.id})">RESGATAR</button>` : ''}
+        `;
+        
+        container.appendChild(card);
+      });
+    }
+
+    async function resgatarItem(itemId) {
+      const item = todosItens.find(i => i.id === itemId);
+      
+      if (!item) return;
+
+      if (pontosDisponiveis < item.custo) {
+        mostrarNotificacao('Pontos insuficientes! 😢', 'erro');
+        return;
+      }
+
+      if (!confirm(`Resgatar ${item.nome}?\n\nCusto: ${item.custo} pontos`)) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_BASE}/resgatar`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          body: JSON.stringify({
+            nome: nomeJogador,
+            item: item,
+            custo: item.custo
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.erro) {
+          mostrarNotificacao(data.erro, 'erro');
+          return;
+        }
+
+        pontosDisponiveis = data.pontosRestantes;
+        itensResgatados.push({ itemId: item.id, itemNome: item.nome, dataResgate: new Date().toISOString() });
+        
+        perfilCompleto.pontos = pontosDisponiveis;
+        perfilCompleto.resgates = itensResgatados;
+
+        atualizarPerfil();
+        renderizarLoja();
+        
+        mostrarNotificacao(`✅ ${item.nome} resgatado com sucesso!`, 'sucesso');
+      } catch (e) {
+        console.error('Erro ao resgatar:', e);
+        mostrarNotificacao('Erro ao resgatar item!', 'erro');
+      }
+    }
+
+    function filtrarCategoria(categoria) {
+      categoriaFiltro = categoria;
+      
+      document.querySelectorAll('#aba-loja .categorias-tabs .tab-btn').forEach(btn => {
+        btn.classList.remove('ativa');
+      });
+      
+      event.target.classList.add('ativa');
+      
+      renderizarLoja();
+    }
+
+    function trocarAba(aba) {
+      document.querySelectorAll('.content > .categorias-tabs .tab-btn').forEach(btn => {
+        btn.classList.remove('ativa');
+      });
+      
+      event.target.classList.add('ativa');
+
+      if (aba === 'loja') {
+        document.getElementById('aba-loja').style.display = 'block';
+        document.getElementById('aba-conquistas').style.display = 'none';
+      } else {
+        document.getElementById('aba-loja').style.display = 'none';
+        document.getElementById('aba-conquistas').style.display = 'block';
+      }
+    }
+
+    function mostrarNotificacao(mensagem, tipo = 'sucesso') {
+      const notif = document.createElement('div');
+      notif.className = `notificacao ${tipo}`;
+      notif.textContent = mensagem;
+      
+      document.body.appendChild(notif);
+      
+      setTimeout(() => {
+        notif.remove();
+      }, 4000);
+    }
+
+    function mostrarTela(id) {
+      document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
+      document.getElementById(id).classList.add('ativa');
+    }
+
+    function voltarInicio() {
+      window.location.href = 'index.html';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('input-nome').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') fazerLogin();
+      });
+    });
+  </script>
+</body>
+</html>

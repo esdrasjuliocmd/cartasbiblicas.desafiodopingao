@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>📖 Regras - Desafio Bíblico do Pingão</title>
+  <style>
+    :root {
+      --jw-azul-principal: #4A6DA7;
+      --jw-azul-escuro: #1E3A5F;
+      --jw-azul-claro: #6B9BD1;
+      --jw-cinza-claro: #F5F5F5;
+      --jw-branco: #FFFFFF;
+      --jw-laranja: #F47920;
+      --jw-verde-sucesso: #5CB85C;
+      --jw-vermelho-erro: #D9534F;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--jw-azul-escuro) 0%, var(--jw-azul-principal) 100%);
+      min-height: 100vh;
+      padding: 15px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--jw-branco);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      padding: 25px;
+      margin-bottom: 20px;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 3px solid var(--jw-azul-principal);
+    }
+
+    .header h1 {
+      color: var(--jw-azul-escuro);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: var(--jw-azul-principal);
+      font-size: 1rem;
+    }
+
+    .secao {
+      margin-bottom: 30px;
+    }
+
+    .secao-titulo {
+      background: linear-gradient(135deg, var(--jw-azul-principal), var(--jw-azul-escuro));
+      color: var(--jw-branco);
+      padding: 12px 15px;
+      border-radius: 10px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .secao-conteudo {
+      padding: 0 10px;
+    }
+
+    .topico {
+      margin-bottom: 20px;
+    }
+
+    .topico-titulo {
+      color: var(--jw-azul-escuro);
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topico-texto {
+      color: #333;
+      line-height: 1.6;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .lista {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .lista li {
+      padding: 8px 0 8px 30px;
+      position: relative;
+      color: #333;
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    .lista li::before {
+      content: "✅";
+      position: absolute;
+      left: 0;
+      font-size: 1rem;
+    }
+
+    .destaque-box {
+      background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+      border-left: 4px solid var(--jw-azul-principal);
+      padding: 15px;
+      border-radius: 10px;
+      margin: 15px 0;
+    }
+
+    .destaque-titulo {
+      font-weight: bold;
+      color: var(--jw-azul-escuro);
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .destaque-texto {
+      color: #333;
+      line-height: 1.6;
+      font-size: 0.9rem;
+    }
+
+    .tabela {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 0.9rem;
+    }
+
+    .tabela th {
+      background: var(--jw-azul-principal);
+      color: var(--jw-branco);
+      padding: 10px;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    .tabela td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .tabela tr:last-child td {
+      border-bottom: none;
+    }
+
+    .tabela tr:nth-child(even) {
+      background: var(--jw-cinza-claro);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      touch-action: manipulation;
+      background: var(--jw-azul-principal);
+      color: var(--jw-branco);
+      margin-top: 10px;
+    }
+
+    .btn:active {
+      background: var(--jw-azul-escuro);
+      transform: scale(0.98);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 20px;
+      }
+
+      .header h1 {
+        font-size: 1.5rem;
+      }
+
+      .secao-titulo {
+        font-size: 1.1rem;
+        padding: 10px 12px;
+      }
+
+      .topico-titulo {
+        font-size: 1rem;
+      }
+
+      .topico-texto,
+      .lista li,
+      .destaque-texto {
+        font-size: 0.9rem;
+      }
+
+      .tabela {
+        font-size: 0.8rem;
+      }
+
+      .tabela th,
+      .tabela td {
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="header">
+        <h1>📖 Manual de Regras</h1>
+        <p>Desafio Bíblico do Pingão - Cartas</p>
+      </div>
+
+      <!-- MODO SOLO -->
+      <div class="secao">
+        <div class="secao-titulo">
+          🎯 MODO SOLO
+        </div>
+        <div class="secao-conteudo">
+          <div class="topico">
+            <div class="topico-titulo">📋 Como Funciona</div>
+            <div class="topico-texto">
+              Responda 10 perguntas sobre personagens, profecias ou pregações bíblicas. 
+              Você tem 60 segundos por pergunta e 3 dicas graduais que aparecem a cada 15 segundos.
+            </div>
+          </div>
+
+          <div class="topico">
+            <div class="topico-titulo">💡 Sistema de Dicas</div>
+            <ul class="lista">
+              <li><strong>1ª Dica:</strong> Aparece no início da pergunta (+400 pts de bônus)</li>
+              <li><strong>2ª Dica:</strong> Aparece após 15 segundos (+200 pts de bônus)</li>
+              <li><strong>3ª Dica:</strong> Aparece após 30 segundos (sem bônus)</li>
+              <li><strong>Timeout:</strong> Após 60 segundos a pergunta é pulada</li>
+            </ul>
+          </div>
+
+          <div class="destaque-box">
+            <div class="destaque-titulo">💰 SISTEMA DE PONTUAÇÃO</div>
+            <table class="tabela">
+              <thead>
+                <tr>
+                  <th>Componente</th>
+                  <th>Pontos</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Pontuação Base</td>
+                  <td>+100 pts</td>
+                </tr>
+                <tr>
+                  <td>1 dica visível</td>
+                  <td>+400 pts</td>
+                </tr>
+                <tr>
+                  <td>2 dicas visíveis</td>
+                  <td>+200 pts</td>
+                </tr>
+                <tr>
+                  <td>3 dicas visíveis</td>
+                  <td>+0 pts</td>
+                </tr>
+                <tr>
+                  <td><strong>Super Bônus (≤1s)</strong></td>
+                  <td><strong>+2000 pts 💥</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Bônus Velocidade (≤3s)</strong></td>
+                  <td><strong>+500 pts ⚡</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="destaque-box">
+            <div class="destaque-titulo">🏆 EXEMPLOS DE PONTUAÇÃO MÁXIMA</div>
+            <div class="destaque-texto">
+              <strong>💥 2.500 pts:</strong> Resposta em 1 segundo + 1 dica (100 + 400 + 2000)<br>
+              <strong>⚡ 1.000 pts:</strong> Resposta em 3 segundos + 1 dica (100 + 400 + 500)<br>
+              <strong>📝 500 pts:</strong> Resposta normal + 1 dica (100 + 400)<br>
+              <strong>📝 300 pts:</strong> Resposta normal + 2 dicas (100 + 200)<br>
+              <strong>📝 100 pts:</strong> Resposta com 3 dicas (100 + 0)
+            </div>
+          </div>
+
+          <div class="topico">
+            <div class="topico-titulo">🔥 Sistema de Sequência (Streak)</div>
+            <div class="topico-texto">
+              Acerte consecutivamente com bônus de velocidade para manter sua sequência ativa. 
+              A sequência é perdida se você errar ou responder sem bônus de velocidade.
+            </div>
+          </div>
+
+          <div class="topico">
+            <div class="topico-titulo">📚 Categorias Disponíveis</div>
+            <ul class="lista">
+              <li><strong>👤 Personagens Bíblicos:</strong> Descubra quem é baseado nas dicas</li>
+              <li><strong>📜 Profecias:</strong> Identifique profecias e seus contextos</li>
+              <li><strong>🎤 Pregação:</strong> Temas e ensinamentos bíblicos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODO MULTIPLAYER -->
+      <div class="secao">
+        <div class="secao-titulo">
+          ⚔️ MODO MULTIPLAYER COMPETITIVO
+        </div>
+        <div class="secao-conteudo">
+          <div class="topico">
+            <div class="topico-titulo">👥 Como Funciona</div>
+            <div class="topico-texto">
+              De 2 a 4 jogadores competem simultaneamente respondendo as mesmas perguntas. 
+              Ganha quem acumular mais pontos ao final das rodadas.
+            </div>
+          </div>
+
+          <div class="topico">
+            <div class="topico-titulo">🎮 Configuração da Partida</div>
+            <ul class="lista">
+              <li><strong>Número de Jogadores:</strong> 2 a 4 participantes</li>
+              <li><strong>Perguntas:</strong> 5, 10 ou 15 rodadas</li>
+              <li><strong>Categoria:</strong> Escolha única para todos os jogadores</li>
+              <li><strong>Todos veem as mesmas perguntas</strong> na mesma ordem</li>
+            </ul>
+          </div>
+
+          <div class="destaque-box">
+            <div class="destaque-titulo">💰 PONTUAÇÃO MULTIPLAYER</div>
+            <table class="tabela">
+              <thead>
+                <tr>
+                  <th>Condição</th>
+                  <th>Pontos</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Acerto</td>
+                  <td>+100 pts</td>
+                </tr>
+                <tr>
+                  <td>Erro</td>
+                  <td>0 pts</td>
+                </tr>
+                <tr>
+                  <td>Não respondeu</td>
+                  <td>0 pts</td>
+                </tr>
+                <tr>
+                  <td>Tempo por pergunta</td>
+                  <td>30 segundos</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="topico">
+            <div class="topico-titulo">⏱️ Dinâmica do Jogo</div>
+            <ul class="lista">
+              <li>Todas as 3 dicas aparecem <strong>imediatamente</strong></li>
+              <li>Cada jogador tem <strong>30 segundos</strong> para responder</li>
+              <li>Não há bônus de velocidade ou quantidade de dicas</li>
+              <li>O placar é atualizado em tempo real</li>
+              <li>Ao final, é exibido o <strong>ranking da partida</strong></li>
+            </ul>
+          </div>
+
+          <div class="topico">
+            <div class="topico-titulo">🏆 Resultado Final</div>
+            <div class="topico-texto">
+              Após todas as rodadas, o jogo mostra:
+            </div>
+            <ul class="lista">
+              <li>Classificação final (1º, 2º, 3º, 4º)</li>
+              <li>Pontuação total de cada jogador</li>
+              <li>Número de acertos e erros</li>
+              <li>Taxa de precisão individual</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DICAS GERAIS -->
+      <div class="secao">
+        <div class="secao-titulo">
+          💡 DICAS E ESTRATÉGIAS
+        </div>
+        <div class="secao-conteudo">
+          <div class="topico">
+            <div class="topico-titulo">🎯 Modo Solo</div>
+            <ul class="lista">
+              <li><strong>Velocidade é tudo:</strong> Responda em 1 segundo para ganhar 2.500 pts!</li>
+              <li><strong>Leia a 1ª dica rapidamente:</strong> Vale 400 pts de bônus</li>
+              <li><strong>Não tenha pressa demais:</strong> Certifique-se antes de clicar</li>
+              <li><strong>Mantenha a sequência:</strong> Respostas rápidas consecutivas mantêm o streak</li>
+              <li><strong>Estude as categorias:</strong> Conhecimento prévio ajuda na velocidade</li>
+            </ul>
+          </div>
+
+          <div class="topico">
+            <div class="topico-titulo">⚔️ Modo Multiplayer</div>
+            <ul class="lista">
+              <li><strong>Leia todas as dicas:</strong> Elas aparecem de uma vez</li>
+              <li><strong>Não se apresse demais:</strong> Você tem 30 segundos</li>
+              <li><strong>Precisão importa:</strong> Um acerto = 100 pts, não há bônus</li>
+              <li><strong>Observe o placar:</strong> Acompanhe a pontuação dos adversários</li>
+              <li><strong>Consistência vence:</strong> Acerte o máximo possível</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SISTEMA DE RANKING -->
+      <div class="secao">
+        <div class="secao-titulo">
+          🏆 SISTEMA DE RANKING GLOBAL
+        </div>
+        <div class="secao-conteudo">
+          <div class="topico">
+            <div class="topico-titulo">📊 Como Funciona</div>
+            <ul class="lista">
+              <li>Apenas partidas do <strong>Modo Solo</strong> contam para o ranking global</li>
+              <li>Sua melhor pontuação é salva automaticamente</li>
+              <li>O Top 5 aparece na tela inicial</li>
+              <li>Medalhas especiais: 🥇 1º lugar, 🥈 2º lugar, 🥉 3º lugar</li>
+              <li>O recorde pessoal fica salvo no seu dispositivo</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SONS E FEEDBACK -->
+      <div class="secao">
+        <div class="secao-titulo">
+          🔊 SONS E FEEDBACK VISUAL
+        </div>
+        <div class="secao-conteudo">
+          <div class="topico">
+            <div class="topico-titulo">🎵 Efeitos Sonoros</div>
+            <ul class="lista">
+              <li><strong>Clique:</strong> Som suave ao selecionar opção</li>
+              <li><strong>Nova pergunta:</strong> Melodia ao iniciar</li>
+              <li><strong>Dica revelada:</strong> Som de notificação</li>
+              <li><strong>Acerto normal:</strong> Som de sucesso</li>
+              <li><strong>Acerto com bônus:</strong> Som especial</li>
+              <li><strong>Super bônus:</strong> Som de moeda + celebração</li>
+              <li><strong>Erro:</strong> Som de alerta</li>
+              <li><strong>Fim de jogo:</strong> Música de celebração</li>
+            </ul>
+          </div>
+
+          <div class="topico">
+            <div class="topico-titulo">✨ Animações</div>
+            <ul class="lista">
+              <li><strong>Pontos flutuantes:</strong> Voam pela tela ao acertar</li>
+              <li><strong>Dicas destacadas:</strong> Fundo azul com borda grossa</li>
+              <li><strong>Feedback de toque:</strong> Botões respondem ao clique</li>
+              <li><strong>Shake:</strong> Tela treme ao errar</li>
+              <li><strong>Pulse:</strong> Efeito de pulso ao acertar</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <a href="index.html" class="btn">🏠 Voltar ao Menu</a>
+    </div>
+  </div>
+</body>
+</html>

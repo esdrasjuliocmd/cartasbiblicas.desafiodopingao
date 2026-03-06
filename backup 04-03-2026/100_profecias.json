@@ -1,0 +1,1004 @@
+{
+  "cartas": [
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "dica1": "Predisse o cerco e devastação da cidade.",
+      "dica2": "Cumpriu-se no ano 70 EC.",
+      "dica3": "Relaciona-se às palavras de Jesus registradas nos evangelhos.",
+      "resposta": "Profecia da destruição de Jerusalém — aspecto histórico 1"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "Monumento romano em Roma.",
+      "dica2": "Retrata soldados carregando utensílios do templo.",
+      "dica3": "Usado como evidência histórica do cumprimento profético.",
+      "resposta": "Arco de Tito — aspecto histórico 1"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "dica1": "General romano que liderou o cerco.",
+      "dica2": "Mais tarde tornou-se imperador.",
+      "dica3": "Seu nome está ligado ao arco em Roma.",
+      "resposta": "Tito — aspecto histórico 1"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 3,
+      "dica1": "Advertiu seus seguidores a fugir.",
+      "dica2": "Falou sobre cercos e tribulação.",
+      "dica3": "Suas palavras se cumpriram no primeiro século.",
+      "resposta": "Jesus predisse a queda de Jerusalém — aspecto histórico 1"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 3,
+      "dica1": "Governará sobre toda a Terra.",
+      "dica2": "Substituirá governos humanos.",
+      "dica3": "É apresentado como resposta às crises globais.",
+      "resposta": "Reino de Deus como solução — aspecto histórico 1"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "dica1": "Período descrito como crítico e difícil.",
+      "dica2": "Inclui conflitos e instabilidade.",
+      "dica3": "Associado a sinais proféticos.",
+      "resposta": "Últimos dias — aspecto histórico 1"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "dica1": "Interpretou visões sobre reinos sucessivos.",
+      "dica2": "Inclui a imagem de uma estátua simbólica.",
+      "dica3": "Relaciona-se à sequência de impérios.",
+      "resposta": "Daniel e as potências mundiais — aspecto histórico 1"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "Representa potências mundiais sucessivas.",
+      "dica2": "Feita de diferentes materiais.",
+      "dica3": "Termina com um reino que não será destruído.",
+      "resposta": "Estátua de Daniel 2 — aspecto histórico 1"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 4,
+      "dica1": "Predito no livro de Miquéias.",
+      "dica2": "Cumpriu-se no nascimento de Jesus.",
+      "dica3": "Indica local específico antes do evento.",
+      "resposta": "Nascimento do Messias em Belém — aspecto histórico 1"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "dica1": "Descrito como ferido por transgressões.",
+      "dica2": "Aplicado à morte de Jesus.",
+      "dica3": "Mostra detalhes do sofrimento.",
+      "resposta": "Messias sofredor em Isaías 53 — aspecto histórico 1"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "dica1": "Predita no Salmo 22.",
+      "dica2": "Cumprida durante a execução de Jesus.",
+      "dica3": "Menciona sorteio das roupas.",
+      "resposta": "Divisão das vestes do Messias — aspecto histórico 1"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "Fala que não seria abandonado na sepultura.",
+      "dica2": "Aplicada à ressurreição de Jesus.",
+      "dica3": "Mostra esperança além da morte.",
+      "resposta": "Ressurreição predita no Salmo 16 — aspecto histórico 1"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "Mencionados por Jesus.",
+      "dica2": "Ocorreriam em vários lugares.",
+      "dica3": "Parte do sinal dos últimos dias.",
+      "resposta": "Terremotos como sinal — aspecto histórico 1"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "Inclui guerras, fome e terremotos.",
+      "dica2": "Aponta para proximidade do Reino.",
+      "dica3": "Relaciona-se ao tempo do fim.",
+      "resposta": "Sinal de Lucas 21 — aspecto histórico 1"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "Fala de tempos críticos.",
+      "dica2": "Inclui egoísmo e falta de amor.",
+      "dica3": "Aplicado aos últimos dias.",
+      "resposta": "Condições descritas em 2 Timóteo 3 — aspecto histórico 1"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "dica1": "Armas transformadas em instrumentos agrícolas.",
+      "dica2": "Relacionada ao governo de Deus.",
+      "dica3": "Antecipa fim das guerras.",
+      "resposta": "Promessa de paz mundial — aspecto histórico 1"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "dica1": "Deus eliminará lágrimas e dor.",
+      "dica2": "Associado à vida eterna.",
+      "dica3": "Parte das promessas futuras.",
+      "resposta": "Fim da morte prometido — aspecto histórico 1"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "dica1": "Ninguém dirá 'Estou doente'.",
+      "dica2": "Promessa de restauração total.",
+      "dica3": "Ligada ao Reino de Deus.",
+      "resposta": "Fim das doenças — aspecto histórico 1"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "dica1": "Evento histórico registrado por romanos.",
+      "dica2": "Confirmado por evidência arqueológica.",
+      "dica3": "Cumprimento de profecia bíblica.",
+      "resposta": "Queda de Jerusalém em 70 EC — aspecto histórico 1"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "dica1": "Mostra que previsões antigas se realizaram.",
+      "dica2": "Baseado em registros históricos.",
+      "dica3": "Fortalece confiança na Bíblia.",
+      "resposta": "Cumprimento profético confirmado — aspecto histórico 1"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "Predisse o cerco e devastação da cidade.",
+      "dica2": "Cumpriu-se no ano 70 EC.",
+      "dica3": "Relaciona-se às palavras de Jesus registradas nos evangelhos.",
+      "resposta": "Profecia da destruição de Jerusalém — aspecto histórico 2"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "dica1": "Monumento romano em Roma.",
+      "dica2": "Retrata soldados carregando utensílios do templo.",
+      "dica3": "Usado como evidência histórica do cumprimento profético.",
+      "resposta": "Arco de Tito — aspecto histórico 2"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "General romano que liderou o cerco.",
+      "dica2": "Mais tarde tornou-se imperador.",
+      "dica3": "Seu nome está ligado ao arco em Roma.",
+      "resposta": "Tito — aspecto histórico 2"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 4,
+      "dica1": "Advertiu seus seguidores a fugir.",
+      "dica2": "Falou sobre cercos e tribulação.",
+      "dica3": "Suas palavras se cumpriram no primeiro século.",
+      "resposta": "Jesus predisse a queda de Jerusalém — aspecto histórico 2"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 4,
+      "dica1": "Governará sobre toda a Terra.",
+      "dica2": "Substituirá governos humanos.",
+      "dica3": "É apresentado como resposta às crises globais.",
+      "resposta": "Reino de Deus como solução — aspecto histórico 2"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "Período descrito como crítico e difícil.",
+      "dica2": "Inclui conflitos e instabilidade.",
+      "dica3": "Associado a sinais proféticos.",
+      "resposta": "Últimos dias — aspecto histórico 2"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "dica1": "Interpretou visões sobre reinos sucessivos.",
+      "dica2": "Inclui a imagem de uma estátua simbólica.",
+      "dica3": "Relaciona-se à sequência de impérios.",
+      "resposta": "Daniel e as potências mundiais — aspecto histórico 2"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "dica1": "Representa potências mundiais sucessivas.",
+      "dica2": "Feita de diferentes materiais.",
+      "dica3": "Termina com um reino que não será destruído.",
+      "resposta": "Estátua de Daniel 2 — aspecto histórico 2"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "dica1": "Predito no livro de Miquéias.",
+      "dica2": "Cumpriu-se no nascimento de Jesus.",
+      "dica3": "Indica local específico antes do evento.",
+      "resposta": "Nascimento do Messias em Belém — aspecto histórico 2"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "dica1": "Descrito como ferido por transgressões.",
+      "dica2": "Aplicado à morte de Jesus.",
+      "dica3": "Mostra detalhes do sofrimento.",
+      "resposta": "Messias sofredor em Isaías 53 — aspecto histórico 2"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "Predita no Salmo 22.",
+      "dica2": "Cumprida durante a execução de Jesus.",
+      "dica3": "Menciona sorteio das roupas.",
+      "resposta": "Divisão das vestes do Messias — aspecto histórico 2"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "Fala que não seria abandonado na sepultura.",
+      "dica2": "Aplicada à ressurreição de Jesus.",
+      "dica3": "Mostra esperança além da morte.",
+      "resposta": "Ressurreição predita no Salmo 16 — aspecto histórico 2"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "Mencionados por Jesus.",
+      "dica2": "Ocorreriam em vários lugares.",
+      "dica3": "Parte do sinal dos últimos dias.",
+      "resposta": "Terremotos como sinal — aspecto histórico 2"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "Inclui guerras, fome e terremotos.",
+      "dica2": "Aponta para proximidade do Reino.",
+      "dica3": "Relaciona-se ao tempo do fim.",
+      "resposta": "Sinal de Lucas 21 — aspecto histórico 2"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "Fala de tempos críticos.",
+      "dica2": "Inclui egoísmo e falta de amor.",
+      "dica3": "Aplicado aos últimos dias.",
+      "resposta": "Condições descritas em 2 Timóteo 3 — aspecto histórico 2"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "dica1": "Armas transformadas em instrumentos agrícolas.",
+      "dica2": "Relacionada ao governo de Deus.",
+      "dica3": "Antecipa fim das guerras.",
+      "resposta": "Promessa de paz mundial — aspecto histórico 2"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "dica1": "Deus eliminará lágrimas e dor.",
+      "dica2": "Associado à vida eterna.",
+      "dica3": "Parte das promessas futuras.",
+      "resposta": "Fim da morte prometido — aspecto histórico 2"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "dica1": "Ninguém dirá 'Estou doente'.",
+      "dica2": "Promessa de restauração total.",
+      "dica3": "Ligada ao Reino de Deus.",
+      "resposta": "Fim das doenças — aspecto histórico 2"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "Evento histórico registrado por romanos.",
+      "dica2": "Confirmado por evidência arqueológica.",
+      "dica3": "Cumprimento de profecia bíblica.",
+      "resposta": "Queda de Jerusalém em 70 EC — aspecto histórico 2"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "Mostra que previsões antigas se realizaram.",
+      "dica2": "Baseado em registros históricos.",
+      "dica3": "Fortalece confiança na Bíblia.",
+      "resposta": "Cumprimento profético confirmado — aspecto histórico 2"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "Predisse o cerco e devastação da cidade.",
+      "dica2": "Cumpriu-se no ano 70 EC.",
+      "dica3": "Relaciona-se às palavras de Jesus registradas nos evangelhos.",
+      "resposta": "Profecia da destruição de Jerusalém — aspecto histórico 3"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Monumento romano em Roma.",
+      "dica2": "Retrata soldados carregando utensílios do templo.",
+      "dica3": "Usado como evidência histórica do cumprimento profético.",
+      "resposta": "Arco de Tito — aspecto histórico 3"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "General romano que liderou o cerco.",
+      "dica2": "Mais tarde tornou-se imperador.",
+      "dica3": "Seu nome está ligado ao arco em Roma.",
+      "resposta": "Tito — aspecto histórico 3"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "dica1": "Advertiu seus seguidores a fugir.",
+      "dica2": "Falou sobre cercos e tribulação.",
+      "dica3": "Suas palavras se cumpriram no primeiro século.",
+      "resposta": "Jesus predisse a queda de Jerusalém — aspecto histórico 3"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 5,
+      "dica1": "Governará sobre toda a Terra.",
+      "dica2": "Substituirá governos humanos.",
+      "dica3": "É apresentado como resposta às crises globais.",
+      "resposta": "Reino de Deus como solução — aspecto histórico 3"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "Período descrito como crítico e difícil.",
+      "dica2": "Inclui conflitos e instabilidade.",
+      "dica3": "Associado a sinais proféticos.",
+      "resposta": "Últimos dias — aspecto histórico 3"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "Interpretou visões sobre reinos sucessivos.",
+      "dica2": "Inclui a imagem de uma estátua simbólica.",
+      "dica3": "Relaciona-se à sequência de impérios.",
+      "resposta": "Daniel e as potências mundiais — aspecto histórico 3"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Representa potências mundiais sucessivas.",
+      "dica2": "Feita de diferentes materiais.",
+      "dica3": "Termina com um reino que não será destruído.",
+      "resposta": "Estátua de Daniel 2 — aspecto histórico 3"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "dica1": "Predito no livro de Miquéias.",
+      "dica2": "Cumpriu-se no nascimento de Jesus.",
+      "dica3": "Indica local específico antes do evento.",
+      "resposta": "Nascimento do Messias em Belém — aspecto histórico 3"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "Descrito como ferido por transgressões.",
+      "dica2": "Aplicado à morte de Jesus.",
+      "dica3": "Mostra detalhes do sofrimento.",
+      "resposta": "Messias sofredor em Isaías 53 — aspecto histórico 3"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "Predita no Salmo 22.",
+      "dica2": "Cumprida durante a execução de Jesus.",
+      "dica3": "Menciona sorteio das roupas.",
+      "resposta": "Divisão das vestes do Messias — aspecto histórico 3"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "dica1": "Fala que não seria abandonado na sepultura.",
+      "dica2": "Aplicada à ressurreição de Jesus.",
+      "dica3": "Mostra esperança além da morte.",
+      "resposta": "Ressurreição predita no Salmo 16 — aspecto histórico 3"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "dica1": "Mencionados por Jesus.",
+      "dica2": "Ocorreriam em vários lugares.",
+      "dica3": "Parte do sinal dos últimos dias.",
+      "resposta": "Terremotos como sinal — aspecto histórico 3"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "dica1": "Inclui guerras, fome e terremotos.",
+      "dica2": "Aponta para proximidade do Reino.",
+      "dica3": "Relaciona-se ao tempo do fim.",
+      "resposta": "Sinal de Lucas 21 — aspecto histórico 3"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "dica1": "Fala de tempos críticos.",
+      "dica2": "Inclui egoísmo e falta de amor.",
+      "dica3": "Aplicado aos últimos dias.",
+      "resposta": "Condições descritas em 2 Timóteo 3 — aspecto histórico 3"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "Armas transformadas em instrumentos agrícolas.",
+      "dica2": "Relacionada ao governo de Deus.",
+      "dica3": "Antecipa fim das guerras.",
+      "resposta": "Promessa de paz mundial — aspecto histórico 3"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "Deus eliminará lágrimas e dor.",
+      "dica2": "Associado à vida eterna.",
+      "dica3": "Parte das promessas futuras.",
+      "resposta": "Fim da morte prometido — aspecto histórico 3"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "Ninguém dirá 'Estou doente'.",
+      "dica2": "Promessa de restauração total.",
+      "dica3": "Ligada ao Reino de Deus.",
+      "resposta": "Fim das doenças — aspecto histórico 3"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "Evento histórico registrado por romanos.",
+      "dica2": "Confirmado por evidência arqueológica.",
+      "dica3": "Cumprimento de profecia bíblica.",
+      "resposta": "Queda de Jerusalém em 70 EC — aspecto histórico 3"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "Mostra que previsões antigas se realizaram.",
+      "dica2": "Baseado em registros históricos.",
+      "dica3": "Fortalece confiança na Bíblia.",
+      "resposta": "Cumprimento profético confirmado — aspecto histórico 3"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "dica1": "Predisse o cerco e devastação da cidade.",
+      "dica2": "Cumpriu-se no ano 70 EC.",
+      "dica3": "Relaciona-se às palavras de Jesus registradas nos evangelhos.",
+      "resposta": "Profecia da destruição de Jerusalém — aspecto histórico 4"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Monumento romano em Roma.",
+      "dica2": "Retrata soldados carregando utensílios do templo.",
+      "dica3": "Usado como evidência histórica do cumprimento profético.",
+      "resposta": "Arco de Tito — aspecto histórico 4"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "dica1": "General romano que liderou o cerco.",
+      "dica2": "Mais tarde tornou-se imperador.",
+      "dica3": "Seu nome está ligado ao arco em Roma.",
+      "resposta": "Tito — aspecto histórico 4"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "dica1": "Advertiu seus seguidores a fugir.",
+      "dica2": "Falou sobre cercos e tribulação.",
+      "dica3": "Suas palavras se cumpriram no primeiro século.",
+      "resposta": "Jesus predisse a queda de Jerusalém — aspecto histórico 4"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 6,
+      "dica1": "Governará sobre toda a Terra.",
+      "dica2": "Substituirá governos humanos.",
+      "dica3": "É apresentado como resposta às crises globais.",
+      "resposta": "Reino de Deus como solução — aspecto histórico 4"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "dica1": "Período descrito como crítico e difícil.",
+      "dica2": "Inclui conflitos e instabilidade.",
+      "dica3": "Associado a sinais proféticos.",
+      "resposta": "Últimos dias — aspecto histórico 4"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "Interpretou visões sobre reinos sucessivos.",
+      "dica2": "Inclui a imagem de uma estátua simbólica.",
+      "dica3": "Relaciona-se à sequência de impérios.",
+      "resposta": "Daniel e as potências mundiais — aspecto histórico 4"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Representa potências mundiais sucessivas.",
+      "dica2": "Feita de diferentes materiais.",
+      "dica3": "Termina com um reino que não será destruído.",
+      "resposta": "Estátua de Daniel 2 — aspecto histórico 4"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "Predito no livro de Miquéias.",
+      "dica2": "Cumpriu-se no nascimento de Jesus.",
+      "dica3": "Indica local específico antes do evento.",
+      "resposta": "Nascimento do Messias em Belém — aspecto histórico 4"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "Descrito como ferido por transgressões.",
+      "dica2": "Aplicado à morte de Jesus.",
+      "dica3": "Mostra detalhes do sofrimento.",
+      "resposta": "Messias sofredor em Isaías 53 — aspecto histórico 4"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "dica1": "Predita no Salmo 22.",
+      "dica2": "Cumprida durante a execução de Jesus.",
+      "dica3": "Menciona sorteio das roupas.",
+      "resposta": "Divisão das vestes do Messias — aspecto histórico 4"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Fala que não seria abandonado na sepultura.",
+      "dica2": "Aplicada à ressurreição de Jesus.",
+      "dica3": "Mostra esperança além da morte.",
+      "resposta": "Ressurreição predita no Salmo 16 — aspecto histórico 4"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Mencionados por Jesus.",
+      "dica2": "Ocorreriam em vários lugares.",
+      "dica3": "Parte do sinal dos últimos dias.",
+      "resposta": "Terremotos como sinal — aspecto histórico 4"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Inclui guerras, fome e terremotos.",
+      "dica2": "Aponta para proximidade do Reino.",
+      "dica3": "Relaciona-se ao tempo do fim.",
+      "resposta": "Sinal de Lucas 21 — aspecto histórico 4"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Fala de tempos críticos.",
+      "dica2": "Inclui egoísmo e falta de amor.",
+      "dica3": "Aplicado aos últimos dias.",
+      "resposta": "Condições descritas em 2 Timóteo 3 — aspecto histórico 4"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "Armas transformadas em instrumentos agrícolas.",
+      "dica2": "Relacionada ao governo de Deus.",
+      "dica3": "Antecipa fim das guerras.",
+      "resposta": "Promessa de paz mundial — aspecto histórico 4"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "Deus eliminará lágrimas e dor.",
+      "dica2": "Associado à vida eterna.",
+      "dica3": "Parte das promessas futuras.",
+      "resposta": "Fim da morte prometido — aspecto histórico 4"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "Ninguém dirá 'Estou doente'.",
+      "dica2": "Promessa de restauração total.",
+      "dica3": "Ligada ao Reino de Deus.",
+      "resposta": "Fim das doenças — aspecto histórico 4"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "dica1": "Evento histórico registrado por romanos.",
+      "dica2": "Confirmado por evidência arqueológica.",
+      "dica3": "Cumprimento de profecia bíblica.",
+      "resposta": "Queda de Jerusalém em 70 EC — aspecto histórico 4"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "dica1": "Mostra que previsões antigas se realizaram.",
+      "dica2": "Baseado em registros históricos.",
+      "dica3": "Fortalece confiança na Bíblia.",
+      "resposta": "Cumprimento profético confirmado — aspecto histórico 4"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Predisse o cerco e devastação da cidade.",
+      "dica2": "Cumpriu-se no ano 70 EC.",
+      "dica3": "Relaciona-se às palavras de Jesus registradas nos evangelhos.",
+      "resposta": "Profecia da destruição de Jerusalém — aspecto histórico 5"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Monumento romano em Roma.",
+      "dica2": "Retrata soldados carregando utensílios do templo.",
+      "dica3": "Usado como evidência histórica do cumprimento profético.",
+      "resposta": "Arco de Tito — aspecto histórico 5"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "General romano que liderou o cerco.",
+      "dica2": "Mais tarde tornou-se imperador.",
+      "dica3": "Seu nome está ligado ao arco em Roma.",
+      "resposta": "Tito — aspecto histórico 5"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "Advertiu seus seguidores a fugir.",
+      "dica2": "Falou sobre cercos e tribulação.",
+      "dica3": "Suas palavras se cumpriram no primeiro século.",
+      "resposta": "Jesus predisse a queda de Jerusalém — aspecto histórico 5"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 7,
+      "dica1": "Governará sobre toda a Terra.",
+      "dica2": "Substituirá governos humanos.",
+      "dica3": "É apresentado como resposta às crises globais.",
+      "resposta": "Reino de Deus como solução — aspecto histórico 5"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Período descrito como crítico e difícil.",
+      "dica2": "Inclui conflitos e instabilidade.",
+      "dica3": "Associado a sinais proféticos.",
+      "resposta": "Últimos dias — aspecto histórico 5"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "dica1": "Interpretou visões sobre reinos sucessivos.",
+      "dica2": "Inclui a imagem de uma estátua simbólica.",
+      "dica3": "Relaciona-se à sequência de impérios.",
+      "resposta": "Daniel e as potências mundiais — aspecto histórico 5"
+    },
+    {
+      "masculino": 1,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Representa potências mundiais sucessivas.",
+      "dica2": "Feita de diferentes materiais.",
+      "dica3": "Termina com um reino que não será destruído.",
+      "resposta": "Estátua de Daniel 2 — aspecto histórico 5"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 8,
+      "dica1": "Predito no livro de Miquéias.",
+      "dica2": "Cumpriu-se no nascimento de Jesus.",
+      "dica3": "Indica local específico antes do evento.",
+      "resposta": "Nascimento do Messias em Belém — aspecto histórico 5"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "dica1": "Descrito como ferido por transgressões.",
+      "dica2": "Aplicado à morte de Jesus.",
+      "dica3": "Mostra detalhes do sofrimento.",
+      "resposta": "Messias sofredor em Isaías 53 — aspecto histórico 5"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Predita no Salmo 22.",
+      "dica2": "Cumprida durante a execução de Jesus.",
+      "dica3": "Menciona sorteio das roupas.",
+      "resposta": "Divisão das vestes do Messias — aspecto histórico 5"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Fala que não seria abandonado na sepultura.",
+      "dica2": "Aplicada à ressurreição de Jesus.",
+      "dica3": "Mostra esperança além da morte.",
+      "resposta": "Ressurreição predita no Salmo 16 — aspecto histórico 5"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Mencionados por Jesus.",
+      "dica2": "Ocorreriam em vários lugares.",
+      "dica3": "Parte do sinal dos últimos dias.",
+      "resposta": "Terremotos como sinal — aspecto histórico 5"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Inclui guerras, fome e terremotos.",
+      "dica2": "Aponta para proximidade do Reino.",
+      "dica3": "Relaciona-se ao tempo do fim.",
+      "resposta": "Sinal de Lucas 21 — aspecto histórico 5"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Fala de tempos críticos.",
+      "dica2": "Inclui egoísmo e falta de amor.",
+      "dica3": "Aplicado aos últimos dias.",
+      "resposta": "Condições descritas em 2 Timóteo 3 — aspecto histórico 5"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "dica1": "Armas transformadas em instrumentos agrícolas.",
+      "dica2": "Relacionada ao governo de Deus.",
+      "dica3": "Antecipa fim das guerras.",
+      "resposta": "Promessa de paz mundial — aspecto histórico 5"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "dica1": "Deus eliminará lágrimas e dor.",
+      "dica2": "Associado à vida eterna.",
+      "dica3": "Parte das promessas futuras.",
+      "resposta": "Fim da morte prometido — aspecto histórico 5"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 9,
+      "dica1": "Ninguém dirá 'Estou doente'.",
+      "dica2": "Promessa de restauração total.",
+      "dica3": "Ligada ao Reino de Deus.",
+      "resposta": "Fim das doenças — aspecto histórico 5"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Evento histórico registrado por romanos.",
+      "dica2": "Confirmado por evidência arqueológica.",
+      "dica3": "Cumprimento de profecia bíblica.",
+      "resposta": "Queda de Jerusalém em 70 EC — aspecto histórico 5"
+    },
+    {
+      "masculino": 0,
+      "feminino": 0,
+      "genero": null,
+      "dificuldade": 10,
+      "dica1": "Mostra que previsões antigas se realizaram.",
+      "dica2": "Baseado em registros históricos.",
+      "dica3": "Fortalece confiança na Bíblia.",
+      "resposta": "Cumprimento profético confirmado — aspecto histórico 5"
+    }
+  ]
+}

@@ -255,98 +255,6 @@
       }
     }
 
-    /* ── Faixa WhatsApp ── */
-    .faixa-whatsapp {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      background: linear-gradient(135deg, #25D366, #128C7E);
-      border-radius: 14px;
-      padding: 14px 18px;
-      margin-bottom: 12px;
-      cursor: pointer;
-      box-shadow: 0 6px 18px rgba(37,211,102,0.35);
-      text-decoration: none;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-      animation: fadeInUp 0.7s ease-out;
-    }
-    .faixa-whatsapp:active { transform: scale(0.98); }
-
-    .faixa-whatsapp svg {
-      flex-shrink: 0;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-    }
-
-    .faixa-whatsapp-texto {
-      color: #fff;
-      font-weight: 800;
-      font-size: 0.95rem;
-      line-height: 1.3;
-      text-align: left;
-    }
-
-    .faixa-whatsapp-texto small {
-      display: block;
-      font-weight: 600;
-      font-size: 0.78rem;
-      opacity: 0.88;
-      margin-top: 2px;
-    }
-
-    /* ── Faixa Contribuição ── */
-    .faixa-contribuicao {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: rgba(255,255,255,0.12);
-      border: 2px solid rgba(255,255,255,0.22);
-      border-radius: 14px;
-      padding: 12px 16px;
-      margin-bottom: 12px;
-      animation: fadeInUp 0.8s ease-out;
-    }
-
-    .faixa-contribuicao-icone {
-      font-size: 1.6rem;
-      flex-shrink: 0;
-    }
-
-    .faixa-contribuicao-texto {
-      color: rgba(255,255,255,0.92);
-      font-size: 0.95rem;
-      font-weight: 600;
-      line-height: 1.5;
-    }
-
-    .faixa-contribuicao-texto a {
-      color: #FFD700;
-      font-weight: 800;
-      text-decoration: none;
-      word-break: break-all;
-    }
-
-    .faixa-contribuicao-texto a:active { opacity: 0.8; }
-
-    .btn-whatsapp-contato {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #25D366;
-      color: #fff !important;
-      font-weight: 800 !important;
-      font-size: 0.78rem;
-      padding: 5px 12px;
-      border-radius: 20px;
-      text-decoration: none !important;
-      word-break: normal !important;
-      white-space: nowrap;
-      margin-left: 4px;
-      vertical-align: middle;
-    }
-
-    .btn-whatsapp-contato:active { opacity: 0.85; transform: scale(0.97); }
-
     @media (max-width: 768px) {
       .card {
         padding: 20px;
@@ -428,41 +336,6 @@
       </div>
     </div>
 
-    <!-- FAIXA WHATSAPP -->
-    <a
-      class="faixa-whatsapp"
-      href="https://wa.me/?text=Joguei%20Cartas%20B%C3%ADblicas%20-%20Desafio%20do%20Ping%C3%A3o%20e%20voc%C3%AA%20tem%20que%20jogar%20tamb%C3%A9m!%20%F0%9F%8E%AE%F0%9F%93%96%0Ahttps%3A%2F%2Fcartasbiblicas.desafiodopingao.com.br%2F"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 48 48" fill="none">
-        <circle cx="24" cy="24" r="24" fill="#25D366"/>
-        <path d="M34.5 13.5C32.1 11.1 28.9 9.7 25.5 9.7C18.6 9.7 13 15.3 13 22.2C13 24.4 13.6 26.6 14.7 28.5L13 35L19.7 33.3C21.5 34.3 23.5 34.9 25.5 34.9C32.4 34.9 38 29.3 38 22.4C38 19 36.9 15.9 34.5 13.5ZM25.5 32.8C23.7 32.8 21.9 32.3 20.4 31.3L20 31.1L16 32.1L17 28.2L16.8 27.8C15.7 26.2 15.1 24.3 15.1 22.2C15.1 16.5 19.8 11.8 25.5 11.8C28.3 11.8 30.9 12.9 32.8 14.8C34.7 16.7 35.9 19.3 35.9 22.1C35.9 27.9 31.2 32.8 25.5 32.8ZM31.1 24.8C30.8 24.6 29.3 23.9 29 23.7C28.7 23.6 28.5 23.5 28.3 23.8C28.1 24.1 27.6 24.7 27.4 24.9C27.3 25.1 27.1 25.1 26.8 25C25.5 24.4 24.6 23.9 23.7 22.4C23.5 22.1 24 22.1 24.5 21.1C24.6 20.9 24.5 20.7 24.5 20.6C24.4 20.4 23.9 18.9 23.7 18.3C23.5 17.7 23.2 17.8 23 17.8H22.5C22.3 17.8 21.9 17.9 21.6 18.2C21.3 18.5 20.6 19.2 20.6 20.7C20.6 22.2 21.6 23.6 21.8 23.8C22 24 23.9 26.9 26.8 28.2C28.8 29.1 29.6 29.1 30.6 29C31.2 28.9 32.5 28.3 32.8 27.5C33.1 26.8 33.1 26.2 33 26C32.9 25.8 32.7 25.8 31.1 24.8Z" fill="white"/>
-      </svg>
-      <div class="faixa-whatsapp-texto">
-        📲 Compartilhe com seus amigos!
-        <small>Clique e envie o jogo pelo WhatsApp</small>
-      </div>
-    </a>
-
-    <!-- FAIXA CONTRIBUIÇÃO -->
-    <div class="faixa-contribuicao">
-      <div class="faixa-contribuicao-texto">
-        Você pode contribuir para melhorar o jogo! Caso encontre algum erro nas cartas ou no jogo, avise pelo
-        <a href="mailto:esdrasjulio@yahoo.com.br?subject=Erro%20no%20jogo%20Cartas%20B%C3%ADblicas">e-mail</a>
-        ou pelo
-        <a
-          class="btn-whatsapp-contato"
-          href="https://wa.me/5531984213009?text=Ol%C3%A1%21%20Encontrei%20um%20erro%20no%20jogo%20Cartas%20B%C3%ADblicas%20e%20gostaria%20de%20contribuir%20para%20melhor%C3%A1-lo."
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          WhatsApp
-        </a>
-      </div>
-    </div>
-
     <!-- BOTÕES DE NAVEGAÇÃO -->
     <div class="modos">
       <a href="solo.html" class="modo-btn">
@@ -485,10 +358,6 @@
         Regras
       </a>
     </div>
-
-    <p style="text-align:center; color:rgba(255,255,255,0.45); font-size:0.72rem; margin-top:6px; margin-bottom:10px;">
-      &copy; 2026 Desenvolvido por Esdras Julio
-    </p>
   </div>
 
   <script src="config.js"></script>

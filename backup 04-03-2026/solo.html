@@ -6,8 +6,8 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>🎮 Desafio do Pingão - Cartas Bíblicas</title>
-  <meta name="solo-build" content="2026-03-05-solo-ui-start-v2-catbuttons-greenfix-dedup+counts-v1+ranking-banner-totalpos-v1+mobile-cat-compact-v1">
+  <title>🎯 Modo Solo - Quem Sou Eu?</title>
+  <meta name="solo-build" content="2026-03-04-mobile-compact-toprank-2lines">
   <style>
     :root {
       --jw-azul-principal: #2E5B93;
@@ -97,7 +97,9 @@
       transition: transform 0.3s;
     }
 
-    .stat-box:active { transform: scale(0.95); }
+    .stat-box:active {
+      transform: scale(0.95);
+    }
 
     .stat-label {
       font-size: 0.65rem;
@@ -442,9 +444,6 @@
     .loading { text-align: center; padding: 40px; }
     .loading-spinner { font-size: 2.5rem; animation: girar 1s linear infinite; }
 
-    /* ==========================================
-       RESUMO DA FASE
-       ========================================== */
     .fase-resumo {
       position: relative;
       overflow: hidden;
@@ -498,8 +497,11 @@
     }
 
     /* ==========================================
-       BANNER DO JOGADOR
+       ✅ BANNER DO JOGADOR (2 LINHAS)
+       Linha 1: Nome + Título
+       Linha 2: PTS + RANK (com clareza)
        ========================================== */
+
     .player-banner {
       margin-top: 8px;
       padding: 10px 12px;
@@ -522,7 +524,12 @@
       pointer-events: none;
     }
 
-    .player-lines { position: relative; z-index: 1; display: grid; gap: 6px; }
+    .player-lines {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 6px;
+    }
 
     .player-line1 {
       display: flex;
@@ -624,483 +631,55 @@
       .dica { font-size: 1.02rem; }
       .opcao { font-size: 0.92rem; }
     }
-
-    /* =========================================================
-       MELHORIAS DA TELA INICIAL
-       ========================================================= */
-    .label-joy{
-      display:block;
-      margin-bottom: 8px;
-      color: #1E3A5F;
-      font-weight: 900;
-      font-size: 0.98rem;
-    }
-
-    .start-tip{
-      margin-top: 12px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #FFD700, #FFB300);
-      color: #1F4273;
-      font-weight: 900;
-      box-shadow: 0 10px 18px rgba(0,0,0,0.12);
-      border: 2px dashed rgba(31,66,115,0.28);
-      line-height: 1.25;
-    }
-
-    .start-tip-ex{
-      margin-top: 6px;
-      font-size: 0.85rem;
-      font-weight: 800;
-      opacity: 0.95;
-    }
-
-    .start-tip-ex span{
-      background: rgba(255,255,255,0.55);
-      border: 1px solid rgba(31,66,115,0.18);
-      padding: 2px 8px;
-      border-radius: 999px;
-      display: inline-block;
-      margin-right: 6px;
-    }
-
-    .start-field{
-      border-radius: 14px;
-      border-width: 3px;
-      padding: 16px 14px;
-      box-shadow: 0 10px 18px rgba(0,0,0,0.08);
-      margin-bottom: 10px;
-    }
-
-    .start-helper{
-      margin-top: -2px;
-      margin-bottom: 10px;
-      color: rgba(31,66,115,0.92);
-      font-weight: 800;
-      font-size: 0.88rem;
-    }
-
-    .name-head{
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .name-counter{
-      font-size: 0.8rem;
-      font-weight: 900;
-      color: rgba(31,66,115,0.9);
-      background: rgba(255,255,255,0.7);
-      border: 2px solid rgba(46,91,147,0.18);
-      border-radius: 999px;
-      padding: 6px 10px;
-      user-select: none;
-      flex: 0 0 auto;
-    }
-
-    .start-warn{
-      display:none;
-      margin: 8px 0 10px;
-      background: rgba(217,83,79,0.10);
-      border: 2px solid rgba(217,83,79,0.35);
-      color: #7a1e1c;
-      font-weight: 900;
-      padding: 10px 12px;
-      border-radius: 12px;
-    }
-
-    .start-btn{
-      min-height: 54px;
-      border-radius: 14px;
-    }
-
-    .cat-grid{
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .cat-btn{
-      width: 100%;
-      border: 3px solid rgba(46,91,147,0.55);
-      border-radius: 14px;
-      padding: 14px 12px;
-      font-size: 1rem;
-      font-weight: 950;
-      cursor: pointer;
-      user-select: none;
-      touch-action: manipulation;
-      transition: transform .12s, box-shadow .12s, filter .12s, background .12s, color .12s, border-color .12s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 54px;
-      box-shadow: 0 10px 18px rgba(0,0,0,0.08);
-      flex-wrap: wrap;
-    }
-
-    .cat-btn.is-off{
-      background: rgba(255,255,255,0.75);
-      color: rgba(31,66,115,0.65);
-      border-color: rgba(31,66,115,0.18);
-      filter: grayscale(1);
-    }
-
-    .cat-btn.is-on{
-      background: linear-gradient(135deg, #39b54a, #1d7f34);
-      color: #fff;
-      border-color: rgba(255,255,255,0.12);
-      filter: none;
-      box-shadow: 0 14px 22px rgba(0,0,0,0.18);
-    }
-
-    .cat-btn.is-on::after{
-      content: "✓";
-      font-weight: 1000;
-      margin-left: 8px;
-      background: rgba(255,255,255,0.18);
-      border: 2px solid rgba(255,255,255,0.25);
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .cat-btn:active{ transform: scale(0.99); }
-    .cat-emoji{ font-size: 1.15rem; }
-
-    .cat-sub {
-      font-size: 0.82rem;
-      font-weight: 900;
-      opacity: 0.92;
-      width: 100%;
-      text-align: center;
-      margin-top: 2px;
-    }
-
-    .cat-btn.is-off .cat-sub { opacity: 0.70; }
-
-    @media (max-width: 420px){
-      .start-field{ padding: 15px 12px; }
-      .start-tip{ font-size: 0.95rem; }
-      .start-helper{ font-size: 0.85rem; }
-      .cat-btn{ padding: 14px 10px; }
-      .cat-sub { font-size: 0.78rem; }
-    }
-
-    @media (max-width: 420px){
-      #tela-inicial.card { padding: 10px; }
-      .header { margin-bottom: 10px; }
-      .header h1 { font-size: 1.45rem; margin-bottom: 6px; }
-      .start-tip { margin-top: 8px; padding: 8px 10px; font-size: 0.9rem; }
-      .start-tip-ex { margin-top: 4px; font-size: 0.8rem; }
-      .cat-grid { gap: 8px; margin-bottom: 8px; }
-      .cat-btn{
-        padding: 10px 10px;
-        min-height: 46px;
-        border-radius: 12px;
-        font-size: 0.95rem;
-        box-shadow: 0 8px 14px rgba(0,0,0,0.07);
-      }
-      .cat-emoji { font-size: 1.05rem; }
-      .cat-sub{
-        margin-top: 0;
-        font-size: 0.75rem;
-        line-height: 1.1;
-      }
-      .cat-btn.is-on::after{
-        width: 22px;
-        height: 22px;
-        margin-left: 6px;
-        border-width: 2px;
-      }
-      .start-field{ padding: 14px 12px; }
-      .start-btn{ min-height: 48px; padding: 14px; }
-    }
-
-    /* ========================================================
-       MELHORIAS ANIMADAS - TELA INICIAL (estilo divertido)
-       ======================================================== */
-
-    .bg-particles {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0;
-      animation: floatParticle linear infinite;
-    }
-    @keyframes floatParticle {
-      0%   { opacity: 0;   transform: translateY(105vh) scale(0.5) rotate(0deg); }
-      10%  { opacity: 0.9; }
-      85%  { opacity: 0.5; }
-      100% { opacity: 0;   transform: translateY(-10vh) scale(1.3) rotate(360deg); }
-    }
-
-    .container { position: relative; z-index: 1; }
-
-    #tela-inicial .header h1 {
-      background: linear-gradient(90deg, #FFD700 0%, #FF8C00 40%, #FFD700 80%, #FF8C00 100%);
-      background-size: 250% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: titleShine 3s linear infinite;
-      filter: drop-shadow(0 2px 8px rgba(255, 190, 0, 0.4));
-      font-size: 2rem;
-    }
-    @keyframes titleShine {
-      0%   { background-position: 0%   center; }
-      100% { background-position: 250% center; }
-    }
-
-    .start-tip {
-      animation: tipFloat 3.5s ease-in-out infinite;
-    }
-    @keyframes tipFloat {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-5px); }
-    }
-
-    .cat-btn:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 22px 36px rgba(0, 0, 0, 0.2);
-      transition: transform .15s ease, box-shadow .15s ease;
-    }
-
-    .cat-btn.is-on {
-      animation: catGlow 1.8s ease-in-out infinite;
-    }
-    @keyframes catGlow {
-      0%, 100% { box-shadow: 0 14px 22px rgba(0,0,0,0.18); }
-      50%       { box-shadow: 0 20px 34px rgba(0,0,0,0.22), 0 0 26px rgba(57, 181, 74, 0.6); }
-    }
-
-    .start-btn.btn-primary {
-      background: linear-gradient(135deg, #FF6B35 0%, #E63900 100%);
-      box-shadow: 0 8px 24px rgba(230, 57, 0, 0.45);
-      animation: startPulse 2.2s ease-in-out infinite;
-      font-size: 1.15rem;
-      letter-spacing: 0.4px;
-    }
-    @keyframes startPulse {
-      0%, 100% { box-shadow: 0 8px 24px rgba(230,57,0,0.45); transform: scale(1); }
-      50%       { box-shadow: 0 16px 40px rgba(230,57,0,0.72); transform: scale(1.02); }
-    }
-    .start-btn.btn-primary:active { transform: scale(0.97) !important; animation: none; }
-
-    #nome-jogador:focus {
-      outline: none;
-      border-color: var(--jw-dourado);
-      box-shadow: 0 0 0 4px rgba(242, 183, 5, 0.32);
-      transition: box-shadow 0.25s ease, border-color 0.25s ease;
-    }
-
-    /* ========================================================
-       MELHORIAS TELAS DE JOGO E RESULTADO
-       ======================================================== */
-
-    .timer {
-      animation: timerTick 1.5s ease-in-out infinite;
-      border-radius: 8px;
-      padding: 2px 6px;
-    }
-    @keyframes timerTick {
-      0%, 100% { transform: scale(1); }
-      50%       { transform: scale(1.07); }
-    }
-
-    .timer-urgente {
-      animation: timerUrge 0.55s ease-in-out infinite !important;
-      background: rgba(217, 83, 79, 0.12);
-    }
-    @keyframes timerUrge {
-      0%, 100% { transform: scale(1);    text-shadow: 0 0 8px  rgba(217,83,79,0.5); }
-      50%       { transform: scale(1.14); text-shadow: 0 0 22px rgba(217,83,79,0.9); }
-    }
-
-    .dicas {
-      animation: dicasBorder 4s ease-in-out infinite;
-    }
-    @keyframes dicasBorder {
-      0%, 100% { border-color: var(--jw-azul-principal); box-shadow: 0 4px 15px rgba(74,109,167,0.2); }
-      50%       { border-color: var(--jw-dourado);        box-shadow: 0 8px 24px rgba(242,183,5,0.28); }
-    }
-
-    .opcao:hover {
-      transform: translateY(-3px) scale(1.01);
-      box-shadow: 0 8px 20px rgba(46, 91, 147, 0.25);
-      border-color: var(--jw-azul-claro);
-      transition: all 0.15s ease;
-    }
-    .opcao.correta {
-      box-shadow: 0 0 26px rgba(92, 184, 92, 0.65);
-      animation: correctPop 0.6s ease-out forwards;
-    }
-    @keyframes correctPop {
-      0%   { transform: scale(1); }
-      40%  { transform: scale(1.07); }
-      70%  { transform: scale(0.97); }
-      100% { transform: scale(1); }
-    }
-    .opcao.errada {
-      box-shadow: 0 0 20px rgba(217, 83, 79, 0.55);
-      animation: shake 0.6s ease-out;
-    }
-
-    .stat-box:first-child {
-      position: relative;
-      overflow: hidden;
-    }
-    .stat-box:first-child::after {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -80%;
-      width: 50%;
-      height: 200%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
-      animation: shimmerPass 3s linear infinite;
-    }
-    @keyframes shimmerPass {
-      0%   { left: -80%; }
-      100% { left: 130%; }
-    }
-
-    .streak-indicator {
-      animation: firePulse 0.9s ease-in-out infinite !important;
-    }
-    @keyframes firePulse {
-      0%, 100% { box-shadow: 0 4px 12px rgba(255,107,107,0.40); transform: scale(1); }
-      50%       { box-shadow: 0 8px 26px rgba(255,107,107,0.75); transform: scale(1.04); }
-    }
-
-    .feedback { font-size: 0.95rem; }
-    .feedback.correto { border-left: 5px solid var(--jw-verde-sucesso); padding-left: 14px; }
-    .feedback.errado  { border-left: 5px solid var(--jw-vermelho-erro);  padding-left: 14px; }
-
-    #tela-resultado .header h1 {
-      background: linear-gradient(90deg, #FFD700 0%, #FF8C00 40%, #FFD700 80%, #FF8C00 100%);
-      background-size: 250% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: titleShine 3s linear infinite;
-      filter: drop-shadow(0 2px 8px rgba(255,190,0,0.4));
-    }
-
-    .pontuacao-final {
-      font-size: 3.2rem;
-      animation: scorePulse 1.2s ease-in-out infinite;
-    }
-    @keyframes scorePulse {
-      0%, 100% { text-shadow: 0 0 14px rgba(242,183,5,0.5); transform: scale(1); }
-      50%       { text-shadow: 0 0 36px rgba(242,183,5,0.88); transform: scale(1.06); }
-    }
-
-    .resumo-item {
-      background: rgba(255, 255, 255, 0.92);
-      border: 2px solid rgba(46, 91, 147, 0.10);
-    }
-    .resumo-item:nth-child(1) { border-left: 5px solid var(--jw-verde-sucesso); }
-    .resumo-item:nth-child(2) { border-left: 5px solid var(--jw-vermelho-erro); }
-    .resumo-item:nth-child(3) { border-left: 5px solid var(--jw-dourado); }
-
-    .podio-item {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .podio-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    }
-    .podio-item:nth-child(1) { border-left: 5px solid #FFD700; }
-    .podio-item:nth-child(2) { border-left: 5px solid #C0C0C0; }
-    .podio-item:nth-child(3) { border-left: 5px solid #CD7F32; }
-
-    #tela-resultado .btn-primary {
-      background: linear-gradient(135deg, #FF6B35 0%, #E63900 100%);
-      box-shadow: 0 8px 24px rgba(230, 57, 0, 0.40);
-      animation: startPulse 2.4s ease-in-out infinite;
-      font-size: 1.1rem;
-    }
-    #tela-resultado .btn-secondary:hover {
-      background: rgba(46, 91, 147, 0.12);
-      color: var(--jw-azul-escuro);
-      transition: background 0.2s ease;
-    }
   </style>
 </head>
 <body>
-  <div class="bg-particles" id="bg-particles"></div>
   <div class="container">
     <div class="card" id="tela-inicial">
       <div class="header">
-        <h1>🎮 Desafio do Pingão - Cartas Bíblicas</h1>
-        <div class="start-tip" id="start-tip">
-          🏆 Para salvar seus pontos no ranking, use <b>Nome + Sobrenome</b> ou um <b>apelido fixo</b>.
-          <div class="start-tip-ex">
-            Ex.: <span>"Ana Silva"</span> · <span>"JPdoPingão"</span>
-          </div>
+        <h1>🎯 Modo Solo</h1>
+        <p>Responda 10 perguntas e alcance o topo!</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat-box">
+          <div class="stat-label">Recorde</div>
+          <div class="stat-value" id="recorde-pessoal">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Perguntas</div>
+          <div class="stat-value">100</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Tempo</div>
+          <div class="stat-value">60s</div>
         </div>
       </div>
 
-      <label class="label-joy">📚 Categoria:</label>
+      <label for="categoria" style="display: block; margin-bottom: 8px; color: #1E3A5F; font-weight: bold; font-size: 0.95rem;">
+        📚 Categoria:
+      </label>
+      <select id="categoria" class="categoria-select">
+        <option value="personagens">👤 Personagens B��blicos</option>
+        <option value="profecias">📜 Profecias</option>
+        <option value="pregacao">🎤 Pregação</option>
+      </select>
 
-      <div class="cat-grid" id="cat-grid">
-        <button type="button" class="cat-btn" data-value="personagens">
-          <span class="cat-emoji">👤</span> Personagens Bíblicos
-          <div class="cat-sub" id="cat-count-personagens">— cartas</div>
-        </button>
-
-        <button type="button" class="cat-btn" data-value="profecias">
-          <span class="cat-emoji">📜</span> Profecias
-          <div class="cat-sub" id="cat-count-profecias">— cartas</div>
-        </button>
-
-        <button type="button" class="cat-btn" data-value="pregacao">
-          <span class="cat-emoji">🎤</span> Pregação · Família · Ensinos Bíblicos
-          <div class="cat-sub" id="cat-count-pregacao">— cartas</div>
-        </button>
-      </div>
-
-      <input type="hidden" id="categoria" value="personagens">
-
-      <div class="name-head">
-        <label for="nome-jogador" class="label-joy" style="margin:0;">✏️ Seu Nome:</label>
-        <div class="name-counter" id="name-counter">0/22</div>
-      </div>
-
+      <label for="nome-jogador" style="display: block; margin-bottom: 8px; color: #1E3A5F; font-weight: bold; font-size: 0.95rem;">
+        ✏️ Seu Nome:
+      </label>
       <input
         type="text"
         id="nome-jogador"
-        class="categoria-select start-field"
-        placeholder="Ex: Maria Souza / MZGames"
+        class="categoria-select"
+        placeholder="Digite seu nome..."
+        style="margin-bottom: 12px;"
         autocomplete="name"
         inputmode="text"
-        maxlength="22"
       >
 
-      <div class="start-helper" id="start-helper">
-        Dica: use sempre o <b>mesmo nome</b> para seus pontos somarem.
-      </div>
-
-      <div class="start-warn" id="start-warn" aria-live="polite">
-        ⚠️ Digite um nome válido (ex.: "João Pereira" ou "JPedroso").
-      </div>
-
-      <button class="btn btn-primary start-btn" onclick="iniciarJogo()">🚀 Iniciar Jogo</button>
-      <a href="index.html" class="btn btn-secondary start-btn">🏠 Voltar ao Menu</a>
+      <button class="btn btn-primary" onclick="iniciarJogo()">🚀 Iniciar Jogo</button>
+      <a href="index.html" class="btn btn-secondary">🏠 Voltar ao Menu</a>
     </div>
 
     <div class="card pergunta-container" id="tela-jogo"></div>
@@ -1138,6 +717,7 @@
   </div>
 
   <script src="config.js"></script>
+
   <script>
     const AudioSystem = {
       context: null,
@@ -1211,26 +791,6 @@
 
     AudioSystem.init();
 
-    // Partículas flutuantes animadas no fundo
-    (function criarParticulas() {
-      const container = document.getElementById('bg-particles');
-      if (!container) return;
-      const cores = ['#FFD700','#FFA500','#FFFFFF','#5F86BD','#FF6B35','#FFB300'];
-      const tamanhos = [6, 8, 10, 12, 14];
-      const total = 22;
-      for (let i = 0; i < total; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        const cor = cores[Math.floor(Math.random() * cores.length)];
-        const tam = tamanhos[Math.floor(Math.random() * tamanhos.length)];
-        const dur = (5 + Math.random() * 9).toFixed(1) + 's';
-        const delay = -(Math.random() * 10).toFixed(1) + 's';
-        const left = (Math.random() * 100).toFixed(1) + '%';
-        p.style.cssText = `width:${tam}px;height:${tam}px;background:${cor};left:${left};animation-duration:${dur};animation-delay:${delay};opacity:0;`;
-        container.appendChild(p);
-      }
-    })();
-
     function mostrarPontosAnimados(pontos, isBonus = false) {
       const elemento = document.createElement('div');
       elemento.className = `floating-points ${isBonus ? 'bonus' : 'normal'}`;
@@ -1243,112 +803,8 @@
       setTimeout(() => elemento.remove(), 2000);
     }
 
-    function limparEspacosNome(s) {
-      return String(s || '').replace(/\s+/g, ' ').trim();
-    }
-
-    function nomeValidoParaRanking(s) {
-      const nome = limparEspacosNome(s);
-      if (!nome) return false;
-      if (nome.length < 2) return false;
-      return true;
-    }
-
-    function setupCategoriasBotoes() {
-      const grid = document.getElementById('cat-grid');
-      const inputHidden = document.getElementById('categoria');
-      if (!grid || !inputHidden) return;
-
-      function setCategoria(valor) {
-        inputHidden.value = valor;
-
-        [...grid.querySelectorAll('.cat-btn')].forEach(btn => {
-          const v = btn.getAttribute('data-value');
-          const on = v === valor;
-          btn.classList.toggle('is-on', on);
-          btn.classList.toggle('is-off', !on);
-          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-        });
-      }
-
-      grid.addEventListener('click', (e) => {
-        const btn = e.target.closest('.cat-btn');
-        if (!btn) return;
-        AudioSystem.click();
-        const valor = btn.getAttribute('data-value') || 'personagens';
-        setCategoria(valor);
-      });
-
-      setCategoria(inputHidden.value || 'personagens');
-    }
-
-    function setupTelaInicialSoloUX() {
-      const input = document.getElementById('nome-jogador');
-      const counter = document.getElementById('name-counter');
-      const warn = document.getElementById('start-warn');
-      if (!input || !counter) return;
-
-      const max = Number(input.getAttribute('maxlength') || 22);
-
-      function updateCounter() {
-        const v = limparEspacosNome(input.value);
-        counter.textContent = `${v.length}/${max}`;
-      }
-
-      updateCounter();
-
-      input.addEventListener('input', () => {
-        const before = input.value;
-        const cleaned = limparEspacosNome(before);
-        if (cleaned !== before) input.value = cleaned;
-        if (warn) warn.style.display = 'none';
-        updateCounter();
-      });
-
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') iniciarJogo();
-      });
-    }
-
-    async function carregarContagemCartasCategoria(categoria) {
-      try {
-        const res = await fetch(`${API_BASE}/cartas/${categoria}`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        const total = Array.isArray(data?.cartas) ? data.cartas.length : 0;
-        return total;
-      } catch (e) {
-        return null;
-      }
-    }
-
-    async function preencherContagensCategorias() {
-      const map = {
-        personagens: document.getElementById('cat-count-personagens'),
-        profecias: document.getElementById('cat-count-profecias'),
-        pregacao: document.getElementById('cat-count-pregacao')
-      };
-
-      Object.values(map).forEach(el => { if (el) el.textContent = 'Carregando...'; });
-
-      const categorias = Object.keys(map);
-      const results = await Promise.all(categorias.map(c => carregarContagemCartasCategoria(c)));
-
-      categorias.forEach((cat, i) => {
-        const el = map[cat];
-        if (!el) return;
-
-        const n = results[i];
-        if (typeof n === 'number') {
-          el.textContent = `${n.toLocaleString('pt-BR')} cartas`;
-        } else {
-          el.textContent = '— cartas';
-        }
-      });
-    }
-
     const API_BASE = window.APP_CONFIG.API_BASE;
-    const SOLO_BUILD_VERSION = "2026-03-05-solo-ui-start-v2-catbuttons-greenfix-dedup+counts-v1+ranking-banner-totalpos-v1+mobile-cat-compact-v1";
+    const SOLO_BUILD_VERSION = "2026-03-04-mobile-compact-toprank-2lines";
     const TOTAL_FASES = 10;
     const CARTAS_POR_FASE = 10;
     const TOTAL_PERGUNTAS = TOTAL_FASES * CARTAS_POR_FASE;
@@ -1373,15 +829,6 @@
 
     function normalizarTexto(texto) {
       return String(texto || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
-    }
-
-    function normalizarNomeRanking(nome) {
-      return String(nome || '')
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/\s+/g, ' ')
-        .trim()
-        .toLowerCase();
     }
 
     function getHistoryStorageKey() {
@@ -1484,134 +931,6 @@
     let pontosBonusTotal = 0;
     let pontosNormaisPorFase = Array(TOTAL_FASES).fill(0);
     let pontosBonusPorFase = Array(TOTAL_FASES).fill(0);
-
-    let _rankingCache = { at: 0, ranking: null };
-    const RANKING_CACHE_MS = 15000;
-
-    async function getRankingListCached() {
-      const now = Date.now();
-      if (_rankingCache.ranking && (now - _rankingCache.at) < RANKING_CACHE_MS) {
-        return _rankingCache.ranking;
-      }
-      const response = await fetch(`${API_BASE}/ranking`, { cache: 'no-store' });
-      const data = await response.json();
-      const ranking = Array.isArray(data?.ranking) ? data.ranking : [];
-      _rankingCache = { at: now, ranking };
-      return ranking;
-    }
-
-    function parseRankingPoints(value) {
-      if (value === null || value === undefined) return 0;
-      if (typeof value === 'number' && Number.isFinite(value)) return Math.floor(value);
-      const s = String(value).trim();
-      if (!s) return 0;
-      const onlyDigits = s.replace(/[^\d]/g, '');
-      const n = parseInt(onlyDigits, 10);
-      return Number.isFinite(n) ? n : 0;
-    }
-
-    async function atualizarIndicadoresRankingNoBanner() {
-      try {
-        const elTotal = document.getElementById('player-total-pontos');
-        const elPos = document.getElementById('player-posicao');
-        if (!elTotal || !elPos) return;
-
-        const nomeNorm = normalizarNomeRanking(nomeJogador);
-        if (!nomeNorm) return;
-
-        const ranking = await getRankingListCached();
-        const idx = ranking.findIndex(j => normalizarNomeRanking(j?.nome) === nomeNorm);
-
-        if (idx < 0) {
-          elTotal.textContent = '0';
-          elPos.textContent = '—';
-          return;
-        }
-
-        const jogador = ranking[idx];
-        const total = Number(parseRankingPoints(jogador?.pontos) || 0);
-
-        elTotal.textContent = total.toLocaleString('pt-BR');
-        elPos.textContent = String(idx + 1);
-      } catch (e) {
-        console.error('Erro ao atualizar banner (ranking/total/posição):', e);
-      }
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const nomeSalvo = localStorage.getItem('nomeJogador');
-      if (nomeSalvo) {
-        const input = document.getElementById('nome-jogador');
-        if (input) input.value = nomeSalvo;
-      }
-
-      setupTelaInicialSoloUX();
-      setupCategoriasBotoes();
-      preencherContagensCategorias();
-
-      let lastTouchEnd = 0;
-      document.addEventListener('touchend', (e) => {
-        const now = Date.now();
-        if (now - lastTouchEnd <= 300) e.preventDefault();
-        lastTouchEnd = now;
-      }, false);
-    });
-
-    async function iniciarJogo() {
-      AudioSystem.click();
-
-      categoria = document.getElementById('categoria').value;
-      nomeJogador = document.getElementById('nome-jogador').value.trim();
-
-      if (!nomeValidoParaRanking(nomeJogador)) {
-        const warn = document.getElementById('start-warn');
-        if (warn) warn.style.display = 'block';
-        document.getElementById('nome-jogador')?.focus();
-        return;
-      }
-      nomeJogador = limparEspacosNome(nomeJogador);
-
-      localStorage.setItem('nomeJogador', nomeJogador);
-
-      perguntaAtual = 0;
-      pontos = 0;
-      acertos = 0;
-      erros = 0;
-      sequenciaRapida = 0;
-      rodadaPerfeita = true;
-      errosPorFase = Array(TOTAL_FASES).fill(0);
-      pontosNormaisTotal = 0;
-      pontosBonusTotal = 0;
-      pontosNormaisPorFase = Array(TOTAL_FASES).fill(0);
-      pontosBonusPorFase = Array(TOTAL_FASES).fill(0);
-
-      _rankingCache = { at: 0, ranking: null };
-
-      document.getElementById('tela-inicial').style.display = 'none';
-      document.getElementById('tela-jogo').innerHTML = '<div class="loading"><div class="loading-spinner">⏳</div><p>Carregando...</p></div>';
-      document.getElementById('tela-jogo').style.display = 'block';
-
-      try {
-        const response = await fetch(`${API_BASE}/cartas/${categoria}`);
-        if (!response.ok) throw new Error(`Erro ao buscar cartas (HTTP ${response.status})`);
-        const data = await response.json();
-
-        if (!data.cartas || data.cartas.length === 0) throw new Error('Nenhuma carta encontrada para esta categoria');
-
-        cartasCategoriaAtual = data.cartas;
-        const cartasRecentesGlobal = await obterCartasRecentesGlobal();
-
-        cartas = selecionarCartasSemRepetir(data.cartas, cartasRecentesGlobal);
-        if (cartas.length < TOTAL_PERGUNTAS) throw new Error(`Cartas insuficientes para iniciar (mínimo ${TOTAL_PERGUNTAS}).`);
-
-        faseAtual = 1;
-        mostrarPergunta();
-      } catch (erro) {
-        console.error('Erro:', erro);
-        alert(`Erro ao carregar: ${erro.message || 'Tente novamente.'}`);
-        location.reload();
-      }
-    }
 
     const PALAVRAS_GENERO = {
       feminino: ['rainha', 'esposa', 'mãe', 'mae', 'filha', 'profetisa', 'juíza', 'juiza', 'viúva', 'viuva', 'irmã', 'irma', 'mulher', 'serva', 'ela', 'sua'],
@@ -1781,7 +1100,7 @@
         const data = await response.json();
         return (data && Array.isArray(data.cartas)) ? data.cartas : [];
       } catch (erro) {
-        console.error('Erro ao buscar cartas recentes:', erro);
+        console.error('❌ Erro ao buscar cartas recentes:', erro);
         return [];
       }
     }
@@ -1793,12 +1112,11 @@
           headers: { 'Content-Type': 'application/json; charset=utf-8' },
           body: JSON.stringify(payload)
         });
-        if (!response.ok) console.warn(`Falha ao registrar cartas no servidor: ${response.status}`);
+        if (!response.ok) console.warn(`⚠️ Falha ao registrar cartas no servidor: ${response.status}`);
       } catch (erro) {
-        console.error('Erro ao registrar cartas:', erro);
+        console.error('❌ Erro ao registrar cartas:', erro);
       }
     }
-
     function selecionarCartasSemRepetir(cartasDaCategoria, globalRecentList) {
       const localUsed = loadLocalUsedKeys();
       const localSet = new Set(localUsed);
@@ -1835,8 +1153,8 @@
       }
 
       const ordenadasPorDificuldade = [...disponiveis].sort((a, b) => obterDificuldadeCarta(a) - obterDificuldadeCarta(b));
-      const recorte = ordenadasPorDificuldade.slice(0, TOTAL_PERGUNTAS);
 
+      const recorte = ordenadasPorDificuldade.slice(0, TOTAL_PERGUNTAS);
       const porFase = [];
       for (let i = 0; i < TOTAL_FASES; i++) {
         const inicio = i * CARTAS_POR_FASE;
@@ -1893,7 +1211,7 @@
         });
         return response.ok;
       } catch (erro) {
-        console.error(`Erro ao registrar fase ${indiceFase + 1}:`, erro);
+        console.error(`❌ Erro ao registrar fase ${indiceFase + 1}:`, erro);
         return false;
       }
     }
@@ -1938,9 +1256,139 @@
       mostrarPergunta();
     }
 
-    window.addEventListener('unhandledrejection', (e) => {
-      console.error('Unhandled promise rejection:', e.reason);
+    function titleByRank(posicao) {
+      if (!Number.isFinite(posicao) || posicao <= 0) return 'Estudante';
+      if (posicao === 1) return 'Lenda do Conhecimento';
+      if (posicao === 2) return 'Mestre da Perseverança';
+      if (posicao === 3) return 'Mentor';
+      if (posicao <= 5) return 'Sábio';
+      if (posicao <= 10) return 'Especialista';
+      if (posicao <= 25) return 'Analista';
+      if (posicao <= 50) return 'Estrategista';
+      if (posicao <= 100) return 'Pesquisador';
+      if (posicao <= 200) return 'Conhecedor';
+      return 'Estudante';
+    }
+
+    function parseRankingPoints(value) {
+      if (value === null || value === undefined) return 0;
+      if (typeof value === 'number' && Number.isFinite(value)) return Math.floor(value);
+
+      const s = String(value).trim();
+      if (!s) return 0;
+
+      const onlyDigits = s.replace(/[^\d]/g, '');
+      const n = parseInt(onlyDigits, 10);
+      return Number.isFinite(n) ? n : 0;
+    }
+
+    async function carregarResumoJogadorNoTopo() {
+      if (!nomeJogador || !nomeJogador.trim()) return;
+
+      const totalEl = document.getElementById('player-total-pontos');
+      const posEl = document.getElementById('player-posicao');
+      const titleEl = document.getElementById('player-title');
+
+      if (!totalEl || !posEl || !titleEl) return;
+
+      totalEl.textContent = '...';
+      posEl.textContent = '...';
+      titleEl.textContent = 'Carregando...';
+
+      try {
+        const response = await fetch(`${API_BASE}/ranking`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+
+        const ranking = Array.isArray(data?.ranking) ? data.ranking : [];
+        if (!ranking.length) {
+          totalEl.textContent = '0';
+          posEl.textContent = '—';
+          titleEl.textContent = 'Estudante';
+          return;
+        }
+
+        const nomeNorm = normalizarTexto(nomeJogador);
+        const idx = ranking.findIndex(j => normalizarTexto(j?.nome) === nomeNorm);
+
+        const posicao = (idx >= 0) ? (idx + 1) : null;
+        const total = (idx >= 0) ? parseRankingPoints(ranking[idx]?.pontos) : 0;
+
+        totalEl.textContent = total.toLocaleString('pt-BR');
+        posEl.textContent = posicao ? `#${posicao}` : '—';
+        titleEl.textContent = titleByRank(posicao);
+      } catch (e) {
+        console.warn('⚠️ Não foi possível carregar resumo do jogador no topo:', e);
+        totalEl.textContent = '—';
+        posEl.textContent = '—';
+        titleEl.textContent = 'Estudante';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const recordePessoal = localStorage.getItem('recordePessoal') || 0;
+      document.getElementById('recorde-pessoal').textContent = recordePessoal;
+
+      const nomeSalvo = localStorage.getItem('nomeJogador');
+      if (nomeSalvo) document.getElementById('nome-jogador').value = nomeSalvo;
+
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', (e) => {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) e.preventDefault();
+        lastTouchEnd = now;
+      }, false);
     });
+
+    async function iniciarJogo() {
+      AudioSystem.click();
+      categoria = document.getElementById('categoria').value;
+      nomeJogador = document.getElementById('nome-jogador').value.trim();
+
+      if (!nomeJogador) {
+        alert('⚠️ Por favor, digite seu nome!');
+        return;
+      }
+
+      localStorage.setItem('nomeJogador', nomeJogador);
+
+      perguntaAtual = 0;
+      pontos = 0;
+      acertos = 0;
+      erros = 0;
+      sequenciaRapida = 0;
+      rodadaPerfeita = true;
+      errosPorFase = Array(TOTAL_FASES).fill(0);
+      pontosNormaisTotal = 0;
+      pontosBonusTotal = 0;
+      pontosNormaisPorFase = Array(TOTAL_FASES).fill(0);
+      pontosBonusPorFase = Array(TOTAL_FASES).fill(0);
+
+      document.getElementById('tela-inicial').style.display = 'none';
+      document.getElementById('tela-jogo').innerHTML = '<div class="loading"><div class="loading-spinner">⏳</div><p>Carregando...</p></div>';
+      document.getElementById('tela-jogo').style.display = 'block';
+
+      try {
+        const response = await fetch(`${API_BASE}/cartas/${categoria}`);
+        if (!response.ok) throw new Error(`Erro ao buscar cartas (HTTP ${response.status})`);
+        const data = await response.json();
+
+        if (!data.cartas || data.cartas.length === 0) throw new Error('Nenhuma carta encontrada para esta categoria');
+
+        cartasCategoriaAtual = data.cartas;
+        const cartasRecentesGlobal = await obterCartasRecentesGlobal();
+
+        cartas = selecionarCartasSemRepetir(data.cartas, cartasRecentesGlobal);
+        if (cartas.length < TOTAL_PERGUNTAS) throw new Error(`Cartas insuficientes para iniciar (mínimo ${TOTAL_PERGUNTAS}).`);
+
+        faseAtual = 1;
+        mostrarPergunta();
+      } catch (erro) {
+        console.error('❌ Erro:', erro);
+        alert(`❌ Erro ao carregar: ${erro.message || 'Tente novamente.'}`);
+        location.reload();
+      }
+    }
 
     function mostrarPergunta() {
       if (perguntaAtual >= cartas.length) {
@@ -1973,17 +1421,17 @@
               <div class="player-lines">
                 <div class="player-line1">
                   <div class="player-name" title="${nomeJogador}">${nomeJogador}</div>
-                  <div class="player-title" id="player-title">Jogador</div>
+                  <div class="player-title" id="player-title">Carregando...</div>
                 </div>
 
                 <div class="player-line2">
                   <div class="metric">
                     <div class="lbl">PONTOS (TOTAL)</div>
-                    <div class="val" id="player-total-pontos">…</div>
+                    <div class="val" id="player-total-pontos">—</div>
                   </div>
                   <div class="metric">
                     <div class="lbl">RANKING</div>
-                    <div class="val" id="player-posicao">…</div>
+                    <div class="val" id="player-posicao">—</div>
                   </div>
                 </div>
               </div>
@@ -2038,7 +1486,7 @@
 
         <div class="opcoes-container">
           ${opcoes.map(opcao => `
-            <div class="opcao" onclick="selecionarOpcao(this, '${String(opcao).replace(/'/g, "\\'")}')">
+            <div class="opcao" onclick="selecionarOpcao(this, '${opcao.replace(/'/g, "\\'")}')">
               ${opcao}
             </div>
           `).join('')}
@@ -2047,7 +1495,7 @@
         <div class="feedback" id="feedback"></div>
       `;
 
-      atualizarIndicadoresRankingNoBanner();
+      carregarResumoJogadorNoTopo();
 
       mostrarDica(1);
 
@@ -2061,8 +1509,6 @@
         atualizarTimer();
         atualizarDicasPorTempo();
 
-        if (tempoRestante % 15 === 0) atualizarIndicadoresRankingNoBanner();
-
         if (tempoRestante <= 0) {
           clearInterval(timerInterval);
           if (dicaTimerInterval) clearInterval(dicaTimerInterval);
@@ -2070,7 +1516,6 @@
         }
       }, 1000);
     }
-
     function mostrarDica(numero) {
       const dicaEl = document.getElementById(`dica${numero}`);
       if (dicaEl) {
@@ -2262,12 +1707,9 @@
           headers: { 'Content-Type': 'application/json; charset=utf-8' },
           body: JSON.stringify({ nome: nomeJogador, pontos: pontos })
         });
-
-        _rankingCache = { at: 0, ranking: null };
-
         await carregarRanking();
       } catch (erro) {
-        console.error('Erro:', erro);
+        console.error('❌ Erro:', erro);
       }
     }
 
@@ -2286,9 +1728,19 @@
       }, 50);
     }
 
+    function parseRankingPoints(value) {
+      if (value === null || value === undefined) return 0;
+      if (typeof value === 'number' && Number.isFinite(value)) return Math.floor(value);
+      const s = String(value).trim();
+      if (!s) return 0;
+      const onlyDigits = s.replace(/[^\d]/g, '');
+      const n = parseInt(onlyDigits, 10);
+      return Number.isFinite(n) ? n : 0;
+    }
+
     async function carregarRanking() {
       try {
-        const response = await fetch(`${API_BASE}/ranking`, { cache: 'no-store' });
+        const response = await fetch(`${API_BASE}/ranking`);
         const data = await response.json();
         if (data.ranking && data.ranking.length > 0) {
           const top5 = data.ranking.slice(0, 5);
@@ -2297,8 +1749,8 @@
             return `
               <div class="podio-item">
                 <span class="podio-posicao">${medalhas[index]}</span>
-                <span class="podio-nome">${(jogador?.nome ?? '').toString()}</span>
-                <span class="podio-pontos">${Number(parseRankingPoints(jogador?.pontos) || 0).toLocaleString('pt-BR')}</span>
+                <span class="podio-nome">${jogador.nome}</span>
+                <span class="podio-pontos">${parseRankingPoints(jogador.pontos).toLocaleString('pt-BR')}</span>
               </div>
             `;
           }).join('');
@@ -2306,7 +1758,7 @@
           document.getElementById('podio-container').style.display = 'block';
         }
       } catch (erro) {
-        console.error('Erro ao carregar ranking:', erro);
+        console.error('❌ Erro:', erro);
       }
     }
 
@@ -2315,8 +1767,68 @@
       if (timerEl) {
         timerEl.textContent = `${tempoRestante}s`;
         timerEl.style.color = (tempoRestante <= 10) ? 'var(--jw-vermelho-erro)' : 'var(--jw-laranja)';
-        timerEl.classList.toggle('timer-urgente', tempoRestante <= 10);
       }
+    }
+
+    function titleByRank(posicao) {
+      if (!Number.isFinite(posicao) || posicao <= 0) return 'Estudante';
+      if (posicao === 1) return 'Lenda do Conhecimento';
+      if (posicao === 2) return 'Mestre da Perseverança';
+      if (posicao === 3) return 'Mentor';
+      if (posicao <= 5) return 'Sábio';
+      if (posicao <= 10) return 'Especialista';
+      if (posicao <= 25) return 'Analista';
+      if (posicao <= 50) return 'Estrategista';
+      if (posicao <= 100) return 'Pesquisador';
+      if (posicao <= 200) return 'Conhecedor';
+      return 'Estudante';
+    }
+
+    async function carregarResumoJogadorNoTopo() {
+      if (!nomeJogador || !nomeJogador.trim()) return;
+
+      const totalEl = document.getElementById('player-total-pontos');
+      const posEl = document.getElementById('player-posicao');
+      const titleEl = document.getElementById('player-title');
+
+      if (!totalEl || !posEl || !titleEl) return;
+
+      totalEl.textContent = '...';
+      posEl.textContent = '...';
+      titleEl.textContent = 'Carregando...';
+
+      try {
+        const response = await fetch(`${API_BASE}/ranking`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+
+        const ranking = Array.isArray(data?.ranking) ? data.ranking : [];
+        if (!ranking.length) {
+          totalEl.textContent = '0';
+          posEl.textContent = '—';
+          titleEl.textContent = 'Estudante';
+          return;
+        }
+
+        const nomeNorm = normalizarTexto(nomeJogador);
+        const idx = ranking.findIndex(j => normalizarTexto(j?.nome) === nomeNorm);
+
+        const posicao = (idx >= 0) ? (idx + 1) : null;
+        const total = (idx >= 0) ? parseRankingPoints(ranking[idx]?.pontos) : 0;
+
+        totalEl.textContent = total.toLocaleString('pt-BR');
+        posEl.textContent = posicao ? `#${posicao}` : '—';
+        titleEl.textContent = titleByRank(posicao);
+      } catch (e) {
+        console.warn('⚠️ Não foi possível carregar resumo do jogador no topo:', e);
+        totalEl.textContent = '—';
+        posEl.textContent = '—';
+        titleEl.textContent = 'Estudante';
+      }
+    }
+
+    function embaralhar(array) {
+      return embaralharAvancado(array);
     }
   </script>
 </body>

@@ -1,0 +1,2005 @@
+﻿// ============================================
+// QUEM SOU EU? - Backend Cloudflare Workers
+// Sistema Completo: Solo + Multiplayer + Competitivo
+// COM MEMÓRIA GLOBAL DE CARTAS
+// (PATCH) Histórico global padronizado para KEYS (h:/id:)
+// ============================================
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    const path = url.pathname;
+
+    // CORS Headers
+    const corsHeaders = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    };
+
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { headers: corsHeaders });
+    }
+
+    // =========================================================
+    // Helpers (escopo do worker principal)
+    // =========================================================
+    function normalizarTexto(texto) {
+      return String(texto || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .trim();
+    }
+
+    function normalizarParaKey(valor) {
+      const s = String(valor || '').trim();
+      if (!s) return '';
+
+      // já é key
+      if (s.startsWith('h:') || s.startsWith('id:')) return s;
+
+      // gera key determinística a partir do texto normalizado
+      const base = normalizarTexto(s);
+
+      // hash 32-bit simples, determinístico
+      let hash = 0;
+      for (let i = 0; i < base.length; i++) {
+        hash = ((hash << 5) - hash) + base.charCodeAt(i);
+        hash |= 0;
+      }
+      return `h:${Math.abs(hash)}`;
+    }
+
+    function migrarHistoricoParaKeys(historico, agora) {
+      const umaHoraAtras = agora - (60 * 60 * 1000);
+
+      const normalizados = (historico?.cartas || [])
+        .filter(item => item && (item.timestamp || 0) > umaHoraAtras)
+        .map(item => {
+          const raw = item.key ?? item.resposta ?? '';
+          const key = normalizarParaKey(raw);
+          return { key, timestamp: item.timestamp || agora };
+        })
+        .filter(item => item.key);
+
+      // remove duplicados mantendo ordem
+      const seen = new Set();
+      const dedup = [];
+      for (const it of normalizados) {
+        if (seen.has(it.key)) continue;
+        seen.add(it.key);
+        dedup.push(it);
+      }
+
+      // limitar
+      return dedup.slice(-100);
+    }
+
+    // ============================================
+    // ROTA: OBTER CARTAS USADAS RECENTEMENTE (GLOBAL)
+    // PADRONIZADO: sempre retorna KEYS (h:/id:)
+    // ============================================
+    if (path === '/cartas-recentes' && request.method === 'GET') {
+      try {
+        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+        const stub = env.PontosGlobaisDO.get(id);
+        const response = await stub.fetch(new Request('http://internal/cartas-recentes-globais'));
+        return response;
+      } catch (erro) {
+        console.error('Erro ao buscar cartas recentes:', erro);
+        return new Response(JSON.stringify({
+          cartas: [],
+          total: 0,
+          timestamp: Date.now()
+        }), {
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            ...corsHeaders
+          }
+        });
+      }
+    }
+
+    // ============================================
+    // ROTA: REGISTRAR CARTAS USADAS (GLOBAL)
+    // PADRONIZADO: sempre grava KEYS (h:/id:)
+    // ============================================
+    if (path === '/registrar-cartas' && request.method === 'POST') {
+      try {
+        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+        const stub = env.PontosGlobaisDO.get(id);
+        return stub.fetch(request);
+      } catch (erro) {
+        console.error('Erro ao registrar cartas:', erro);
+        return new Response(JSON.stringify({
+          success: false,
+          erro: erro.message
+        }), {
+          status: 500,
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            ...corsHeaders
+          }
+        });
+      }
+    }
+
+    // ============================================
+    // ROTA: LIMPAR HISTÓRICO GLOBAL (ADMIN)
+    // ============================================
+    if (path === '/limpar-historico' && request.method === 'POST') {
+      try {
+        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+        const stub = env.PontosGlobaisDO.get(id);
+        const response = await stub.fetch(new Request('http://internal/limpar-historico-cartas', { method: 'POST' }));
+        return response;
+      } catch (erro) {
+        console.error('Erro ao limpar histórico:', erro);
+        return new Response(JSON.stringify({
+          success: false,
+          erro: erro.message
+        }), {
+          status: 500,
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            ...corsHeaders
+          }
+        });
+      }
+    }
+
+    // ============================================
+    // WEBSOCKET - MULTIPLAYER CASUAL
+    // ============================================
+    if (path === '/ws') {
+      const sala = url.searchParams.get('sala');
+      if (!sala) {
+        return new Response('Sala não especificada', { status: 400 });
+      }
+
+      const id = env.SALA_DO.idFromName(sala);
+      const stub = env.SALA_DO.get(id);
+      return stub.fetch(request);
+    }
+
+    // ============================================
+    // WEBSOCKET - MULTIPLAYER COMPETITIVO
+    // ============================================
+    if (path === '/ws-competitivo') {
+      const sala = url.searchParams.get('sala');
+      if (!sala) {
+        return new Response('Sala não especificada', { status: 400 });
+      }
+
+      const id = env.SALA_COMPETITIVA_DO.idFromName(sala);
+      const stub = env.SALA_COMPETITIVA_DO.get(id);
+      return stub.fetch(request);
+    }
+
+    // ============================================
+    // API REST - PONTOS
+    // ============================================
+    if (path.startsWith('/pontos/')) {
+      const nome = decodeURIComponent(path.split('/')[2]);
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(new Request(`http://internal/pontos/${nome}`));
+    }
+
+    if (path === '/adicionar' && request.method === 'POST') {
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(request);
+    }
+
+    if (path === '/fase-completa' && request.method === 'POST') {
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(request);
+    }
+
+    if (path === '/ranking') {
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(new Request('http://internal/ranking'));
+    }
+
+    // ============================================
+    // API REST - CARTAS
+    // ============================================
+    if (path.endsWith('/popular') && request.method === 'POST' && path.startsWith('/cartas/')) {
+  const categoria = path.split('/')[2];
+
+  let doNamespace;
+  let bancoName;
+
+  switch (categoria) {
+    case 'personagens':
+      doNamespace = env.BancoDadosPersonagensDO; bancoName = 'banco-personagens'; break;
+    case 'profecias':
+      doNamespace = env.BancoDadosProfeciasDO; bancoName = 'banco-profecias'; break;
+    case 'mimica':
+      doNamespace = env.BancoDadosMimicaDO; bancoName = 'banco-mimica'; break;
+    case 'pregacao':
+      doNamespace = env.BancoDadosPregacaoDO; bancoName = 'banco-pregacao'; break;
+    default:
+      return new Response(JSON.stringify({ sucesso: false, erro: 'Categoria inválida', categoria }), {
+        status: 400,
+        headers: { 'content-type': 'application/json; charset=utf-8' }
+      });
+  }
+
+  const id = doNamespace.idFromName(bancoName);
+  const stub = doNamespace.get(id);
+  return stub.fetch(request);
+}
+
+    if (path.startsWith('/cartas/') && !path.endsWith('/popular')) {
+  const categoria = path.split('/')[2];
+
+  let doNamespace;
+  let bancoName;
+
+  switch (categoria) {
+    case 'personagens':
+      doNamespace = env.BancoDadosPersonagensDO; bancoName = 'banco-personagens'; break;
+    case 'profecias':
+      doNamespace = env.BancoDadosProfeciasDO; bancoName = 'banco-profecias'; break;
+    case 'mimica':
+      doNamespace = env.BancoDadosMimicaDO; bancoName = 'banco-mimica'; break;
+    case 'pregacao':
+      doNamespace = env.BancoDadosPregacaoDO; bancoName = 'banco-pregacao'; break;
+    default:
+      return new Response(JSON.stringify({ sucesso: false, erro: 'Categoria inválida', categoria }), {
+        status: 400,
+        headers: { 'content-type': 'application/json; charset=utf-8' }
+      });
+  }
+
+  const id = doNamespace.idFromName(bancoName);
+  const stub = doNamespace.get(id);
+  return stub.fetch(request);
+}
+
+    // ============================================
+    // API REST - RECOMPENSAS
+    // ============================================
+    if (path.startsWith('/perfil/')) {
+      const nome = decodeURIComponent(path.split('/')[2]);
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(new Request(`http://internal/perfil/${nome}`));
+    }
+
+    if (path === '/loja') {
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(new Request('http://internal/loja'));
+    }
+
+    if (path === '/resgatar' && request.method === 'POST') {
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(request);
+    }
+
+    if (path.startsWith('/conquistas/')) {
+      const nome = decodeURIComponent(path.split('/')[2]);
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(new Request(`http://internal/conquistas/${nome}`));
+    }
+
+    // ============================================
+    // API REST - ADMIN
+    // ============================================
+    // ============================================
+    // API REST - ADMIN (Jogadores) - PROTEGIDO POR TOKEN
+    // Header obrigatório: X-Admin-Token
+    // ============================================
+
+    if (path.startsWith('/admin/jogadores/') && (request.method === 'PUT' || request.method === 'DELETE')) {
+      const token = request.headers.get('X-Admin-Token') || '';
+      if (!env.ADMIN_TOKEN || token !== env.ADMIN_TOKEN) {
+        return new Response(JSON.stringify({ sucesso: false, erro: 'Não autorizado' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+
+      return stub.fetch(new Request("http://internal" + path, request));
+    }
+
+    if (path === '/admin/salas') {
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(new Request('http://internal/admin/salas'));
+    }
+
+    if (path === '/admin/jogadores-completos') {
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(new Request('http://internal/admin/jogadores-completos'));
+    }
+
+    // ============================================
+    // PÁGINA INICIAL
+    // ============================================
+    return new Response(paginaInicial(), {
+      headers: { 'Content-Type': 'text/plain; charset=utf-8', ...corsHeaders }
+    });
+  }
+};
+
+// ============================================
+// DURABLE OBJECT: SALA MULTIPLAYER CASUAL
+// ============================================
+export class SalaDO {
+  constructor(state, env) {
+    this.state = state;
+    this.env = env;
+    this.sessions = new Map();
+    this.jogadores = new Map();
+    this.cartaAtual = null;
+    this.respostas = new Map();
+    this.rodadaAtiva = false;
+  }
+
+  async fetch(request) {
+    const webSocketPair = new WebSocketPair();
+    const [client, server] = Object.values(webSocketPair);
+
+    await this.handleSession(server);
+
+    return new Response(null, {
+      status: 101,
+      webSocket: client,
+    });
+  }
+
+  async handleSession(webSocket) {
+    webSocket.accept();
+
+    const id = Math.random().toString(36).substring(7);
+    this.sessions.set(id, { ws: webSocket, nome: null });
+
+    webSocket.addEventListener('message', async (msg) => {
+      try {
+        const data = JSON.parse(msg.data);
+        await this.handleMessage(id, data);
+      } catch (e) {
+        console.error('Erro ao processar mensagem:', e);
+      }
+    });
+
+    webSocket.addEventListener('close', () => {
+      const session = this.sessions.get(id);
+      if (session && session.nome) {
+        this.jogadores.delete(session.nome);
+        this.broadcast({
+          tipo: 'jogador_saiu',
+          nome: session.nome
+        });
+      }
+      this.sessions.delete(id);
+    });
+  }
+
+  async handleMessage(sessionId, data) {
+    const session = this.sessions.get(sessionId);
+
+    switch (data.tipo) {
+      case 'entrar':
+        session.nome = data.nome;
+        this.jogadores.set(data.nome, { nome: data.nome, pontos: 0 });
+
+        session.ws.send(JSON.stringify({
+          tipo: 'bem_vindo',
+          jogadores: Array.from(this.jogadores.keys())
+        }));
+
+        this.broadcast({
+          tipo: 'jogador_entrou',
+          nome: data.nome,
+          total: this.jogadores.size
+        });
+        break;
+
+      case 'iniciar_rodada':
+        await this.iniciarRodada(data.categoria);
+        break;
+
+      case 'responder':
+        this.processarResposta(data.nome, data.resposta, data.tempo);
+        break;
+
+      case 'chat':
+        this.broadcast({
+          tipo: 'chat',
+          nome: data.nome,
+          mensagem: data.mensagem
+        });
+        break;
+    }
+  }
+
+  async iniciarRodada(categoria) {
+    this.rodadaAtiva = true;
+    this.respostas.clear();
+
+    const id = this.env.BancoDadosDO.idFromName('banco-principal');
+    const stub = this.env.BancoDadosDO.get(id);
+    const response = await stub.fetch(new Request(`http://internal/cartas/${categoria}`));
+    const data = await response.json();
+
+    if (data.cartas && data.cartas.length > 0) {
+      this.cartaAtual = data.cartas[Math.floor(Math.random() * data.cartas.length)];
+
+      this.broadcast({
+        tipo: 'nova_rodada',
+        carta: {
+          dica1: this.cartaAtual.dica1,
+          dica2: this.cartaAtual.dica2,
+          dica3: this.cartaAtual.dica3
+        }
+      });
+
+      setTimeout(() => {
+        this.finalizarRodada();
+      }, 60000);
+    }
+  }
+
+  processarResposta(nome, resposta, tempo) {
+    if (this.respostas.has(nome)) return;
+
+    const acertou = this.normalizarTexto(resposta) === this.normalizarTexto(this.cartaAtual.resposta);
+
+    let pontos = 0;
+    if (acertou) {
+      if (tempo >= 40) pontos = 3;
+      else if (tempo >= 20) pontos = 2;
+      else pontos = 1;
+    }
+
+    this.respostas.set(nome, { acertou, pontos });
+
+    const jogador = this.jogadores.get(nome);
+    if (jogador) {
+      jogador.pontos += pontos;
+    }
+
+    this.broadcast({
+      tipo: 'resposta_registrada',
+      nome: nome,
+      acertou: acertou,
+      pontos: pontos
+    });
+  }
+
+  finalizarRodada() {
+    this.rodadaAtiva = false;
+
+    this.broadcast({
+      tipo: 'fim_rodada',
+      respostaCorreta: this.cartaAtual.resposta
+    });
+  }
+
+  normalizarTexto(texto) {
+    return texto.toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .trim();
+  }
+
+  broadcast(message) {
+    const msg = JSON.stringify(message);
+    for (const [id, session] of this.sessions.entries()) {
+      try {
+        session.ws.send(msg);
+      } catch (e) {
+        console.error('Erro ao enviar mensagem:', e);
+      }
+    }
+  }
+}
+
+// ============================================
+// DURABLE OBJECT: SALA COMPETITIVA (A vs B)
+// ============================================
+export class SalaCompetitivaDO {
+  constructor(state, env) {
+    this.state = state;
+    this.env = env;
+    this.sessions = new Map();
+    this.jogadores = new Map();
+    this.salaA = new Set();
+    this.salaB = new Set();
+    this.host = null;
+    this.categoria = 'personagens';
+    this.rodadaAtual = 0;
+    this.totalRodadas = 20;
+    this.cartaAtual = null;
+    this.respostas = new Map();
+    this.rodadaAtiva = false;
+    this.estadoSala = 'lobby';
+    this.resgatesRealizados = 0;
+    this.inicioJogo = null;
+    this.timerRodada = null;
+  }
+
+  async fetch(request) {
+    const webSocketPair = new WebSocketPair();
+    const [client, server] = Object.values(webSocketPair);
+
+    await this.handleSession(server);
+
+    return new Response(null, {
+      status: 101,
+      webSocket: client,
+    });
+  }
+
+  async handleSession(webSocket) {
+    webSocket.accept();
+
+    const id = Math.random().toString(36).substring(7);
+    this.sessions.set(id, { ws: webSocket, nome: null });
+
+    webSocket.addEventListener('message', async (msg) => {
+      try {
+        const data = JSON.parse(msg.data);
+        await this.handleMessage(id, data);
+      } catch (e) {
+        console.error('Erro ao processar mensagem:', e);
+      }
+    });
+
+    webSocket.addEventListener('close', () => {
+      const session = this.sessions.get(id);
+      if (session && session.nome) {
+        this.removerJogador(session.nome);
+      }
+      this.sessions.delete(id);
+    });
+  }
+
+  async handleMessage(sessionId, data) {
+    const session = this.sessions.get(sessionId);
+    const nome = data.nome || session.nome;
+
+    switch (data.tipo) {
+      case 'entrar':
+        session.nome = nome;
+
+        if (!this.host) {
+          this.host = nome;
+        }
+
+        this.jogadores.set(nome, {
+          nome: nome,
+          pontos: 0,
+          sala: 'A',
+          host: nome === this.host,
+          pulandoAte: null
+        });
+
+        this.salaA.add(nome);
+
+        session.ws.send(JSON.stringify({
+          tipo: 'bem_vindo',
+          jogadores: Array.from(this.jogadores.values()),
+          host: this.host
+        }));
+
+        this.broadcast({
+          tipo: 'jogador_entrou',
+          nome: nome,
+          jogadores: Array.from(this.jogadores.values())
+        });
+        break;
+
+      case 'iniciar_jogo':
+        console.log('📨 [COMPETITIVO] Recebido iniciar_jogo de:', nome, 'HOST:', this.host);
+        if (nome === this.host) {
+          console.log('✅ [COMPETITIVO] HOST confirmado, iniciando jogo...');
+          await this.iniciarJogo(data.categoria);
+        } else {
+          console.log('❌ [COMPETITIVO] Jogador não é HOST, ignorando');
+        }
+        break;
+
+      case 'responder':
+        await this.processarResposta(nome, data.resposta, data.tempo);
+        break;
+
+      case 'resgatar':
+        await this.processarResgate(nome, data.nomeResgatado);
+        break;
+
+      case 'continuar_jogo':
+        if (nome === this.host) {
+          await this.continuarJogo();
+        }
+        break;
+
+      case 'chat':
+        this.broadcast({
+          tipo: 'chat',
+          nome: nome,
+          mensagem: data.mensagem
+        });
+        break;
+    }
+  }
+
+  async iniciarJogo(categoria) {
+    console.log('🎮 [COMPETITIVO] Iniciando jogo - Categoria:', categoria);
+    console.log('🎮 [COMPETITIVO] Total de jogadores:', this.jogadores.size);
+
+    this.categoria = categoria;
+    this.estadoSala = 'jogo';
+    this.rodadaAtual = 0;
+    this.inicioJogo = Date.now();
+
+    const totalJogadores = this.jogadores.size;
+    this.totalRodadas = this.calcularTotalRodadas(totalJogadores);
+
+    this.broadcast({
+      tipo: 'jogo_iniciado',
+      totalRodadas: this.totalRodadas,
+      categoria: this.categoria
+    });
+
+    setTimeout(() => {
+      this.proximaRodada();
+    }, 2000);
+  }
+
+  calcularTotalRodadas(total) {
+    if (total <= 2) return 20;
+    if (total <= 6) return 20;
+    if (total <= 9) return 25;
+    if (total <= 15) return 30;
+    return 40;
+  }
+
+  async proximaRodada() {
+    console.log('🔄 [COMPETITIVO] Iniciando rodada:', this.rodadaAtual + 1);
+
+    this.rodadaAtual++;
+    this.rodadaAtiva = true;
+    this.respostas.clear();
+
+    if (this.rodadaAtual > 1 && this.rodadaAtual % 4 === 1) {
+      await this.iniciarSalaConversa();
+      return;
+    }
+
+    const id = this.env.BancoDadosDO.idFromName('banco-principal');
+    const stub = this.env.BancoDadosDO.get(id);
+    const response = await stub.fetch(new Request(`http://internal/cartas/${this.categoria}`));
+    const data = await response.json();
+
+    if (data.cartas && data.cartas.length > 0) {
+      this.cartaAtual = data.cartas[Math.floor(Math.random() * data.cartas.length)];
+
+      const jogadoresPulando = [];
+      for (const [nome, jogador] of this.jogadores.entries()) {
+        if (jogador.pulandoAte && this.rodadaAtual <= jogador.pulandoAte) {
+          jogadoresPulando.push(nome);
+
+          if (this.rodadaAtual === jogador.pulandoAte) {
+            jogador.pulandoAte = null;
+          }
+        }
+      }
+
+      const proximaEliminacao = this.getProximaEliminacao();
+
+      this.broadcast({
+        tipo: 'nova_rodada',
+        rodada: this.rodadaAtual,
+        carta: {
+          dica1: this.cartaAtual.dica1,
+          dica2: this.cartaAtual.dica2,
+          dica3: this.cartaAtual.dica3,
+          resposta: this.cartaAtual.resposta
+        },
+        proximaEliminacao: proximaEliminacao,
+        jogadoresPulando: jogadoresPulando
+      });
+
+      if (this.timerRodada) {
+        clearTimeout(this.timerRodada);
+      }
+
+      this.timerRodada = setTimeout(() => {
+        if (this.rodadaAtiva) {
+          console.log('⏰ [COMPETITIVO] Tempo esgotado! Finalizando rodada...');
+          this.finalizarRodada();
+        }
+      }, 60000);
+    }
+  }
+
+  verificarEliminacao() {
+    return [5, 9, 13, 17].includes(this.rodadaAtual);
+  }
+
+  getProximaEliminacao() {
+    const rodadasEliminacao = [5, 9, 13, 17];
+    const proxima = rodadasEliminacao.find(r => r > this.rodadaAtual);
+
+    if (!proxima) return null;
+
+    const jogadoresRestantes = this.salaA.size;
+    let quantidade = 1;
+
+    if (proxima === 5) quantidade = Math.max(1, Math.floor(jogadoresRestantes * 0.2));
+    else if (proxima === 9) quantidade = Math.max(1, Math.floor(jogadoresRestantes * 0.3));
+    else if (proxima === 13) quantidade = Math.max(1, Math.floor(jogadoresRestantes * 0.4));
+    else if (proxima === 17) quantidade = Math.max(1, Math.floor(jogadoresRestantes * 0.5));
+
+    return { rodada: proxima, quantidade };
+  }
+
+  async processarResposta(nome, resposta, tempo) {
+    const jogador = this.jogadores.get(nome);
+
+    if (!jogador || jogador.sala !== 'A' || this.respostas.has(nome)) {
+      return;
+    }
+
+    const acertou = this.normalizarTexto(resposta) === this.normalizarTexto(this.cartaAtual.resposta);
+
+    let pontos = 0;
+    if (acertou) {
+      if (tempo >= 40) pontos = 3;
+      else if (tempo >= 20) pontos = 2;
+      else pontos = 1;
+    }
+
+    this.respostas.set(nome, { acertou, pontos });
+    jogador.pontos += pontos;
+
+    this.broadcast({
+      tipo: 'resposta_registrada',
+      nome: nome,
+      acertou: acertou,
+      pontos: pontos
+    });
+
+    const jogadoresSalaA = Array.from(this.salaA);
+    const jogadoresAtivos = jogadoresSalaA.filter(nomeJogador => {
+      const jog = this.jogadores.get(nomeJogador);
+      return jog && !(jog.pulandoAte && this.rodadaAtual <= jog.pulandoAte);
+    });
+    const todosResponderam = jogadoresAtivos.every(nomeJogador => {
+      return this.respostas.has(nomeJogador);
+    });
+
+    if (todosResponderam && this.rodadaAtiva) {
+      console.log('✅ [COMPETITIVO] Todos da Sala A responderam! Finalizando em 2s...');
+
+      if (this.timerRodada) {
+        clearTimeout(this.timerRodada);
+      }
+
+      setTimeout(() => {
+        if (this.rodadaAtiva) {
+          this.finalizarRodada();
+        }
+      }, 2000);
+    }
+  }
+
+  async finalizarRodada() {
+    if (!this.rodadaAtiva) {
+      console.log('⚠️ [COMPETITIVO] Rodada já finalizada, ignorando...');
+      return;
+    }
+
+    console.log('🏁 [COMPETITIVO] Finalizando rodada', this.rodadaAtual);
+
+    this.rodadaAtiva = false;
+
+    if (this.timerRodada) {
+      clearTimeout(this.timerRodada);
+      this.timerRodada = null;
+    }
+
+    this.broadcast({
+      tipo: 'fim_rodada',
+      respostaCorreta: this.cartaAtual.resposta
+    });
+
+    if (this.verificarEliminacao()) {
+      await this.eliminarJogadores();
+    }
+
+    if (this.rodadaAtual >= this.totalRodadas) {
+      setTimeout(() => {
+        this.finalizarJogo();
+      }, 3000);
+      return;
+    }
+
+    if (this.rodadaAtual % 4 === 0 && this.rodadaAtual < this.totalRodadas) {
+      setTimeout(() => {
+        this.iniciarSalaConversa();
+      }, 3000);
+    } else {
+      setTimeout(() => {
+        this.proximaRodada();
+      }, 3000);
+    }
+  }
+
+  async eliminarJogadores() {
+    const quantidade = this.calcularQuantidadeEliminacao();
+
+    const jogadoresSalaA = Array.from(this.salaA)
+      .map(nome => this.jogadores.get(nome))
+      .sort((a, b) => a.pontos - b.pontos);
+
+    const eliminados = jogadoresSalaA.slice(0, quantidade);
+
+    for (const jogador of eliminados) {
+      jogador.sala = 'B';
+      this.salaA.delete(jogador.nome);
+      this.salaB.add(jogador.nome);
+    }
+
+    this.broadcast({
+      tipo: 'eliminacao',
+      eliminados: eliminados.map(j => j.nome),
+      salaA: Array.from(this.salaA).map(nome => {
+        const j = this.jogadores.get(nome);
+        return { nome: j.nome, pontos: j.pontos };
+      }),
+      salaB: Array.from(this.salaB).map(nome => {
+        const j = this.jogadores.get(nome);
+        return { nome: j.nome, pontos: j.pontos };
+      })
+    });
+  }
+
+  calcularQuantidadeEliminacao() {
+    const total = this.salaA.size;
+
+    if (this.rodadaAtual === 5) return Math.max(1, Math.floor(total * 0.2));
+    if (this.rodadaAtual === 9) return Math.max(1, Math.floor(total * 0.3));
+    if (this.rodadaAtual === 13) return Math.max(1, Math.floor(total * 0.4));
+    if (this.rodadaAtual === 17) return Math.max(1, Math.floor(total * 0.5));
+
+    return 1;
+  }
+
+  async iniciarSalaConversa() {
+    this.estadoSala = 'conversa';
+
+    const proximaEliminacao = this.getProximaEliminacao();
+
+    this.broadcast({
+      tipo: 'sala_conversa',
+      salaA: Array.from(this.salaA).map(nome => {
+        const j = this.jogadores.get(nome);
+        return { nome: j.nome, pontos: j.pontos, host: j.host };
+      }),
+      salaB: Array.from(this.salaB).map(nome => {
+        const j = this.jogadores.get(nome);
+        return { nome: j.nome, pontos: j.pontos };
+      }),
+      proximaEliminacao: proximaEliminacao
+    });
+  }
+
+  async processarResgate(nomeResgatador, nomeResgatado) {
+    const resgatador = this.jogadores.get(nomeResgatador);
+    const resgatado = this.jogadores.get(nomeResgatado);
+
+    if (!resgatador || !resgatado) return;
+    if (resgatador.sala !== 'A' || resgatado.sala !== 'B') return;
+    if (resgatador.pontos < 5) return;
+
+    resgatador.pontos -= 5;
+    resgatador.pulandoAte = this.rodadaAtual + 1;
+
+    resgatado.sala = 'A';
+    this.salaB.delete(nomeResgatado);
+    this.salaA.add(nomeResgatado);
+
+    this.resgatesRealizados++;
+
+    const proximaEliminacao = this.getProximaEliminacao();
+
+    this.broadcast({
+      tipo: 'resgate_realizado',
+      quemResgatou: nomeResgatador,
+      resgatado: nomeResgatado,
+      salaA: Array.from(this.salaA).map(nome => {
+        const j = this.jogadores.get(nome);
+        return { nome: j.nome, pontos: j.pontos, host: j.host };
+      }),
+      salaB: Array.from(this.salaB).map(nome => {
+        const j = this.jogadores.get(nome);
+        return { nome: j.nome, pontos: j.pontos };
+      }),
+      proximaEliminacao: proximaEliminacao
+    });
+  }
+
+  async continuarJogo() {
+    this.estadoSala = 'jogo';
+
+    this.broadcast({
+      tipo: 'continuar_jogo'
+    });
+
+    setTimeout(() => {
+      this.proximaRodada();
+    }, 2000);
+  }
+
+  finalizarJogo() {
+    this.estadoSala = 'final';
+
+    const duracao = this.inicioJogo ? Math.floor((Date.now() - this.inicioJogo) / 60000) : 0;
+
+    this.broadcast({
+      tipo: 'fim_jogo',
+      totalRodadas: this.totalRodadas,
+      salaA: Array.from(this.salaA).map(nome => {
+        const j = this.jogadores.get(nome);
+        return { nome: j.nome, pontos: j.pontos };
+      }).sort((a, b) => b.pontos - a.pontos),
+      salaB: Array.from(this.salaB).map(nome => {
+        const j = this.jogadores.get(nome);
+        return { nome: j.nome, pontos: j.pontos };
+      }).sort((a, b) => b.pontos - a.pontos),
+      categoria: this.categoria,
+      duracao: `${duracao} minutos`,
+      resgatesRealizados: this.resgatesRealizados
+    });
+  }
+
+  removerJogador(nome) {
+    this.jogadores.delete(nome);
+    this.salaA.delete(nome);
+    this.salaB.delete(nome);
+
+    if (this.host === nome) {
+      const novosJogadores = Array.from(this.jogadores.keys());
+      this.host = novosJogadores.length > 0 ? novosJogadores[0] : null;
+
+      if (this.host) {
+        const novoHost = this.jogadores.get(this.host);
+        if (novoHost) novoHost.host = true;
+
+        this.broadcast({
+          tipo: 'host_mudou',
+          novoHost: this.host,
+          jogadores: Array.from(this.jogadores.values())
+        });
+      }
+    }
+
+    this.broadcast({
+      tipo: 'jogador_saiu',
+      nome: nome
+    });
+  }
+
+  normalizarTexto(texto) {
+    return texto.toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .trim();
+  }
+
+  broadcast(message) {
+    const msg = JSON.stringify(message);
+    for (const [id, session] of this.sessions.entries()) {
+      try {
+        session.ws.send(msg);
+      } catch (e) {
+        console.error('Erro ao enviar mensagem:', e);
+      }
+    }
+  }
+}
+
+// ============================================
+// DURABLE OBJECT: BANCO DE DADOS (CARTAS)
+// ============================================
+export class BancoDadosDO {
+  constructor(state, env) {
+    this.state = state;
+    this.sql = state.storage.sql;
+    this.initialized = false;
+  }
+
+  async fetch(request) {
+    const url = new URL(request.url);
+    const path = url.pathname;
+
+    const corsHeaders = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    };
+
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { headers: corsHeaders });
+    }
+
+    if (!this.initialized) {
+      await this.inicializar();
+      this.initialized = true;
+    }
+
+    if (path.endsWith('/popular') && request.method === 'POST') {
+      try {
+        const categoria = path.split('/')[2];
+        const body = await request.json();
+
+        if (!body || !Array.isArray(body.cartas)) {
+          return new Response(JSON.stringify({
+            sucesso: false,
+            erro: 'Payload inválido: esperado objeto com array "cartas"'
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json', ...corsHeaders }
+          });
+        }
+
+        const resultado = await this.popularCartas(categoria, body.cartas);
+
+        return new Response(JSON.stringify({
+          sucesso: true,
+          categoria,
+          inseridas: resultado.inseridas,
+          ignoradas: resultado.ignoradas
+        }), {
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      } catch (erro) {
+        return new Response(JSON.stringify({
+          sucesso: false,
+          erro: erro?.message || 'Erro ao popular cartas'
+        }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      }
+    }
+
+    if (path.startsWith('/cartas/') && !path.endsWith('/popular')) {
+      const categoria = path.split('/')[2];
+      const cartas = await this.obterCartas(categoria);
+      return new Response(JSON.stringify({ cartas }), {
+        headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+      });
+    }
+
+    return new Response('Not Found', { status: 404 });
+  }
+
+  async inicializar() {
+    this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS cartas (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        categoria TEXT NOT NULL,
+        dica1 TEXT NOT NULL,
+        dica2 TEXT NOT NULL,
+        dica3 TEXT NOT NULL,
+        resposta TEXT NOT NULL,
+        genero TEXT,
+        masculino INTEGER DEFAULT 0,
+        feminino INTEGER DEFAULT 0,
+        dificuldade INTEGER DEFAULT 5
+      )
+    `);
+
+    const colunas = this.sql.exec('PRAGMA table_info(cartas)').toArray().map(c => c.name);
+    if (!colunas.includes('genero')) this.sql.exec('ALTER TABLE cartas ADD COLUMN genero TEXT');
+    if (!colunas.includes('masculino')) this.sql.exec('ALTER TABLE cartas ADD COLUMN masculino INTEGER DEFAULT 0');
+    if (!colunas.includes('feminino')) this.sql.exec('ALTER TABLE cartas ADD COLUMN feminino INTEGER DEFAULT 0');
+    if (!colunas.includes('dificuldade')) this.sql.exec('ALTER TABLE cartas ADD COLUMN dificuldade INTEGER DEFAULT 5');
+
+    const count = this.sql.exec('SELECT COUNT(*) as total FROM cartas').toArray()[0].total;
+
+    if (count === 0) {
+      await this.popularCartasPadrao();
+    }
+  }
+
+  async obterCartas(categoria) {
+    const result = this.sql.exec(
+      'SELECT id, dica1, dica2, dica3, resposta, genero, masculino, feminino, dificuldade FROM cartas WHERE categoria = ?',
+      categoria
+    ).toArray();
+
+    return result;
+  }
+
+  async popularCartas(categoria, cartas) {
+    if (!Array.isArray(cartas)) {
+      throw new Error('Formato inválido para cartas: esperado array');
+    }
+
+    // Função melhorada para garantir UTF-8 correto
+    const normalizarTexto = (valor) => {
+      if (valor == null) return '';
+      let texto = String(valor).trim();
+      // Remove caracteres de controle mas mantém caracteres UTF-8 válidos
+      texto = texto.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
+      return texto;
+    };
+    const normalizadas = [];
+
+    for (const carta of cartas) {
+      const resposta = normalizarTexto(carta?.resposta);
+      const dica1 = normalizarTexto(carta?.dica1);
+      const dica2 = normalizarTexto(carta?.dica2);
+      const dica3 = normalizarTexto(carta?.dica3);
+
+      if (!resposta || !dica1 || !dica2 || !dica3) {
+        continue;
+      }
+
+      const genero = typeof carta?.genero === 'string' ? carta.genero.toLowerCase() : null;
+      const masculino = carta?.masculino === true || carta?.masculino === 1 ? 1 : 0;
+      const feminino = carta?.feminino === true || carta?.feminino === 1 ? 1 : 0;
+      const dificuldadeRaw = Number.isFinite(Number(carta?.dificuldade)) ? Number(carta.dificuldade) : 5;
+      const dificuldade = Math.max(0, Math.min(10, Math.round(dificuldadeRaw)));
+
+      normalizadas.push({
+        categoria,
+        dica1,
+        dica2,
+        dica3,
+        resposta,
+        genero,
+        masculino,
+        feminino,
+        dificuldade
+      });
+    }
+
+    this.sql.exec('DELETE FROM cartas WHERE categoria = ?', categoria);
+
+    for (const carta of normalizadas) {
+      this.sql.exec(
+        'INSERT INTO cartas (categoria, dica1, dica2, dica3, resposta, genero, masculino, feminino, dificuldade) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        carta.categoria,
+        carta.dica1,
+        carta.dica2,
+        carta.dica3,
+        carta.resposta,
+        carta.genero,
+        carta.masculino,
+        carta.feminino,
+        carta.dificuldade
+      );
+    }
+
+    return {
+      inseridas: normalizadas.length,
+      ignoradas: cartas.length - normalizadas.length
+    };
+  }
+
+  async popularCartasPadrao() {
+    const cartasPadrao = {
+      personagens: [
+        { dica1: 'Foi vendido por seus irmãos', dica2: 'Interpretou sonhos do Faraó', dica3: 'Governou o Egito', resposta: 'José' },
+        { dica1: 'Construiu uma arca', dica2: 'Sobreviveu ao dilúvio', dica3: 'Tinha 600 anos quando o dilúvio começou', resposta: 'Noé' },
+        { dica1: 'Pastor de ovelhas', dica2: 'Matou um gigante com uma funda', dica3: 'Segundo rei de Israel', resposta: 'Davi' },
+        { dica1: 'Nasceu de uma virgem', dica2: 'Fez muitos milagres', dica3: 'Ressuscitou ao terceiro dia', resposta: 'Jesus' },
+        { dica1: 'Era pescador', dica2: 'Negou Jesus três vezes', dica3: 'Recebeu as chaves do Reino', resposta: 'Pedro' },
+        { dica1: 'Pai da fé', dica2: 'Quase sacrificou seu filho', dica3: 'Pai de Isaque', resposta: 'Abraão' },
+        { dica1: 'Libertou Israel do Egito', dica2: 'Recebeu os 10 mandamentos', dica3: 'Dividiu o Mar Vermelho', resposta: 'Moisés' },
+        { dica1: 'O mais sábio de todos', dica2: 'Construiu o templo', dica3: 'Filho de Davi', resposta: 'Salomão' },
+        { dica1: 'Apóstolo dos gentios', dica2: 'Escreveu várias cartas', dica3: 'Antes se chamava Saulo', resposta: 'Paulo' },
+        { dica1: 'Rainha corajosa', dica2: 'Salvou seu povo', dica3: 'Esposa do rei persa', resposta: 'Ester' },
+      ],
+      profecias: [
+        { dica1: 'Predisse a vinda do Messias', dica2: 'Falou sobre um servo sofredor', dica3: 'Escreveu 66 capítulos', resposta: 'Isaías' },
+        { dica1: 'Profetizou sobre a destruição de Jerusalém', dica2: 'Conhecido como profeta chorão', dica3: 'Escreveu Lamentações', resposta: 'Jeremias' },
+        { dica1: 'Teve visões de criaturas celestiais', dica2: 'Profetizou sobre ossos secos', dica3: 'Descreveu o templo futuro', resposta: 'Ezequiel' },
+        { dica1: 'Interpretou sonhos de reis', dica2: 'Sobreviveu na cova dos leões', dica3: 'Teve visões das quatro bestas', resposta: 'Daniel' },
+        { dica1: 'Falou sobre derramamento do espírito', dica2: 'Profetizou sobre pragas de gafanhotos', dica3: 'Viveu em Judá', resposta: 'Joel' },
+      ],
+      pregacao: [
+        { dica1: 'Tema sobre fé e obras', dica2: 'A fé sem obras é morta', dica3: 'Carta de Tiago', resposta: 'Fé e Obras' },
+        { dica1: 'Salvação pela graça', dica2: 'Não por obras', dica3: 'Para que ninguém se glorie', resposta: 'Graça de Deus' },
+        { dica1: 'Amai vossos inimigos', dica2: 'Fazei bem aos que vos odeiam', dica3: 'Sermão do Monte', resposta: 'Amor ao Próximo' },
+        { dica1: 'Eu sou o caminho', dica2: 'A verdade', dica3: 'E a vida', resposta: 'Jesus o Caminho' },
+        { dica1: 'Fruto do espírito', dica2: 'Amor, alegria, paz', dica3: 'Gálatas 5', resposta: 'Fruto do Espírito' },
+      ],
+    };
+
+    for (const [categoria, cartas] of Object.entries(cartasPadrao)) {
+      await this.popularCartas(categoria, cartas);
+    }
+  }
+}.Value
+
+// ============================================
+// NOVO: bancos separados (1 DO SQLite por categoria)
+// ============================================
+export class BancoDadosPersonagensDO extends BancoDadosDO {}
+export class BancoDadosProfeciasDO extends BancoDadosDO {}
+export class BancoDadosMimicaDO extends BancoDadosDO {}
+export class BancoDadosPregacaoDO extends BancoDadosDO {}
+
+
+// ============================================
+// DURABLE OBJECT: PONTOS GLOBAIS + RECOMPENSAS
+// ============================================
+export class PontosGlobaisDO {
+  constructor(state, env) {
+    this.state = state;
+    this.sql = state.storage.sql;
+    this.initialized = false;
+  }
+
+  normalizarNomeEntrada(nome) {
+    return String(nome || '').trim();
+  }
+
+  obterNomeCanonical(nome) {
+    const nomeLimpo = this.normalizarNomeEntrada(nome);
+    if (!nomeLimpo) return '';
+
+    const existente = this.sql.exec(
+      'SELECT nome FROM jogadores WHERE LOWER(TRIM(nome)) = LOWER(TRIM(?)) LIMIT 1',
+      nomeLimpo
+    ).toArray();
+
+    if (existente.length > 0) {
+      return existente[0].nome;
+    }
+
+    return nomeLimpo;
+  }
+
+  async fetch(request) {
+    const url = new URL(request.url);
+    const path = url.pathname;
+
+    const corsHeaders = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    };
+
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { headers: corsHeaders });
+    }
+
+    if (!this.initialized) {
+      await this.inicializar();
+      this.initialized = true;
+    }
+
+    if (path.startsWith('/pontos/')) {
+      const nome = decodeURIComponent(path.split('/')[2]);
+      const pontos = await this.obterPontos(nome);
+      return new Response(JSON.stringify({ nome, pontos }), {
+        headers: { 'Content-Type': 'application/json', ...corsHeaders }
+      });
+    }
+
+    if (path === '/adicionar' && request.method === 'POST') {
+      try {
+        const body = await request.json();
+        const resultado = await this.adicionarPontos(body.nome, body.pontos);
+        return new Response(JSON.stringify({ sucesso: true, ...resultado }), {
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      } catch (erro) {
+        return new Response(JSON.stringify({
+          sucesso: false,
+          erro: erro.message || 'Falha ao adicionar pontos'
+        }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      }
+    }
+
+    if (path === '/fase-completa' && request.method === 'POST') {
+      try {
+        const body = await request.json();
+        const resultado = await this.adicionarPontosFase(
+          body.nome,
+          body.faseNumero,
+          body.pontosTotal,
+          body.pontosNormal,
+          body.pontosBonusTotal,
+          body.categoria
+        );
+        return new Response(JSON.stringify({ sucesso: true, ...resultado }), {
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      } catch (erro) {
+        return new Response(JSON.stringify({
+          sucesso: false,
+          erro: erro.message || 'Falha ao registrar fase'
+        }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      }
+    }
+
+    if (path === '/ranking') {
+      const ranking = await this.obterRanking();
+      return new Response(JSON.stringify({ ranking }), {
+        headers: { 'Content-Type': 'application/json', ...corsHeaders }
+      });
+    }
+
+    if (path.startsWith('/perfil/')) {
+      const nome = decodeURIComponent(path.split('/')[2]);
+      const perfil = await this.obterPerfil(nome);
+      return new Response(JSON.stringify(perfil), {
+        headers: { 'Content-Type': 'application/json', ...corsHeaders }
+      });
+    }
+
+    if (path === '/loja') {
+      const loja = await this.obterLoja();
+      return new Response(JSON.stringify(loja), {
+        headers: { 'Content-Type': 'application/json', ...corsHeaders }
+      });
+    }
+
+    if (path === '/resgatar' && request.method === 'POST') {
+      const body = await request.json();
+      const resultado = await this.resgatarItem(body.nome, body.item, body.custo);
+      return new Response(JSON.stringify(resultado), {
+        headers: { 'Content-Type': 'application/json', ...corsHeaders }
+      });
+    }
+
+    if (path.startsWith('/conquistas/')) {
+      const nome = decodeURIComponent(path.split('/')[2]);
+      const conquistas = await this.obterConquistas(nome);
+      return new Response(JSON.stringify({ conquistas }), {
+        headers: { 'Content-Type': 'application/json', ...corsHeaders }
+      });
+    }
+
+    // NOVO: Endpoint para obter cartas recentes globais
+    if (path === '/cartas-recentes-globais') {
+      try {
+        const cartas = await this.obterCartasRecentesGlobais();
+        return new Response(JSON.stringify({
+          cartas: cartas,
+          total: cartas.length,
+          timestamp: Date.now()
+        }), {
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      } catch (erro) {
+        console.error('Erro ao obter cartas recentes:', erro);
+        return new Response(JSON.stringify({
+          cartas: [],
+          total: 0,
+          erro: erro.message
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      }
+    }
+
+    // NOVO: Endpoint para registrar cartas globais  
+    if (path === '/registrar-cartas' && request.method === 'POST') {
+      try {
+        const body = await request.json();
+        const input = Array.isArray(body.cartas) ? body.cartas : [];
+        
+        if (input.length === 0) {
+          return new Response(JSON.stringify({
+            success: true,
+            registradas: 0
+          }), {
+            headers: { 'Content-Type': 'application/json', ...corsHeaders }
+          });
+        }
+
+        const resultado = await this.registrarCartasGlobais(input);
+        return new Response(JSON.stringify({
+          success: true,
+          ...resultado
+        }), {
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      } catch (erro) {
+        console.error('Erro ao registrar cartas:', erro);
+        return new Response(JSON.stringify({
+          success: false,
+          erro: erro.message
+        }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      }
+    }
+
+    // NOVO: Endpoint para limpar histórico de cartas
+    if (path === '/limpar-historico-cartas' && request.method === 'POST') {
+      try {
+        const resultado = await this.limparCartasGlobais();
+        return new Response(JSON.stringify({
+          success: true,
+          ...resultado
+        }), {
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      } catch (erro) {
+        console.error('Erro ao limpar histórico de cartas:', erro);
+        return new Response(JSON.stringify({
+          success: false,
+          erro: erro.message
+        }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      }
+    }
+
+    // NOVO: Admin - Listar salas (atualmente vazio pois salas não são persistidas)
+    if (path === '/admin/salas') {
+      try {
+        return new Response(JSON.stringify({
+          salas: []
+        }), {
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      } catch (erro) {
+        return new Response(JSON.stringify({
+          salas: [],
+          erro: erro.message
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+    }
+
+    // NOVO: Admin - Listar jogadores solo com última partida
+    if (path === '/admin/jogadores-completos') {
+      try {
+        const jogadores = await this.obterJogadoresCompletos();
+        return new Response(JSON.stringify({
+          jogadores: jogadores
+        }), {
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      } catch (erro) {
+        console.error('Erro ao obter jogadores completos:', erro);
+        return new Response(JSON.stringify({
+          jogadores: [],
+          erro: erro.message
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+    }
+
+    
+    // ============================
+    // ADMIN: Atualizar / Excluir jogador
+    // ============================
+
+    // PUT /admin/jogadores/:nome
+    if (path.startsWith('/admin/jogadores/') && request.method === 'PUT') {
+      try {
+        const nomeAtual = decodeURIComponent(path.split('/')[3] || '').trim();
+        if (!nomeAtual) throw new Error('Nome atual inválido');
+
+        const body = await request.json().catch(() => ({}));
+        const novoNome = typeof body?.novoNome === 'string' ? body.novoNome.trim() : '';
+        const pontos = body?.pontos;
+
+        if (pontos === undefined || pontos === null || pontos === '') throw new Error('Campo \"pontos\" é obrigatório');
+        const pontosNumero = Number(pontos);
+        if (!Number.isFinite(pontosNumero) || pontosNumero < 0) throw new Error('Campo \"pontos\" inválido');
+
+        const existe = this.sql.exec('SELECT nome FROM jogadores WHERE nome = ? LIMIT 1', nomeAtual).toArray();
+        if (existe.length === 0) throw new Error('Jogador não encontrado');
+
+        let nomeFinal = nomeAtual;
+
+        if (novoNome && novoNome !== nomeAtual) {
+          const conflito = this.sql.exec('SELECT nome FROM jogadores WHERE nome = ? LIMIT 1', novoNome).toArray();
+          if (conflito.length > 0) throw new Error('Já existe um jogador com esse novo nome');
+
+          this.sql.exec('UPDATE jogadores SET nome = ? WHERE nome = ?', novoNome, nomeAtual);
+          this.sql.exec('UPDATE historico_fases SET nome = ? WHERE nome = ?', novoNome, nomeAtual);
+          this.sql.exec('UPDATE resgates SET nome = ? WHERE nome = ?', novoNome, nomeAtual);
+
+          nomeFinal = novoNome;
+        }
+
+        this.sql.exec('UPDATE jogadores SET pontos = ? WHERE nome = ?', pontosNumero, nomeFinal);
+        await this.atualizarNivel(nomeFinal, pontosNumero);
+
+        const atualizado = this.sql.exec('SELECT nome, pontos, nivel FROM jogadores WHERE nome = ? LIMIT 1', nomeFinal).toArray()[0];
+
+        return new Response(JSON.stringify({ sucesso: true, jogador: atualizado }), {
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      } catch (erro) {
+        return new Response(JSON.stringify({ sucesso: false, erro: erro.message }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+    }
+
+    // DELETE /admin/jogadores/:nome
+    if (path.startsWith('/admin/jogadores/') && request.method === 'DELETE') {
+      try {
+        const nome = decodeURIComponent(path.split('/')[3] || '').trim();
+        if (!nome) throw new Error('Nome inválido');
+
+        this.sql.exec('DELETE FROM historico_fases WHERE nome = ?', nome);
+        this.sql.exec('DELETE FROM resgates WHERE nome = ?', nome);
+        this.sql.exec('DELETE FROM jogadores WHERE nome = ?', nome);
+
+        return new Response(JSON.stringify({ sucesso: true }), {
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      } catch (erro) {
+        return new Response(JSON.stringify({ sucesso: false, erro: erro.message }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+    }
+return new Response('Not Found', { status: 404 });
+  }
+
+  async inicializar() {
+    this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS jogadores (
+        nome TEXT PRIMARY KEY,
+        pontos INTEGER DEFAULT 0,
+        totalAcertos INTEGER DEFAULT 0,
+        totalErros INTEGER DEFAULT 0,
+        maiorSequencia INTEGER DEFAULT 0,
+        nivel TEXT DEFAULT 'Bronze',
+        dataCriacao TEXT DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS resgates (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL,
+        itemId INTEGER NOT NULL,
+        itemNome TEXT NOT NULL,
+        custo INTEGER NOT NULL,
+        dataResgate TEXT DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (nome) REFERENCES jogadores(nome)
+      )
+    `);
+
+    this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS loja (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL,
+        descricao TEXT NOT NULL,
+        custo INTEGER NOT NULL,
+        categoria TEXT NOT NULL
+      )
+    `);
+
+    // IMPORTANTE: Recriar historico_fases com schema correto (pontosBonus com 's')
+    try {
+      this.sql.exec('DROP TABLE IF EXISTS historico_fases');
+      console.log('✅ Tabela historico_fases dropada e será recriada');
+    } catch (e) {
+      console.log('Tabela historico_fases não existia:', e.message);
+    }
+
+    this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS historico_fases (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL,
+        faseNumero INTEGER NOT NULL,
+        pontosNormal INTEGER DEFAULT 0,
+        pontosBonus INTEGER DEFAULT 0,
+        pontosTotal INTEGER DEFAULT 0,
+        categoria TEXT,
+        dataConclusao TEXT DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (nome) REFERENCES jogadores(nome)
+      )
+    `);
+
+    // NOVO: Tabela para histórico global de cartas usadas
+    this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS historico_cartas_globais (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        chaveKey TEXT NOT NULL UNIQUE,
+        dataSolicitacao TEXT DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    const countLoja = this.sql.exec('SELECT COUNT(*) as total FROM loja').toArray()[0].total;
+    if (countLoja === 0) {
+      await this.popularLoja();
+    }
+  }
+
+  async obterPontos(nome) {
+    const nomeCanonical = this.obterNomeCanonical(nome);
+    if (!nomeCanonical) return 0;
+
+    const result = this.sql.exec(
+      'SELECT pontos FROM jogadores WHERE nome = ?',
+      nomeCanonical
+    ).toArray();
+
+    if (result.length === 0) {
+      this.sql.exec('INSERT INTO jogadores (nome, pontos) VALUES (?, 0)', nomeCanonical);
+      return 0;
+    }
+
+    return result[0].pontos;
+  }
+
+  async adicionarPontos(nome, pontos) {
+    const nomeCanonical = this.obterNomeCanonical(nome);
+    if (!nomeCanonical) {
+      throw new Error('Nome inválido para adicionar pontos');
+    }
+
+    const pontosNumero = Number(pontos);
+    if (!Number.isFinite(pontosNumero) || pontosNumero <= 0) {
+      throw new Error('Valor de pontos inválido');
+    }
+
+    const atual = await this.obterPontos(nomeCanonical);
+    const novo = atual + pontosNumero;
+
+    this.sql.exec(
+      'UPDATE jogadores SET pontos = ? WHERE nome = ?',
+      novo,
+      nomeCanonical
+    );
+
+    await this.atualizarNivel(nomeCanonical, novo);
+
+    return {
+      nome: nomeCanonical,
+      pontosAnteriores: atual,
+      pontosAdicionados: pontosNumero,
+      pontosAtuais: novo,
+    };
+  }
+
+  async adicionarPontosFase(nome, faseNumero, pontosTotal, pontosNormal, pontosBonusTotal, categoria) {
+    // VALIDAÇÃO 1: Nome não pode ser vazio
+    const nomeLimpo = String(nome || '').trim();
+    if (!nomeLimpo) {
+      throw new Error('Nome do jogador não pode estar vazio');
+    }
+
+    // VALIDAÇÃO 2: Pontos devem ser número válido
+    const pontosNumero = Number(pontosTotal);
+    if (!Number.isFinite(pontosNumero) || pontosNumero < 0) {
+      throw new Error(`Valor de pontos inválido: ${pontosTotal}`);
+    }
+
+    // VALIDAÇÃO 3: Fase deve ser válida
+    const faseNum = Number(faseNumero);
+    if (!Number.isFinite(faseNum) || faseNum < 1 || faseNum > 10) {
+      throw new Error(`Número de fase inválido: ${faseNumero}`);
+    }
+
+    // Obtém pontos atuais (cria jogador se não existir)
+    const atual = await this.obterPontos(nomeLimpo);
+    const nomeCanonical = this.obterNomeCanonical(nomeLimpo);
+    
+    // VALIDAÇÃO 4: Nome canonical deve existir
+    if (!nomeCanonical) {
+      throw new Error('Falha ao normalizar nome do jogador');
+    }
+    
+    const novo = atual + pontosNumero;
+
+    // Atualiza os pontos no banco
+    this.sql.exec(
+      'UPDATE jogadores SET pontos = ? WHERE nome = ?',
+      novo,
+      nomeCanonical
+    );
+
+    // Atualiza o nível baseado nos novos pontos totais
+    await this.atualizarNivel(nomeCanonical, novo);
+
+    // Registra o histórico de fase (tabela já criada no inicializar com schema correto)
+    this.sql.exec(
+      `INSERT INTO historico_fases (nome, faseNumero, pontosNormal, pontosBonus, pontosTotal, categoria)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      nomeCanonical,
+      faseNum,
+      Number(pontosNormal) || 0,
+      Number(pontosBonusTotal) || 0,
+      pontosNumero,
+      categoria || 'personagens'
+    );
+
+    console.log(`✅ [WORKER] Fase ${faseNum} salva para ${nomeCanonical}: +${pontosNumero} pontos (Total: ${novo})`);
+
+    return {
+      nome: nomeCanonical,
+      faseNumero: faseNum,
+      pontosAnteriores: atual,
+      pontosAdicionados: pontosNumero,
+      pontosAtuais: novo,
+      mensagem: `Fase ${faseNum} registrada com sucesso`
+    };
+  }
+
+  async obterCartasRecentesGlobais() {
+    // Remove cartas com mais de 1 hora
+    const umaHoraAtras = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+    
+    this.sql.exec(
+      `DELETE FROM historico_cartas_globais WHERE dataSolicitacao < ?`,
+      umaHoraAtras
+    );
+
+    // Retorna as cartas recentes (máximo 100)
+    const result = this.sql.exec(
+      `SELECT chaveKey FROM historico_cartas_globais ORDER BY dataSolicitacao DESC LIMIT 100`
+    ).toArray();
+
+    return result.map(r => r.chaveKey);
+  }
+
+  async registrarCartasGlobais(chaves) {
+    if (!Array.isArray(chaves) || chaves.length === 0) {
+      return { registradas: 0 };
+    }
+
+    let registradas = 0;
+    for (const chave of chaves) {
+      if (!chave || typeof chave !== 'string') continue;
+
+      try {
+        // INSERT OR IGNORE para evitar duplicatas
+        this.sql.exec(
+          `INSERT OR IGNORE INTO historico_cartas_globais (chaveKey) VALUES (?)`,
+          chave
+        );
+        registradas++;
+      } catch (e) {
+        console.log(`Falha ao registrar carta ${chave}:`, e.message);
+      }
+    }
+
+    console.log(`✅ [WORKER] ${registradas} cartas registradas no histórico global`);
+
+    return { registradas };
+  }
+
+  async limparCartasGlobais() {
+    try {
+      this.sql.exec('DELETE FROM historico_cartas_globais');
+      console.log('✅ [WORKER] Histórico global de cartas limpo');
+      return { sucesso: true, mensagem: 'Histórico global limpo com sucesso' };
+    } catch (e) {
+      throw new Error(`Falha ao limpar histórico: ${e.message}`);
+    }
+  }
+
+  async atualizarNivel(nome, pontos) {
+    let nivel = 'Bronze';
+    if (pontos >= 5000) nivel = 'Mestre';
+    else if (pontos >= 2000) nivel = 'Diamante';
+    else if (pontos >= 1000) nivel = 'Ouro';
+    else if (pontos >= 500) nivel = 'Prata';
+
+    this.sql.exec(
+      'UPDATE jogadores SET nivel = ? WHERE nome = ?',
+      nivel,
+      nome
+    );
+  }
+
+  async obterRanking() {
+    const result = this.sql.exec(
+      'SELECT nome, pontos, nivel FROM jogadores ORDER BY pontos DESC LIMIT 100'
+    ).toArray();
+
+    return result;
+  }
+
+  async obterJogadoresCompletos() {
+    // Obter jogadores com pontos (que completaram pelo menos uma fase)
+    const jogadores = this.sql.exec(`
+      SELECT 
+        j.nome, 
+        j.pontos, 
+        j.nivel, 
+        MAX(hf.dataConclusao) as ultimaPartidaEm
+      FROM jogadores j
+      LEFT JOIN historico_fases hf ON j.nome = hf.nome
+      WHERE j.pontos > 0
+      GROUP BY j.nome
+      ORDER BY j.pontos DESC
+    `).toArray();
+
+    return jogadores;
+  }
+
+  async obterPerfil(nome) {
+    const jogador = this.sql.exec(
+      'SELECT * FROM jogadores WHERE nome = ?',
+      nome
+    ).toArray();
+
+    if (jogador.length === 0) {
+      return { erro: 'Jogador não encontrado' };
+    }
+
+    const resgates = this.sql.exec(
+      'SELECT itemId, itemNome, custo, dataResgate FROM resgates WHERE nome = ? ORDER BY dataResgate DESC',
+      nome
+    ).toArray();
+
+    return {
+      ...jogador[0],
+      resgates
+    };
+  }
+
+  async obterLoja() {
+    const itens = this.sql.exec(
+      'SELECT * FROM loja ORDER BY categoria, custo'
+    ).toArray();
+
+    return { itens };
+  }
+
+  async resgatarItem(nome, item, custo) {
+    const pontosAtuais = await this.obterPontos(nome);
+
+    if (pontosAtuais < custo) {
+      return { erro: 'Pontos insuficientes' };
+    }
+
+    const novoPontos = pontosAtuais - custo;
+    this.sql.exec(
+      'UPDATE jogadores SET pontos = ? WHERE nome = ?',
+      novoPontos,
+      nome
+    );
+
+    this.sql.exec(
+      'INSERT INTO resgates (nome, itemId, itemNome, custo) VALUES (?, ?, ?, ?)',
+      nome,
+      item.id,
+      item.nome,
+      custo
+    );
+
+    return {
+      sucesso: true,
+      pontosRestantes: novoPontos,
+      itemResgatado: item.nome
+    };
+  }
+
+  async obterConquistas(nome) {
+    const resgates = this.sql.exec(
+      'SELECT itemNome, dataResgate FROM resgates WHERE nome = ? ORDER BY dataResgate DESC',
+      nome
+    ).toArray();
+
+    return resgates;
+  }
+
+  async popularLoja() {
+    const itens = [
+      { nome: '🏆 Troféu Bronze', descricao: 'Seu primeiro troféu!', custo: 50, categoria: 'trofeu' },
+      { nome: '🏆 Troféu Prata', descricao: 'Dominando o conhecimento', custo: 100, categoria: 'trofeu' },
+      { nome: '🏆 Troféu Ouro', descricao: 'Expert bíblico!', custo: 200, categoria: 'trofeu' },
+      { nome: '🏆 Troféu Diamante', descricao: 'Mestre das Escrituras', custo: 500, categoria: 'trofeu' },
+      { nome: '⭐ Badge Iniciante', descricao: 'Primeiros passos', custo: 30, categoria: 'badge' },
+      { nome: '⭐ Badge Estudioso', descricao: 'Dedicação exemplar', custo: 80, categoria: 'badge' },
+      { nome: '⭐ Badge Mestre', descricao: 'Conhecimento profundo', custo: 150, categoria: 'badge' },
+      { nome: '⭐ Badge Legendário', descricao: 'Lenda viva!', custo: 300, categoria: 'badge' },
+      { nome: '👑 Título: Sábio', descricao: 'Reconhecido pela sabedoria', custo: 100, categoria: 'titulo' },
+      { nome: '👑 Título: Doutor', descricao: 'PhD em conhecimento bíblico', custo: 250, categoria: 'titulo' },
+      { nome: '👑 Título: Professor', descricao: 'Ensine aos outros', custo: 400, categoria: 'titulo' },
+      { nome: '🎨 Avatar Especial 1', descricao: 'Destaque-se na sala', custo: 75, categoria: 'avatar' },
+      { nome: '🎨 Avatar Especial 2', descricao: 'Estilo único', custo: 120, categoria: 'avatar' },
+      { nome: '🎨 Avatar Premium', descricao: 'Exclusivo e raro', custo: 300, categoria: 'avatar' },
+      { nome: '🎁 Bônus +50 Pontos', descricao: 'Impulso instantâneo', custo: 25, categoria: 'bonus' },
+      { nome: '🎁 Bônus +100 Pontos', descricao: 'Grande impulso', custo: 50, categoria: 'bonus' },
+      { nome: '🎁 Bônus +500 Pontos', descricao: 'Mega impulso!', custo: 200, categoria: 'bonus' },
+    ];
+
+    for (const item of itens) {
+      this.sql.exec(
+        'INSERT INTO loja (nome, descricao, custo, categoria) VALUES (?, ?, ?, ?)',
+        item.nome,
+        item.descricao,
+        item.custo,
+        item.categoria
+      );
+    }
+  }
+}
+
+function paginaInicial() {
+  return `
+🎯 QUEM SOU EU? - Backend v4.2 COM HISTÓRICO GLOBAL PADRONIZADO (KEYS)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Status: ✅ ONLINE
+Paleta: 🎨 JW.ORG (Azul #4A6DA7)
+
+📡 ENDPOINTS:
+
+WebSocket Multiplayer Casual:
+  wss://[seu-worker].workers.dev/ws?sala=CODIGO
+
+WebSocket Competitivo (Sala A vs B):
+  wss://[seu-worker].workers.dev/ws-competitivo?sala=CODIGO
+
+API REST - Pontos:
+  GET  /pontos/:nome               → Pontos globais do jogador
+  POST /adicionar                  → Adicionar pontos
+  GET  /ranking                    → Top 100 jogadores
+
+API REST - Cartas:
+  GET  /cartas/:categoria          → Cartas da categoria
+  POST /cartas/:categoria/popular  → Popular cartas
+
+API REST - Histórico Global:
+  GET  /cartas-recentes            → KEYS usadas recentemente (global)
+  POST /registrar-cartas           → Registrar KEYS usadas
+  POST /limpar-historico           → Limpar histórico (admin)
+
+🎮 MODOS DE JOGO:
+  • Solo (com memória global)
+  • Multiplayer Casual
+  • Multiplayer Competitivo (Sala A vs B)
+
+🌐 MEMÓRIA GLOBAL DE CARTAS:
+  • Todos jogadores compartilham histórico
+  • Auto-limpeza: 1 hora
+  • Máximo: 100 cartas no histórico
+  • Evita repetição de cartas recentes
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Desenvolvido com ❤️ para JW.ORG
+`;
+}
+
+
+// Compatibilidade retroativa para migrations antigas do Durable Object
+// que ainda referenciam a classe PontosBiblicoDO.
+export class PontosBiblicoDO extends PontosGlobaisDO {}
+
+
+
