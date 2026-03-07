@@ -2,6 +2,16 @@
 main = "worker.js"
 compatibility_date = "2024-01-01"
 
+# =========================
+# Variáveis globais
+# =========================
+[vars]
+PONTOS_GLOBAIS_DO_NAME = "pontos-globais-v2"
+
+# =========================
+# Durable Objects
+# =========================
+
 [[durable_objects.bindings]]
 name = "SALA_DO"
 class_name = "SalaDO"
@@ -38,17 +48,37 @@ class_name = "BancoDadosPregacaoDO"
 name = "BancoDadosVerdadeiroFalsoDO"
 class_name = "BancoDadosVerdadeiroFalsoDO"
 
+# =========================
+# Migrations DO
+# =========================
+
 [[migrations]]
 tag = "v1"
-new_sqlite_classes = [ "SalaDO", "SalaCompetitivaDO", "BancoDadosDO", "PontosGlobaisDO" ]
+new_sqlite_classes = [
+  "SalaDO",
+  "SalaCompetitivaDO",
+  "BancoDadosDO",
+  "PontosGlobaisDO"
+]
 
 [[migrations]]
 tag = "v2"
-new_sqlite_classes = [ "BancoDadosPersonagensDO", "BancoDadosProfeciasDO", "BancoDadosMimicaDO", "BancoDadosPregacaoDO" ]
+new_sqlite_classes = [
+  "BancoDadosPersonagensDO",
+  "BancoDadosProfeciasDO",
+  "BancoDadosMimicaDO",
+  "BancoDadosPregacaoDO"
+]
 
 [[migrations]]
 tag = "v3"
-new_sqlite_classes = [ "BancoDadosVerdadeiroFalsoDO" ]
+new_sqlite_classes = [
+  "BancoDadosVerdadeiroFalsoDO"
+]
+
+# =========================
+# D1 Databases
+# =========================
 
 [[d1_databases]]
 binding = "pingao_personagens"
@@ -70,4 +100,68 @@ binding = "pingao_pregacao"
 database_name = "pingao-pregacao"
 database_id = "3d154848-adb3-4799-94f8-1dd82fdeb7cf"
 
-pages_build_output_dir = "dist-prod"
+# =========================
+# STAGING ENVIRONMENT
+# =========================
+
+[env.staging]
+name = "quem-sou-eu-backend-v4-staging"
+
+[env.staging.vars]
+PONTOS_GLOBAIS_DO_NAME = "pontos-globais-staging"
+
+[[env.staging.durable_objects.bindings]]
+name = "SALA_DO"
+class_name = "SalaDO"
+
+[[env.staging.durable_objects.bindings]]
+name = "SALA_COMPETITIVA_DO"
+class_name = "SalaCompetitivaDO"
+
+[[env.staging.durable_objects.bindings]]
+name = "BancoDadosDO"
+class_name = "BancoDadosDO"
+
+[[env.staging.durable_objects.bindings]]
+name = "PontosGlobaisDO"
+class_name = "PontosGlobaisDO"
+
+[[env.staging.durable_objects.bindings]]
+name = "BancoDadosPersonagensDO"
+class_name = "BancoDadosPersonagensDO"
+
+[[env.staging.durable_objects.bindings]]
+name = "BancoDadosProfeciasDO"
+class_name = "BancoDadosProfeciasDO"
+
+[[env.staging.durable_objects.bindings]]
+name = "BancoDadosMimicaDO"
+class_name = "BancoDadosMimicaDO"
+
+[[env.staging.durable_objects.bindings]]
+name = "BancoDadosPregacaoDO"
+class_name = "BancoDadosPregacaoDO"
+
+[[env.staging.durable_objects.bindings]]
+name = "BancoDadosVerdadeiroFalsoDO"
+class_name = "BancoDadosVerdadeiroFalsoDO"
+
+[[env.staging.d1_databases]]
+binding = "pingao_personagens"
+database_name = "pingao-personagens"
+database_id = "ccd79364-9c1f-42c9-9062-9c1f476fce89"
+
+[[env.staging.d1_databases]]
+binding = "pingao_profecias"
+database_name = "pingao-profecias"
+database_id = "22063ff3-dc59-42f4-b00d-c0401d0bf65b"
+
+[[env.staging.d1_databases]]
+binding = "pingao_mimica"
+database_name = "pingao-mimica"
+database_id = "5ec25aff-571b-4d65-bd0f-525795d2ea12"
+
+[[env.staging.d1_databases]]
+binding = "pingao_pregacao"
+database_name = "pingao-pregacao"
+database_id = "3d154848-adb3-4799-94f8-1dd82fdeb7cf"

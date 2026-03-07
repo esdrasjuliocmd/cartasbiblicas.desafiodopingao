@@ -1,0 +1,524 @@
+﻿[
+    {
+        "categoria":  "personagens",
+        "id":  2713,
+        "campo":  "resposta",
+        "texto":  "Abra�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2717,
+        "campo":  "dica1",
+        "texto":  "Fui vendido como escravo por meus irm�os"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2718,
+        "campo":  "dica3",
+        "texto":  "Libertei israelitas da escravid�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2719,
+        "campo":  "resposta",
+        "texto":  "Ar�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2719,
+        "campo":  "dica3",
+        "texto":  "Sou irm�o de Mois�s e Miri�"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2720,
+        "campo":  "dica2",
+        "texto":  "Conduzi povo atrav�s do Jord�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2721,
+        "campo":  "dica2",
+        "texto":  "Coloquei cord�o escarlate na janela"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2723,
+        "campo":  "resposta",
+        "texto":  "Gide�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2723,
+        "campo":  "dica1",
+        "texto":  "Pedi sinal com velo de l�"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2724,
+        "campo":  "resposta",
+        "texto":  "Sans�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2724,
+        "campo":  "dica2",
+        "texto":  "Matei le�o com m�os nuas"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2732,
+        "campo":  "dica3",
+        "texto":  "M�e do rei Salom�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2733,
+        "campo":  "resposta",
+        "texto":  "Salom�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2734,
+        "campo":  "dica1",
+        "texto":  "Visitei Salom�o testar sabedoria"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2736,
+        "campo":  "dica2",
+        "texto":  "Recebi por��o dobrada"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2737,
+        "campo":  "dica1",
+        "texto":  "Promovi adora��o de Baal"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2738,
+        "campo":  "resposta",
+        "texto":  "Naam�"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2738,
+        "campo":  "dica2",
+        "texto":  "Mergulhei sete vezes no Jord�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2739,
+        "campo":  "dica3",
+        "texto":  "Descobri plano de Ham�"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2740,
+        "campo":  "dica3",
+        "texto":  "Ham� planejou minha morte"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2743,
+        "campo":  "dica1",
+        "texto":  "Profetizei destrui��o de Jerusal�m"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2743,
+        "campo":  "dica3",
+        "texto":  "Chamado profeta chor�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2750,
+        "campo":  "dica2",
+        "texto":  "Restaurei adora��o verdadeira"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2751,
+        "campo":  "resposta",
+        "texto":  "Ad�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2752,
+        "campo":  "dica3",
+        "texto":  "M�e de todos viventes"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2753,
+        "campo":  "dica2",
+        "texto":  "Recebi marca de prote��o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2754,
+        "campo":  "dica1",
+        "texto":  "Segundo filho de Ad�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2756,
+        "campo":  "dica2",
+        "texto":  "Aben�oei Abra�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2756,
+        "campo":  "dica3",
+        "texto":  "Recebi d�zimo de Abra�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2757,
+        "campo":  "dica3",
+        "texto":  "Sobrinho de Abra�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2759,
+        "campo":  "dica2",
+        "texto":  "Irm�o g�meo de Jac�"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2760,
+        "campo":  "dica3",
+        "texto":  "M�e de Jos� e Benjamim"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2761,
+        "campo":  "dica3",
+        "texto":  "Jos� era meu �nico irm�o de mesma m�e"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2763,
+        "campo":  "resposta",
+        "texto":  "Miri�"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2763,
+        "campo":  "dica1",
+        "texto":  "Irm� de Mois�s e Ar�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2763,
+        "campo":  "dica3",
+        "texto":  "Profetisa l�der de c�nticos"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2764,
+        "campo":  "dica1",
+        "texto":  "Sacerdote de Midi�"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2765,
+        "campo":  "dica2",
+        "texto":  "Encorajei entrar em Cana�"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2766,
+        "campo":  "resposta",
+        "texto":  "Bala�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2767,
+        "campo":  "dica1",
+        "texto":  "Descobri segredo de Sans�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2767,
+        "campo":  "dica3",
+        "texto":  "Cortei cabelo de Sans�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2771,
+        "campo":  "resposta",
+        "texto":  "Absal�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2772,
+        "campo":  "resposta",
+        "texto":  "Nat�"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2777,
+        "campo":  "dica1",
+        "texto":  "M�e do Messias"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2779,
+        "campo":  "dica3",
+        "texto":  "M�e de Jo�o Batista"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2780,
+        "campo":  "dica3",
+        "texto":  "Pai de Jo�o Batista"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2781,
+        "campo":  "resposta",
+        "texto":  "Jo�o Batista"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2781,
+        "campo":  "dica2",
+        "texto":  "Batizei Jesus no Jord�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2782,
+        "campo":  "resposta",
+        "texto":  "Sime�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2784,
+        "campo":  "dica1",
+        "texto":  "Pescador irm�o de Pedro"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2784,
+        "campo":  "dica2",
+        "texto":  "Disc�pulo de Jo�o Batista"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2785,
+        "campo":  "dica1",
+        "texto":  "Irm�o de Jo�o filho de Zebedeu"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2786,
+        "campo":  "resposta",
+        "texto":  "Jo�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2787,
+        "campo":  "dica3",
+        "texto":  "Perguntei onde comprar p�es"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2789,
+        "campo":  "dica1",
+        "texto":  "Duvidei da ressurrei��o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2793,
+        "campo":  "dica2",
+        "texto":  "Irm�o de Marta e Maria"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2796,
+        "campo":  "dica2",
+        "texto":  "Lavei m�os publicamente"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2797,
+        "campo":  "dica1",
+        "texto":  "Mandei matar Jo�o Batista"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2798,
+        "campo":  "dica1",
+        "texto":  "Ladr�o e assassino preso"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2798,
+        "campo":  "dica3",
+        "texto":  "Multid�o me escolheu"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2799,
+        "campo":  "dica1",
+        "texto":  "Persegui crist�os antes"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2800,
+        "campo":  "resposta",
+        "texto":  "Est�v�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2800,
+        "campo":  "dica1",
+        "texto":  "Primeiro m�rtir crist�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2801,
+        "campo":  "dica1",
+        "texto":  "Centuri�o romano temente"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2801,
+        "campo":  "dica2",
+        "texto":  "Tive vis�o de anjo"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2802,
+        "campo":  "dica3",
+        "texto":  "Nome significa filho de consola��o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2804,
+        "campo":  "dica3",
+        "texto":  "M�dico de profiss�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2805,
+        "campo":  "dica3",
+        "texto":  "Tamb�m Jo�o Marcos"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2807,
+        "campo":  "dica1",
+        "texto":  "Ensinei Apolo com exatid�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2808,
+        "campo":  "dica2",
+        "texto":  "Conhecia apenas batismo de Jo�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2809,
+        "campo":  "dica3",
+        "texto":  "Cantamos na pris�o � meia-noite"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2810,
+        "campo":  "dica1",
+        "texto":  "Ajudei Paulo ap�s convers�o"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2810,
+        "campo":  "dica2",
+        "texto":  "Restaurei vis�o de Saulo"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2815,
+        "campo":  "dica3",
+        "texto":  "Paulo pediu perd�o para ele"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2825,
+        "campo":  "dica1",
+        "texto":  "�snica filha mencionada de Jacó"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2844,
+        "campo":  "dica2",
+        "texto":  "�snico que escapou de Abimeleque"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2875,
+        "campo":  "dica2",
+        "texto":  "�snica rainha de Judá"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2885,
+        "campo":  "dica1",
+        "texto":  "�sltimo rei de Judá"
+    },
+    {
+        "categoria":  "personagens",
+        "id":  2909,
+        "campo":  "dica1",
+        "texto":  "�sltimo profeta do AT"
+    },
+    {
+        "categoria":  "desenho",
+        "id":  390,
+        "campo":  "resposta",
+        "texto":  "Ânfora de azeite"
+    },
+    {
+        "categoria":  "desenho",
+        "id":  981,
+        "campo":  "resposta",
+        "texto":  "Ânfora de azeite"
+    },
+    {
+        "categoria":  "mimica",
+        "id":  467,
+        "campo":  "resposta",
+        "texto":  "PARTIR PÃO"
+    },
+    {
+        "categoria":  "mimica",
+        "id":  516,
+        "campo":  "resposta",
+        "texto":  "SEGURAR MÃO"
+    },
+    {
+        "categoria":  "mimica",
+        "id":  517,
+        "campo":  "resposta",
+        "texto":  "APERTAR MÃO"
+    },
+    {
+        "categoria":  "mimica",
+        "id":  1058,
+        "campo":  "resposta",
+        "texto":  "PARTIR PÃO"
+    },
+    {
+        "categoria":  "mimica",
+        "id":  1107,
+        "campo":  "resposta",
+        "texto":  "SEGURAR MÃO"
+    },
+    {
+        "categoria":  "mimica",
+        "id":  1108,
+        "campo":  "resposta",
+        "texto":  "APERTAR MÃO"
+    }
+]

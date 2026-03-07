@@ -1347,24 +1347,7 @@
       });
     }
 
-    const API_BASE = String(window.APP_CONFIG?.API_BASE || '').replace(/\/+$/, '');
-
-    function escaparHtml(valor) {
-      return String(valor ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-
-    function normalizarRankingPayload(data) {
-      if (Array.isArray(data?.ranking)) return data.ranking;
-      if (data?.ranking && typeof data.ranking === 'object') {
-        return Object.values(data.ranking).filter(item => item && typeof item === 'object');
-      }
-      return [];
-    }
+    const API_BASE = window.APP_CONFIG.API_BASE;
     const SOLO_BUILD_VERSION = "2026-03-05-solo-ui-start-v2-catbuttons-greenfix-dedup+counts-v1+ranking-banner-totalpos-v1+mobile-cat-compact-v1";
     const TOTAL_FASES = 10;
     const CARTAS_POR_FASE = 10;
@@ -1510,25 +1493,9 @@
       if (_rankingCache.ranking && (now - _rankingCache.at) < RANKING_CACHE_MS) {
         return _rankingCache.ranking;
       }
-
-      if (!API_BASE) {
-        throw new Error('API_BASE não configurada.');
-      }
-
-      const response = await fetch(`${API_BASE}/ranking`, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json'
-        },
-        cache: 'no-store'
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-
+      const response = await fetch(`${API_BASE}/ranking`, { cache: 'no-store' });
       const data = await response.json();
-      const ranking = normalizarRankingPayload(data);
+      const ranking = Array.isArray(data?.ranking) ? data.ranking : [];
       _rankingCache = { at: now, ranking };
       return ranking;
     }
@@ -2321,48 +2288,25 @@
 
     async function carregarRanking() {
       try {
-        const ranking = await getRankingListCached();
-        const podioLista = document.getElementById('podio-lista');
-        const podioContainer = document.getElementById('podio-container');
-
-        if (!podioLista || !podioContainer) return;
-
-        if (ranking.length > 0) {
-          const top5 = ranking.slice(0, 5);
+        const response = await fetch(`${API_BASE}/ranking`, { cache: 'no-store' });
+        const data = await response.json();
+        if (data.ranking && data.ranking.length > 0) {
+          const top5 = data.ranking.slice(0, 5);
           const podioHTML = top5.map((jogador, index) => {
             const medalhas = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
-            const nome = escaparHtml((jogador?.nome ?? '').toString() || 'Sem nome');
-            const pontos = Number(parseRankingPoints(jogador?.pontos) || 0).toLocaleString('pt-BR');
-
             return `
               <div class="podio-item">
                 <span class="podio-posicao">${medalhas[index]}</span>
-                <span class="podio-nome">${nome}</span>
-                <span class="podio-pontos">${pontos}</span>
+                <span class="podio-nome">${(jogador?.nome ?? '').toString()}</span>
+                <span class="podio-pontos">${Number(parseRankingPoints(jogador?.pontos) || 0).toLocaleString('pt-BR')}</span>
               </div>
             `;
           }).join('');
-
-          podioLista.innerHTML = podioHTML;
-          podioContainer.style.display = 'block';
-        } else {
-          podioLista.innerHTML = '';
-          podioContainer.style.display = 'none';
+          document.getElementById('podio-lista').innerHTML = podioHTML;
+          document.getElementById('podio-container').style.display = 'block';
         }
       } catch (erro) {
         console.error('Erro ao carregar ranking:', erro);
-        const podioLista = document.getElementById('podio-lista');
-        const podioContainer = document.getElementById('podio-container');
-        if (podioLista && podioContainer) {
-          podioLista.innerHTML = `
-            <div class="podio-item">
-              <span class="podio-posicao">⚠️</span>
-              <span class="podio-nome">Não foi possível carregar o ranking</span>
-              <span class="podio-pontos">—</span>
-            </div>
-          `;
-          podioContainer.style.display = 'block';
-        }
       }
     }
 

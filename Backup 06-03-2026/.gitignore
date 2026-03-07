@@ -1,0 +1,15 @@
+node_modules/
+.wrangler/
+.env
+*.log
+.DS_Store
+
+# Local backups and one-off recovery artifacts
+backups/
+*.bak
+*.bkp
+*.corrupted_*
+cartas-biblicas-corrigido.json
+cartas-biblicas_*.json
+personagens.csv
+worker-backup-*.js

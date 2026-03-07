@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>🎮 Desafio do Pingão - Cartas Bíblicas</title>
-  <meta name="solo-build" content="2026-03-05-solo-ui-start-v2-catbuttons-greenfix-dedup+counts-v1+ranking-banner-totalpos-v1+mobile-cat-compact-v1">
+  <meta name="solo-build" content="2026-03-06-solo-gameplay-dif-mult+streak-milestones+session-banner-v1">
   <style>
     :root {
       --jw-azul-principal: #2E5B93;
@@ -443,7 +443,7 @@
     .loading-spinner { font-size: 2.5rem; animation: girar 1s linear infinite; }
 
     /* ==========================================
-       RESUMO DA FASE
+       ✅ RESUMO DA FASE (dedup: definido 1 vez)
        ========================================== */
     .fase-resumo {
       position: relative;
@@ -498,7 +498,7 @@
     }
 
     /* ==========================================
-       BANNER DO JOGADOR
+       ✅ BANNER DO JOGADOR (dedup: definido 1 vez)
        ========================================== */
     .player-banner {
       margin-top: 8px;
@@ -626,7 +626,7 @@
     }
 
     /* =========================================================
-       MELHORIAS DA TELA INICIAL
+       ✅ MELHORIAS DA TELA INICIAL (dedup: definido 1 vez)
        ========================================================= */
     .label-joy{
       display:block;
@@ -750,6 +750,7 @@
       filter: grayscale(1);
     }
 
+    /* ✅ ATIVO: VERDE (greenfix) */
     .cat-btn.is-on{
       background: linear-gradient(135deg, #39b54a, #1d7f34);
       color: #fff;
@@ -794,13 +795,24 @@
       .cat-sub { font-size: 0.78rem; }
     }
 
+    /* =========================================================
+       ✅ AJUSTE MOBILE: reduzir botões de categoria para caber "Iniciar Jogo"
+       (adicionei no final para sobrescrever)
+       ========================================================= */
     @media (max-width: 420px){
+      /* reduz espaço geral do card inicial */
       #tela-inicial.card { padding: 10px; }
+
       .header { margin-bottom: 10px; }
       .header h1 { font-size: 1.45rem; margin-bottom: 6px; }
+
+      /* caixa amarela menor */
       .start-tip { margin-top: 8px; padding: 8px 10px; font-size: 0.9rem; }
       .start-tip-ex { margin-top: 4px; font-size: 0.8rem; }
+
+      /* botões de categoria menores */
       .cat-grid { gap: 8px; margin-bottom: 8px; }
+
       .cat-btn{
         padding: 10px 10px;
         min-height: 46px;
@@ -808,26 +820,33 @@
         font-size: 0.95rem;
         box-shadow: 0 8px 14px rgba(0,0,0,0.07);
       }
+
       .cat-emoji { font-size: 1.05rem; }
+
       .cat-sub{
         margin-top: 0;
         font-size: 0.75rem;
         line-height: 1.1;
       }
+
+      /* bolinha do ✓ menor */
       .cat-btn.is-on::after{
         width: 22px;
         height: 22px;
         margin-left: 6px;
         border-width: 2px;
       }
+
+      /* campo e botões finais mais compactos */
       .start-field{ padding: 14px 12px; }
       .start-btn{ min-height: 48px; padding: 14px; }
     }
 
     /* ========================================================
-       MELHORIAS ANIMADAS - TELA INICIAL (estilo divertido)
+       🎮 MELHORIAS ANIMADAS - TELA INICIAL (estilo divertido)
        ======================================================== */
 
+    /* Partículas flutuantes no fundo */
     .bg-particles {
       position: fixed;
       inset: 0;
@@ -848,8 +867,10 @@
       100% { opacity: 0;   transform: translateY(-10vh) scale(1.3) rotate(360deg); }
     }
 
+    /* Container acima das partículas */
     .container { position: relative; z-index: 1; }
 
+    /* Título com gradiente dourado animado */
     #tela-inicial .header h1 {
       background: linear-gradient(90deg, #FFD700 0%, #FF8C00 40%, #FFD700 80%, #FF8C00 100%);
       background-size: 250% auto;
@@ -865,6 +886,7 @@
       100% { background-position: 250% center; }
     }
 
+    /* Caixa de dica flutuando suavemente */
     .start-tip {
       animation: tipFloat 3.5s ease-in-out infinite;
     }
@@ -873,12 +895,14 @@
       50%       { transform: translateY(-5px); }
     }
 
+    /* Hover nos botões de categoria - efeito de elevação */
     .cat-btn:hover {
       transform: translateY(-5px) scale(1.02);
       box-shadow: 0 22px 36px rgba(0, 0, 0, 0.2);
       transition: transform .15s ease, box-shadow .15s ease;
     }
 
+    /* Categoria selecionada - pulso verde brilhante */
     .cat-btn.is-on {
       animation: catGlow 1.8s ease-in-out infinite;
     }
@@ -887,6 +911,7 @@
       50%       { box-shadow: 0 20px 34px rgba(0,0,0,0.22), 0 0 26px rgba(57, 181, 74, 0.6); }
     }
 
+    /* Botão "Iniciar Jogo" com glow laranja pulsante */
     .start-btn.btn-primary {
       background: linear-gradient(135deg, #FF6B35 0%, #E63900 100%);
       box-shadow: 0 8px 24px rgba(230, 57, 0, 0.45);
@@ -900,6 +925,7 @@
     }
     .start-btn.btn-primary:active { transform: scale(0.97) !important; animation: none; }
 
+    /* Campo de nome com brilho dourado ao focar */
     #nome-jogador:focus {
       outline: none;
       border-color: var(--jw-dourado);
@@ -908,9 +934,10 @@
     }
 
     /* ========================================================
-       MELHORIAS TELAS DE JOGO E RESULTADO
+       🎮 MELHORIAS TELAS DE JOGO E RESULTADO (animado/divertido)
        ======================================================== */
 
+    /* 1. Timer — pulso suave permanente */
     .timer {
       animation: timerTick 1.5s ease-in-out infinite;
       border-radius: 8px;
@@ -921,6 +948,7 @@
       50%       { transform: scale(1.07); }
     }
 
+    /* Urgência quando ≤ 10 segundos (classe adicionada via JS) */
     .timer-urgente {
       animation: timerUrge 0.55s ease-in-out infinite !important;
       background: rgba(217, 83, 79, 0.12);
@@ -930,6 +958,7 @@
       50%       { transform: scale(1.14); text-shadow: 0 0 22px rgba(217,83,79,0.9); }
     }
 
+    /* 2. Dicas — borda que alterna entre azul e dourado */
     .dicas {
       animation: dicasBorder 4s ease-in-out infinite;
     }
@@ -938,6 +967,7 @@
       50%       { border-color: var(--jw-dourado);        box-shadow: 0 8px 24px rgba(242,183,5,0.28); }
     }
 
+    /* 3. Botões de resposta — hover com elevação */
     .opcao:hover {
       transform: translateY(-3px) scale(1.01);
       box-shadow: 0 8px 20px rgba(46, 91, 147, 0.25);
@@ -959,6 +989,7 @@
       animation: shake 0.6s ease-out;
     }
 
+    /* 4. Stats — shimmer brilhante no box de Pontos */
     .stat-box:first-child {
       position: relative;
       overflow: hidden;
@@ -978,6 +1009,7 @@
       100% { left: 130%; }
     }
 
+    /* 5. Streak — pulso de fogo */
     .streak-indicator {
       animation: firePulse 0.9s ease-in-out infinite !important;
     }
@@ -986,10 +1018,14 @@
       50%       { box-shadow: 0 8px 26px rgba(255,107,107,0.75); transform: scale(1.04); }
     }
 
+    /* 6. Feedback com borda lateral colorida */
     .feedback { font-size: 0.95rem; }
     .feedback.correto { border-left: 5px solid var(--jw-verde-sucesso); padding-left: 14px; }
     .feedback.errado  { border-left: 5px solid var(--jw-vermelho-erro);  padding-left: 14px; }
 
+    /* ── TELA DE RESULTADO ── */
+
+    /* 7. Título "Finalizado!" com gradiente dourado */
     #tela-resultado .header h1 {
       background: linear-gradient(90deg, #FFD700 0%, #FF8C00 40%, #FFD700 80%, #FF8C00 100%);
       background-size: 250% auto;
@@ -1000,6 +1036,7 @@
       filter: drop-shadow(0 2px 8px rgba(255,190,0,0.4));
     }
 
+    /* 8. Pontuação final com glow dourado */
     .pontuacao-final {
       font-size: 3.2rem;
       animation: scorePulse 1.2s ease-in-out infinite;
@@ -1009,6 +1046,7 @@
       50%       { text-shadow: 0 0 36px rgba(242,183,5,0.88); transform: scale(1.06); }
     }
 
+    /* 9. Itens do resumo com cores distintas */
     .resumo-item {
       background: rgba(255, 255, 255, 0.92);
       border: 2px solid rgba(46, 91, 147, 0.10);
@@ -1017,6 +1055,7 @@
     .resumo-item:nth-child(2) { border-left: 5px solid var(--jw-vermelho-erro); }
     .resumo-item:nth-child(3) { border-left: 5px solid var(--jw-dourado); }
 
+    /* 10. Pódio — top 3 com cores de medalha, hover lift */
     .podio-item {
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
@@ -1028,6 +1067,7 @@
     .podio-item:nth-child(2) { border-left: 5px solid #C0C0C0; }
     .podio-item:nth-child(3) { border-left: 5px solid #CD7F32; }
 
+    /* 11. Botões da tela de resultado */
     #tela-resultado .btn-primary {
       background: linear-gradient(135deg, #FF6B35 0%, #E63900 100%);
       box-shadow: 0 8px 24px rgba(230, 57, 0, 0.40);
@@ -1050,7 +1090,7 @@
         <div class="start-tip" id="start-tip">
           🏆 Para salvar seus pontos no ranking, use <b>Nome + Sobrenome</b> ou um <b>apelido fixo</b>.
           <div class="start-tip-ex">
-            Ex.: <span>"Ana Silva"</span> · <span>"JPdoPingão"</span>
+            Ex.: <span>“Ana Silva”</span> · <span>“JPdoPingão”</span>
           </div>
         </div>
       </div>
@@ -1096,7 +1136,7 @@
       </div>
 
       <div class="start-warn" id="start-warn" aria-live="polite">
-        ⚠️ Digite um nome válido (ex.: "João Pereira" ou "JPedroso").
+        ⚠️ Digite um nome válido (ex.: “João Pereira” ou “JPedroso”).
       </div>
 
       <button class="btn btn-primary start-btn" onclick="iniciarJogo()">🚀 Iniciar Jogo</button>
@@ -1211,7 +1251,7 @@
 
     AudioSystem.init();
 
-    // Partículas flutuantes animadas no fundo
+    // ── Partículas flutuantes animadas no fundo ──
     (function criarParticulas() {
       const container = document.getElementById('bg-particles');
       if (!container) return;
@@ -1224,7 +1264,7 @@
         const cor = cores[Math.floor(Math.random() * cores.length)];
         const tam = tamanhos[Math.floor(Math.random() * tamanhos.length)];
         const dur = (5 + Math.random() * 9).toFixed(1) + 's';
-        const delay = -(Math.random() * 10).toFixed(1) + 's';
+        const delay = -(Math.random() * 10).toFixed(1) + 's'; // negativo = já em andamento
         const left = (Math.random() * 100).toFixed(1) + '%';
         p.style.cssText = `width:${tam}px;height:${tam}px;background:${cor};left:${left};animation-duration:${dur};animation-delay:${delay};opacity:0;`;
         container.appendChild(p);
@@ -1347,25 +1387,8 @@
       });
     }
 
-    const API_BASE = String(window.APP_CONFIG?.API_BASE || '').replace(/\/+$/, '');
-
-    function escaparHtml(valor) {
-      return String(valor ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-
-    function normalizarRankingPayload(data) {
-      if (Array.isArray(data?.ranking)) return data.ranking;
-      if (data?.ranking && typeof data.ranking === 'object') {
-        return Object.values(data.ranking).filter(item => item && typeof item === 'object');
-      }
-      return [];
-    }
-    const SOLO_BUILD_VERSION = "2026-03-05-solo-ui-start-v2-catbuttons-greenfix-dedup+counts-v1+ranking-banner-totalpos-v1+mobile-cat-compact-v1";
+    const API_BASE = window.APP_CONFIG.API_BASE;
+    const SOLO_BUILD_VERSION = "2026-03-06-solo-gameplay-dif-mult+streak-milestones+session-banner-v1";
     const TOTAL_FASES = 10;
     const CARTAS_POR_FASE = 10;
     const TOTAL_PERGUNTAS = TOTAL_FASES * CARTAS_POR_FASE;
@@ -1502,6 +1525,7 @@
     let pontosNormaisPorFase = Array(TOTAL_FASES).fill(0);
     let pontosBonusPorFase = Array(TOTAL_FASES).fill(0);
 
+    // ✅ cache simples do ranking (evita chamar /ranking a cada pergunta)
     let _rankingCache = { at: 0, ranking: null };
     const RANKING_CACHE_MS = 15000;
 
@@ -1510,25 +1534,9 @@
       if (_rankingCache.ranking && (now - _rankingCache.at) < RANKING_CACHE_MS) {
         return _rankingCache.ranking;
       }
-
-      if (!API_BASE) {
-        throw new Error('API_BASE não configurada.');
-      }
-
-      const response = await fetch(`${API_BASE}/ranking`, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json'
-        },
-        cache: 'no-store'
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-
+      const response = await fetch(`${API_BASE}/ranking`, { cache: 'no-store' });
       const data = await response.json();
-      const ranking = normalizarRankingPayload(data);
+      const ranking = Array.isArray(data?.ranking) ? data.ranking : [];
       _rankingCache = { at: now, ranking };
       return ranking;
     }
@@ -1543,31 +1551,20 @@
       return Number.isFinite(n) ? n : 0;
     }
 
+    // Atualiza posição no ranking global no banner durante o jogo
     async function atualizarIndicadoresRankingNoBanner() {
       try {
-        const elTotal = document.getElementById('player-total-pontos');
         const elPos = document.getElementById('player-posicao');
-        if (!elTotal || !elPos) return;
+        if (!elPos) return;
 
         const nomeNorm = normalizarNomeRanking(nomeJogador);
-        if (!nomeNorm) return;
+        if (!nomeNorm) { elPos.textContent = '—'; return; }
 
         const ranking = await getRankingListCached();
         const idx = ranking.findIndex(j => normalizarNomeRanking(j?.nome) === nomeNorm);
-
-        if (idx < 0) {
-          elTotal.textContent = '0';
-          elPos.textContent = '—';
-          return;
-        }
-
-        const jogador = ranking[idx];
-        const total = Number(parseRankingPoints(jogador?.pontos) || 0);
-
-        elTotal.textContent = total.toLocaleString('pt-BR');
-        elPos.textContent = String(idx + 1);
+        elPos.textContent = idx < 0 ? '—' : String(idx + 1);
       } catch (e) {
-        console.error('Erro ao atualizar banner (ranking/total/posição):', e);
+        console.error('❌ Erro ao atualizar posição no banner:', e);
       }
     }
 
@@ -1640,8 +1637,8 @@
         faseAtual = 1;
         mostrarPergunta();
       } catch (erro) {
-        console.error('Erro:', erro);
-        alert(`Erro ao carregar: ${erro.message || 'Tente novamente.'}`);
+        console.error('❌ Erro:', erro);
+        alert(`❌ Erro ao carregar: ${erro.message || 'Tente novamente.'}`);
         location.reload();
       }
     }
@@ -1814,7 +1811,7 @@
         const data = await response.json();
         return (data && Array.isArray(data.cartas)) ? data.cartas : [];
       } catch (erro) {
-        console.error('Erro ao buscar cartas recentes:', erro);
+        console.error('❌ Erro ao buscar cartas recentes:', erro);
         return [];
       }
     }
@@ -1826,9 +1823,9 @@
           headers: { 'Content-Type': 'application/json; charset=utf-8' },
           body: JSON.stringify(payload)
         });
-        if (!response.ok) console.warn(`Falha ao registrar cartas no servidor: ${response.status}`);
+        if (!response.ok) console.warn(`⚠️ Falha ao registrar cartas no servidor: ${response.status}`);
       } catch (erro) {
-        console.error('Erro ao registrar cartas:', erro);
+        console.error('❌ Erro ao registrar cartas:', erro);
       }
     }
 
@@ -1926,7 +1923,7 @@
         });
         return response.ok;
       } catch (erro) {
-        console.error(`Erro ao registrar fase ${indiceFase + 1}:`, erro);
+        console.error(`❌ Erro ao registrar fase ${indiceFase + 1}:`, erro);
         return false;
       }
     }
@@ -1972,7 +1969,7 @@
     }
 
     window.addEventListener('unhandledrejection', (e) => {
-      console.error('Unhandled promise rejection:', e.reason);
+      console.error('❌ Unhandled promise rejection:', e.reason);
     });
 
     function mostrarPergunta() {
@@ -2011,8 +2008,8 @@
 
                 <div class="player-line2">
                   <div class="metric">
-                    <div class="lbl">PONTOS (TOTAL)</div>
-                    <div class="val" id="player-total-pontos">…</div>
+                    <div class="lbl">PARTIDA</div>
+                    <div class="val" id="player-session-pontos">${pontos.toLocaleString('pt-BR')}</div>
                   </div>
                   <div class="metric">
                     <div class="lbl">RANKING</div>
@@ -2046,13 +2043,13 @@
 
         <div class="bonus-container">
           <div class="bonus-indicator" style="border-left-color: #8E44AD;">
-            🎯 Dificuldade: ${dificuldadeCarta}/10
+            🎯 Dif: ${dificuldadeCarta}/10${dificuldadeCarta >= 9 ? ' · <b>×3.0</b>' : dificuldadeCarta >= 7 ? ' · <b>×2.0</b>' : dificuldadeCarta >= 4 ? ' · ×1.5' : ''}
           </div>
           <div class="super-bonus-indicator">
-            💥 2s = +2000
+            💥 2s=+${(2000 * (dificuldadeCarta >= 9 ? 3 : dificuldadeCarta >= 7 ? 2 : dificuldadeCarta >= 4 ? 1.5 : 1)).toLocaleString('pt-BR')}
           </div>
           <div class="bonus-indicator">
-            ⚡ 3s=+1000 | 10s=+500 | 30s=+200
+            🔥 Seq: 3x+300 | 5x+700 | 8x+1500
           </div>
         </div>
 
@@ -2113,12 +2110,28 @@
       }
     }
 
-    function calcularPontosPorTempo(tempoRestanteAtual) {
-      if (tempoRestanteAtual <= 2) return 2000;
-      if (tempoRestanteAtual <= 3) return 1000;
-      if (tempoRestanteAtual <= 10) return 500;
-      if (tempoRestanteAtual <= 30) return 200;
-      return 100;
+    function calcularPontosPorTempo(tempoRestanteAtual, dificuldade = 5) {
+      let base;
+      if (tempoRestanteAtual <= 2) base = 2000;
+      else if (tempoRestanteAtual <= 3) base = 1000;
+      else if (tempoRestanteAtual <= 10) base = 500;
+      else if (tempoRestanteAtual <= 30) base = 200;
+      else base = 100;
+
+      // Multiplicador por dificuldade da carta
+      let mult = 1.0;
+      if (dificuldade >= 9) mult = 3.0;
+      else if (dificuldade >= 7) mult = 2.0;
+      else if (dificuldade >= 4) mult = 1.5;
+
+      return Math.round(base * mult);
+    }
+
+    function labelMultiplicador(dificuldade) {
+      if (dificuldade >= 9) return ' · <b>×3.0</b>';
+      if (dificuldade >= 7) return ' · <b>×2.0</b>';
+      if (dificuldade >= 4) return ' · ×1.5';
+      return '';
     }
 
     function atualizarDicasPorTempo() {
@@ -2174,13 +2187,16 @@
         acertos++;
         sequenciaRapida++;
 
-        const pontosTempo = calcularPontosPorTempo(tempoRestante);
+        const pontosTempo = calcularPontosPorTempo(tempoRestante, dificuldadeCarta);
         pontosNormaisCarta += pontosTempo;
 
-        if (sequenciaRapida > 0 && sequenciaRapida % 4 === 0) {
-          pontosBonusCarta += 1000;
-          mensagemBonus += '<br>🌟 Bônus sequência 4x: +1000';
-          mostrarPontosAnimados(1000, true);
+        // Streak milestones escalantes
+        const STREAK_MILESTONES = { 3: 300, 5: 700, 8: 1500, 12: 3000, 15: 5000 };
+        if (STREAK_MILESTONES[sequenciaRapida] !== undefined) {
+          const bonusStreak = STREAK_MILESTONES[sequenciaRapida];
+          pontosBonusCarta += bonusStreak;
+          mensagemBonus += `<br>🔥 Sequência ${sequenciaRapida}x: +${bonusStreak.toLocaleString('pt-BR')}`;
+          mostrarPontosAnimados(bonusStreak, true);
           AudioSystem.coinsStars();
         }
 
@@ -2190,6 +2206,12 @@
         pontosBonusTotal += pontosBonusCarta;
         pontosNormaisPorFase[indiceFaseAtual] += pontosNormaisCarta;
         pontosBonusPorFase[indiceFaseAtual] += pontosBonusCarta;
+
+        // Atualizar pontos da sessão em tempo real
+        const elPontosAtuais = document.getElementById('pontos-atuais');
+        if (elPontosAtuais) elPontosAtuais.textContent = pontos.toLocaleString('pt-BR');
+        const elSession = document.getElementById('player-session-pontos');
+        if (elSession) elSession.textContent = pontos.toLocaleString('pt-BR');
 
         mostrarPontosAnimados(pontosDaCarta, pontosBonusCarta > 0 || pontosDaCarta >= 1000);
 
@@ -2201,7 +2223,7 @@
           ✅ <strong>CARTA CONCLUÍDA!</strong><br>
           Resposta correta: <strong>${cartaAtualObj.resposta}</strong><br>
           <span style="font-size:1.25rem;color:#FFD700;">+${pontosDaCarta} pts</span><br>
-          <span style="color:#8E44AD;">🎯 Dificuldade ${dificuldadeCarta}/10</span>
+          <span style="color:#8E44AD;">🎯 Dificuldade ${dificuldadeCarta}/10${labelMultiplicador(dificuldadeCarta)}</span>
           ${mensagemBonus}
         `;
       } else {
@@ -2300,7 +2322,7 @@
 
         await carregarRanking();
       } catch (erro) {
-        console.error('Erro:', erro);
+        console.error('❌ Erro:', erro);
       }
     }
 
@@ -2321,48 +2343,25 @@
 
     async function carregarRanking() {
       try {
-        const ranking = await getRankingListCached();
-        const podioLista = document.getElementById('podio-lista');
-        const podioContainer = document.getElementById('podio-container');
-
-        if (!podioLista || !podioContainer) return;
-
-        if (ranking.length > 0) {
-          const top5 = ranking.slice(0, 5);
+        const response = await fetch(`${API_BASE}/ranking`, { cache: 'no-store' });
+        const data = await response.json();
+        if (data.ranking && data.ranking.length > 0) {
+          const top5 = data.ranking.slice(0, 5);
           const podioHTML = top5.map((jogador, index) => {
             const medalhas = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
-            const nome = escaparHtml((jogador?.nome ?? '').toString() || 'Sem nome');
-            const pontos = Number(parseRankingPoints(jogador?.pontos) || 0).toLocaleString('pt-BR');
-
             return `
               <div class="podio-item">
                 <span class="podio-posicao">${medalhas[index]}</span>
-                <span class="podio-nome">${nome}</span>
-                <span class="podio-pontos">${pontos}</span>
+                <span class="podio-nome">${(jogador?.nome ?? '').toString()}</span>
+                <span class="podio-pontos">${Number(parseRankingPoints(jogador?.pontos) || 0).toLocaleString('pt-BR')}</span>
               </div>
             `;
           }).join('');
-
-          podioLista.innerHTML = podioHTML;
-          podioContainer.style.display = 'block';
-        } else {
-          podioLista.innerHTML = '';
-          podioContainer.style.display = 'none';
+          document.getElementById('podio-lista').innerHTML = podioHTML;
+          document.getElementById('podio-container').style.display = 'block';
         }
       } catch (erro) {
-        console.error('Erro ao carregar ranking:', erro);
-        const podioLista = document.getElementById('podio-lista');
-        const podioContainer = document.getElementById('podio-container');
-        if (podioLista && podioContainer) {
-          podioLista.innerHTML = `
-            <div class="podio-item">
-              <span class="podio-posicao">⚠️</span>
-              <span class="podio-nome">Não foi possível carregar o ranking</span>
-              <span class="podio-pontos">—</span>
-            </div>
-          `;
-          podioContainer.style.display = 'block';
-        }
+        console.error('❌ Erro ao carregar ranking:', erro);
       }
     }
 

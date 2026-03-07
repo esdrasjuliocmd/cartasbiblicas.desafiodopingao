@@ -1,0 +1,2004 @@
+{
+  "cartas": [
+    {
+      "resposta": "Puxar assunto do interesse da pessoa",
+      "dica1": "Lição 1: a conversa flui melhor quando o tema interessa a ela.",
+      "dica2": "Observe o que ela está vivendo, vendo ou comentando. (em palavras simples).",
+      "dica3": "Comece pelo interesse dela, não pelo seu roteiro. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Escolher o momento certo para conversar",
+      "dica1": "Lição 1: nem todo momento é apropriado para começar.",
+      "dica2": "Perceba se ela está com pressa, ocupada ou receptiva. (sem pressa).",
+      "dica3": "Timing certo evita rejeição desnecessária. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Fazer perguntas simples para a pessoa falar",
+      "dica1": "Lição 1: perguntas ajudam a pessoa a se expressar.",
+      "dica2": "Peça a opinião dela com respeito e naturalidade. (de forma breve).",
+      "dica3": "Quando ela fala, a conversa abre espaço para a Bíblia. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Ser flexível ao iniciar a conversa",
+      "dica1": "Lição 1: flexibilidade ajuda a encontrar um bom gancho.",
+      "dica2": "Se o tema não encaixar, mude para algo mais natural. (de maneira clara).",
+      "dica3": "Adaptar-se ao momento aumenta a receptividade. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Puxar assunto do interesse da pessoa",
+      "dica1": "Lição 1: a conversa flui melhor quando o tema interessa a ela.",
+      "dica2": "Observe o que ela está vivendo, vendo ou comentando. (com foco na pessoa).",
+      "dica3": "Comece pelo interesse dela, não pelo seu roteiro. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Escolher o momento certo para conversar",
+      "dica1": "Lição 1: nem todo momento é apropriado para começar.",
+      "dica2": "Perceba se ela está com pressa, ocupada ou receptiva. (em palavras simples).",
+      "dica3": "Timing certo evita rejeição desnecessária. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Fazer perguntas simples para a pessoa falar",
+      "dica1": "Lição 1: perguntas ajudam a pessoa a se expressar.",
+      "dica2": "Peça a opinião dela com respeito e naturalidade. (sem pressa).",
+      "dica3": "Quando ela fala, a conversa abre espaço para a Bíblia. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 9
+    },
+    {
+      "resposta": "Ser flexível ao iniciar a conversa",
+      "dica1": "Lição 1: flexibilidade ajuda a encontrar um bom gancho.",
+      "dica2": "Se o tema não encaixar, mude para algo mais natural. (de forma breve).",
+      "dica3": "Adaptar-se ao momento aumenta a receptividade. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Puxar assunto do interesse da pessoa",
+      "dica1": "Lição 1: a conversa flui melhor quando o tema interessa a ela.",
+      "dica2": "Observe o que ela está vivendo, vendo ou comentando. (de maneira clara).",
+      "dica3": "Comece pelo interesse dela, não pelo seu roteiro. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Escolher o momento certo para conversar",
+      "dica1": "Lição 1: nem todo momento é apropriado para começar.",
+      "dica2": "Perceba se ela está com pressa, ocupada ou receptiva. (com foco na pessoa).",
+      "dica3": "Timing certo evita rejeição desnecessária. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Fazer perguntas simples para a pessoa falar",
+      "dica1": "Lição 1: perguntas ajudam a pessoa a se expressar.",
+      "dica2": "Peça a opinião dela com respeito e naturalidade. (em palavras simples).",
+      "dica3": "Quando ela fala, a conversa abre espaço para a Bíblia. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Ser flexível ao iniciar a conversa",
+      "dica1": "Lição 1: flexibilidade ajuda a encontrar um bom gancho.",
+      "dica2": "Se o tema não encaixar, mude para algo mais natural. (sem pressa).",
+      "dica3": "Adaptar-se ao momento aumenta a receptividade. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Puxar assunto do interesse da pessoa",
+      "dica1": "Lição 1: a conversa flui melhor quando o tema interessa a ela.",
+      "dica2": "Observe o que ela está vivendo, vendo ou comentando. (de forma breve).",
+      "dica3": "Comece pelo interesse dela, não pelo seu roteiro. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Escolher o momento certo para conversar",
+      "dica1": "Lição 1: nem todo momento é apropriado para começar.",
+      "dica2": "Perceba se ela está com pressa, ocupada ou receptiva. (de maneira clara).",
+      "dica3": "Timing certo evita rejeição desnecessária. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 9
+    },
+    {
+      "resposta": "Fazer perguntas simples para a pessoa falar",
+      "dica1": "Lição 1: perguntas ajudam a pessoa a se expressar.",
+      "dica2": "Peça a opinião dela com respeito e naturalidade. (com foco na pessoa).",
+      "dica3": "Quando ela fala, a conversa abre espaço para a Bíblia. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Deixar a conversa fluir sem parecer ensaiado",
+      "dica1": "Lição 2: naturalidade deixa a pessoa à vontade.",
+      "dica2": "Siga o ritmo da conversa e evite pressa. (em palavras simples).",
+      "dica3": "Uma abordagem leve abre caminho para uma verdade nova. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Observar linguagem corporal para decidir avançar ou recuar",
+      "dica1": "Lição 2: sinais não verbais mostram interesse ou desconforto.",
+      "dica2": "Note olhos, postura e respostas curtas. (sem pressa).",
+      "dica3": "Use isso para escolher se continua ou encerra com educação. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Usar um gancho do que a pessoa está fazendo",
+      "dica1": "Lição 2: o contexto do momento pode virar o assunto.",
+      "dica2": "Perguntas sobre o que ela lê/vê podem ajudar. (de forma breve).",
+      "dica3": "O ambiente vira ponte para um texto bíblico. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Saber encerrar com educação quando necessário",
+      "dica1": "Lição 2: recuar no momento certo preserva portas abertas.",
+      "dica2": "Se a pessoa não quiser conversar, respeite. (de maneira clara).",
+      "dica3": "Encerrar bem aumenta chance de uma próxima conversa. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Deixar a conversa fluir sem parecer ensaiado",
+      "dica1": "Lição 2: naturalidade deixa a pessoa à vontade.",
+      "dica2": "Siga o ritmo da conversa e evite pressa. (com foco na pessoa).",
+      "dica3": "Uma abordagem leve abre caminho para uma verdade nova. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Observar linguagem corporal para decidir avançar ou recuar",
+      "dica1": "Lição 2: sinais não verbais mostram interesse ou desconforto.",
+      "dica2": "Note olhos, postura e respostas curtas. (em palavras simples).",
+      "dica3": "Use isso para escolher se continua ou encerra com educação. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Usar um gancho do que a pessoa está fazendo",
+      "dica1": "Lição 2: o contexto do momento pode virar o assunto.",
+      "dica2": "Perguntas sobre o que ela lê/vê podem ajudar. (sem pressa).",
+      "dica3": "O ambiente vira ponte para um texto bíblico. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 9
+    },
+    {
+      "resposta": "Saber encerrar com educação quando necessário",
+      "dica1": "Lição 2: recuar no momento certo preserva portas abertas.",
+      "dica2": "Se a pessoa não quiser conversar, respeite. (de forma breve).",
+      "dica3": "Encerrar bem aumenta chance de uma próxima conversa. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Deixar a conversa fluir sem parecer ensaiado",
+      "dica1": "Lição 2: naturalidade deixa a pessoa à vontade.",
+      "dica2": "Siga o ritmo da conversa e evite pressa. (de maneira clara).",
+      "dica3": "Uma abordagem leve abre caminho para uma verdade nova. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Observar linguagem corporal para decidir avançar ou recuar",
+      "dica1": "Lição 2: sinais não verbais mostram interesse ou desconforto.",
+      "dica2": "Note olhos, postura e respostas curtas. (com foco na pessoa).",
+      "dica3": "Use isso para escolher se continua ou encerra com educação. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Usar um gancho do que a pessoa está fazendo",
+      "dica1": "Lição 2: o contexto do momento pode virar o assunto.",
+      "dica2": "Perguntas sobre o que ela lê/vê podem ajudar. (em palavras simples).",
+      "dica3": "O ambiente vira ponte para um texto bíblico. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Saber encerrar com educação quando necessário",
+      "dica1": "Lição 2: recuar no momento certo preserva portas abertas.",
+      "dica2": "Se a pessoa não quiser conversar, respeite. (sem pressa).",
+      "dica3": "Encerrar bem aumenta chance de uma próxima conversa. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Deixar a conversa fluir sem parecer ensaiado",
+      "dica1": "Lição 2: naturalidade deixa a pessoa à vontade.",
+      "dica2": "Siga o ritmo da conversa e evite pressa. (de forma breve).",
+      "dica3": "Uma abordagem leve abre caminho para uma verdade nova. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Observar linguagem corporal para decidir avançar ou recuar",
+      "dica1": "Lição 2: sinais não verbais mostram interesse ou desconforto.",
+      "dica2": "Note olhos, postura e respostas curtas. (de maneira clara).",
+      "dica3": "Use isso para escolher se continua ou encerra com educação. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 9
+    },
+    {
+      "resposta": "Usar um gancho do que a pessoa está fazendo",
+      "dica1": "Lição 2: o contexto do momento pode virar o assunto.",
+      "dica2": "Perguntas sobre o que ela lê/vê podem ajudar. (com foco na pessoa).",
+      "dica3": "O ambiente vira ponte para um texto bíblico. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Demonstrar bondade antes de ensinar",
+      "dica1": "Lição 3: atos e palavras bondosas aumentam a abertura.",
+      "dica2": "Mostre interesse genuíno e respeito. (em palavras simples).",
+      "dica3": "Bondade prepara o coração para ouvir. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Ouvir com atenção quando a pessoa fala de um problema",
+      "dica1": "Lição 3: bondade inclui escutar de verdade.",
+      "dica2": "Não ignore a dor dela; acolha com empatia. (sem pressa).",
+      "dica3": "Quando ela se sente compreendida, ouve melhor. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Falar com tato para não ofender",
+      "dica1": "Lição 3: escolha palavras que ajudam, não que ferem.",
+      "dica2": "Considere cultura, crenças e sensibilidade da pessoa. (de forma breve).",
+      "dica3": "O objetivo é aproximar, não vencer debate. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Ser prestativo com bom senso",
+      "dica1": "Lição 3: ajuda prática, quando apropriado, cria confiança.",
+      "dica2": "Pequenos gestos podem abrir portas. (de maneira clara).",
+      "dica3": "Bondade prática pode levar a uma conversa espiritual. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Demonstrar bondade antes de ensinar",
+      "dica1": "Lição 3: atos e palavras bondosas aumentam a abertura.",
+      "dica2": "Mostre interesse genuíno e respeito. (com foco na pessoa).",
+      "dica3": "Bondade prepara o coração para ouvir. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Ouvir com atenção quando a pessoa fala de um problema",
+      "dica1": "Lição 3: bondade inclui escutar de verdade.",
+      "dica2": "Não ignore a dor dela; acolha com empatia. (em palavras simples).",
+      "dica3": "Quando ela se sente compreendida, ouve melhor. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Falar com tato para não ofender",
+      "dica1": "Lição 3: escolha palavras que ajudam, não que ferem.",
+      "dica2": "Considere cultura, crenças e sensibilidade da pessoa. (sem pressa).",
+      "dica3": "O objetivo é aproximar, não vencer debate. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 9
+    },
+    {
+      "resposta": "Ser prestativo com bom senso",
+      "dica1": "Lição 3: ajuda prática, quando apropriado, cria confiança.",
+      "dica2": "Pequenos gestos podem abrir portas. (de forma breve).",
+      "dica3": "Bondade prática pode levar a uma conversa espiritual. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Demonstrar bondade antes de ensinar",
+      "dica1": "Lição 3: atos e palavras bondosas aumentam a abertura.",
+      "dica2": "Mostre interesse genuíno e respeito. (de maneira clara).",
+      "dica3": "Bondade prepara o coração para ouvir. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Ouvir com atenção quando a pessoa fala de um problema",
+      "dica1": "Lição 3: bondade inclui escutar de verdade.",
+      "dica2": "Não ignore a dor dela; acolha com empatia. (com foco na pessoa).",
+      "dica3": "Quando ela se sente compreendida, ouve melhor. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Falar com tato para não ofender",
+      "dica1": "Lição 3: escolha palavras que ajudam, não que ferem.",
+      "dica2": "Considere cultura, crenças e sensibilidade da pessoa. (em palavras simples).",
+      "dica3": "O objetivo é aproximar, não vencer debate. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Ser prestativo com bom senso",
+      "dica1": "Lição 3: ajuda prática, quando apropriado, cria confiança.",
+      "dica2": "Pequenos gestos podem abrir portas. (sem pressa).",
+      "dica3": "Bondade prática pode levar a uma conversa espiritual. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Demonstrar bondade antes de ensinar",
+      "dica1": "Lição 3: atos e palavras bondosas aumentam a abertura.",
+      "dica2": "Mostre interesse genuíno e respeito. (de forma breve).",
+      "dica3": "Bondade prepara o coração para ouvir. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Ouvir com atenção quando a pessoa fala de um problema",
+      "dica1": "Lição 3: bondade inclui escutar de verdade.",
+      "dica2": "Não ignore a dor dela; acolha com empatia. (de maneira clara).",
+      "dica3": "Quando ela se sente compreendida, ouve melhor. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 9
+    },
+    {
+      "resposta": "Falar com tato para não ofender",
+      "dica1": "Lição 3: escolha palavras que ajudam, não que ferem.",
+      "dica2": "Considere cultura, crenças e sensibilidade da pessoa. (com foco na pessoa).",
+      "dica3": "O objetivo é aproximar, não vencer debate. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Falar com humildade e respeito",
+      "dica1": "Lição 4: humildade torna a mensagem mais atraente.",
+      "dica2": "Evite tom de superioridade e simplifique. (em palavras simples).",
+      "dica3": "Humildade mantém a conversa aberta. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Direcionar atenção para a Bíblia, não para opinião pessoal",
+      "dica1": "Lição 4: a autoridade é das Escrituras.",
+      "dica2": "Mostre a base bíblica com simplicidade. (sem pressa).",
+      "dica3": "A força está na Palavra, não no pregador. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Evitar discussões e manter a calma",
+      "dica1": "Lição 4: debate fecha portas; brandura abre.",
+      "dica2": "Se a conversa esquentar, reduza o ritmo. (de forma breve).",
+      "dica3": "Calma e respeito preservam futuras oportunidades. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Saber a hora de encerrar para não criar conflito",
+      "dica1": "Lição 4: insistência pode virar confronto.",
+      "dica2": "Encerrar com educação é sabedoria. (de maneira clara).",
+      "dica3": "Sair bem é parte da humildade. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Falar com humildade e respeito",
+      "dica1": "Lição 4: humildade torna a mensagem mais atraente.",
+      "dica2": "Evite tom de superioridade e simplifique. (com foco na pessoa).",
+      "dica3": "Humildade mantém a conversa aberta. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Direcionar atenção para a Bíblia, não para opinião pessoal",
+      "dica1": "Lição 4: a autoridade é das Escrituras.",
+      "dica2": "Mostre a base bíblica com simplicidade. (em palavras simples).",
+      "dica3": "A força está na Palavra, não no pregador. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Evitar discussões e manter a calma",
+      "dica1": "Lição 4: debate fecha portas; brandura abre.",
+      "dica2": "Se a conversa esquentar, reduza o ritmo. (sem pressa).",
+      "dica3": "Calma e respeito preservam futuras oportunidades. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 9
+    },
+    {
+      "resposta": "Saber a hora de encerrar para não criar conflito",
+      "dica1": "Lição 4: insistência pode virar confronto.",
+      "dica2": "Encerrar com educação é sabedoria. (de forma breve).",
+      "dica3": "Sair bem é parte da humildade. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Falar com humildade e respeito",
+      "dica1": "Lição 4: humildade torna a mensagem mais atraente.",
+      "dica2": "Evite tom de superioridade e simplifique. (de maneira clara).",
+      "dica3": "Humildade mantém a conversa aberta. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Direcionar atenção para a Bíblia, não para opinião pessoal",
+      "dica1": "Lição 4: a autoridade é das Escrituras.",
+      "dica2": "Mostre a base bíblica com simplicidade. (com foco na pessoa).",
+      "dica3": "A força está na Palavra, não no pregador. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Evitar discussões e manter a calma",
+      "dica1": "Lição 4: debate fecha portas; brandura abre.",
+      "dica2": "Se a conversa esquentar, reduza o ritmo. (em palavras simples).",
+      "dica3": "Calma e respeito preservam futuras oportunidades. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Saber a hora de encerrar para não criar conflito",
+      "dica1": "Lição 4: insistência pode virar confronto.",
+      "dica2": "Encerrar com educação é sabedoria. (sem pressa).",
+      "dica3": "Sair bem é parte da humildade. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Falar com humildade e respeito",
+      "dica1": "Lição 4: humildade torna a mensagem mais atraente.",
+      "dica2": "Evite tom de superioridade e simplifique. (de forma breve).",
+      "dica3": "Humildade mantém a conversa aberta. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Direcionar atenção para a Bíblia, não para opinião pessoal",
+      "dica1": "Lição 4: a autoridade é das Escrituras.",
+      "dica2": "Mostre a base bíblica com simplicidade. (de maneira clara).",
+      "dica3": "A força está na Palavra, não no pregador. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 9
+    },
+    {
+      "resposta": "Evitar discussões e manter a calma",
+      "dica1": "Lição 4: debate fecha portas; brandura abre.",
+      "dica2": "Se a conversa esquentar, reduza o ritmo. (com foco na pessoa).",
+      "dica3": "Calma e respeito preservam futuras oportunidades. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Pedir coragem a Jeová em oração",
+      "dica1": "Lição 6: coragem não depende só da personalidade.",
+      "dica2": "Ore quando sentir medo de falar. (em palavras simples).",
+      "dica3": "Ajudas espirituais podem fortalecer sua coragem. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Pregar de modo imparcial",
+      "dica1": "Lição 6: a mensagem é para todos.",
+      "dica2": "Não evite pessoas por aparência ou condição. (sem pressa).",
+      "dica3": "Imparcialidade exige coragem. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Não julgar pessoas antes de falar com elas",
+      "dica1": "Lição 6: só Deus lê o coração.",
+      "dica2": "Evite conclusões rápidas sobre receptividade. (de forma breve).",
+      "dica3": "Dê chance para a pessoa ouvir e decidir. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Ser corajoso com tato e bom senso",
+      "dica1": "Lição 6: coragem não é imprudência.",
+      "dica2": "Observe segurança e evite conflitos. (de maneira clara).",
+      "dica3": "Coragem + bom senso protegem você e a mensagem. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Pedir coragem a Jeová em oração",
+      "dica1": "Lição 6: coragem não depende só da personalidade.",
+      "dica2": "Ore quando sentir medo de falar. (com foco na pessoa).",
+      "dica3": "Ajudas espirituais podem fortalecer sua coragem. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Pregar de modo imparcial",
+      "dica1": "Lição 6: a mensagem é para todos.",
+      "dica2": "Não evite pessoas por aparência ou condição. (em palavras simples).",
+      "dica3": "Imparcialidade exige coragem. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Não julgar pessoas antes de falar com elas",
+      "dica1": "Lição 6: só Deus lê o coração.",
+      "dica2": "Evite conclusões rápidas sobre receptividade. (sem pressa).",
+      "dica3": "Dê chance para a pessoa ouvir e decidir. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 9
+    },
+    {
+      "resposta": "Ser corajoso com tato e bom senso",
+      "dica1": "Lição 6: coragem não é imprudência.",
+      "dica2": "Observe segurança e evite conflitos. (de forma breve).",
+      "dica3": "Coragem + bom senso protegem você e a mensagem. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Pedir coragem a Jeová em oração",
+      "dica1": "Lição 6: coragem não depende só da personalidade.",
+      "dica2": "Ore quando sentir medo de falar. (de maneira clara).",
+      "dica3": "Ajudas espirituais podem fortalecer sua coragem. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Pregar de modo imparcial",
+      "dica1": "Lição 6: a mensagem é para todos.",
+      "dica2": "Não evite pessoas por aparência ou condição. (com foco na pessoa).",
+      "dica3": "Imparcialidade exige coragem. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Não julgar pessoas antes de falar com elas",
+      "dica1": "Lição 6: só Deus lê o coração.",
+      "dica2": "Evite conclusões rápidas sobre receptividade. (em palavras simples).",
+      "dica3": "Dê chance para a pessoa ouvir e decidir. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Ser corajoso com tato e bom senso",
+      "dica1": "Lição 6: coragem não é imprudência.",
+      "dica2": "Observe segurança e evite conflitos. (sem pressa).",
+      "dica3": "Coragem + bom senso protegem você e a mensagem. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Pedir coragem a Jeová em oração",
+      "dica1": "Lição 6: coragem não depende só da personalidade.",
+      "dica2": "Ore quando sentir medo de falar. (de forma breve).",
+      "dica3": "Ajudas espirituais podem fortalecer sua coragem. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Pregar de modo imparcial",
+      "dica1": "Lição 6: a mensagem é para todos.",
+      "dica2": "Não evite pessoas por aparência ou condição. (de maneira clara).",
+      "dica3": "Imparcialidade exige coragem. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 9
+    },
+    {
+      "resposta": "Não julgar pessoas antes de falar com elas",
+      "dica1": "Lição 6: só Deus lê o coração.",
+      "dica2": "Evite conclusões rápidas sobre receptividade. (com foco na pessoa).",
+      "dica3": "Dê chance para a pessoa ouvir e decidir. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Fazer revisitas com planejamento",
+      "dica1": "Lição 7: acompanhamento cultiva interesse.",
+      "dica2": "Pergunte quando é melhor voltar e anote. (em palavras simples).",
+      "dica3": "Revisita bem feita pode virar estudo. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Marcar data e hora para continuar a conversa",
+      "dica1": "Lição 7: compromisso claro aumenta reencontros.",
+      "dica2": "Horário definido reduz o 'depois eu vejo'. (sem pressa).",
+      "dica3": "A próxima conversa fica mais provável. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Ser confiável e cumprir o combinado",
+      "dica1": "Lição 7: confiança nasce da constância.",
+      "dica2": "Se precisar, remarque rapidamente. (de forma breve).",
+      "dica3": "Confiabilidade fortalece o progresso. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Perseverar mesmo quando é difícil encontrar a pessoa",
+      "dica1": "Lição 7: ausência não significa desinteresse.",
+      "dica2": "Ela pode estar ocupada, não fechada. (de maneira clara).",
+      "dica3": "Perseverança evita desistir cedo demais. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Fazer revisitas com planejamento",
+      "dica1": "Lição 7: acompanhamento cultiva interesse.",
+      "dica2": "Pergunte quando é melhor voltar e anote. (com foco na pessoa).",
+      "dica3": "Revisita bem feita pode virar estudo. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Marcar data e hora para continuar a conversa",
+      "dica1": "Lição 7: compromisso claro aumenta reencontros.",
+      "dica2": "Horário definido reduz o 'depois eu vejo'. (em palavras simples).",
+      "dica3": "A próxima conversa fica mais provável. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Ser confiável e cumprir o combinado",
+      "dica1": "Lição 7: confiança nasce da constância.",
+      "dica2": "Se precisar, remarque rapidamente. (sem pressa).",
+      "dica3": "Confiabilidade fortalece o progresso. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 9
+    },
+    {
+      "resposta": "Perseverar mesmo quando é difícil encontrar a pessoa",
+      "dica1": "Lição 7: ausência não significa desinteresse.",
+      "dica2": "Ela pode estar ocupada, não fechada. (de forma breve).",
+      "dica3": "Perseverança evita desistir cedo demais. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Fazer revisitas com planejamento",
+      "dica1": "Lição 7: acompanhamento cultiva interesse.",
+      "dica2": "Pergunte quando é melhor voltar e anote. (de maneira clara).",
+      "dica3": "Revisita bem feita pode virar estudo. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Marcar data e hora para continuar a conversa",
+      "dica1": "Lição 7: compromisso claro aumenta reencontros.",
+      "dica2": "Horário definido reduz o 'depois eu vejo'. (com foco na pessoa).",
+      "dica3": "A próxima conversa fica mais provável. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Ser confiável e cumprir o combinado",
+      "dica1": "Lição 7: confiança nasce da constância.",
+      "dica2": "Se precisar, remarque rapidamente. (em palavras simples).",
+      "dica3": "Confiabilidade fortalece o progresso. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Perseverar mesmo quando é difícil encontrar a pessoa",
+      "dica1": "Lição 7: ausência não significa desinteresse.",
+      "dica2": "Ela pode estar ocupada, não fechada. (sem pressa).",
+      "dica3": "Perseverança evita desistir cedo demais. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Fazer revisitas com planejamento",
+      "dica1": "Lição 7: acompanhamento cultiva interesse.",
+      "dica2": "Pergunte quando é melhor voltar e anote. (de forma breve).",
+      "dica3": "Revisita bem feita pode virar estudo. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Marcar data e hora para continuar a conversa",
+      "dica1": "Lição 7: compromisso claro aumenta reencontros.",
+      "dica2": "Horário definido reduz o 'depois eu vejo'. (de maneira clara).",
+      "dica3": "A próxima conversa fica mais provável. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 9
+    },
+    {
+      "resposta": "Ser confiável e cumprir o combinado",
+      "dica1": "Lição 7: confiança nasce da constância.",
+      "dica2": "Se precisar, remarque rapidamente. (com foco na pessoa).",
+      "dica3": "Confiabilidade fortalece o progresso. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Praticar empatia ao ouvir",
+      "dica1": "Lição 9: empatia começa em escutar sem interromper.",
+      "dica2": "Leve a sério sentimentos e dúvidas. (em palavras simples).",
+      "dica3": "Quem se sente valorizado costuma ouvir melhor. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Pensar nas necessidades da pessoa ao escolher o tema",
+      "dica1": "Lição 9: pergunte-se o que pode ajudá-la agora.",
+      "dica2": "Escolha textos que respondam à situação dela. (sem pressa).",
+      "dica3": "Empatia personaliza a mensagem. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Mostrar como a Bíblia responde perguntas reais",
+      "dica1": "Lição 9: conecte o texto à vida da pessoa.",
+      "dica2": "Responda com calma e clareza. (de forma breve).",
+      "dica3": "Aplicação prática aumenta o interesse. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Alegre-se e sofra junto: empatia emocional",
+      "dica1": "Lição 9: compartilhe alegria e consolo com equilíbrio.",
+      "dica2": "Não minimize dor nem alegria. (de maneira clara).",
+      "dica3": "Empatia cria vínculo e confiança. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Praticar empatia ao ouvir",
+      "dica1": "Lição 9: empatia começa em escutar sem interromper.",
+      "dica2": "Leve a sério sentimentos e dúvidas. (com foco na pessoa).",
+      "dica3": "Quem se sente valorizado costuma ouvir melhor. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Pensar nas necessidades da pessoa ao escolher o tema",
+      "dica1": "Lição 9: pergunte-se o que pode ajudá-la agora.",
+      "dica2": "Escolha textos que respondam à situação dela. (em palavras simples).",
+      "dica3": "Empatia personaliza a mensagem. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Mostrar como a Bíblia responde perguntas reais",
+      "dica1": "Lição 9: conecte o texto à vida da pessoa.",
+      "dica2": "Responda com calma e clareza. (sem pressa).",
+      "dica3": "Aplicação prática aumenta o interesse. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 9
+    },
+    {
+      "resposta": "Alegre-se e sofra junto: empatia emocional",
+      "dica1": "Lição 9: compartilhe alegria e consolo com equilíbrio.",
+      "dica2": "Não minimize dor nem alegria. (de forma breve).",
+      "dica3": "Empatia cria vínculo e confiança. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Praticar empatia ao ouvir",
+      "dica1": "Lição 9: empatia começa em escutar sem interromper.",
+      "dica2": "Leve a sério sentimentos e dúvidas. (de maneira clara).",
+      "dica3": "Quem se sente valorizado costuma ouvir melhor. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Pensar nas necessidades da pessoa ao escolher o tema",
+      "dica1": "Lição 9: pergunte-se o que pode ajudá-la agora.",
+      "dica2": "Escolha textos que respondam à situação dela. (com foco na pessoa).",
+      "dica3": "Empatia personaliza a mensagem. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Mostrar como a Bíblia responde perguntas reais",
+      "dica1": "Lição 9: conecte o texto à vida da pessoa.",
+      "dica2": "Responda com calma e clareza. (em palavras simples).",
+      "dica3": "Aplicação prática aumenta o interesse. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Alegre-se e sofra junto: empatia emocional",
+      "dica1": "Lição 9: compartilhe alegria e consolo com equilíbrio.",
+      "dica2": "Não minimize dor nem alegria. (sem pressa).",
+      "dica3": "Empatia cria vínculo e confiança. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Praticar empatia ao ouvir",
+      "dica1": "Lição 9: empatia começa em escutar sem interromper.",
+      "dica2": "Leve a sério sentimentos e dúvidas. (de forma breve).",
+      "dica3": "Quem se sente valorizado costuma ouvir melhor. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Pensar nas necessidades da pessoa ao escolher o tema",
+      "dica1": "Lição 9: pergunte-se o que pode ajudá-la agora.",
+      "dica2": "Escolha textos que respondam à situação dela. (de maneira clara).",
+      "dica3": "Empatia personaliza a mensagem. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 9
+    },
+    {
+      "resposta": "Mostrar como a Bíblia responde perguntas reais",
+      "dica1": "Lição 9: conecte o texto à vida da pessoa.",
+      "dica2": "Responda com calma e clareza. (com foco na pessoa).",
+      "dica3": "Aplicação prática aumenta o interesse. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Ser constante no estudo e evitar cancelar sem necessidade",
+      "dica1": "Lição 10: compromisso aparece na regularidade.",
+      "dica2": "Se precisar, remarque na mesma semana. (em palavras simples).",
+      "dica3": "Constância ajuda o estudante a avançar. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Adaptar dia, hora e local às necessidades do estudante",
+      "dica1": "Lição 10: facilite para o estudante.",
+      "dica2": "Escolha o que funciona melhor para ele. (sem pressa).",
+      "dica3": "Compromisso é colocar o estudante em primeiro lugar. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Buscar alternativas quando surgir impedimento",
+      "dica1": "Lição 10: compromisso procura soluções, não desculpas.",
+      "dica2": "Considere telefonema ou videochamada quando necessário. (de forma breve).",
+      "dica3": "Manter o ritmo evita esfriar o interesse. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Focar nas qualidades do estudante para não desistir",
+      "dica1": "Lição 10: compromisso vê o potencial.",
+      "dica2": "Ore por atitude correta e paciência. (de maneira clara).",
+      "dica3": "Valorizar qualidades ajuda a perseverar com amor. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Ser constante no estudo e evitar cancelar sem necessidade",
+      "dica1": "Lição 10: compromisso aparece na regularidade.",
+      "dica2": "Se precisar, remarque na mesma semana. (com foco na pessoa).",
+      "dica3": "Constância ajuda o estudante a avançar. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Adaptar dia, hora e local às necessidades do estudante",
+      "dica1": "Lição 10: facilite para o estudante.",
+      "dica2": "Escolha o que funciona melhor para ele. (em palavras simples).",
+      "dica3": "Compromisso é colocar o estudante em primeiro lugar. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Buscar alternativas quando surgir impedimento",
+      "dica1": "Lição 10: compromisso procura soluções, não desculpas.",
+      "dica2": "Considere telefonema ou videochamada quando necessário. (sem pressa).",
+      "dica3": "Manter o ritmo evita esfriar o interesse. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 9
+    },
+    {
+      "resposta": "Focar nas qualidades do estudante para não desistir",
+      "dica1": "Lição 10: compromisso vê o potencial.",
+      "dica2": "Ore por atitude correta e paciência. (de forma breve).",
+      "dica3": "Valorizar qualidades ajuda a perseverar com amor. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Ser constante no estudo e evitar cancelar sem necessidade",
+      "dica1": "Lição 10: compromisso aparece na regularidade.",
+      "dica2": "Se precisar, remarque na mesma semana. (de maneira clara).",
+      "dica3": "Constância ajuda o estudante a avançar. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Adaptar dia, hora e local às necessidades do estudante",
+      "dica1": "Lição 10: facilite para o estudante.",
+      "dica2": "Escolha o que funciona melhor para ele. (com foco na pessoa).",
+      "dica3": "Compromisso é colocar o estudante em primeiro lugar. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Buscar alternativas quando surgir impedimento",
+      "dica1": "Lição 10: compromisso procura soluções, não desculpas.",
+      "dica2": "Considere telefonema ou videochamada quando necessário. (em palavras simples).",
+      "dica3": "Manter o ritmo evita esfriar o interesse. (com calma).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Focar nas qualidades do estudante para não desistir",
+      "dica1": "Lição 10: compromisso vê o potencial.",
+      "dica2": "Ore por atitude correta e paciência. (sem pressa).",
+      "dica3": "Valorizar qualidades ajuda a perseverar com amor. (com tato).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Ser constante no estudo e evitar cancelar sem necessidade",
+      "dica1": "Lição 10: compromisso aparece na regularidade.",
+      "dica2": "Se precisar, remarque na mesma semana. (de forma breve).",
+      "dica3": "Constância ajuda o estudante a avançar. (com empatia).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Adaptar dia, hora e local às necessidades do estudante",
+      "dica1": "Lição 10: facilite para o estudante.",
+      "dica2": "Escolha o que funciona melhor para ele. (de maneira clara).",
+      "dica3": "Compromisso é colocar o estudante em primeiro lugar. (com bondade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 9
+    },
+    {
+      "resposta": "Buscar alternativas quando surgir impedimento",
+      "dica1": "Lição 10: compromisso procura soluções, não desculpas.",
+      "dica2": "Considere telefonema ou videochamada quando necessário. (com foco na pessoa).",
+      "dica3": "Manter o ritmo evita esfriar o interesse. (com humildade).",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Os acontecimentos mundiais e atitudes humanas indicam mudança próxima",
+      "dica1": "Verdade: Os acontecimentos mundiais e atitudes humanas indicam mudança próxima.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga em palavras simples.",
+      "dica3": "A ideia central é exatamente: Os acontecimentos mundiais e atitudes humanas indicam mudança próxima. Faça isso com respeito.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "A Terra nunca será destruída",
+      "dica1": "Verdade (tema): A Terra nunca será destruída.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga sem pressa.",
+      "dica3": "Resumo: A Terra nunca será destruída. Faça isso com naturalidade.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "O meio ambiente será restaurado",
+      "dica1": "Ensino bíblico: O meio ambiente será restaurado.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga de forma breve.",
+      "dica3": "A frase-chave é: O meio ambiente será restaurado. Faça isso sem discutir.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Todos terão saúde perfeita",
+      "dica1": "Verdade para ensinar: Todos terão saúde perfeita.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga de maneira clara.",
+      "dica3": "Conclusão: Todos terão saúde perfeita. Faça isso apontando para a Bíblia.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Você pode viver para sempre na Terra",
+      "dica1": "Verdade: Você pode viver para sempre na Terra.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga com foco na pessoa.",
+      "dica3": "A ideia central é exatamente: Você pode viver para sempre na Terra. Faça isso no momento certo.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "O marido deve amar a esposa como a si mesmo",
+      "dica1": "Verdade (tema): O marido deve amar a esposa como a si mesmo.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga em palavras simples.",
+      "dica3": "Resumo: O marido deve amar a esposa como a si mesmo. Faça isso com respeito.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "A esposa deve respeitar profundamente o marido",
+      "dica1": "Ensino bíblico: A esposa deve respeitar profundamente o marido.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga sem pressa.",
+      "dica3": "A frase-chave é: A esposa deve respeitar profundamente o marido. Faça isso com naturalidade.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 2
+    },
+    {
+      "resposta": "Marido e esposa devem ser leais um ao outro",
+      "dica1": "Verdade para ensinar: Marido e esposa devem ser leais um ao outro.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga de forma breve.",
+      "dica3": "Conclusão: Marido e esposa devem ser leais um ao outro. Faça isso sem discutir.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Filhos que respeitam e obedecem os pais só têm a ganhar",
+      "dica1": "Verdade: Filhos que respeitam e obedecem os pais só têm a ganhar.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga de maneira clara.",
+      "dica3": "A ideia central é exatamente: Filhos que respeitam e obedecem os pais só têm a ganhar. Faça isso apontando para a Bíblia.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Deus tem nome",
+      "dica1": "Verdade (tema): Deus tem nome.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga com foco na pessoa.",
+      "dica3": "Resumo: Deus tem nome. Faça isso no momento certo.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Deus se comunica conosco",
+      "dica1": "Ensino bíblico: Deus se comunica conosco.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga em palavras simples.",
+      "dica3": "A frase-chave é: Deus se comunica conosco. Faça isso com respeito.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Deus é justo e não tem preconceitos",
+      "dica1": "Verdade para ensinar: Deus é justo e não tem preconceitos.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga sem pressa.",
+      "dica3": "Conclusão: Deus é justo e não tem preconceitos. Faça isso com naturalidade.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Deus quer nos ajudar",
+      "dica1": "Verdade: Deus quer nos ajudar.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga de forma breve.",
+      "dica3": "A ideia central é exatamente: Deus quer nos ajudar. Faça isso sem discutir.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Deus quer que oremos a ele",
+      "dica1": "Verdade (tema): Deus quer que oremos a ele.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga de maneira clara.",
+      "dica3": "Resumo: Deus quer que oremos a ele. Faça isso apontando para a Bíblia.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "A Bíblia nos ensina a orar",
+      "dica1": "Ensino bíblico: A Bíblia nos ensina a orar.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga com foco na pessoa.",
+      "dica3": "A frase-chave é: A Bíblia nos ensina a orar. Faça isso no momento certo.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Devemos orar com frequência",
+      "dica1": "Verdade para ensinar: Devemos orar com frequência.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga em palavras simples.",
+      "dica3": "Conclusão: Devemos orar com frequência. Faça isso com respeito.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Jesus foi um grande instrutor e seus conselhos funcionam",
+      "dica1": "Verdade: Jesus foi um grande instrutor e seus conselhos funcionam.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga sem pressa.",
+      "dica3": "A ideia central é exatamente: Jesus foi um grande instrutor e seus conselhos funcionam. Faça isso com naturalidade.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Jesus predisse acontecimentos que vemos hoje",
+      "dica1": "Verdade (tema): Jesus predisse acontecimentos que vemos hoje.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga de forma breve.",
+      "dica3": "Resumo: Jesus predisse acontecimentos que vemos hoje. Faça isso sem discutir.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Jesus é o Filho de Deus",
+      "dica1": "Ensino bíblico: Jesus é o Filho de Deus.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga de maneira clara.",
+      "dica3": "A frase-chave é: Jesus é o Filho de Deus. Faça isso apontando para a Bíblia.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 2
+    },
+    {
+      "resposta": "Jesus não é o Deus Todo-Poderoso",
+      "dica1": "Verdade para ensinar: Jesus não é o Deus Todo-Poderoso.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga com foco na pessoa.",
+      "dica3": "Conclusão: Jesus não é o Deus Todo-Poderoso. Faça isso no momento certo.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "O Reino de Deus é um governo real no céu",
+      "dica1": "Verdade: O Reino de Deus é um governo real no céu.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga em palavras simples.",
+      "dica3": "A ideia central é exatamente: O Reino de Deus é um governo real no céu. Faça isso com respeito.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "O Reino de Deus vai substituir os governos humanos",
+      "dica1": "Verdade (tema): O Reino de Deus vai substituir os governos humanos.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga sem pressa.",
+      "dica3": "Resumo: O Reino de Deus vai substituir os governos humanos. Faça isso com naturalidade.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "O Reino de Deus é a única solução para problemas da humanidade",
+      "dica1": "Ensino bíblico: O Reino de Deus é a única solução para problemas da humanidade.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga de forma breve.",
+      "dica3": "A frase-chave é: O Reino de Deus é a única solução para problemas da humanidade. Faça isso sem discutir.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Deus não causa nosso sofrimento",
+      "dica1": "Verdade para ensinar: Deus não causa nosso sofrimento.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga de maneira clara.",
+      "dica3": "Conclusão: Deus não causa nosso sofrimento. Faça isso apontando para a Bíblia.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Satanás governa este mundo",
+      "dica1": "Verdade: Satanás governa este mundo.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga com foco na pessoa.",
+      "dica3": "A ideia central é exatamente: Satanás governa este mundo. Faça isso no momento certo.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Deus vê quando você sofre e quer ajudar",
+      "dica1": "Verdade (tema): Deus vê quando você sofre e quer ajudar.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga em palavras simples.",
+      "dica3": "Resumo: Deus vê quando você sofre e quer ajudar. Faça isso com respeito.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Em breve, Deus vai acabar com o sofrimento",
+      "dica1": "Ensino bíblico: Em breve, Deus vai acabar com o sofrimento.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga sem pressa.",
+      "dica3": "A frase-chave é: Em breve, Deus vai acabar com o sofrimento. Faça isso com naturalidade.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Os mortos estão inconscientes e não estão sofrendo",
+      "dica1": "Verdade para ensinar: Os mortos estão inconscientes e não estão sofrendo.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga de forma breve.",
+      "dica3": "Conclusão: Os mortos estão inconscientes e não estão sofrendo. Faça isso sem discutir.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Os mortos não podem nos ajudar nem nos prejudicar",
+      "dica1": "Verdade: Os mortos não podem nos ajudar nem nos prejudicar.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga de maneira clara.",
+      "dica3": "A ideia central é exatamente: Os mortos não podem nos ajudar nem nos prejudicar. Faça isso apontando para a Bíblia.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Pessoas amadas que já morreram serão ressuscitadas",
+      "dica1": "Verdade (tema): Pessoas amadas que já morreram serão ressuscitadas.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga com foco na pessoa.",
+      "dica3": "Resumo: Pessoas amadas que já morreram serão ressuscitadas. Faça isso no momento certo.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Não haverá mais morte",
+      "dica1": "Ensino bíblico: Não haverá mais morte.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga em palavras simples.",
+      "dica3": "A frase-chave é: Não haverá mais morte. Faça isso com respeito.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Nem todas as religiões agradam a Deus",
+      "dica1": "Verdade para ensinar: Nem todas as religiões agradam a Deus.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga sem pressa.",
+      "dica3": "Conclusão: Nem todas as religiões agradam a Deus. Faça isso com naturalidade.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Deus odeia a hipocrisia",
+      "dica1": "Verdade: Deus odeia a hipocrisia.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga de forma breve.",
+      "dica3": "A ideia central é exatamente: Deus odeia a hipocrisia. Faça isso sem discutir.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "O amor identifica a religião verdadeira",
+      "dica1": "Verdade (tema): O amor identifica a religião verdadeira.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga de maneira clara.",
+      "dica3": "Resumo: O amor identifica a religião verdadeira. Faça isso apontando para a Bíblia.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Os acontecimentos mundiais e atitudes humanas indicam mudança próxima",
+      "dica1": "Ensino bíblico: Os acontecimentos mundiais e atitudes humanas indicam mudança próxima.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga com foco na pessoa.",
+      "dica3": "A frase-chave é: Os acontecimentos mundiais e atitudes humanas indicam mudança próxima. Faça isso no momento certo.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "A Terra nunca será destruída",
+      "dica1": "Verdade para ensinar: A Terra nunca será destruída.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga em palavras simples.",
+      "dica3": "Conclusão: A Terra nunca será destruída. Faça isso com respeito.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "O meio ambiente será restaurado",
+      "dica1": "Verdade: O meio ambiente será restaurado.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga sem pressa.",
+      "dica3": "A ideia central é exatamente: O meio ambiente será restaurado. Faça isso com naturalidade.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Todos terão saúde perfeita",
+      "dica1": "Verdade (tema): Todos terão saúde perfeita.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga de forma breve.",
+      "dica3": "Resumo: Todos terão saúde perfeita. Faça isso sem discutir.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Você pode viver para sempre na Terra",
+      "dica1": "Ensino bíblico: Você pode viver para sempre na Terra.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga de maneira clara.",
+      "dica3": "A frase-chave é: Você pode viver para sempre na Terra. Faça isso apontando para a Bíblia.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "O marido deve amar a esposa como a si mesmo",
+      "dica1": "Verdade para ensinar: O marido deve amar a esposa como a si mesmo.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga com foco na pessoa.",
+      "dica3": "Conclusão: O marido deve amar a esposa como a si mesmo. Faça isso no momento certo.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 2
+    },
+    {
+      "resposta": "A esposa deve respeitar profundamente o marido",
+      "dica1": "Verdade: A esposa deve respeitar profundamente o marido.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga em palavras simples.",
+      "dica3": "A ideia central é exatamente: A esposa deve respeitar profundamente o marido. Faça isso com respeito.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Marido e esposa devem ser leais um ao outro",
+      "dica1": "Verdade (tema): Marido e esposa devem ser leais um ao outro.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga sem pressa.",
+      "dica3": "Resumo: Marido e esposa devem ser leais um ao outro. Faça isso com naturalidade.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Filhos que respeitam e obedecem os pais só têm a ganhar",
+      "dica1": "Ensino bíblico: Filhos que respeitam e obedecem os pais só têm a ganhar.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga de forma breve.",
+      "dica3": "A frase-chave é: Filhos que respeitam e obedecem os pais só têm a ganhar. Faça isso sem discutir.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 2
+    },
+    {
+      "resposta": "Deus tem nome",
+      "dica1": "Verdade para ensinar: Deus tem nome.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga de maneira clara.",
+      "dica3": "Conclusão: Deus tem nome. Faça isso apontando para a Bíblia.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Deus se comunica conosco",
+      "dica1": "Verdade: Deus se comunica conosco.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga com foco na pessoa.",
+      "dica3": "A ideia central é exatamente: Deus se comunica conosco. Faça isso no momento certo.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Deus é justo e não tem preconceitos",
+      "dica1": "Verdade (tema): Deus é justo e não tem preconceitos.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga em palavras simples.",
+      "dica3": "Resumo: Deus é justo e não tem preconceitos. Faça isso com respeito.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Deus quer nos ajudar",
+      "dica1": "Ensino bíblico: Deus quer nos ajudar.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga sem pressa.",
+      "dica3": "A frase-chave é: Deus quer nos ajudar. Faça isso com naturalidade.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Deus quer que oremos a ele",
+      "dica1": "Verdade para ensinar: Deus quer que oremos a ele.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga de forma breve.",
+      "dica3": "Conclusão: Deus quer que oremos a ele. Faça isso sem discutir.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "A Bíblia nos ensina a orar",
+      "dica1": "Verdade: A Bíblia nos ensina a orar.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga de maneira clara.",
+      "dica3": "A ideia central é exatamente: A Bíblia nos ensina a orar. Faça isso apontando para a Bíblia.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Devemos orar com frequência",
+      "dica1": "Verdade (tema): Devemos orar com frequência.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga com foco na pessoa.",
+      "dica3": "Resumo: Devemos orar com frequência. Faça isso no momento certo.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Jesus foi um grande instrutor e seus conselhos funcionam",
+      "dica1": "Ensino bíblico: Jesus foi um grande instrutor e seus conselhos funcionam.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga em palavras simples.",
+      "dica3": "A frase-chave é: Jesus foi um grande instrutor e seus conselhos funcionam. Faça isso com respeito.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Jesus predisse acontecimentos que vemos hoje",
+      "dica1": "Verdade para ensinar: Jesus predisse acontecimentos que vemos hoje.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga sem pressa.",
+      "dica3": "Conclusão: Jesus predisse acontecimentos que vemos hoje. Faça isso com naturalidade.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Jesus é o Filho de Deus",
+      "dica1": "Verdade: Jesus é o Filho de Deus.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga de forma breve.",
+      "dica3": "A ideia central é exatamente: Jesus é o Filho de Deus. Faça isso sem discutir.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Jesus não é o Deus Todo-Poderoso",
+      "dica1": "Verdade (tema): Jesus não é o Deus Todo-Poderoso.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga de maneira clara.",
+      "dica3": "Resumo: Jesus não é o Deus Todo-Poderoso. Faça isso apontando para a Bíblia.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "O Reino de Deus é um governo real no céu",
+      "dica1": "Ensino bíblico: O Reino de Deus é um governo real no céu.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga com foco na pessoa.",
+      "dica3": "A frase-chave é: O Reino de Deus é um governo real no céu. Faça isso no momento certo.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "O Reino de Deus vai substituir os governos humanos",
+      "dica1": "Verdade para ensinar: O Reino de Deus vai substituir os governos humanos.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga em palavras simples.",
+      "dica3": "Conclusão: O Reino de Deus vai substituir os governos humanos. Faça isso com respeito.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "O Reino de Deus é a única solução para problemas da humanidade",
+      "dica1": "Verdade: O Reino de Deus é a única solução para problemas da humanidade.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga sem pressa.",
+      "dica3": "A ideia central é exatamente: O Reino de Deus é a única solução para problemas da humanidade. Faça isso com naturalidade.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 8
+    },
+    {
+      "resposta": "Deus não causa nosso sofrimento",
+      "dica1": "Verdade (tema): Deus não causa nosso sofrimento.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga de forma breve.",
+      "dica3": "Resumo: Deus não causa nosso sofrimento. Faça isso sem discutir.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Satanás governa este mundo",
+      "dica1": "Ensino bíblico: Satanás governa este mundo.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga de maneira clara.",
+      "dica3": "A frase-chave é: Satanás governa este mundo. Faça isso apontando para a Bíblia.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Deus vê quando você sofre e quer ajudar",
+      "dica1": "Verdade para ensinar: Deus vê quando você sofre e quer ajudar.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga com foco na pessoa.",
+      "dica3": "Conclusão: Deus vê quando você sofre e quer ajudar. Faça isso no momento certo.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Em breve, Deus vai acabar com o sofrimento",
+      "dica1": "Verdade: Em breve, Deus vai acabar com o sofrimento.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga em palavras simples.",
+      "dica3": "A ideia central é exatamente: Em breve, Deus vai acabar com o sofrimento. Faça isso com respeito.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Os mortos estão inconscientes e não estão sofrendo",
+      "dica1": "Verdade (tema): Os mortos estão inconscientes e não estão sofrendo.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga sem pressa.",
+      "dica3": "Resumo: Os mortos estão inconscientes e não estão sofrendo. Faça isso com naturalidade.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 6
+    },
+    {
+      "resposta": "Os mortos não podem nos ajudar nem nos prejudicar",
+      "dica1": "Ensino bíblico: Os mortos não podem nos ajudar nem nos prejudicar.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga de forma breve.",
+      "dica3": "A frase-chave é: Os mortos não podem nos ajudar nem nos prejudicar. Faça isso sem discutir.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Pessoas amadas que já morreram serão ressuscitadas",
+      "dica1": "Verdade para ensinar: Pessoas amadas que já morreram serão ressuscitadas.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga de maneira clara.",
+      "dica3": "Conclusão: Pessoas amadas que já morreram serão ressuscitadas. Faça isso apontando para a Bíblia.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Não haverá mais morte",
+      "dica1": "Verdade: Não haverá mais morte.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga com foco na pessoa.",
+      "dica3": "A ideia central é exatamente: Não haverá mais morte. Faça isso no momento certo.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Nem todas as religiões agradam a Deus",
+      "dica1": "Verdade (tema): Nem todas as religiões agradam a Deus.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga em palavras simples.",
+      "dica3": "Resumo: Nem todas as religiões agradam a Deus. Faça isso com respeito.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "Deus odeia a hipocrisia",
+      "dica1": "Ensino bíblico: Deus odeia a hipocrisia.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga sem pressa.",
+      "dica3": "A frase-chave é: Deus odeia a hipocrisia. Faça isso com naturalidade.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "O amor identifica a religião verdadeira",
+      "dica1": "Verdade para ensinar: O amor identifica a religião verdadeira.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga de forma breve.",
+      "dica3": "Conclusão: O amor identifica a religião verdadeira. Faça isso sem discutir.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Os acontecimentos mundiais e atitudes humanas indicam mudança próxima",
+      "dica1": "Verdade: Os acontecimentos mundiais e atitudes humanas indicam mudança próxima.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga de maneira clara.",
+      "dica3": "A ideia central é exatamente: Os acontecimentos mundiais e atitudes humanas indicam mudança próxima. Faça isso apontando para a Bíblia.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 7
+    },
+    {
+      "resposta": "A Terra nunca será destruída",
+      "dica1": "Verdade (tema): A Terra nunca será destruída.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga com foco na pessoa.",
+      "dica3": "Resumo: A Terra nunca será destruída. Faça isso no momento certo.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "O meio ambiente será restaurado",
+      "dica1": "Ensino bíblico: O meio ambiente será restaurado.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga em palavras simples.",
+      "dica3": "A frase-chave é: O meio ambiente será restaurado. Faça isso com respeito.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Todos terão saúde perfeita",
+      "dica1": "Verdade para ensinar: Todos terão saúde perfeita.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga sem pressa.",
+      "dica3": "Conclusão: Todos terão saúde perfeita. Faça isso com naturalidade.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Você pode viver para sempre na Terra",
+      "dica1": "Verdade: Você pode viver para sempre na Terra.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga de forma breve.",
+      "dica3": "A ideia central é exatamente: Você pode viver para sempre na Terra. Faça isso sem discutir.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "O marido deve amar a esposa como a si mesmo",
+      "dica1": "Verdade (tema): O marido deve amar a esposa como a si mesmo.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga de maneira clara.",
+      "dica3": "Resumo: O marido deve amar a esposa como a si mesmo. Faça isso apontando para a Bíblia.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "A esposa deve respeitar profundamente o marido",
+      "dica1": "Ensino bíblico: A esposa deve respeitar profundamente o marido.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga com foco na pessoa.",
+      "dica3": "A frase-chave é: A esposa deve respeitar profundamente o marido. Faça isso no momento certo.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Marido e esposa devem ser leais um ao outro",
+      "dica1": "Verdade para ensinar: Marido e esposa devem ser leais um ao outro.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga em palavras simples.",
+      "dica3": "Conclusão: Marido e esposa devem ser leais um ao outro. Faça isso com respeito.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Filhos que respeitam e obedecem os pais só têm a ganhar",
+      "dica1": "Verdade: Filhos que respeitam e obedecem os pais só têm a ganhar.",
+      "dica2": "É um ponto do Apêndice A (Verdades que amamos ensinar). Diga sem pressa.",
+      "dica3": "A ideia central é exatamente: Filhos que respeitam e obedecem os pais só têm a ganhar. Faça isso com naturalidade.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 3
+    },
+    {
+      "resposta": "Deus tem nome",
+      "dica1": "Verdade (tema): Deus tem nome.",
+      "dica2": "Essa verdade ajuda a responder uma pergunta comum de forma bíblica. Diga de forma breve.",
+      "dica3": "Resumo: Deus tem nome. Faça isso sem discutir.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    },
+    {
+      "resposta": "Deus se comunica conosco",
+      "dica1": "Ensino bíblico: Deus se comunica conosco.",
+      "dica2": "Apêndice A: verdade curta para compartilhar com alguém. Diga de maneira clara.",
+      "dica3": "A frase-chave é: Deus se comunica conosco. Faça isso apontando para a Bíblia.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 4
+    },
+    {
+      "resposta": "Deus é justo e não tem preconceitos",
+      "dica1": "Verdade para ensinar: Deus é justo e não tem preconceitos.",
+      "dica2": "É uma dessas verdades simples que plantam uma semente. Diga com foco na pessoa.",
+      "dica3": "Conclusão: Deus é justo e não tem preconceitos. Faça isso no momento certo.",
+      "genero": null,
+      "masculino": 0,
+      "feminino": 0,
+      "dificuldade": 5
+    }
+  ]
+}

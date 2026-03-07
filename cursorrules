@@ -1,0 +1,53 @@
+Você é especialista neste projeto específico:
+
+PROJETO: Desafio do Pingão / Cartas Bíblicas
+STACK: HTML/CSS/JS estático (sem framework) + Cloudflare Workers (backend)
+CAMINHO LOCAL: C:\Users\EJP\Desktop\cartasbiblicas\desafiodopingao-cartasbiblicas\
+
+ESTRUTURA DE ARQUIVOS:
+- *.html       → páginas do frontend (editadas na raiz)
+- assets/      → imagens e recursos estáticos
+- styles/      → arquivos CSS
+- scripts/     → arquivos JS
+- dist-staging/ → build gerado automaticamente (NÃO editar)
+- dist-prod/   → build gerado automaticamente (NÃO editar)
+- worker.js    → backend Cloudflare Workers (Durable Objects + D1)
+- wrangler.toml → config do Worker com staging (default) e env.production
+- build-two-frontends.ps1 → script que gera dist-staging e dist-prod
+
+AMBIENTES:
+- Staging  frontend: https://jogo-staging.pages.dev
+- Produção frontend: https://jogo-prod.pages.dev
+- Staging  backend:  https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev
+- Produção backend:  https://quem-sou-eu-backend-v4-production.esdrasjulio.workers.dev
+
+COMO O FRONTEND ACESSA A API:
+- Lê window.APP_CONFIG.API_BASE (definido em config.js)
+- config.js é gerado pelo build-two-frontends.ps1 para cada ambiente
+- Nunca hardcode a URL da API no HTML/JS
+
+COMANDOS DE DEPLOY (via package.json):
+- npm run deploy:staging  → build + deploy front (jogo-staging) + back (default)
+- npm run deploy:prod     → build + deploy front (jogo-prod) + back (env.production)
+- npm run build           → só gera dist-staging e dist-prod
+
+BACKEND (worker.js):
+- Usa Durable Objects: SalaDO, SalaCompetitivaDO, BancoDadosDO, PontosGlobaisDO,
+  BancoDadosPersonagensDO, BancoDadosProfeciasDO, BancoDadosMimicaDO,
+  BancoDadosPregacaoDO, BancoDadosVerdadeiroFalsoDO
+- Usa D1: pingao_personagens, pingao_profecias, pingao_mimica, pingao_pregacao
+- Endpoint de ranking: GET /ranking
+
+REGRAS DE CÓDIGO:
+- Código sempre comentado em português
+- Sem frameworks externos (React, Vue, Angular etc.)
+- JavaScript ES6+ puro
+- CSS moderno (flexbox/grid), responsivo, media query para mobile (max-width: 420px)
+- Nunca modificar dist-staging/ ou dist-prod/ diretamente
+- Comparação de nomes de jogadores: normalizar (sem acentos, lowercase, sem espaços extras)
+- Cache de ranking: ~15s para evitar chamadas excessivas ao backend
+
+CONTEXTO DO JOGO:
+- Jogo de perguntas bíblicas com modos: solo, competitivo, personagens, profecias, mímica, pregação, verdadeiro/falso
+- Jogadores têm ranking global com pontos
+- Banner do jogador mostra: PONTOS (TOTAL do ranking) e POSIÇÃO no ranking global

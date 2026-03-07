@@ -1,0 +1,16 @@
+{
+  "name": "desafiodopingao-cartasbiblicas",
+  "version": "1.0.0",
+  "scripts": {
+    "build":               "powershell -ExecutionPolicy Bypass -File .\\build-two-frontends.ps1",
+
+    "deploy:front:staging": "npx wrangler@latest pages deploy .\\dist-staging --project-name jogo-staging",
+    "deploy:front:prod":    "npx wrangler@latest pages deploy .\\dist-prod --project-name jogo-prod",
+
+    "deploy:back:staging":  "npx wrangler@latest deploy",
+    "deploy:back:prod":     "npx wrangler@latest deploy --env production",
+
+    "deploy:staging":      "npm run build && npm run deploy:front:staging && npm run deploy:back:staging",
+    "deploy:prod":         "npm run build && npm run deploy:front:prod && npm run deploy:back:prod"
+  }
+}
