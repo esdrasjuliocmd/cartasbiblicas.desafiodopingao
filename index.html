@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -502,7 +502,14 @@
         
         const rankingLista = document.getElementById('ranking-lista');
 
-        if (data.ranking && data.ranking.length > 0) {
+        if (data._erro) {
+          rankingLista.innerHTML = `
+            <div class="empty-ranking">
+              <div class="empty-ranking-icon">⚠️</div>
+              <p>Erro ao carregar o ranking.<br>${data.mensagem || 'Tente novamente mais tarde.'}</p>
+            </div>
+          `;
+        } else if (data.ranking && data.ranking.length > 0) {
           const top5 = data.ranking.slice(0, 5);
           
           const rankingHTML = top5.map((jogador, index) => {

@@ -4,6 +4,8 @@
 // COM MEMÓRIA GLOBAL DE CARTAS
 // (PATCH) Histórico global padronizado para KEYS (h:/id:)
 // ============================================
+// REGRA CRÍTICA: NUNCA zerar os pontos do Durable Object (ranking).
+// Staging e produção têm DOs separados; deploy NÃO apaga dados do DO.
 
 export default {
   async fetch(request, env) {
@@ -217,8 +219,13 @@ export default {
         });
       } catch (e) {
         console.error('Erro /ranking:', e);
-        return new Response(JSON.stringify({ ranking: [] }), {
-          status: 200,
+        // Não retornar ranking vazio como se fosse dado real — deixa claro que é falha
+        return new Response(JSON.stringify({
+          ranking: [],
+          _erro: true,
+          mensagem: 'Falha ao carregar ranking. Tente novamente.'
+        }), {
+          status: 503,
           headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders },
         });
       }
@@ -350,6 +357,57 @@ export default {
       const id = env.PontosGlobaisDO.idFromName('pontos-globais');
       const stub = env.PontosGlobaisDO.get(id);
       return stub.fetch(new Request('http://internal/admin/jogadores-completos'));
+    }
+
+    // POST /admin/import-ranking — restaura ranking a partir de JSON (backup)
+    if (path === '/admin/import-ranking' && request.method === 'POST') {
+      const token = request.headers.get('X-Admin-Token') || '';
+      if (!env.ADMIN_TOKEN || token !== env.ADMIN_TOKEN) {
+        return new Response(JSON.stringify({ sucesso: false, erro: 'Não autorizado' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+      const res = await stub.fetch(new Request('http://internal/admin/import-ranking', {
+        method: 'POST',
+        headers: request.headers,
+        body: request.body
+      }));
+      const body = await res.text();
+      const headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders });
+      return new Response(body, { status: res.status, headers });
+    }
+
+    // POST /admin/restore-pitr — Point-in-Time Recovery (restaura ranking dos últimos 30 dias)
+    if (path === '/admin/restore-pitr' && request.method === 'POST') {
+      const token = request.headers.get('X-Admin-Token') || '';
+      if (!env.ADMIN_TOKEN || token !== env.ADMIN_TOKEN) {
+        return new Response(JSON.stringify({ sucesso: false, erro: 'Não autorizado' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+      try {
+        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+        const stub = env.PontosGlobaisDO.get(id);
+        const res = await stub.fetch(new Request('http://internal/admin/restore-pitr', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: request.body
+        }));
+        const body = await res.text();
+        return new Response(body, {
+          status: res.status,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      } catch (e) {
+        return new Response(JSON.stringify({ sucesso: false, erro: e.message }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
     }
 
     // ============================================
@@ -1765,6 +1823,82 @@ export class PontosGlobaisDO {
         });
       } catch (erro) {
         return new Response(JSON.stringify({ sucesso: false, erro: erro.message }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+    }
+
+    // POST /admin/restore-pitr — Point-in-Time Recovery (últimos 30 dias)
+    if (path === '/admin/restore-pitr' && request.method === 'POST') {
+      try {
+        const body = await request.json().catch(() => ({}));
+        const daysAgo = Math.min(30, Math.max(1, Number(body.daysAgo) || 3));
+        const timestamp = Date.now() - daysAgo * 24 * 60 * 60 * 1000;
+        if (typeof this.state.storage.getBookmarkForTime !== 'function') {
+          return new Response(JSON.stringify({
+            sucesso: false,
+            erro: 'PITR não disponível neste ambiente (ex.: local). Use produção/staging na Cloudflare.'
+          }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          });
+        }
+        const bookmark = await this.state.storage.getBookmarkForTime(timestamp);
+        await this.state.storage.onNextSessionRestoreBookmark(bookmark);
+        try {
+          this.state.abort('PITR restore: ' + daysAgo + ' dias atrás');
+        } catch (_) {}
+        return new Response(JSON.stringify({
+          sucesso: true,
+          mensagem: 'Restore agendado para ' + daysAgo + ' dias atrás. O DO será reiniciado em instantes.',
+          diasAtras: daysAgo
+        }), {
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      } catch (erro) {
+        console.error('Erro PITR:', erro);
+        return new Response(JSON.stringify({
+          sucesso: false,
+          erro: erro.message || 'Falha no PITR. Verifique se o timestamp está nos últimos 30 dias.'
+        }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+    }
+
+    // POST /admin/import-ranking — restaura ranking (lista de { nome, pontos })
+    if (path === '/admin/import-ranking' && request.method === 'POST') {
+      try {
+        const body = await request.json();
+        const lista = Array.isArray(body.ranking) ? body.ranking : [];
+        let inseridos = 0;
+        const now = Date.now();
+        for (const item of lista) {
+          const nome = String(item?.nome ?? '').trim();
+          if (!nome) continue;
+          const pontos = Math.max(0, Number(item?.pontos) || 0);
+          const nivel = Math.max(1, Math.floor(pontos / 100) + 1);
+          this.sql.exec(
+            'INSERT OR REPLACE INTO jogadores (nome, pontos, nivel, ultima_partida) VALUES (?, ?, ?, ?)',
+            nome, pontos, nivel, now
+          );
+          inseridos++;
+        }
+        return new Response(JSON.stringify({
+          sucesso: true,
+          inseridos,
+          total: lista.length
+        }), {
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      } catch (erro) {
+        console.error('Erro ao importar ranking:', erro);
+        return new Response(JSON.stringify({
+          sucesso: false,
+          erro: erro.message || 'Falha ao importar ranking'
+        }), {
           status: 400,
           headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
         });
