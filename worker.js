@@ -1,4 +1,4 @@
-﻿﻿﻿// ============================================
+// ============================================
 // QUEM SOU EU? - Backend Cloudflare Workers
 // Sistema Completo: Solo + Multiplayer + Competitivo
 // COM MEMÓRIA GLOBAL DE CARTAS
@@ -14,7 +14,7 @@ export default {
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Token',
     };
 
     if (request.method === 'OPTIONS') {
@@ -203,7 +203,12 @@ export default {
     if (path === '/ranking') {
       const id = env.PontosGlobaisDO.idFromName('pontos-globais');
       const stub = env.PontosGlobaisDO.get(id);
-      return stub.fetch(new Request('http://internal/ranking'));
+      const res = await stub.fetch(new Request('http://internal/ranking'));
+      const newHeaders = new Headers(res.headers);
+      newHeaders.set('Access-Control-Allow-Origin', '*');
+      newHeaders.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+      newHeaders.set('Access-Control-Allow-Headers', 'Content-Type, X-Admin-Token');
+      return new Response(res.body, { status: res.status, statusText: res.statusText, headers: newHeaders });
     }
 
     // ============================================
