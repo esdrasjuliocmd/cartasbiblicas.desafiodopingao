@@ -201,14 +201,28 @@ export default {
     }
 
     if (path === '/ranking') {
-      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
-      const stub = env.PontosGlobaisDO.get(id);
-      const res = await stub.fetch(new Request('http://internal/ranking'));
-      const newHeaders = new Headers(res.headers);
-      newHeaders.set('Access-Control-Allow-Origin', '*');
-      newHeaders.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-      newHeaders.set('Access-Control-Allow-Headers', 'Content-Type, X-Admin-Token');
-      return new Response(res.body, { status: res.status, statusText: res.statusText, headers: newHeaders });
+      try {
+        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+        const stub = env.PontosGlobaisDO.get(id);
+        const res = await stub.fetch(new Request('http://internal/ranking'));
+        const body = await res.text();
+        const headers = new Headers({
+          'Content-Type': 'application/json; charset=utf-8',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Token',
+        });
+        return new Response(body, { status: res.status, statusText: res.statusText, headers });
+      } catch (erro) {
+        console.error('Erro /ranking:', erro);
+        return new Response(JSON.stringify({ ranking: [] }), {
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            ...corsHeaders,
+          },
+        });
+      }
     }
 
     // ============================================
