@@ -10,7 +10,7 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
-    // CORS Headers
+    // CORS Headers (obrigatório para front em outro domínio, ex: pages.dev)
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -206,21 +206,20 @@ export default {
         const stub = env.PontosGlobaisDO.get(id);
         const res = await stub.fetch(new Request('http://internal/ranking'));
         const body = await res.text();
-        const headers = new Headers({
-          'Content-Type': 'application/json; charset=utf-8',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Token',
-        });
-        return new Response(body, { status: res.status, statusText: res.statusText, headers });
-      } catch (erro) {
-        console.error('Erro /ranking:', erro);
-        return new Response(JSON.stringify({ ranking: [] }), {
-          status: 200,
+        return new Response(body, {
+          status: res.status,
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
-            ...corsHeaders,
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Token',
           },
+        });
+      } catch (e) {
+        console.error('Erro /ranking:', e);
+        return new Response(JSON.stringify({ ranking: [] }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders },
         });
       }
     }
