@@ -9,7 +9,6 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname;
-    const PONTOS_GLOBAIS_DO_NAME = env.PONTOS_GLOBAIS_DO_NAME || 'pontos-globais';
 
     // CORS Headers
     const corsHeaders = {
@@ -83,7 +82,7 @@ export default {
     // ============================================
     if (path === '/cartas-recentes' && request.method === 'GET') {
       try {
-        const id = env.PontosGlobaisDO.idFromName(PONTOS_GLOBAIS_DO_NAME);
+        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
         const stub = env.PontosGlobaisDO.get(id);
         const response = await stub.fetch(new Request('http://internal/cartas-recentes-globais'));
         return response;
@@ -109,7 +108,7 @@ export default {
     // ============================================
     if (path === '/registrar-cartas' && request.method === 'POST') {
       try {
-        const id = env.PontosGlobaisDO.idFromName(PONTOS_GLOBAIS_DO_NAME);
+        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
         const stub = env.PontosGlobaisDO.get(id);
         return stub.fetch(request);
       } catch (erro) {
@@ -132,7 +131,7 @@ export default {
     // ============================================
     if (path === '/limpar-historico' && request.method === 'POST') {
       try {
-        const id = env.PontosGlobaisDO.idFromName(PONTOS_GLOBAIS_DO_NAME);
+        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
         const stub = env.PontosGlobaisDO.get(id);
         const response = await stub.fetch(new Request('http://internal/limpar-historico-cartas', { method: 'POST' }));
         return response;
@@ -184,25 +183,25 @@ export default {
     // ============================================
     if (path.startsWith('/pontos/')) {
       const nome = decodeURIComponent(path.split('/')[2]);
-      const id = env.PontosGlobaisDO.idFromName(PONTOS_GLOBAIS_DO_NAME);
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
       const stub = env.PontosGlobaisDO.get(id);
       return stub.fetch(new Request(`http://internal/pontos/${nome}`));
     }
 
     if (path === '/adicionar' && request.method === 'POST') {
-      const id = env.PontosGlobaisDO.idFromName(PONTOS_GLOBAIS_DO_NAME);
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
       const stub = env.PontosGlobaisDO.get(id);
       return stub.fetch(request);
     }
 
     if (path === '/fase-completa' && request.method === 'POST') {
-      const id = env.PontosGlobaisDO.idFromName(PONTOS_GLOBAIS_DO_NAME);
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
       const stub = env.PontosGlobaisDO.get(id);
       return stub.fetch(request);
     }
 
     if (path === '/ranking') {
-      const id = env.PontosGlobaisDO.idFromName(PONTOS_GLOBAIS_DO_NAME);
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
       const stub = env.PontosGlobaisDO.get(id);
       return stub.fetch(new Request('http://internal/ranking'));
     }
@@ -279,26 +278,26 @@ export default {
     // ============================================
     if (path.startsWith('/perfil/')) {
       const nome = decodeURIComponent(path.split('/')[2]);
-      const id = env.PontosGlobaisDO.idFromName(PONTOS_GLOBAIS_DO_NAME);
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
       const stub = env.PontosGlobaisDO.get(id);
       return stub.fetch(new Request(`http://internal/perfil/${nome}`));
     }
 
     if (path === '/loja') {
-      const id = env.PontosGlobaisDO.idFromName(PONTOS_GLOBAIS_DO_NAME);
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
       const stub = env.PontosGlobaisDO.get(id);
       return stub.fetch(new Request('http://internal/loja'));
     }
 
     if (path === '/resgatar' && request.method === 'POST') {
-      const id = env.PontosGlobaisDO.idFromName(PONTOS_GLOBAIS_DO_NAME);
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
       const stub = env.PontosGlobaisDO.get(id);
       return stub.fetch(request);
     }
 
     if (path.startsWith('/conquistas/')) {
       const nome = decodeURIComponent(path.split('/')[2]);
-      const id = env.PontosGlobaisDO.idFromName(PONTOS_GLOBAIS_DO_NAME);
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
       const stub = env.PontosGlobaisDO.get(id);
       return stub.fetch(new Request(`http://internal/conquistas/${nome}`));
     }
@@ -317,20 +316,20 @@ export default {
         });
       }
 
-      const id = env.PontosGlobaisDO.idFromName(PONTOS_GLOBAIS_DO_NAME);
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
       const stub = env.PontosGlobaisDO.get(id);
 
       return stub.fetch(new Request("http://internal" + path, request));
     }
 
     if (path === '/admin/salas') {
-      const id = env.PontosGlobaisDO.idFromName(PONTOS_GLOBAIS_DO_NAME);
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
       const stub = env.PontosGlobaisDO.get(id);
       return stub.fetch(new Request('http://internal/admin/salas'));
     }
 
     if (path === '/admin/jogadores-completos') {
-      const id = env.PontosGlobaisDO.idFromName(PONTOS_GLOBAIS_DO_NAME);
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
       const stub = env.PontosGlobaisDO.get(id);
       return stub.fetch(new Request('http://internal/admin/jogadores-completos'));
     }
@@ -1241,7 +1240,7 @@ export class BancoDadosDO {
             erro: 'Payload inválido: esperado objeto com array "cartas"'
           }), {
             status: 400,
-            headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+            headers: { 'Content-Type': 'application/json', ...corsHeaders }
           });
         }
 
@@ -1261,7 +1260,7 @@ export class BancoDadosDO {
           erro: erro?.message || 'Erro ao popular cartas'
         }), {
           status: 500,
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
         });
       }
     }
@@ -1478,7 +1477,7 @@ export class PontosGlobaisDO {
       const nome = decodeURIComponent(path.split('/')[2]);
       const pontos = await this.obterPontos(nome);
       return new Response(JSON.stringify({ nome, pontos }), {
-        headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        headers: { 'Content-Type': 'application/json', ...corsHeaders }
       });
     }
 
@@ -1487,7 +1486,7 @@ export class PontosGlobaisDO {
         const body = await request.json();
         const resultado = await this.adicionarPontos(body.nome, body.pontos);
         return new Response(JSON.stringify({ sucesso: true, ...resultado }), {
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
         });
       } catch (erro) {
         return new Response(JSON.stringify({
@@ -1495,7 +1494,7 @@ export class PontosGlobaisDO {
           erro: erro.message || 'Falha ao adicionar pontos'
         }), {
           status: 400,
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
         });
       }
     }
@@ -1512,7 +1511,7 @@ export class PontosGlobaisDO {
           body.categoria
         );
         return new Response(JSON.stringify({ sucesso: true, ...resultado }), {
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
         });
       } catch (erro) {
         return new Response(JSON.stringify({
@@ -1520,7 +1519,7 @@ export class PontosGlobaisDO {
           erro: erro.message || 'Falha ao registrar fase'
         }), {
           status: 400,
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
         });
       }
     }
@@ -1528,7 +1527,7 @@ export class PontosGlobaisDO {
     if (path === '/ranking') {
       const ranking = await this.obterRanking();
       return new Response(JSON.stringify({ ranking }), {
-        headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        headers: { 'Content-Type': 'application/json', ...corsHeaders }
       });
     }
 
@@ -1536,14 +1535,14 @@ export class PontosGlobaisDO {
       const nome = decodeURIComponent(path.split('/')[2]);
       const perfil = await this.obterPerfil(nome);
       return new Response(JSON.stringify(perfil), {
-        headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        headers: { 'Content-Type': 'application/json', ...corsHeaders }
       });
     }
 
     if (path === '/loja') {
       const loja = await this.obterLoja();
       return new Response(JSON.stringify(loja), {
-        headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        headers: { 'Content-Type': 'application/json', ...corsHeaders }
       });
     }
 
@@ -1551,7 +1550,7 @@ export class PontosGlobaisDO {
       const body = await request.json();
       const resultado = await this.resgatarItem(body.nome, body.item, body.custo);
       return new Response(JSON.stringify(resultado), {
-        headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        headers: { 'Content-Type': 'application/json', ...corsHeaders }
       });
     }
 
@@ -1559,7 +1558,7 @@ export class PontosGlobaisDO {
       const nome = decodeURIComponent(path.split('/')[2]);
       const conquistas = await this.obterConquistas(nome);
       return new Response(JSON.stringify({ conquistas }), {
-        headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        headers: { 'Content-Type': 'application/json', ...corsHeaders }
       });
     }
 
@@ -1572,7 +1571,7 @@ export class PontosGlobaisDO {
           total: cartas.length,
           timestamp: Date.now()
         }), {
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
         });
       } catch (erro) {
         console.error('Erro ao obter cartas recentes:', erro);
@@ -1582,7 +1581,7 @@ export class PontosGlobaisDO {
           erro: erro.message
         }), {
           status: 200,
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
         });
       }
     }
@@ -1598,7 +1597,7 @@ export class PontosGlobaisDO {
             success: true,
             registradas: 0
           }), {
-            headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+            headers: { 'Content-Type': 'application/json', ...corsHeaders }
           });
         }
 
@@ -1607,7 +1606,7 @@ export class PontosGlobaisDO {
           success: true,
           ...resultado
         }), {
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
         });
       } catch (erro) {
         console.error('Erro ao registrar cartas:', erro);
@@ -1616,7 +1615,7 @@ export class PontosGlobaisDO {
           erro: erro.message
         }), {
           status: 400,
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
         });
       }
     }
@@ -1629,7 +1628,7 @@ export class PontosGlobaisDO {
           success: true,
           ...resultado
         }), {
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
         });
       } catch (erro) {
         console.error('Erro ao limpar histórico:', erro);
@@ -1638,7 +1637,7 @@ export class PontosGlobaisDO {
           erro: erro.message
         }), {
           status: 400,
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
         });
       }
     }
@@ -1945,7 +1944,35 @@ export class PontosGlobaisDO {
   }
 
   async obterJogadoresCompletos() {
-    return this.sql.exec('SELECT nome, pontos, nivel, ultima_partida FROM jogadores ORDER BY ultima_partida DESC LIMIT 200').toArray();
+    return this.sql.exec(`
+      SELECT
+        j.nome,
+        j.pontos,
+        j.nivel,
+        j.ultima_partida AS ultimaPartidaEm,
+        (
+          SELECT hf.pontosTotal
+          FROM historico_fases hf
+          WHERE hf.nome = j.nome
+          ORDER BY hf.data DESC
+          LIMIT 1
+        ) AS ultimaPontuacao,
+        (
+          SELECT COUNT(*)
+          FROM historico_fases hf2
+          WHERE hf2.nome = j.nome
+        ) AS totalPartidas,
+        (
+          SELECT hf3.faseNumero
+          FROM historico_fases hf3
+          WHERE hf3.nome = j.nome
+          ORDER BY hf3.data DESC
+          LIMIT 1
+        ) AS ultimaFaseNumero
+      FROM jogadores j
+      ORDER BY j.pontos DESC, j.ultima_partida DESC
+      LIMIT 200
+    `).toArray();
   }
 
   async obterPerfil(nome) {

@@ -352,6 +352,76 @@
     }
     .btn-acao:hover{ filter: brightness(0.95); }
     .btn-acao.danger{ background: #B3261E; }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .input, .select {
+      padding: 12px 14px;
+      border: 2px solid #d7dfef;
+      border-radius: 10px;
+      font-size: 1rem;
+      min-width: 220px;
+      outline: none;
+    }
+    .input:focus, .select:focus {
+      border-color: var(--jw-azul-principal);
+    }
+    .btn-secundario {
+      background: #eef4ff;
+      color: var(--jw-azul-escuro);
+      border: 2px solid var(--jw-azul-principal);
+      padding: 11px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+    .btn-secundario:hover { filter: brightness(0.98); }
+    .grid-mini {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin: 0 0 18px 0;
+    }
+    .mini-card {
+      background: #f8fbff;
+      border: 2px solid #dbe7ff;
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .mini-card .mini-label {
+      color: #5b6b84;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+    .mini-card .mini-valor {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--jw-azul-escuro);
+    }
+    .hint {
+      color: #6a7485;
+      font-size: 0.92rem;
+      margin-top: 8px;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 2px solid var(--jw-cinza-claro);
+    }
+    .th-sort {
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .th-sort:hover {
+      background: #eaf1ff;
+    }
+
 </style>
 </head>
 <body>
@@ -403,8 +473,26 @@
         <div class="secao">
           <div class="secao-titulo">🏆 Jogadores (solo) + última partida</div>
           <div class="aviso">
-            A coluna "Última partida" e "Partidas" são atualizadas quando o jogo solo chama <code>POST /fase-completa</code>.
+            A coluna "Última partida", "Últ. pontuação" e "Partidas" dependem do registro no endpoint <code>POST /fase-completa</code>.
+            Este painel agora tenta ler também nomes alternativos de campos do backend e mostra um resumo estatístico dos jogadores.
           </div>
+
+          <div class="toolbar">
+            <input id="filtro-jogador" class="input" type="text" placeholder="Buscar jogador..." oninput="renderizarJogadores()" />
+            <select id="ordenar-jogadores" class="select" onchange="renderizarJogadores()">
+              <option value="pontos_desc">Ordenar: Pontos ↓</option>
+              <option value="pontos_asc">Ordenar: Pontos ↑</option>
+              <option value="nome_asc">Ordenar: Nome A-Z</option>
+              <option value="nome_desc">Ordenar: Nome Z-A</option>
+              <option value="partidas_desc">Ordenar: Partidas ↓</option>
+              <option value="ultima_desc">Ordenar: Última partida ↓</option>
+            </select>
+            <button class="btn-secundario" onclick="exportarJogadoresCSV()">⬇️ Exportar jogadores</button>
+          </div>
+
+          <div id="jogadores-resumo" class="grid-mini"></div>
+          <div class="hint">Dica: se os campos da partida continuarem vazios, o modo solo ainda não está enviando <code>/fase-completa</code> no fim da rodada.</div>
+
           <div id="jogadores-erro" style="display:none; color: var(--jw-vermelho-erro); font-weight:bold;"></div>
           <div id="jogadores-container"></div>
         </div>
@@ -484,10 +572,8 @@
       </div>
     </div>
   </div>
-
-  <script src="config.js"></script>
-  <script>
-    const API_BASE = window.APP_CONFIG.API_BASE;
+<script>
+    const API_BASE = "https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev";
     let dadosJSON = null;
 
     function mudarTab(tab) {
@@ -635,6 +721,185 @@
         container.innerHTML = '';
       }
     }
+
+
+    let JOGADORES_CACHE = [];
+    let JOGADORES_NORMALIZADOS = [];
+    let SORT_STATE = { campo: 'pontos', dir: 'desc' };
+
+    function n(v, padrao = 0) {
+      const x = Number(v);
+      return Number.isFinite(x) ? x : padrao;
+    }
+
+    function obterPrimeiro(obj, chaves, padrao = null) {
+      for (const chave of chaves) {
+        if (obj && obj[chave] !== undefined && obj[chave] !== null && obj[chave] !== '') {
+          return obj[chave];
+        }
+      }
+      return padrao;
+    }
+
+    function escaparHtml(valor) {
+      return String(valor ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function normalizarJogador(j) {
+      const ultimaPartidaEm = obterPrimeiro(j, ['ultimaPartidaEm', 'ultima_partida_em', 'lastGameAt', 'ultimoJogoEm'], null);
+      const ultimaPontuacao = obterPrimeiro(j, ['ultimaPontuacao', 'ultima_pontuacao', 'lastScore', 'ultimaPontuação'], null);
+      const totalPartidas = obterPrimeiro(j, ['totalPartidas', 'partidas', 'qtdPartidas', 'gamesPlayed'], 0);
+      const nivel = obterPrimeiro(j, ['nivel', 'level'], null);
+      return {
+        original: j,
+        nome: obterPrimeiro(j, ['nome', 'name'], 'Sem nome'),
+        pontos: n(obterPrimeiro(j, ['pontos', 'score', 'pontuacao'], 0), 0),
+        nivel: nivel == null ? '-' : nivel,
+        ultimaPartidaEm,
+        ultimaPontuacao,
+        totalPartidas: n(totalPartidas, 0)
+      };
+    }
+
+    function ordenarJogadores(lista) {
+      const valor = document.getElementById('ordenar-jogadores')?.value || 'pontos_desc';
+
+      const clone = [...lista];
+      clone.sort((a, b) => {
+        switch (valor) {
+          case 'pontos_asc': return a.pontos - b.pontos;
+          case 'nome_asc': return String(a.nome).localeCompare(String(b.nome), 'pt-BR');
+          case 'nome_desc': return String(b.nome).localeCompare(String(a.nome), 'pt-BR');
+          case 'partidas_desc': return b.totalPartidas - a.totalPartidas;
+          case 'ultima_desc': return n(new Date(b.ultimaPartidaEm).getTime(), 0) - n(new Date(a.ultimaPartidaEm).getTime(), 0);
+          case 'pontos_desc':
+          default: return b.pontos - a.pontos;
+        }
+      });
+      return clone;
+    }
+
+    function renderizarResumoJogadores(lista) {
+      const resumo = document.getElementById('jogadores-resumo');
+      if (!resumo) return;
+
+      const totalJogadores = lista.length;
+      const totalPontos = lista.reduce((s, j) => s + n(j.pontos, 0), 0);
+      const totalPartidas = lista.reduce((s, j) => s + n(j.totalPartidas, 0), 0);
+      const maiorPontuacao = lista.reduce((m, j) => Math.max(m, n(j.pontos, 0)), 0);
+      const jogadoresComHistorico = lista.filter(j => j.ultimaPartidaEm || j.totalPartidas > 0).length;
+
+      resumo.innerHTML = `
+        <div class="mini-card">
+          <div class="mini-label">Jogadores</div>
+          <div class="mini-valor">${totalJogadores.toLocaleString('pt-BR')}</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-label">Pontos somados</div>
+          <div class="mini-valor">${totalPontos.toLocaleString('pt-BR')}</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-label">Partidas registradas</div>
+          <div class="mini-valor">${totalPartidas.toLocaleString('pt-BR')}</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-label">Maior pontuação</div>
+          <div class="mini-valor">${maiorPontuacao.toLocaleString('pt-BR')}</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-label">Com histórico de partidas</div>
+          <div class="mini-valor">${jogadoresComHistorico.toLocaleString('pt-BR')}</div>
+        </div>
+      `;
+    }
+
+    function renderizarJogadores() {
+      const container = document.getElementById('jogadores-container');
+      const busca = (document.getElementById('filtro-jogador')?.value || '').trim().toLowerCase();
+
+      let lista = [...JOGADORES_NORMALIZADOS];
+      if (busca) {
+        lista = lista.filter(j => String(j.nome).toLowerCase().includes(busca));
+      }
+
+      lista = ordenarJogadores(lista);
+      renderizarResumoJogadores(lista);
+
+      if (lista.length === 0) {
+        container.innerHTML = `<div class="muted">Nenhum jogador encontrado com esse filtro.</div>`;
+        return;
+      }
+
+      let html = `<div class="table-wrap"><table class="table"><thead><tr>
+        <th class="th-sort">Jogador</th>
+        <th class="th-sort">Pontos</th>
+        <th class="th-sort">Nível</th>
+        <th class="th-sort">Última partida</th>
+        <th class="th-sort">Últ. pontuação</th>
+        <th class="th-sort">Partidas</th>
+        <th>Ações</th>
+      </tr></thead><tbody>`;
+
+      for (const j of lista) {
+        const ultimaPartidaTxt = j.ultimaPartidaEm ? fmtData(j.ultimaPartidaEm) : '<span class="muted">Sem registro</span>';
+        const ultimaPontuacaoTxt = j.ultimaPontuacao != null ? n(j.ultimaPontuacao, 0).toLocaleString('pt-BR') : '<span class="muted">Sem registro</span>';
+        const partidasTxt = j.totalPartidas > 0 ? j.totalPartidas.toLocaleString('pt-BR') : '<span class="muted">Sem registro</span>';
+
+        html += `<tr>
+          <td><span class="badge ok">${escaparHtml(j.nome)}</span></td>
+          <td>${n(j.pontos, 0).toLocaleString('pt-BR')}</td>
+          <td>${escaparHtml(j.nivel)}</td>
+          <td>${ultimaPartidaTxt}</td>
+          <td>${ultimaPontuacaoTxt}</td>
+          <td>${partidasTxt}</td>
+          <td>
+            <button class="btn-acao" onclick="editarJogador(${JSON.stringify(j.nome)}, ${Number(j.pontos ?? 0)})">Editar</button>
+            <button class="btn-acao danger" onclick="excluirJogador(${JSON.stringify(j.nome)})">Excluir</button>
+          </td>
+        </tr>`;
+      }
+
+      html += `</tbody></table></div>`;
+      container.innerHTML = html;
+    }
+
+    function exportarJogadoresCSV() {
+      const lista = JOGADORES_NORMALIZADOS;
+      if (!lista.length) {
+        alert('Nenhum jogador carregado para exportar.');
+        return;
+      }
+
+      const linhas = [
+        ['nome','pontos','nivel','ultimaPartidaEm','ultimaPontuacao','totalPartidas'].join(';')
+      ];
+
+      for (const j of lista) {
+        linhas.push([
+          `"${String(j.nome).replace(/"/g, '""')}"`,
+          j.pontos,
+          `"${j.nivel}"`,
+          `"${j.ultimaPartidaEm || ''}"`,
+          `"${j.ultimaPontuacao ?? ''}"`,
+          j.totalPartidas
+        ].join(';'));
+      }
+
+      const blob = new Blob(["\uFEFF" + linhas.join('\n')], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `jogadores-admin-${Date.now()}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+    }
+
 
     // ============
     // Upload/import (original)
