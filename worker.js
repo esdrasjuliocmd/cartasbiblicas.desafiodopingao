@@ -17,6 +17,18 @@ export default {
       'Access-Control-Allow-Headers': 'Content-Type',
     };
 
+    function comCors(response) {
+      const headers = new Headers(response.headers || {});
+      for (const [chave, valor] of Object.entries(corsHeaders)) {
+        headers.set(chave, valor);
+      }
+      return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers
+      });
+    }
+
     if (request.method === 'OPTIONS') {
       return new Response(null, { headers: corsHeaders });
     }
@@ -75,6 +87,7 @@ export default {
       // limitar
       return dedup.slice(-100);
     }
+
 
     // ============================================
     // ROTA: OBTER CARTAS USADAS RECENTEMENTE (GLOBAL)
