@@ -42,6 +42,10 @@ class_name = "BancoDadosPregacaoDO"
 name = "BancoDadosVerdadeiroFalsoDO"
 class_name = "BancoDadosVerdadeiroFalsoDO"
 
+[[durable_objects.bindings]]
+name = "BancoDadosDesenhoDO"
+class_name = "BancoDadosDesenhoDO"
+
 [[d1_databases]]
 binding = "pingao_personagens"
 database_name = "pingao-personagens"
