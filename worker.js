@@ -340,15 +340,37 @@ export default {
     }
 
     if (path === '/admin/salas') {
-      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
-      const stub = env.PontosGlobaisDO.get(id);
-      return stub.fetch(new Request('http://internal/admin/salas'));
+      try {
+        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+        const stub = env.PontosGlobaisDO.get(id);
+        const response = await stub.fetch(new Request('http://internal/admin/salas'));
+        return comCors(response);
+      } catch (erro) {
+        return new Response(JSON.stringify({
+          salas: [],
+          erro: erro.message || 'Falha ao carregar salas'
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
     }
 
     if (path === '/admin/jogadores-completos') {
-      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
-      const stub = env.PontosGlobaisDO.get(id);
-      return stub.fetch(new Request('http://internal/admin/jogadores-completos'));
+      try {
+        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+        const stub = env.PontosGlobaisDO.get(id);
+        const response = await stub.fetch(new Request('http://internal/admin/jogadores-completos'));
+        return comCors(response);
+      } catch (erro) {
+        return new Response(JSON.stringify({
+          jogadores: [],
+          erro: erro.message || 'Falha ao carregar jogadores'
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
     }
 
     // ============================================
@@ -1663,15 +1685,14 @@ export class PontosGlobaisDO {
     // NOVO: Admin - Listar salas
     if (path === '/admin/salas') {
       try {
-        return new Response(JSON.stringify({
-          salas: []
-        }), {
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
-        });
+        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+        const stub = env.PontosGlobaisDO.get(id);
+        const response = await stub.fetch(new Request('http://internal/admin/salas'));
+        return comCors(response);
       } catch (erro) {
         return new Response(JSON.stringify({
           salas: [],
-          erro: erro.message
+          erro: erro.message || 'Falha ao carregar salas'
         }), {
           status: 200,
           headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
@@ -1682,17 +1703,14 @@ export class PontosGlobaisDO {
     // NOVO: Admin - Listar jogadores solo com última partida
     if (path === '/admin/jogadores-completos') {
       try {
-        const jogadores = await this.obterJogadoresCompletos();
-        return new Response(JSON.stringify({
-          jogadores: jogadores
-        }), {
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
-        });
+        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+        const stub = env.PontosGlobaisDO.get(id);
+        const response = await stub.fetch(new Request('http://internal/admin/jogadores-completos'));
+        return comCors(response);
       } catch (erro) {
-        console.error('Erro ao obter jogadores completos:', erro);
         return new Response(JSON.stringify({
           jogadores: [],
-          erro: erro.message
+          erro: erro.message || 'Falha ao carregar jogadores'
         }), {
           status: 200,
           headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
