@@ -1831,7 +1831,13 @@ export class PontosGlobaisDO {
 
     // índices
     this.sql.exec('CREATE INDEX IF NOT EXISTS idx_hcg_ts ON historico_cartas_globais(timestamp)');
-    this.sql.exec('CREATE INDEX IF NOT EXISTS idx_hcg_key ON historico_cartas_globais(key)');
+    this.sql.exec('CREATE INDEX IF NOT EXISTS idx_hcg_key ON historico_cartas_globais(key)');    // Compatibilidade com bancos antigos (jogadores sem ultima_partida)
+    const colsJogadores = this.sql.exec("PRAGMA table_info(jogadores)").toArray().map(c => c.name);
+    if (!colsJogadores.includes('ultima_partida')) {
+      this.sql.exec("ALTER TABLE jogadores ADD COLUMN ultima_partida INTEGER DEFAULT 0");
+    }
+    this.sql.exec("UPDATE jogadores SET ultima_partida = 0 WHERE ultima_partida IS NULL");
+
 
     // loja
     this.sql.exec(`
@@ -2080,6 +2086,7 @@ function paginaInicial() {
 
 // Compatibilidade retroativa
 export class PontosBiblicoDO extends PontosGlobaisDO {}
+
 
 
 
