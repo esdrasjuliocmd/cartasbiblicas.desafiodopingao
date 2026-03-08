@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔍 Validador de Cartas - Quem Sou Eu?</title>
+  <style>
+    :root {
+      --jw-azul-principal: #4A6DA7;
+      --jw-azul-escuro: #1E3A5F;
+      --jw-verde-sucesso: #5CB85C;
+      --jw-vermelho-erro: #D9534F;
+      --jw-amarelo-aviso: #F0AD4E;
+      --jw-cinza-claro: #F5F5F5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, var(--jw-azul-escuro) 0%, var(--jw-azul-principal) 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--jw-azul-principal), var(--jw-azul-escuro));
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 30px;
+    }
+
+    .btn-validar {
+      background: var(--jw-verde-sucesso);
+      color: white;
+      border: none;
+      padding: 20px 40px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 30px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .btn-validar:hover {
+      background: #4a9a4a;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .btn-validar:active {
+      transform: translateY(0);
+    }
+
+    .btn-validar:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      font-size: 1.2rem;
+      color: var(--jw-azul-principal);
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      border: 5px solid var(--jw-cinza-claro);
+      border-top-color: var(--jw-azul-principal);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .resultado {
+      display: none;
+    }
+
+    .resultado.ativo {
+      display: block;
+    }
+
+    .resumo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .card-resumo {
+      background: linear-gradient(135deg, var(--jw-cinza-claro), white);
+      border: 3px solid var(--jw-azul-principal);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .card-resumo.total {
+      border-color: var(--jw-verde-sucesso);
+      background: linear-gradient(135deg, #e8f5e9, white);
+    }
+
+    .card-resumo .icon {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .card-resumo .label {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    .card-resumo .valor {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--jw-azul-escuro);
+    }
+
+    .detalhes {
+      margin-top: 30px;
+    }
+
+    .categoria-detalhe {
+      background: white;
+      border: 2px solid var(--jw-azul-principal);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+
+    .categoria-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--jw-cinza-claro);
+    }
+
+    .categoria-titulo {
+      font-size: 1.5rem;
+      color: var(--jw-azul-escuro);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .categoria-count {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--jw-verde-sucesso);
+    }
+
+    .cartas-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 10px;
+      background: var(--jw-cinza-claro);
+      border-radius: 10px;
+    }
+
+    .carta-item {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 0.9rem;
+    }
+
+    .carta-item .resposta {
+      font-weight: bold;
+      color: var(--jw-azul-principal);
+      margin-bottom: 8px;
+    }
+
+    .carta-item .dica {
+      font-size: 0.8rem;
+      color: #666;
+      margin: 3px 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .erro {
+      background: #ffebee;
+      border: 2px solid var(--jw-vermelho-erro);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      color: var(--jw-vermelho-erro);
+      font-weight: bold;
+    }
+
+    .toggle-btn {
+      background: var(--jw-azul-principal);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+    }
+
+    .toggle-btn:hover {
+      background: var(--jw-azul-escuro);
+    }
+
+    .estatisticas {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .stat-row:last-child {
+      border-bottom: none;
+    }
+
+    .stat-label {
+      font-weight: 600;
+      color: #555;
+    }
+
+    .stat-valor {
+      color: var(--jw-azul-principal);
+      font-weight: bold;
+    }
+
+    .btn-voltar {
+      background: var(--jw-azul-principal);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+      transition: all 0.3s;
+    }
+
+    .btn-voltar:hover {
+      background: var(--jw-azul-escuro);
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.8rem;
+      }
+
+      .resumo {
+        grid-template-columns: 1fr;
+      }
+
+      .cartas-preview {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🔍 Validador de Cartas</h1>
+      <p>Sistema de Verificação e Contagem do Banco de Dados</p>
+    </div>
+
+    <div class="content">
+      <button class="btn-validar" id="btn-validar" onclick="validarCartas()">
+        <span>🔍</span>
+        <span>VALIDAR TODAS AS CARTAS</span>
+      </button>
+
+      <div class="loading" id="loading" style="display: none;">
+        <div class="loading-spinner"></div>
+        <p>Buscando e validando cartas...</p>
+      </div>
+
+      <div class="resultado" id="resultado">
+        <!-- Conteúdo será preenchido dinamicamente -->
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script>
+    const API_BASE = window.APP_CONFIG.API_BASE;
+    
+    const CATEGORIAS = [
+      { id: 'personagens', nome: 'Personagens', icon: '👤' },
+      { id: 'profecias', nome: 'Profecias', icon: '📜' },
+      { id: 'pregacao', nome: 'Pregação', icon: '🎯' },
+      { id: 'desenho', nome: 'Desenho', icon: '🎨' },
+      { id: 'mimica', nome: 'Mímica', icon: '🎭' }
+    ];
+
+    async function validarCartas() {
+      const btnValidar = document.getElementById('btn-validar');
+      const loading = document.getElementById('loading');
+      const resultado = document.getElementById('resultado');
+
+      btnValidar.disabled = true;
+      loading.style.display = 'block';
+      resultado.classList.remove('ativo');
+      resultado.innerHTML = '';
+
+      try {
+        const resultados = [];
+        let totalCartas = 0;
+        let erros = [];
+
+        for (const categoria of CATEGORIAS) {
+          try {
+            const res = await fetch(`${API_BASE}/cartas/${categoria.id}`);
+            
+            if (!res.ok) {
+              erros.push(`${categoria.nome}: Erro HTTP ${res.status}`);
+              resultados.push({
+                categoria: categoria,
+                cartas: [],
+                erro: `HTTP ${res.status}`
+              });
+              continue;
+            }
+
+            const data = await res.json();
+            
+            if (!data.cartas || !Array.isArray(data.cartas)) {
+              erros.push(`${categoria.nome}: Formato inválido`);
+              resultados.push({
+                categoria: categoria,
+                cartas: [],
+                erro: 'Formato inválido'
+              });
+              continue;
+            }
+
+            const cartasValidas = data.cartas.filter(carta => 
+              carta.dica1 && carta.dica2 && carta.dica3 && carta.resposta
+            );
+
+            totalCartas += cartasValidas.length;
+
+            resultados.push({
+              categoria: categoria,
+              cartas: cartasValidas,
+              total: cartasValidas.length,
+              invalidas: data.cartas.length - cartasValidas.length
+            });
+
+          } catch (error) {
+            erros.push(`${categoria.nome}: ${error.message}`);
+            resultados.push({
+              categoria: categoria,
+              cartas: [],
+              erro: error.message
+            });
+          }
+        }
+
+        mostrarResultado(resultados, totalCartas, erros);
+
+      } catch (error) {
+        resultado.innerHTML = `
+          <div class="erro">
+            ❌ Erro ao validar cartas: ${error.message}
+          </div>
+        `;
+        resultado.classList.add('ativo');
+      } finally {
+        btnValidar.disabled = false;
+        loading.style.display = 'none';
+      }
+    }
+
+    function mostrarResultado(resultados, totalCartas, erros) {
+      const resultado = document.getElementById('resultado');
+      
+      let html = '';
+
+      // Resumo geral
+      html += '<div class="resumo">';
+      
+      html += `
+        <div class="card-resumo total">
+          <div class="icon">🎯</div>
+          <div class="label">TOTAL DE CARTAS</div>
+          <div class="valor">${totalCartas}</div>
+        </div>
+      `;
+
+      resultados.forEach(r => {
+        if (!r.erro) {
+          html += `
+            <div class="card-resumo">
+              <div class="icon">${r.categoria.icon}</div>
+              <div class="label">${r.categoria.nome.toUpperCase()}</div>
+              <div class="valor">${r.total}</div>
+            </div>
+          `;
+        }
+      });
+
+      html += '</div>';
+
+      // Erros (se houver)
+      if (erros.length > 0) {
+        html += '<div class="erro">';
+        html += '<strong>⚠️ AVISOS/ERROS:</strong><br><br>';
+        erros.forEach(erro => {
+          html += `• ${erro}<br>`;
+        });
+        html += '</div>';
+      }
+
+      // Estatísticas
+      const cartasInvalidas = resultados.reduce((sum, r) => sum + (r.invalidas || 0), 0);
+      const categoriasOK = resultados.filter(r => !r.erro).length;
+      const categoriasErro = resultados.filter(r => r.erro).length;
+
+      html += '<div class="estatisticas">';
+      html += '<h3 style="margin-bottom: 15px; color: var(--jw-azul-escuro);">📊 Estatísticas</h3>';
+      
+      html += '<div class="stat-row">';
+      html += '<span class="stat-label">📦 Total de Cartas Válidas:</span>';
+      html += `<span class="stat-valor">${totalCartas}</span>`;
+      html += '</div>';
+
+      html += '<div class="stat-row">';
+      html += '<span class="stat-label">❌ Cartas Inválidas:</span>';
+      html += `<span class="stat-valor">${cartasInvalidas}</span>`;
+      html += '</div>';
+
+      html += '<div class="stat-row">';
+      html += '<span class="stat-label">✅ Categorias OK:</span>';
+      html += `<span class="stat-valor">${categoriasOK} / ${CATEGORIAS.length}</span>`;
+      html += '</div>';
+
+      html += '<div class="stat-row">';
+      html += '<span class="stat-label">⚠️ Categorias com Erro:</span>';
+      html += `<span class="stat-valor">${categoriasErro}</span>`;
+      html += '</div>';
+
+      html += '<div class="stat-row">';
+      html += '<span class="stat-label">📈 Média por Categoria:</span>';
+      html += `<span class="stat-valor">${Math.round(totalCartas / categoriasOK)}</span>`;
+      html += '</div>';
+
+      html += '</div>';
+
+      // Detalhes por categoria
+      html += '<div class="detalhes">';
+      html += '<h3 style="margin-bottom: 20px; color: var(--jw-azul-escuro);">📋 Detalhes por Categoria</h3>';
+
+      resultados.forEach((r, index) => {
+        html += `
+          <div class="categoria-detalhe">
+            <div class="categoria-header">
+              <div class="categoria-titulo">
+                <span>${r.categoria.icon}</span>
+                <span>${r.categoria.nome}</span>
+              </div>
+              <div>
+                ${r.erro ? 
+                  `<span style="color: var(--jw-vermelho-erro); font-weight: bold;">❌ ${r.erro}</span>` :
+                  `<span class="categoria-count">${r.total} cartas</span>`
+                }
+              </div>
+            </div>
+            ${!r.erro && r.cartas.length > 0 ? `
+              <button class="toggle-btn" onclick="toggleCartas(${index})">
+                📄 Ver Cartas
+              </button>
+              <div id="cartas-${index}" class="cartas-preview" style="display: none; margin-top: 15px;">
+                ${r.cartas.map(carta => `
+                  <div class="carta-item">
+                    <div class="resposta">✅ ${carta.resposta}</div>
+                    <div class="dica">💡 ${carta.dica1}</div>
+                    <div class="dica">💡 ${carta.dica2}</div>
+                    <div class="dica">💡 ${carta.dica3}</div>
+                  </div>
+                `).join('')}
+              </div>
+            ` : ''}
+          </div>
+        `;
+      });
+
+      html += '</div>';
+
+      // Botão voltar
+      html += '<div style="text-align: center; margin-top: 30px;">';
+      html += '<a href="index.html" class="btn-voltar">🏠 Voltar ao Menu</a>';
+      html += '</div>';
+
+      resultado.innerHTML = html;
+      resultado.classList.add('ativo');
+    }
+
+    function toggleCartas(index) {
+      const cartasDiv = document.getElementById(`cartas-${index}`);
+      if (cartasDiv.style.display === 'none') {
+        cartasDiv.style.display = 'grid';
+      } else {
+        cartasDiv.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>

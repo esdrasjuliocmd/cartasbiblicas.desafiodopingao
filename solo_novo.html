@@ -1,0 +1,2378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>🎮 Desafio do Pingão - Cartas Bíblicas</title>
+  <meta name="solo-build" content="2026-03-06-solo-gameplay-dif-mult+streak-milestones+session-banner-v1">
+  <style>
+    :root {
+      --jw-azul-principal: #2E5B93;
+      --jw-azul-escuro: #1F4273;
+      --jw-azul-claro: #5F86BD;
+      --jw-cinza-claro: #E8E8EC;
+      --jw-branco: #FFFFFF;
+      --jw-laranja: #F28C1B;
+      --jw-dourado: #F2B705;
+      --jw-verde-sucesso: #5CB85C;
+      --jw-vermelho-erro: #D9534F;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--jw-azul-escuro) 0%, var(--jw-azul-principal) 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      overflow-x: hidden;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      -webkit-text-size-adjust: 100%;
+      padding-top: max(10px, env(safe-area-inset-top));
+      padding-bottom: max(10px, env(safe-area-inset-bottom));
+      padding-left: max(10px, env(safe-area-inset-left));
+      padding-right: max(10px, env(safe-area-inset-right));
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      position: relative;
+      overflow-y: auto;
+      max-height: 100vh;
+      padding: 5px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .card {
+      background: #f1f2f6;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      padding: 15px;
+      margin-bottom: 10px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      color: var(--jw-azul-escuro);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: var(--jw-azul-principal);
+      font-size: 0.95rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .stat-box {
+      background: linear-gradient(135deg, var(--jw-azul-principal), var(--jw-azul-escuro));
+      color: var(--jw-branco);
+      padding: 10px 6px;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .stat-box:active { transform: scale(0.95); }
+
+    .stat-label {
+      font-size: 0.65rem;
+      opacity: 0.9;
+      margin-bottom: 2px;
+    }
+
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .categoria-select {
+      width: 100%;
+      padding: 14px;
+      border: 3px solid var(--jw-azul-principal);
+      border-radius: 10px;
+      font-size: 1rem;
+      margin-bottom: 12px;
+      background: var(--jw-branco);
+      color: var(--jw-azul-escuro);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      touch-action: manipulation;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--jw-azul-principal), var(--jw-azul-escuro));
+      color: var(--jw-branco);
+    }
+
+    .btn-primary:active {
+      background: var(--jw-azul-escuro);
+      transform: scale(0.98);
+    }
+
+    .btn-secondary {
+      background: var(--jw-cinza-claro);
+      color: var(--jw-azul-escuro);
+      margin-top: 10px;
+    }
+
+    .btn-secondary:active {
+      background: #E0E0E0;
+      transform: scale(0.98);
+    }
+
+    .pergunta-container { display: none; }
+
+    .pergunta-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .numero-pergunta {
+      font-size: 1rem;
+      color: var(--jw-azul-principal);
+      font-weight: bold;
+      animation: slideIn 0.5s ease-out;
+    }
+
+    .timer {
+      font-size: 1.5rem;
+      color: var(--jw-laranja);
+      font-weight: bold;
+      min-width: 55px;
+      text-align: right;
+    }
+
+    .super-bonus-indicator,
+    .bonus-indicator {
+      background: transparent;
+      color: var(--jw-azul-principal);
+      padding: 4px 8px;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: normal;
+      font-size: 0.7rem;
+      opacity: 0.7;
+      display: inline-block;
+    }
+
+    .super-bonus-indicator { margin-right: 8px; }
+
+    .bonus-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+
+    .btn-exit-mini {
+      border: none;
+      border-radius: 999px;
+      background: var(--jw-dourado);
+      color: var(--jw-azul-escuro);
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 6px 10px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .dicas {
+      background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+      padding: 16px;
+      border-radius: 15px;
+      margin-bottom: 10px;
+      min-height: 110px;
+      border: 3px solid var(--jw-azul-principal);
+      box-shadow: 0 4px 15px rgba(74, 109, 167, 0.2);
+    }
+
+    .dica {
+      font-size: 1.25rem;
+      color: var(--jw-azul-escuro);
+      margin-bottom: 10px;
+      padding-left: 36px;
+      position: relative;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease-out forwards;
+      line-height: 1.6;
+      display: none;
+      font-weight: 800;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .dica.visivel { display: block; }
+
+    .dica::before {
+      content: "💡";
+      position: absolute;
+      left: 0;
+      font-size: 1.5rem;
+      top: -2px;
+    }
+
+    .dica:last-child { margin-bottom: 0; }
+
+    .dica-timer {
+      text-align: center;
+      color: var(--jw-azul-principal);
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 2px solid rgba(74, 109, 167, 0.3);
+    }
+
+    .opcoes-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .opcao {
+      background: var(--jw-branco);
+      border: 3px solid var(--jw-azul-principal);
+      padding: 12px 10px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--jw-azul-escuro);
+      cursor: pointer;
+      transition: all 0.2s;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease-out forwards;
+      touch-action: manipulation;
+      min-height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      word-wrap: break-word;
+    }
+
+    .opcao:active { transform: scale(0.97); }
+
+    .opcao.correta {
+      background: var(--jw-verde-sucesso);
+      color: var(--jw-branco);
+      border-color: var(--jw-verde-sucesso);
+      animation: pulse 0.5s;
+    }
+    .opcao.errada {
+      background: var(--jw-vermelho-erro);
+      color: var(--jw-branco);
+      border-color: var(--jw-vermelho-erro);
+      animation: shake 0.5s;
+    }
+
+    .opcao.desabilitada { pointer-events: none; opacity: 0.6; }
+
+    .feedback {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 0.88rem;
+      font-weight: bold;
+      display: none;
+      animation: bounceIn 0.5s;
+    }
+
+    .feedback.correto { background: #d4edda; color: #155724; border: 2px solid var(--jw-verde-sucesso); }
+    .feedback.errado  { background: #f8d7da; color: #721c24; border: 2px solid var(--jw-vermelho-erro); }
+
+    .resultado-final { display: none; text-align: center; }
+
+    .pontuacao-final {
+      font-size: 3rem;
+      color: var(--jw-laranja);
+      font-weight: bold;
+      margin: 20px 0;
+      animation: pulsar 1s infinite;
+    }
+
+    .resumo {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .resumo-item {
+      background: var(--jw-cinza-claro);
+      padding: 14px 8px;
+      border-radius: 10px;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease-out forwards;
+    }
+
+    .resumo-item:nth-child(1) { animation-delay: 0.1s; }
+    .resumo-item:nth-child(2) { animation-delay: 0.2s; }
+    .resumo-item:nth-child(3) { animation-delay: 0.3s; }
+
+    .resumo-label { font-size: 0.8rem; color: var(--jw-azul-principal); margin-bottom: 5px; }
+    .resumo-valor { font-size: 1.6rem; color: var(--jw-azul-escuro); font-weight: bold; }
+
+    .podio {
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      padding: 18px;
+      border-radius: 12px;
+      margin: 20px 0;
+      animation: fadeIn 1s;
+    }
+
+    .podio h3 { text-align: center; color: var(--jw-azul-escuro); font-size: 1.3rem; margin-bottom: 12px; }
+
+    .podio-item {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 8px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 0;
+      animation: slideInLeft 0.5s ease-out forwards;
+      gap: 8px;
+    }
+
+    .podio-posicao { font-size: 1.5rem; flex-shrink: 0; min-width: 35px; text-align: center; }
+    .podio-nome { flex: 1; font-size: 0.9rem; font-weight: bold; color: var(--jw-azul-escuro); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .podio-pontos { font-size: 1rem; font-weight: bold; color: var(--jw-laranja); flex-shrink: 0; min-width: 60px; text-align: right; }
+
+    .streak-indicator {
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      color: white;
+      padding: 6px 10px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+      animation: shake 0.5s;
+    }
+
+    .floating-points {
+      position: fixed;
+      font-size: 2.2rem;
+      font-weight: bold;
+      pointer-events: none;
+      z-index: 9999;
+      animation: floatUp 2s ease-out forwards;
+    }
+    .floating-points.bonus {
+      color: #FFD700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-size: 2.8rem;
+    }
+    .floating-points.normal {
+      color: var(--jw-verde-sucesso);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0) scale(1); }
+      50% { transform: translateY(-50px) scale(1.2); }
+      100% { opacity: 0; transform: translateY(-150px) scale(0.8); }
+    }
+    @keyframes pulsar { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes slideInLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes bounceIn {
+      0% { opacity: 0; transform: scale(0.3); }
+      50% { transform: scale(1.05); }
+      70% { transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+    @keyframes girar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    .loading { text-align: center; padding: 40px; }
+    .loading-spinner { font-size: 2.5rem; animation: girar 1s linear infinite; }
+
+    /* ==========================================
+       ✅ RESUMO DA FASE (dedup: definido 1 vez)
+       ========================================== */
+    .fase-resumo {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      border: 3px solid var(--jw-dourado);
+      background: linear-gradient(135deg, #fff6d6, #ffe8a3);
+      border-radius: 16px;
+      padding: 20px 14px;
+      animation: bounceIn 0.5s;
+    }
+
+    .fase-resumo h2 { color: var(--jw-azul-escuro); margin-bottom: 8px; font-size: 1.4rem; }
+    .fase-resumo .fase-sub { color: #7a5a00; font-weight: 700; margin-bottom: 12px; }
+
+    .fase-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 14px 0;
+    }
+
+    .fase-box {
+      background: rgba(255,255,255,0.92);
+      border: 2px solid #f2cf61;
+      border-radius: 10px;
+      padding: 8px;
+    }
+
+    .fase-box .lbl { font-size: 0.72rem; color: #7a5a00; font-weight: 700; }
+    .fase-box .val { font-size: 1.2rem; color: var(--jw-azul-escuro); font-weight: 800; margin-top: 2px; }
+
+    .fase-cta { margin-top: 12px; display: grid; gap: 8px; }
+
+    .btn-continue {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, #2E5B93, #1F4273);
+      cursor: pointer;
+    }
+
+    .stars-rain { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .star { position: absolute; top: -20px; font-size: 16px; animation: cair 2.2s linear infinite; opacity: 0.8; }
+    @keyframes cair {
+      from { transform: translateY(-30px) rotate(0deg); opacity: .9; }
+      to { transform: translateY(360px) rotate(360deg); opacity: 0; }
+    }
+
+    /* ==========================================
+       ✅ BANNER DO JOGADOR (dedup: definido 1 vez)
+       ========================================== */
+    .player-banner {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(227,242,253,0.9));
+      border: 3px solid rgba(46, 91, 147, 0.32);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.10);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .player-banner::before {
+      content: "";
+      position: absolute;
+      inset: -35%;
+      background: radial-gradient(circle at 18% 20%, rgba(242, 183, 5, 0.18), transparent 55%),
+                  radial-gradient(circle at 82% 35%, rgba(242, 140, 27, 0.12), transparent 55%),
+                  radial-gradient(circle at 60% 90%, rgba(46, 91, 147, 0.12), transparent 55%);
+      transform: rotate(8deg);
+      pointer-events: none;
+    }
+
+    .player-lines { position: relative; z-index: 1; display: grid; gap: 6px; }
+
+    .player-line1 {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .player-name {
+      font-size: 1.05rem;
+      font-weight: 950;
+      color: var(--jw-azul-escuro);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .player-title {
+      font-size: 0.74rem;
+      font-weight: 900;
+      padding: 2px 10px;
+      border-radius: 999px;
+      border: 2px solid rgba(46, 91, 147, 0.22);
+      background: rgba(255,255,255,0.78);
+      color: var(--jw-azul-escuro);
+      text-transform: uppercase;
+      letter-spacing: 0.25px;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+
+    .player-line2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .metric {
+      background: rgba(255,255,255,0.75);
+      border: 2px solid rgba(46, 91, 147, 0.16);
+      border-radius: 12px;
+      padding: 8px 10px;
+      display: grid;
+      gap: 2px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.06);
+    }
+
+    .metric .lbl {
+      font-size: 0.68rem;
+      font-weight: 900;
+      opacity: 0.7;
+      color: var(--jw-azul-escuro);
+      letter-spacing: 0.2px;
+    }
+
+    .metric .val {
+      font-size: 1.05rem;
+      font-weight: 1000;
+      color: var(--jw-azul-escuro);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @media (max-width: 420px) {
+      .card { padding: 12px; border-radius: 18px; }
+      .numero-pergunta { font-size: 0.92rem; }
+      .timer { font-size: 1.35rem; min-width: 48px; }
+
+      .player-banner { padding: 9px 10px; border-radius: 12px; }
+      .player-name { font-size: 1.0rem; }
+      .player-title { font-size: 0.70rem; padding: 2px 8px; }
+
+      .player-line2 { gap: 8px; }
+      .metric { padding: 8px 9px; border-radius: 11px; }
+      .metric .lbl { font-size: 0.64rem; }
+      .metric .val { font-size: 1.0rem; }
+
+      .dicas { padding: 12px; min-height: 96px; margin-bottom: 8px; }
+      .dica { font-size: 1.08rem; line-height: 1.45; padding-left: 32px; margin-bottom: 8px; }
+      .dica::before { font-size: 1.35rem; }
+      .dica-timer { font-size: 0.82rem; margin-top: 6px; padding-top: 6px; }
+
+      .opcoes-container { gap: 7px; margin-bottom: 8px; }
+      .opcao { font-size: 0.95rem; padding: 11px 9px; min-height: 44px; border-width: 2px; }
+
+      .stats { gap: 7px; margin-bottom: 10px; }
+      .stat-box { padding: 9px 6px; }
+      .stat-value { font-size: 1.12rem; }
+    }
+
+    @media (max-width: 360px) {
+      .player-name { font-size: 0.96rem; }
+      .player-title { font-size: 0.66rem; padding: 2px 7px; }
+      .metric .val { font-size: 0.95rem; }
+      .dica { font-size: 1.02rem; }
+      .opcao { font-size: 0.92rem; }
+    }
+
+    /* =========================================================
+       ✅ MELHORIAS DA TELA INICIAL (dedup: definido 1 vez)
+       ========================================================= */
+    .label-joy{
+      display:block;
+      margin-bottom: 8px;
+      color: #1E3A5F;
+      font-weight: 900;
+      font-size: 0.98rem;
+    }
+
+    .start-tip{
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #FFD700, #FFB300);
+      color: #1F4273;
+      font-weight: 900;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.12);
+      border: 2px dashed rgba(31,66,115,0.28);
+      line-height: 1.25;
+    }
+
+    .start-tip-ex{
+      margin-top: 6px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      opacity: 0.95;
+    }
+
+    .start-tip-ex span{
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(31,66,115,0.18);
+      padding: 2px 8px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-right: 6px;
+    }
+
+    .start-field{
+      border-radius: 14px;
+      border-width: 3px;
+      padding: 16px 14px;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.08);
+      margin-bottom: 10px;
+    }
+
+    .start-helper{
+      margin-top: -2px;
+      margin-bottom: 10px;
+      color: rgba(31,66,115,0.92);
+      font-weight: 800;
+      font-size: 0.88rem;
+    }
+
+    .name-head{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .name-counter{
+      font-size: 0.8rem;
+      font-weight: 900;
+      color: rgba(31,66,115,0.9);
+      background: rgba(255,255,255,0.7);
+      border: 2px solid rgba(46,91,147,0.18);
+      border-radius: 999px;
+      padding: 6px 10px;
+      user-select: none;
+      flex: 0 0 auto;
+    }
+
+    .start-warn{
+      display:none;
+      margin: 8px 0 10px;
+      background: rgba(217,83,79,0.10);
+      border: 2px solid rgba(217,83,79,0.35);
+      color: #7a1e1c;
+      font-weight: 900;
+      padding: 10px 12px;
+      border-radius: 12px;
+    }
+
+    .start-btn{
+      min-height: 54px;
+      border-radius: 14px;
+    }
+
+    .cat-grid{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .cat-btn{
+      width: 100%;
+      border: 3px solid rgba(46,91,147,0.55);
+      border-radius: 14px;
+      padding: 14px 12px;
+      font-size: 1rem;
+      font-weight: 950;
+      cursor: pointer;
+      user-select: none;
+      touch-action: manipulation;
+      transition: transform .12s, box-shadow .12s, filter .12s, background .12s, color .12s, border-color .12s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 54px;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.08);
+      flex-wrap: wrap;
+    }
+
+    .cat-btn.is-off{
+      background: rgba(255,255,255,0.75);
+      color: rgba(31,66,115,0.65);
+      border-color: rgba(31,66,115,0.18);
+      filter: grayscale(1);
+    }
+
+    /* ✅ ATIVO: VERDE (greenfix) */
+    .cat-btn.is-on{
+      background: linear-gradient(135deg, #39b54a, #1d7f34);
+      color: #fff;
+      border-color: rgba(255,255,255,0.12);
+      filter: none;
+      box-shadow: 0 14px 22px rgba(0,0,0,0.18);
+    }
+
+    .cat-btn.is-on::after{
+      content: "✓";
+      font-weight: 1000;
+      margin-left: 8px;
+      background: rgba(255,255,255,0.18);
+      border: 2px solid rgba(255,255,255,0.25);
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cat-btn:active{ transform: scale(0.99); }
+    .cat-emoji{ font-size: 1.15rem; }
+
+    .cat-sub {
+      font-size: 0.82rem;
+      font-weight: 900;
+      opacity: 0.92;
+      width: 100%;
+      text-align: center;
+      margin-top: 2px;
+    }
+
+    .cat-btn.is-off .cat-sub { opacity: 0.70; }
+
+    @media (max-width: 420px){
+      .start-field{ padding: 15px 12px; }
+      .start-tip{ font-size: 0.95rem; }
+      .start-helper{ font-size: 0.85rem; }
+      .cat-btn{ padding: 14px 10px; }
+      .cat-sub { font-size: 0.78rem; }
+    }
+
+    /* =========================================================
+       ✅ AJUSTE MOBILE: reduzir botões de categoria para caber "Iniciar Jogo"
+       (adicionei no final para sobrescrever)
+       ========================================================= */
+    @media (max-width: 420px){
+      /* reduz espaço geral do card inicial */
+      #tela-inicial.card { padding: 10px; }
+
+      .header { margin-bottom: 10px; }
+      .header h1 { font-size: 1.45rem; margin-bottom: 6px; }
+
+      /* caixa amarela menor */
+      .start-tip { margin-top: 8px; padding: 8px 10px; font-size: 0.9rem; }
+      .start-tip-ex { margin-top: 4px; font-size: 0.8rem; }
+
+      /* botões de categoria menores */
+      .cat-grid { gap: 8px; margin-bottom: 8px; }
+
+      .cat-btn{
+        padding: 10px 10px;
+        min-height: 46px;
+        border-radius: 12px;
+        font-size: 0.95rem;
+        box-shadow: 0 8px 14px rgba(0,0,0,0.07);
+      }
+
+      .cat-emoji { font-size: 1.05rem; }
+
+      .cat-sub{
+        margin-top: 0;
+        font-size: 0.75rem;
+        line-height: 1.1;
+      }
+
+      /* bolinha do ✓ menor */
+      .cat-btn.is-on::after{
+        width: 22px;
+        height: 22px;
+        margin-left: 6px;
+        border-width: 2px;
+      }
+
+      /* campo e botões finais mais compactos */
+      .start-field{ padding: 14px 12px; }
+      .start-btn{ min-height: 48px; padding: 14px; }
+    }
+
+    /* ========================================================
+       🎮 MELHORIAS ANIMADAS - TELA INICIAL (estilo divertido)
+       ======================================================== */
+
+    /* Partículas flutuantes no fundo */
+    .bg-particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: floatParticle linear infinite;
+    }
+    @keyframes floatParticle {
+      0%   { opacity: 0;   transform: translateY(105vh) scale(0.5) rotate(0deg); }
+      10%  { opacity: 0.9; }
+      85%  { opacity: 0.5; }
+      100% { opacity: 0;   transform: translateY(-10vh) scale(1.3) rotate(360deg); }
+    }
+
+    /* Container acima das partículas */
+    .container { position: relative; z-index: 1; }
+
+    /* Título com gradiente dourado animado */
+    #tela-inicial .header h1 {
+      background: linear-gradient(90deg, #FFD700 0%, #FF8C00 40%, #FFD700 80%, #FF8C00 100%);
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: titleShine 3s linear infinite;
+      filter: drop-shadow(0 2px 8px rgba(255, 190, 0, 0.4));
+      font-size: 2rem;
+    }
+    @keyframes titleShine {
+      0%   { background-position: 0%   center; }
+      100% { background-position: 250% center; }
+    }
+
+    /* Caixa de dica flutuando suavemente */
+    .start-tip {
+      animation: tipFloat 3.5s ease-in-out infinite;
+    }
+    @keyframes tipFloat {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-5px); }
+    }
+
+    /* Hover nos botões de categoria - efeito de elevação */
+    .cat-btn:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 22px 36px rgba(0, 0, 0, 0.2);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    /* Categoria selecionada - pulso verde brilhante */
+    .cat-btn.is-on {
+      animation: catGlow 1.8s ease-in-out infinite;
+    }
+    @keyframes catGlow {
+      0%, 100% { box-shadow: 0 14px 22px rgba(0,0,0,0.18); }
+      50%       { box-shadow: 0 20px 34px rgba(0,0,0,0.22), 0 0 26px rgba(57, 181, 74, 0.6); }
+    }
+
+    /* Botão "Iniciar Jogo" com glow laranja pulsante */
+    .start-btn.btn-primary {
+      background: linear-gradient(135deg, #FF6B35 0%, #E63900 100%);
+      box-shadow: 0 8px 24px rgba(230, 57, 0, 0.45);
+      animation: startPulse 2.2s ease-in-out infinite;
+      font-size: 1.15rem;
+      letter-spacing: 0.4px;
+    }
+    @keyframes startPulse {
+      0%, 100% { box-shadow: 0 8px 24px rgba(230,57,0,0.45); transform: scale(1); }
+      50%       { box-shadow: 0 16px 40px rgba(230,57,0,0.72); transform: scale(1.02); }
+    }
+    .start-btn.btn-primary:active { transform: scale(0.97) !important; animation: none; }
+
+    /* Campo de nome com brilho dourado ao focar */
+    #nome-jogador:focus {
+      outline: none;
+      border-color: var(--jw-dourado);
+      box-shadow: 0 0 0 4px rgba(242, 183, 5, 0.32);
+      transition: box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    /* ========================================================
+       🎮 MELHORIAS TELAS DE JOGO E RESULTADO (animado/divertido)
+       ======================================================== */
+
+    /* 1. Timer — pulso suave permanente */
+    .timer {
+      animation: timerTick 1.5s ease-in-out infinite;
+      border-radius: 8px;
+      padding: 2px 6px;
+    }
+    @keyframes timerTick {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.07); }
+    }
+
+    /* Urgência quando ≤ 10 segundos (classe adicionada via JS) */
+    .timer-urgente {
+      animation: timerUrge 0.55s ease-in-out infinite !important;
+      background: rgba(217, 83, 79, 0.12);
+    }
+    @keyframes timerUrge {
+      0%, 100% { transform: scale(1);    text-shadow: 0 0 8px  rgba(217,83,79,0.5); }
+      50%       { transform: scale(1.14); text-shadow: 0 0 22px rgba(217,83,79,0.9); }
+    }
+
+    /* 2. Dicas — borda que alterna entre azul e dourado */
+    .dicas {
+      animation: dicasBorder 4s ease-in-out infinite;
+    }
+    @keyframes dicasBorder {
+      0%, 100% { border-color: var(--jw-azul-principal); box-shadow: 0 4px 15px rgba(74,109,167,0.2); }
+      50%       { border-color: var(--jw-dourado);        box-shadow: 0 8px 24px rgba(242,183,5,0.28); }
+    }
+
+    /* 3. Botões de resposta — hover com elevação */
+    .opcao:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 8px 20px rgba(46, 91, 147, 0.25);
+      border-color: var(--jw-azul-claro);
+      transition: all 0.15s ease;
+    }
+    .opcao.correta {
+      box-shadow: 0 0 26px rgba(92, 184, 92, 0.65);
+      animation: correctPop 0.6s ease-out forwards;
+    }
+    @keyframes correctPop {
+      0%   { transform: scale(1); }
+      40%  { transform: scale(1.07); }
+      70%  { transform: scale(0.97); }
+      100% { transform: scale(1); }
+    }
+    .opcao.errada {
+      box-shadow: 0 0 20px rgba(217, 83, 79, 0.55);
+      animation: shake 0.6s ease-out;
+    }
+
+    /* 4. Stats — shimmer brilhante no box de Pontos */
+    .stat-box:first-child {
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-box:first-child::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -80%;
+      width: 50%;
+      height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+      animation: shimmerPass 3s linear infinite;
+    }
+    @keyframes shimmerPass {
+      0%   { left: -80%; }
+      100% { left: 130%; }
+    }
+
+    /* 5. Streak — pulso de fogo */
+    .streak-indicator {
+      animation: firePulse 0.9s ease-in-out infinite !important;
+    }
+    @keyframes firePulse {
+      0%, 100% { box-shadow: 0 4px 12px rgba(255,107,107,0.40); transform: scale(1); }
+      50%       { box-shadow: 0 8px 26px rgba(255,107,107,0.75); transform: scale(1.04); }
+    }
+
+    /* 6. Feedback com borda lateral colorida */
+    .feedback { font-size: 0.95rem; }
+    .feedback.correto { border-left: 5px solid var(--jw-verde-sucesso); padding-left: 14px; }
+    .feedback.errado  { border-left: 5px solid var(--jw-vermelho-erro);  padding-left: 14px; }
+
+    /* ── TELA DE RESULTADO ── */
+
+    /* 7. Título "Finalizado!" com gradiente dourado */
+    #tela-resultado .header h1 {
+      background: linear-gradient(90deg, #FFD700 0%, #FF8C00 40%, #FFD700 80%, #FF8C00 100%);
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: titleShine 3s linear infinite;
+      filter: drop-shadow(0 2px 8px rgba(255,190,0,0.4));
+    }
+
+    /* 8. Pontuação final com glow dourado */
+    .pontuacao-final {
+      font-size: 3.2rem;
+      animation: scorePulse 1.2s ease-in-out infinite;
+    }
+    @keyframes scorePulse {
+      0%, 100% { text-shadow: 0 0 14px rgba(242,183,5,0.5); transform: scale(1); }
+      50%       { text-shadow: 0 0 36px rgba(242,183,5,0.88); transform: scale(1.06); }
+    }
+
+    /* 9. Itens do resumo com cores distintas */
+    .resumo-item {
+      background: rgba(255, 255, 255, 0.92);
+      border: 2px solid rgba(46, 91, 147, 0.10);
+    }
+    .resumo-item:nth-child(1) { border-left: 5px solid var(--jw-verde-sucesso); }
+    .resumo-item:nth-child(2) { border-left: 5px solid var(--jw-vermelho-erro); }
+    .resumo-item:nth-child(3) { border-left: 5px solid var(--jw-dourado); }
+
+    /* 10. Pódio — top 3 com cores de medalha, hover lift */
+    .podio-item {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .podio-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .podio-item:nth-child(1) { border-left: 5px solid #FFD700; }
+    .podio-item:nth-child(2) { border-left: 5px solid #C0C0C0; }
+    .podio-item:nth-child(3) { border-left: 5px solid #CD7F32; }
+
+    /* 11. Botões da tela de resultado */
+    #tela-resultado .btn-primary {
+      background: linear-gradient(135deg, #FF6B35 0%, #E63900 100%);
+      box-shadow: 0 8px 24px rgba(230, 57, 0, 0.40);
+      animation: startPulse 2.4s ease-in-out infinite;
+      font-size: 1.1rem;
+    }
+    #tela-resultado .btn-secondary:hover {
+      background: rgba(46, 91, 147, 0.12);
+      color: var(--jw-azul-escuro);
+      transition: background 0.2s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-particles" id="bg-particles"></div>
+  <div class="container">
+    <div class="card" id="tela-inicial">
+      <div class="header">
+        <h1>🎮 Desafio do Pingão - Cartas Bíblicas</h1>
+        <div class="start-tip" id="start-tip">
+          🏆 Para salvar seus pontos no ranking, use <b>Nome + Sobrenome</b> ou um <b>apelido fixo</b>.
+          <div class="start-tip-ex">
+            Ex.: <span>“Ana Silva”</span> · <span>“JPdoPingão”</span>
+          </div>
+        </div>
+      </div>
+
+      <label class="label-joy">📚 Categoria:</label>
+
+      <div class="cat-grid" id="cat-grid">
+        <button type="button" class="cat-btn" data-value="personagens">
+          <span class="cat-emoji">👤</span> Personagens Bíblicos
+          <div class="cat-sub" id="cat-count-personagens">— cartas</div>
+        </button>
+
+        <button type="button" class="cat-btn" data-value="profecias">
+          <span class="cat-emoji">📜</span> Profecias
+          <div class="cat-sub" id="cat-count-profecias">— cartas</div>
+        </button>
+
+        <button type="button" class="cat-btn" data-value="pregacao">
+          <span class="cat-emoji">🎤</span> Pregação · Família · Ensinos Bíblicos
+          <div class="cat-sub" id="cat-count-pregacao">— cartas</div>
+        </button>
+      </div>
+
+      <input type="hidden" id="categoria" value="personagens">
+
+      <div class="name-head">
+        <label for="nome-jogador" class="label-joy" style="margin:0;">✏️ Seu Nome:</label>
+        <div class="name-counter" id="name-counter">0/22</div>
+      </div>
+
+      <input
+        type="text"
+        id="nome-jogador"
+        class="categoria-select start-field"
+        placeholder="Ex: Maria Souza / MZGames"
+        autocomplete="name"
+        inputmode="text"
+        maxlength="22"
+      >
+
+      <div class="start-helper" id="start-helper">
+        Dica: use sempre o <b>mesmo nome</b> para seus pontos somarem.
+      </div>
+
+      <div class="start-warn" id="start-warn" aria-live="polite">
+        ⚠️ Digite um nome válido (ex.: “João Pereira” ou “JPedroso”).
+      </div>
+
+      <button class="btn btn-primary start-btn" onclick="iniciarJogo()">🚀 Iniciar Jogo</button>
+      <a href="index.html" class="btn btn-secondary start-btn">🏠 Voltar ao Menu</a>
+    </div>
+
+    <div class="card pergunta-container" id="tela-jogo"></div>
+
+    <div class="card resultado-final" id="tela-resultado">
+      <div class="header">
+        <h1>🎊 Finalizado!</h1>
+      </div>
+
+      <div class="pontuacao-final" id="pontuacao-final">0</div>
+
+      <div class="resumo">
+        <div class="resumo-item">
+          <div class="resumo-label">✅ Acertos</div>
+          <div class="resumo-valor" id="resumo-acertos">0</div>
+        </div>
+        <div class="resumo-item">
+          <div class="resumo-label">❌ Erros</div>
+          <div class="resumo-valor" id="resumo-erros">0</div>
+        </div>
+        <div class="resumo-item">
+          <div class="resumo-label">🎯 Precisão</div>
+          <div class="resumo-valor" id="resumo-precisao">0%</div>
+        </div>
+      </div>
+
+      <div class="podio" id="podio-container" style="display: none;">
+        <h3>🏆 Top 5 Ranking</h3>
+        <div id="podio-lista"></div>
+      </div>
+
+      <button class="btn btn-primary" onclick="location.reload()">🔄 Jogar Novamente</button>
+      <a href="index.html" class="btn btn-secondary">🏠 Menu</a>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script>
+    const AudioSystem = {
+      context: null,
+      volume: 0.25,
+
+      init() {
+        try {
+          this.context = new (window.AudioContext || window.webkitAudioContext)();
+        } catch(e) {}
+      },
+
+      playNote(frequency, duration, type = 'sine', volume = this.volume) {
+        if (!this.context) return;
+        try {
+          const oscillator = this.context.createOscillator();
+          const gainNode = this.context.createGain();
+          oscillator.connect(gainNode);
+          gainNode.connect(this.context.destination);
+          oscillator.frequency.value = frequency;
+          oscillator.type = type;
+          gainNode.gain.setValueAtTime(volume, this.context.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, this.context.currentTime + duration);
+          oscillator.start(this.context.currentTime);
+          oscillator.stop(this.context.currentTime + duration);
+        } catch(e) {}
+      },
+
+      click() { this.playNote(800, 0.08, 'sine', 0.12); },
+      newQuestion() {
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+          setTimeout(() => this.playNote(freq, 0.15, 'triangle', 0.15), i * 100);
+        });
+      },
+      showHint() { this.playNote(600, 0.08, 'sine', 0.08); },
+      correct() {
+        [659.25, 783.99, 1046.50].forEach((freq, i) => {
+          setTimeout(() => this.playNote(freq, 0.12, 'triangle', 0.2), i * 80);
+        });
+      },
+      correctBonus() {
+        [783.99, 1046.50, 1318.51, 1567.98, 2093.00].forEach((freq, i) => {
+          setTimeout(() => this.playNote(freq, 0.1, 'sine', 0.25), i * 50);
+        });
+      },
+      coinsStars() {
+        [1046.5, 1318.51, 1567.98, 2093.0].forEach((freq, i) => {
+          setTimeout(() => this.playNote(freq, 0.1, 'triangle', 0.28), i * 45);
+        });
+        setTimeout(() => {
+          [659.25, 783.99, 987.77].forEach((freq, i) => {
+            setTimeout(() => this.playNote(freq, 0.12, 'sine', 0.22), i * 50);
+          });
+        }, 220);
+      },
+      superBonus() {
+        this.playNote(988, 0.05, 'square', 0.35);
+        setTimeout(() => this.playNote(1319, 0.12, 'square', 0.35), 60);
+        setTimeout(() => {
+          for (let i = 0; i < 4; i++) {
+            setTimeout(() => this.playNote(1568 + (i * 250), 0.06, 'sine', 0.2), i * 30);
+          }
+        }, 180);
+      },
+      gameComplete() {
+        [523.25, 659.25, 783.99, 1046.50, 1318.51, 1568, 2093].forEach((freq, i) => {
+          setTimeout(() => this.playNote(freq, 0.25, 'sine', 0.2), i * 80);
+        });
+      },
+      error() { this.playNote(196, 0.3, 'sawtooth', 0.15); }
+    };
+
+    AudioSystem.init();
+
+    // ── Partículas flutuantes animadas no fundo ──
+    (function criarParticulas() {
+      const container = document.getElementById('bg-particles');
+      if (!container) return;
+      const cores = ['#FFD700','#FFA500','#FFFFFF','#5F86BD','#FF6B35','#FFB300'];
+      const tamanhos = [6, 8, 10, 12, 14];
+      const total = 22;
+      for (let i = 0; i < total; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const cor = cores[Math.floor(Math.random() * cores.length)];
+        const tam = tamanhos[Math.floor(Math.random() * tamanhos.length)];
+        const dur = (5 + Math.random() * 9).toFixed(1) + 's';
+        const delay = -(Math.random() * 10).toFixed(1) + 's'; // negativo = já em andamento
+        const left = (Math.random() * 100).toFixed(1) + '%';
+        p.style.cssText = `width:${tam}px;height:${tam}px;background:${cor};left:${left};animation-duration:${dur};animation-delay:${delay};opacity:0;`;
+        container.appendChild(p);
+      }
+    })();
+
+    function mostrarPontosAnimados(pontos, isBonus = false) {
+      const elemento = document.createElement('div');
+      elemento.className = `floating-points ${isBonus ? 'bonus' : 'normal'}`;
+      elemento.textContent = `+${pontos} ${isBonus ? '🔥' : ''}`;
+      const x = Math.random() * (window.innerWidth - 150) + 75;
+      const y = window.innerHeight / 2;
+      elemento.style.left = `${x}px`;
+      elemento.style.top = `${y}px`;
+      document.body.appendChild(elemento);
+      setTimeout(() => elemento.remove(), 2000);
+    }
+
+    function limparEspacosNome(s) {
+      return String(s || '').replace(/\s+/g, ' ').trim();
+    }
+
+    function nomeValidoParaRanking(s) {
+      const nome = limparEspacosNome(s);
+      if (!nome) return false;
+      if (nome.length < 2) return false;
+      return true;
+    }
+
+    function setupCategoriasBotoes() {
+      const grid = document.getElementById('cat-grid');
+      const inputHidden = document.getElementById('categoria');
+      if (!grid || !inputHidden) return;
+
+      function setCategoria(valor) {
+        inputHidden.value = valor;
+
+        [...grid.querySelectorAll('.cat-btn')].forEach(btn => {
+          const v = btn.getAttribute('data-value');
+          const on = v === valor;
+          btn.classList.toggle('is-on', on);
+          btn.classList.toggle('is-off', !on);
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+      }
+
+      grid.addEventListener('click', (e) => {
+        const btn = e.target.closest('.cat-btn');
+        if (!btn) return;
+        AudioSystem.click();
+        const valor = btn.getAttribute('data-value') || 'personagens';
+        setCategoria(valor);
+      });
+
+      setCategoria(inputHidden.value || 'personagens');
+    }
+
+    function setupTelaInicialSoloUX() {
+      const input = document.getElementById('nome-jogador');
+      const counter = document.getElementById('name-counter');
+      const warn = document.getElementById('start-warn');
+      if (!input || !counter) return;
+
+      const max = Number(input.getAttribute('maxlength') || 22);
+
+      function updateCounter() {
+        const v = limparEspacosNome(input.value);
+        counter.textContent = `${v.length}/${max}`;
+      }
+
+      updateCounter();
+
+      input.addEventListener('input', () => {
+        const before = input.value;
+        const cleaned = limparEspacosNome(before);
+        if (cleaned !== before) input.value = cleaned;
+        if (warn) warn.style.display = 'none';
+        updateCounter();
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') iniciarJogo();
+      });
+    }
+
+    async function carregarContagemCartasCategoria(categoria) {
+      try {
+        const res = await fetch(`${API_BASE}/cartas/${categoria}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const total = Array.isArray(data?.cartas) ? data.cartas.length : 0;
+        return total;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    async function preencherContagensCategorias() {
+      const map = {
+        personagens: document.getElementById('cat-count-personagens'),
+        profecias: document.getElementById('cat-count-profecias'),
+        pregacao: document.getElementById('cat-count-pregacao')
+      };
+
+      Object.values(map).forEach(el => { if (el) el.textContent = 'Carregando...'; });
+
+      const categorias = Object.keys(map);
+      const results = await Promise.all(categorias.map(c => carregarContagemCartasCategoria(c)));
+
+      categorias.forEach((cat, i) => {
+        const el = map[cat];
+        if (!el) return;
+
+        const n = results[i];
+        if (typeof n === 'number') {
+          el.textContent = `${n.toLocaleString('pt-BR')} cartas`;
+        } else {
+          el.textContent = '— cartas';
+        }
+      });
+    }
+
+    const API_BASE = window.APP_CONFIG.API_BASE;
+    const SOLO_BUILD_VERSION = "2026-03-06-solo-gameplay-dif-mult+streak-milestones+session-banner-v1";
+    const TOTAL_FASES = 10;
+    const CARTAS_POR_FASE = 10;
+    const TOTAL_PERGUNTAS = TOTAL_FASES * CARTAS_POR_FASE;
+    const TEMPO_POR_PERGUNTA = 60;
+
+    const TITULOS_FASE = [
+      'Estudante',
+      'Conhecedor',
+      'Pesquisador',
+      'Estrategista',
+      'Analista',
+      'Especialista',
+      'Sábio',
+      'Mentor',
+      'Mestre da Perseverança',
+      'Lenda do Conhecimento'
+    ];
+
+    const LOCAL_HISTORY_LIMIT = 200;
+    const LOCAL_HISTORY_MIN_KEEP = 50;
+    const LOCAL_STORAGE_VERSION = 1;
+
+    function normalizarTexto(texto) {
+      return String(texto || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+    }
+
+    function normalizarNomeRanking(nome) {
+      return String(nome || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase();
+    }
+
+    function getHistoryStorageKey() {
+      const nome = (localStorage.getItem('nomeJogador') || '').trim() || 'anon';
+      const cat = categoria || 'geral';
+      return `qsEU:v${LOCAL_STORAGE_VERSION}:used:${nome.toLowerCase()}:${cat}`;
+    }
+
+    function cardKey(carta) {
+      if (!carta) return '';
+      if (carta.id !== undefined && carta.id !== null && String(carta.id).trim() !== '') {
+        return `id:${String(carta.id).trim()}`;
+      }
+      const base = [
+        categoria || '',
+        carta.resposta || '',
+        carta.dica1 || '',
+        carta.dica2 || '',
+        carta.dica3 || ''
+      ].join('|');
+
+      let hash = 0;
+      for (let i = 0; i < base.length; i++) {
+        hash = ((hash << 5) - hash) + base.charCodeAt(i);
+        hash |= 0;
+      }
+      return `h:${Math.abs(hash)}`;
+    }
+
+    function loadLocalUsedKeys() {
+      try {
+        const raw = localStorage.getItem(getHistoryStorageKey());
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return [];
+        return parsed.filter(Boolean);
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveLocalUsedKeys(keys) {
+      try {
+        localStorage.setItem(getHistoryStorageKey(), JSON.stringify(keys));
+      } catch (e) {
+        try {
+          const truncated = keys.slice(Math.max(0, keys.length - LOCAL_HISTORY_MIN_KEEP));
+          localStorage.setItem(getHistoryStorageKey(), JSON.stringify(truncated));
+        } catch (e2) {}
+      }
+    }
+
+    function appendToLocalHistory(newKeys) {
+      const current = loadLocalUsedKeys();
+      const merged = [...current, ...newKeys].filter(Boolean);
+
+      const seen = new Set();
+      const dedup = [];
+      for (const k of merged) {
+        if (seen.has(k)) continue;
+        seen.add(k);
+        dedup.push(k);
+      }
+
+      const finalList = dedup.slice(Math.max(0, dedup.length - LOCAL_HISTORY_LIMIT));
+      saveLocalUsedKeys(finalList);
+      return finalList;
+    }
+
+    function fisherYatesShuffle(array) {
+      const a = [...array];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    let cartas = [];
+    let cartasCategoriaAtual = [];
+    let perguntaAtual = 0;
+    let pontos = 0;
+    let acertos = 0;
+    let erros = 0;
+    let timerInterval = null;
+    let tempoRestante = TEMPO_POR_PERGUNTA;
+    let categoria = 'personagens';
+    let nomeJogador = '';
+    let cartaAtualObj = null;
+    let inicioResposta = null;
+    let sequenciaRapida = 0;
+    let respostaJaSelecionada = false;
+    let dicasVisiveis = 0;
+    let dicaTimerInterval = null;
+    let faseAtual = 1;
+    let multiplicadorFaseAtual = 1;
+    let rodadaPerfeita = true;
+    let errosPorFase = Array(TOTAL_FASES).fill(0);
+    let pontosNormaisTotal = 0;
+    let pontosBonusTotal = 0;
+    let pontosNormaisPorFase = Array(TOTAL_FASES).fill(0);
+    let pontosBonusPorFase = Array(TOTAL_FASES).fill(0);
+
+    // ✅ cache simples do ranking (evita chamar /ranking a cada pergunta)
+    let _rankingCache = { at: 0, ranking: null };
+    const RANKING_CACHE_MS = 15000;
+
+    async function getRankingListCached() {
+      const now = Date.now();
+      if (_rankingCache.ranking && (now - _rankingCache.at) < RANKING_CACHE_MS) {
+        return _rankingCache.ranking;
+      }
+      const response = await fetch(`${API_BASE}/ranking`, { cache: 'no-store' });
+      const data = await response.json();
+      const ranking = Array.isArray(data?.ranking) ? data.ranking : [];
+      _rankingCache = { at: now, ranking };
+      return ranking;
+    }
+
+    function parseRankingPoints(value) {
+      if (value === null || value === undefined) return 0;
+      if (typeof value === 'number' && Number.isFinite(value)) return Math.floor(value);
+      const s = String(value).trim();
+      if (!s) return 0;
+      const onlyDigits = s.replace(/[^\d]/g, '');
+      const n = parseInt(onlyDigits, 10);
+      return Number.isFinite(n) ? n : 0;
+    }
+
+    // Atualiza posição no ranking global no banner durante o jogo
+    async function atualizarIndicadoresRankingNoBanner() {
+      try {
+        const elPos = document.getElementById('player-posicao');
+        if (!elPos) return;
+
+        const nomeNorm = normalizarNomeRanking(nomeJogador);
+        if (!nomeNorm) { elPos.textContent = '—'; return; }
+
+        const ranking = await getRankingListCached();
+        const idx = ranking.findIndex(j => normalizarNomeRanking(j?.nome) === nomeNorm);
+        elPos.textContent = idx < 0 ? '—' : String(idx + 1);
+      } catch (e) {
+        console.error('❌ Erro ao atualizar posição no banner:', e);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const nomeSalvo = localStorage.getItem('nomeJogador');
+      if (nomeSalvo) {
+        const input = document.getElementById('nome-jogador');
+        if (input) input.value = nomeSalvo;
+      }
+
+      setupTelaInicialSoloUX();
+      setupCategoriasBotoes();
+      preencherContagensCategorias();
+
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', (e) => {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) e.preventDefault();
+        lastTouchEnd = now;
+      }, false);
+    });
+
+    async function iniciarJogo() {
+      AudioSystem.click();
+
+      categoria = document.getElementById('categoria').value;
+      nomeJogador = document.getElementById('nome-jogador').value.trim();
+
+      if (!nomeValidoParaRanking(nomeJogador)) {
+        const warn = document.getElementById('start-warn');
+        if (warn) warn.style.display = 'block';
+        document.getElementById('nome-jogador')?.focus();
+        return;
+      }
+      nomeJogador = limparEspacosNome(nomeJogador);
+
+      localStorage.setItem('nomeJogador', nomeJogador);
+
+      perguntaAtual = 0;
+      pontos = 0;
+      acertos = 0;
+      erros = 0;
+      sequenciaRapida = 0;
+      rodadaPerfeita = true;
+      errosPorFase = Array(TOTAL_FASES).fill(0);
+      pontosNormaisTotal = 0;
+      pontosBonusTotal = 0;
+      pontosNormaisPorFase = Array(TOTAL_FASES).fill(0);
+      pontosBonusPorFase = Array(TOTAL_FASES).fill(0);
+
+      _rankingCache = { at: 0, ranking: null };
+
+      document.getElementById('tela-inicial').style.display = 'none';
+      document.getElementById('tela-jogo').innerHTML = '<div class="loading"><div class="loading-spinner">⏳</div><p>Carregando...</p></div>';
+      document.getElementById('tela-jogo').style.display = 'block';
+
+      try {
+        const response = await fetch(`${API_BASE}/cartas/${categoria}`);
+        if (!response.ok) throw new Error(`Erro ao buscar cartas (HTTP ${response.status})`);
+        const data = await response.json();
+
+        if (!data.cartas || data.cartas.length === 0) throw new Error('Nenhuma carta encontrada para esta categoria');
+
+        cartasCategoriaAtual = data.cartas;
+        const cartasRecentesGlobal = await obterCartasRecentesGlobal();
+
+        cartas = selecionarCartasSemRepetir(data.cartas, cartasRecentesGlobal);
+        if (cartas.length < TOTAL_PERGUNTAS) throw new Error(`Cartas insuficientes para iniciar (mínimo ${TOTAL_PERGUNTAS}).`);
+
+        faseAtual = 1;
+        mostrarPergunta();
+      } catch (erro) {
+        console.error('❌ Erro:', erro);
+        alert(`❌ Erro ao carregar: ${erro.message || 'Tente novamente.'}`);
+        location.reload();
+      }
+    }
+
+    const PALAVRAS_GENERO = {
+      feminino: ['rainha', 'esposa', 'mãe', 'mae', 'filha', 'profetisa', 'juíza', 'juiza', 'viúva', 'viuva', 'irmã', 'irma', 'mulher', 'serva', 'ela', 'sua'],
+      masculino: ['rei', 'esposo', 'pai', 'filho', 'profeta', 'apóstolo', 'apostolo', 'sacerdote', 'irmão', 'irmao', 'homem', 'servo', 'marido', 'ele', 'seu']
+    };
+
+    const NOMES_FEMININOS_BIBLICOS = new Set([
+      'eva', 'sara', 'rebeca', 'raquel', 'lia', 'miriã', 'miriam', 'débora', 'debora',
+      'rute', 'ester', 'marta', 'maria', 'elisabete', 'ana', 'dalila', 'jezabel',
+      'abigail', 'priscila', 'loide', 'eunice', 'noemi', 'orfa', 'bete-seba', 'bateseba'
+    ]);
+
+    const NOMES_MASCULINOS_EXCECAO = new Set(['jeremias', 'isaias', 'miqueias', 'zacarias', 'ananias', 'urias', 'jonas', 'esdras', 'lucas', 'barnabas']);
+
+    function contarOcorrenciasGenero(textoBase, lista) {
+      return lista.reduce((total, termo) => total + (textoBase.includes(normalizarTexto(termo)) ? 1 : 0), 0);
+    }
+
+    function gerarSeedUnico() {
+      const timestamp = Date.now();
+      const milis = performance.now();
+      const random = Math.random() * 1000000;
+      return timestamp + milis + random;
+    }
+
+    function embaralharAvancado(array) {
+      const novo = [...array];
+      const seed = gerarSeedUnico();
+
+      function seededRandom(s) {
+        const x = Math.sin(s) * 10000;
+        return x - Math.floor(x);
+      }
+
+      for (let i = novo.length - 1; i > 0; i--) {
+        const j = Math.floor(seededRandom(seed + i) * (i + 1));
+        [novo[i], novo[j]] = [novo[j], novo[i]];
+      }
+
+      for (let i = novo.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [novo[i], novo[j]] = [novo[j], novo[i]];
+      }
+
+      const rotacao = Date.now() % novo.length;
+      const parte1 = novo.slice(rotacao);
+      const parte2 = novo.slice(0, rotacao);
+      const resultado = [...parte1, ...parte2];
+
+      for (let i = resultado.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [resultado[i], resultado[j]] = [resultado[j], resultado[i]];
+      }
+
+      return resultado;
+    }
+
+    function detectarGeneroCarta(carta) {
+      if (categoria !== 'personagens' || !carta) return 'neutro';
+
+      if (carta.genero) {
+        const g = normalizarTexto(String(carta.genero));
+        if (g.includes('femin')) return 'feminino';
+        if (g.includes('mascul')) return 'masculino';
+      }
+
+      if (carta.feminino === true || carta.feminino === 1) return 'feminino';
+      if (carta.masculino === true || carta.masculino === 1) return 'masculino';
+
+      const nome = normalizarTexto(carta.resposta || '');
+
+      if (NOMES_FEMININOS_BIBLICOS.has(nome)) return 'feminino';
+      if (NOMES_MASCULINOS_EXCECAO.has(nome)) return 'masculino';
+
+      const textoBase = normalizarTexto([
+        carta.resposta || '',
+        carta.dica1 || '',
+        carta.dica2 || '',
+        carta.dica3 || ''
+      ].join(' '));
+
+      const scoreFem = contarOcorrenciasGenero(textoBase, PALAVRAS_GENERO.feminino);
+      const scoreMasc = contarOcorrenciasGenero(textoBase, PALAVRAS_GENERO.masculino);
+
+      if (scoreFem > scoreMasc) return 'feminino';
+      if (scoreMasc > scoreFem) return 'masculino';
+
+      if (nome.endsWith('a') && !nome.endsWith('ias') && !nome.endsWith('as')) return 'feminino';
+      if (nome.endsWith('o')) return 'masculino';
+
+      return 'neutro';
+    }
+
+    function gerarOpcoesErradas(cartaCorreta, quantidade = 3) {
+      const respostaCorreta = normalizarTexto(cartaCorreta?.resposta || '');
+      const generoCorreta = detectarGeneroCarta(cartaCorreta);
+
+      const base = (Array.isArray(cartasCategoriaAtual) && cartasCategoriaAtual.length > 0)
+        ? cartasCategoriaAtual
+        : cartas;
+
+      const candidatos = base.filter(c => normalizarTexto(c.resposta || '') !== respostaCorreta);
+
+      const coerentes = candidatos.filter(c => {
+        if (categoria !== 'personagens') return true;
+        if (generoCorreta === 'neutro') return true;
+        return detectarGeneroCarta(c) === generoCorreta;
+      });
+
+      const neutros = candidatos.filter(c => detectarGeneroCarta(c) === 'neutro');
+
+      let poolPrincipal = coerentes;
+      if (categoria === 'personagens' && generoCorreta !== 'neutro' && poolPrincipal.length < quantidade) {
+        poolPrincipal = [...coerentes, ...neutros];
+      }
+
+      if (poolPrincipal.length < quantidade) poolPrincipal = candidatos;
+
+      const respostas = [];
+      const vistos = new Set([respostaCorreta]);
+
+      for (const c of embaralharAvancado(poolPrincipal)) {
+        const r = (c.resposta || '').trim();
+        const key = normalizarTexto(r);
+        if (!r || vistos.has(key)) continue;
+        vistos.add(key);
+        respostas.push(r);
+        if (respostas.length === quantidade) break;
+      }
+
+      if (respostas.length < quantidade && categoria === 'personagens' && generoCorreta !== 'neutro') {
+        const coerentesNome = candidatos.filter(c => detectarGeneroCarta(c) === generoCorreta);
+        for (const c of embaralharAvancado(coerentesNome)) {
+          const r = (c.resposta || '').trim();
+          const key = normalizarTexto(r);
+          if (!r || vistos.has(key)) continue;
+          vistos.add(key);
+          respostas.push(r);
+          if (respostas.length === quantidade) break;
+        }
+      }
+
+      if (respostas.length < quantidade) {
+        for (const c of embaralharAvancado(candidatos)) {
+          const r = (c.resposta || '').trim();
+          const key = normalizarTexto(r);
+          if (!r || vistos.has(key)) continue;
+          vistos.add(key);
+          respostas.push(r);
+          if (respostas.length === quantidade) break;
+        }
+      }
+
+      return respostas;
+    }
+
+    function obterDificuldadeCarta(carta) {
+      const valor = Number(carta?.dificuldade);
+      if (!Number.isFinite(valor)) return 5;
+      return Math.max(0, Math.min(10, Math.round(valor)));
+    }
+
+    async function obterCartasRecentesGlobal() {
+      try {
+        const response = await fetch(`${API_BASE}/cartas-recentes`);
+        if (!response.ok) return [];
+        const data = await response.json();
+        return (data && Array.isArray(data.cartas)) ? data.cartas : [];
+      } catch (erro) {
+        console.error('❌ Erro ao buscar cartas recentes:', erro);
+        return [];
+      }
+    }
+
+    async function registrarCartasUsadasGlobal(payload) {
+      try {
+        const response = await fetch(`${API_BASE}/registrar-cartas`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+        if (!response.ok) console.warn(`⚠️ Falha ao registrar cartas no servidor: ${response.status}`);
+      } catch (erro) {
+        console.error('❌ Erro ao registrar cartas:', erro);
+      }
+    }
+
+    function selecionarCartasSemRepetir(cartasDaCategoria, globalRecentList) {
+      const localUsed = loadLocalUsedKeys();
+      const localSet = new Set(localUsed);
+
+      const globalSet = new Set((globalRecentList || []).map(x => String(x)));
+      const bothAvoidSet = new Set([...localSet, ...globalSet]);
+
+      let disponiveis = cartasDaCategoria.filter(c => !bothAvoidSet.has(cardKey(c)));
+
+      if (disponiveis.length < TOTAL_PERGUNTAS) {
+        const globalAsResposta = new Set((globalRecentList || []).map(x => normalizarTexto(String(x))));
+        disponiveis = cartasDaCategoria.filter(c => {
+          const k = cardKey(c);
+          if (bothAvoidSet.has(k)) return false;
+          const resp = normalizarTexto(c.resposta || '');
+          if (globalAsResposta.has(resp)) return false;
+          return true;
+        });
+      }
+
+      if (disponiveis.length < TOTAL_PERGUNTAS) {
+        disponiveis = cartasDaCategoria.filter(c => !localSet.has(cardKey(c)));
+      }
+
+      if (disponiveis.length < TOTAL_PERGUNTAS) {
+        const keep = Math.min(LOCAL_HISTORY_MIN_KEEP, localUsed.length);
+        const recentLocalSlice = localUsed.slice(Math.max(0, localUsed.length - keep));
+        const recentLocalSet = new Set(recentLocalSlice);
+        disponiveis = cartasDaCategoria.filter(c => !recentLocalSet.has(cardKey(c)));
+      }
+
+      if (disponiveis.length < TOTAL_PERGUNTAS) {
+        disponiveis = [...cartasDaCategoria];
+      }
+
+      const ordenadasPorDificuldade = [...disponiveis].sort((a, b) => obterDificuldadeCarta(a) - obterDificuldadeCarta(b));
+      const recorte = ordenadasPorDificuldade.slice(0, TOTAL_PERGUNTAS);
+
+      const porFase = [];
+      for (let i = 0; i < TOTAL_FASES; i++) {
+        const inicio = i * CARTAS_POR_FASE;
+        const fim = inicio + CARTAS_POR_FASE;
+        const bloco = recorte.slice(inicio, fim);
+        porFase.push(...embaralharAvancado(bloco));
+      }
+
+      return porFase;
+    }
+
+    function obterIndiceFaseAtual() {
+      return Math.min(TOTAL_FASES - 1, Math.floor(perguntaAtual / CARTAS_POR_FASE));
+    }
+
+    function obterTituloFaseAtual() {
+      return TITULOS_FASE[obterIndiceFaseAtual()] || 'Desafiante';
+    }
+
+    function obterResumoDificuldadeProximaFase(indiceAtual) {
+      const proxima = indiceAtual + 1;
+      if (proxima >= TOTAL_FASES) return 'Última fase concluída!';
+      const inicio = proxima * CARTAS_POR_FASE;
+      const fim = inicio + CARTAS_POR_FASE;
+      const bloco = cartas.slice(inicio, fim);
+      if (!bloco.length) return 'Dificuldade em preparação';
+      const media = bloco.reduce((acc, c) => acc + obterDificuldadeCarta(c), 0) / bloco.length;
+      return `Próxima fase: ${TITULOS_FASE[proxima]} · dificuldade média ${media.toFixed(1)}/10`;
+    }
+
+    let ultimaSalvamentoPromise = Promise.resolve();
+
+    async function salvarPontosFase(indiceFase) {
+      if (!nomeJogador || nomeJogador.trim() === '') return false;
+
+      const pontosNormalFase = pontosNormaisPorFase[indiceFase] || 0;
+      const pontosBonusFase = pontosBonusPorFase[indiceFase] || 0;
+      const totalFase = pontosNormalFase + pontosBonusFase;
+      if (totalFase < 0) return false;
+
+      try {
+        const response = await fetch(`${API_BASE}/fase-completa`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          body: JSON.stringify({
+            nome: nomeJogador.trim(),
+            faseNumero: indiceFase + 1,
+            pontosNormal: pontosNormalFase,
+            pontosBonusTotal: pontosBonusFase,
+            pontosTotal: totalFase,
+            categoria: categoria || 'personagens',
+            timestamp: Date.now()
+          })
+        });
+        return response.ok;
+      } catch (erro) {
+        console.error(`❌ Erro ao registrar fase ${indiceFase + 1}:`, erro);
+        return false;
+      }
+    }
+
+    function mostrarResumoFase(indiceFaseConcluida) {
+      const normal = pontosNormaisPorFase[indiceFaseConcluida] || 0;
+      const bonus = pontosBonusPorFase[indiceFaseConcluida] || 0;
+      const totalFase = normal + bonus;
+      const frase = obterResumoDificuldadeProximaFase(indiceFaseConcluida);
+      const estrelas = Array.from({length: 18}, () => {
+        const left = Math.floor(Math.random() * 100);
+        const delay = (Math.random() * 1.5).toFixed(2);
+        const dur = (1.4 + Math.random() * 1.8).toFixed(2);
+        return `<span class="star" style="left:${left}%;animation-delay:${delay}s;animation-duration:${dur}s">⭐</span>`;
+      }).join('');
+
+      document.getElementById('tela-jogo').innerHTML = `
+        <div class="fase-resumo">
+          <div class="stars-rain">${estrelas}</div>
+          <h2>🎉 Fase ${indiceFaseConcluida + 1} concluída!</h2>
+          <div class="fase-sub">${TITULOS_FASE[indiceFaseConcluida]}</div>
+          <div class="fase-grid">
+            <div class="fase-box"><div class="lbl">Pontos normais</div><div class="val">${normal.toLocaleString('pt-BR')}</div></div>
+            <div class="fase-box"><div class="lbl">Pontos bônus</div><div class="val">${bonus.toLocaleString('pt-BR')}</div></div>
+            <div class="fase-box"><div class="lbl">Total da fase</div><div class="val">${totalFase.toLocaleString('pt-BR')}</div></div>
+          </div>
+          <div style="font-weight:800;color:#1F4273;margin-top:4px;">Total geral normal: ${pontosNormaisTotal.toLocaleString('pt-BR')} · bônus: ${pontosBonusTotal.toLocaleString('pt-BR')}</div>
+          <div style="margin-top:8px;color:#7a5a00;font-weight:700;">${frase}</div>
+          <div class="fase-cta">
+            <button class="btn-continue" onclick="continuarProximaFase()">🚀 Vamos em frente!!!</button>
+            <button class="btn btn-secondary" onclick="encerrarPartida()">Sair</button>
+          </div>
+        </div>
+      `;
+
+      AudioSystem.coinsStars();
+      ultimaSalvamentoPromise = salvarPontosFase(indiceFaseConcluida).catch(() => false);
+    }
+
+    async function continuarProximaFase() {
+      await ultimaSalvamentoPromise;
+      mostrarPergunta();
+    }
+
+    window.addEventListener('unhandledrejection', (e) => {
+      console.error('❌ Unhandled promise rejection:', e.reason);
+    });
+
+    function mostrarPergunta() {
+      if (perguntaAtual >= cartas.length) {
+        finalizarJogo();
+        return;
+      }
+
+      AudioSystem.newQuestion();
+      respostaJaSelecionada = false;
+      dicasVisiveis = 0;
+
+      cartaAtualObj = cartas[perguntaAtual];
+      inicioResposta = Date.now();
+      multiplicadorFaseAtual = 1;
+
+      const dificuldadeCarta = obterDificuldadeCarta(cartaAtualObj);
+      const opcoesErradas = gerarOpcoesErradas(cartaAtualObj, 3);
+      const opcoes = embaralharAvancado([cartaAtualObj.resposta, ...opcoesErradas]);
+
+      const indiceFase = obterIndiceFaseAtual();
+      const tituloFase = obterTituloFaseAtual();
+      const cartaNaFase = (perguntaAtual % CARTAS_POR_FASE) + 1;
+
+      document.getElementById('tela-jogo').innerHTML = `
+        <div class="pergunta-header">
+          <div style="display:flex; flex-direction:column; gap:8px; flex:1; min-width: 220px;">
+            <div class="numero-pergunta">Fase ${indiceFase + 1}/${TOTAL_FASES} · ${tituloFase} · Carta ${cartaNaFase}/${CARTAS_POR_FASE}</div>
+
+            <div class="player-banner">
+              <div class="player-lines">
+                <div class="player-line1">
+                  <div class="player-name" title="${nomeJogador}">${nomeJogador}</div>
+                  <div class="player-title" id="player-title">Jogador</div>
+                </div>
+
+                <div class="player-line2">
+                  <div class="metric">
+                    <div class="lbl">PARTIDA</div>
+                    <div class="val" id="player-session-pontos">${pontos.toLocaleString('pt-BR')}</div>
+                  </div>
+                  <div class="metric">
+                    <div class="lbl">RANKING</div>
+                    <div class="val" id="player-posicao">…</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:flex-start; gap:8px;">
+            <div class="timer" id="timer">60s</div>
+            <button class="btn-exit-mini" onclick="encerrarPartida()">Sair</button>
+          </div>
+        </div>
+
+        <div class="stats" style="margin-bottom: 10px;">
+          <div class="stat-box">
+            <div class="stat-label">Pontos</div>
+            <div class="stat-value" id="pontos-atuais">${pontos}</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Acertos</div>
+            <div class="stat-value">${acertos}/${erros}</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Seq.</div>
+            <div class="stat-value">${sequenciaRapida}</div>
+          </div>
+        </div>
+
+        <div class="bonus-container">
+          <div class="bonus-indicator" style="border-left-color: #8E44AD;">
+            🎯 Dif: ${dificuldadeCarta}/10${dificuldadeCarta >= 9 ? ' · <b>×3.0</b>' : dificuldadeCarta >= 7 ? ' · <b>×2.0</b>' : dificuldadeCarta >= 4 ? ' · ×1.5' : ''}
+          </div>
+          <div class="super-bonus-indicator">
+            💥 2s=+${(2000 * (dificuldadeCarta >= 9 ? 3 : dificuldadeCarta >= 7 ? 2 : dificuldadeCarta >= 4 ? 1.5 : 1)).toLocaleString('pt-BR')}
+          </div>
+          <div class="bonus-indicator">
+            🔥 Seq: 3x+300 | 5x+700 | 8x+1500
+          </div>
+        </div>
+
+        ${sequenciaRapida > 0 ? `
+        <div class="streak-indicator">
+          🔥 Sequência: ${sequenciaRapida}x
+        </div>
+        ` : ''}
+
+        <div class="dicas">
+          <div class="dica" id="dica1">${cartaAtualObj.dica1}</div>
+          <div class="dica" id="dica2">${cartaAtualObj.dica2}</div>
+          <div class="dica" id="dica3">${cartaAtualObj.dica3}</div>
+          <div class="dica-timer" id="dica-timer">💡 Próxima dica em: <span id="countdown">15s</span></div>
+        </div>
+
+        <div class="opcoes-container">
+          ${opcoes.map(opcao => `
+            <div class="opcao" onclick="selecionarOpcao(this, '${String(opcao).replace(/'/g, "\\'")}')">
+              ${opcao}
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="feedback" id="feedback"></div>
+      `;
+
+      atualizarIndicadoresRankingNoBanner();
+
+      mostrarDica(1);
+
+      tempoRestante = TEMPO_POR_PERGUNTA;
+      atualizarTimer();
+      atualizarDicasPorTempo();
+
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        tempoRestante--;
+        atualizarTimer();
+        atualizarDicasPorTempo();
+
+        if (tempoRestante % 15 === 0) atualizarIndicadoresRankingNoBanner();
+
+        if (tempoRestante <= 0) {
+          clearInterval(timerInterval);
+          if (dicaTimerInterval) clearInterval(dicaTimerInterval);
+          if (!respostaJaSelecionada) processarResposta('', false);
+        }
+      }, 1000);
+    }
+
+    function mostrarDica(numero) {
+      const dicaEl = document.getElementById(`dica${numero}`);
+      if (dicaEl) {
+        dicaEl.classList.add('visivel');
+        dicasVisiveis = numero;
+        AudioSystem.showHint();
+      }
+    }
+
+    function calcularPontosPorTempo(tempoRestanteAtual, dificuldade = 5) {
+      let base;
+      if (tempoRestanteAtual <= 2) base = 2000;
+      else if (tempoRestanteAtual <= 3) base = 1000;
+      else if (tempoRestanteAtual <= 10) base = 500;
+      else if (tempoRestanteAtual <= 30) base = 200;
+      else base = 100;
+
+      // Multiplicador por dificuldade da carta
+      let mult = 1.0;
+      if (dificuldade >= 9) mult = 3.0;
+      else if (dificuldade >= 7) mult = 2.0;
+      else if (dificuldade >= 4) mult = 1.5;
+
+      return Math.round(base * mult);
+    }
+
+    function labelMultiplicador(dificuldade) {
+      if (dificuldade >= 9) return ' · <b>×3.0</b>';
+      if (dificuldade >= 7) return ' · <b>×2.0</b>';
+      if (dificuldade >= 4) return ' · ×1.5';
+      return '';
+    }
+
+    function atualizarDicasPorTempo() {
+      const dicaTimerEl = document.getElementById('dica-timer');
+
+      if (tempoRestante <= 45 && dicasVisiveis < 1) mostrarDica(1);
+      if (tempoRestante <= 30 && dicasVisiveis < 2) mostrarDica(2);
+      if (tempoRestante <= 15 && dicasVisiveis < 3) mostrarDica(3);
+
+      if (!dicaTimerEl) return;
+      if (dicasVisiveis >= 3) {
+        dicaTimerEl.textContent = '✅ Todas as dicas reveladas';
+      } else {
+        const proximaMarca = dicasVisiveis === 0 ? 45 : (dicasVisiveis === 1 ? 30 : 15);
+        const faltam = Math.max(0, tempoRestante - proximaMarca);
+        dicaTimerEl.innerHTML = `💡 Próxima dica em: <span id="countdown">${faltam}s</span>`;
+      }
+    }
+
+    function selecionarOpcao(elemento, resposta) {
+      if (respostaJaSelecionada) return;
+
+      AudioSystem.click();
+      respostaJaSelecionada = true;
+      clearInterval(timerInterval);
+      if (dicaTimerInterval) clearInterval(dicaTimerInterval);
+
+      document.querySelectorAll('.opcao').forEach(op => op.classList.add('desabilitada'));
+
+      const acertou = normalizarTexto(resposta) === normalizarTexto(cartaAtualObj.resposta);
+
+      if (acertou) {
+        elemento.classList.add('correta');
+      } else {
+        elemento.classList.add('errada');
+        document.querySelectorAll('.opcao').forEach(op => {
+          if (normalizarTexto(op.textContent) === normalizarTexto(cartaAtualObj.resposta)) op.classList.add('correta');
+        });
+      }
+
+      setTimeout(() => processarResposta(resposta, acertou), 900);
+    }
+
+    function processarResposta(resposta, acertou) {
+      const dificuldadeCarta = obterDificuldadeCarta(cartaAtualObj);
+      const indiceFaseAtual = obterIndiceFaseAtual();
+      let pontosDaCarta = 0;
+      let pontosNormaisCarta = 0;
+      let pontosBonusCarta = 0;
+      let mensagemBonus = '';
+
+      if (acertou) {
+        acertos++;
+        sequenciaRapida++;
+
+        const pontosTempo = calcularPontosPorTempo(tempoRestante, dificuldadeCarta);
+        pontosNormaisCarta += pontosTempo;
+
+        // Streak milestones escalantes
+        const STREAK_MILESTONES = { 3: 300, 5: 700, 8: 1500, 12: 3000, 15: 5000 };
+        if (STREAK_MILESTONES[sequenciaRapida] !== undefined) {
+          const bonusStreak = STREAK_MILESTONES[sequenciaRapida];
+          pontosBonusCarta += bonusStreak;
+          mensagemBonus += `<br>🔥 Sequência ${sequenciaRapida}x: +${bonusStreak.toLocaleString('pt-BR')}`;
+          mostrarPontosAnimados(bonusStreak, true);
+          AudioSystem.coinsStars();
+        }
+
+        pontosDaCarta = pontosNormaisCarta + pontosBonusCarta;
+        pontos += pontosDaCarta;
+        pontosNormaisTotal += pontosNormaisCarta;
+        pontosBonusTotal += pontosBonusCarta;
+        pontosNormaisPorFase[indiceFaseAtual] += pontosNormaisCarta;
+        pontosBonusPorFase[indiceFaseAtual] += pontosBonusCarta;
+
+        // Atualizar pontos da sessão em tempo real
+        const elPontosAtuais = document.getElementById('pontos-atuais');
+        if (elPontosAtuais) elPontosAtuais.textContent = pontos.toLocaleString('pt-BR');
+        const elSession = document.getElementById('player-session-pontos');
+        if (elSession) elSession.textContent = pontos.toLocaleString('pt-BR');
+
+        mostrarPontosAnimados(pontosDaCarta, pontosBonusCarta > 0 || pontosDaCarta >= 1000);
+
+        if (pontosBonusCarta > 0 || pontosDaCarta >= 1000) AudioSystem.correctBonus();
+        else AudioSystem.correct();
+
+        document.getElementById('feedback').className = 'feedback correto';
+        document.getElementById('feedback').innerHTML = `
+          ✅ <strong>CARTA CONCLUÍDA!</strong><br>
+          Resposta correta: <strong>${cartaAtualObj.resposta}</strong><br>
+          <span style="font-size:1.25rem;color:#FFD700;">+${pontosDaCarta} pts</span><br>
+          <span style="color:#8E44AD;">🎯 Dificuldade ${dificuldadeCarta}/10${labelMultiplicador(dificuldadeCarta)}</span>
+          ${mensagemBonus}
+        `;
+      } else {
+        AudioSystem.error();
+        erros++;
+        sequenciaRapida = 0;
+        rodadaPerfeita = false;
+        errosPorFase[obterIndiceFaseAtual()]++;
+
+        document.getElementById('feedback').className = 'feedback errado';
+        document.getElementById('feedback').innerHTML = `
+          ❌ <strong>CARTA CONCLUÍDA!</strong><br>
+          Resposta correta: <strong>${cartaAtualObj.resposta}</strong><br>
+          <span style="font-size:1.05rem; color:#D9534F;">+0 pts nesta carta</span>
+        `;
+      }
+
+      document.getElementById('feedback').style.display = 'block';
+      perguntaAtual++;
+      faseAtual = Math.min(TOTAL_FASES, obterIndiceFaseAtual() + 1);
+
+      setTimeout(() => {
+        const acabouJogo = perguntaAtual >= TOTAL_PERGUNTAS;
+        const concluiuFase = !acabouJogo && (perguntaAtual % CARTAS_POR_FASE === 0);
+        if (concluiuFase) {
+          mostrarResumoFase((perguntaAtual / CARTAS_POR_FASE) - 1);
+          return;
+        }
+        mostrarPergunta();
+      }, 1800);
+    }
+
+    function encerrarPartida() {
+      const confirmar = confirm('Encerrar agora e voltar ao menu inicial?');
+      if (!confirmar) return;
+
+      if (timerInterval) clearInterval(timerInterval);
+      if (dicaTimerInterval) clearInterval(dicaTimerInterval);
+
+      document.getElementById('tela-jogo').style.display = 'none';
+      document.getElementById('tela-resultado').style.display = 'none';
+      document.getElementById('tela-inicial').style.display = 'block';
+    }
+
+    async function finalizarJogo() {
+      AudioSystem.gameComplete();
+
+      const fasesPerfeitas = errosPorFase.filter(e => e === 0).length;
+      const bonusFasesPerfeitas = fasesPerfeitas * 10000;
+      if (cartas.length >= TOTAL_PERGUNTAS && bonusFasesPerfeitas > 0) {
+        pontos += bonusFasesPerfeitas;
+        pontosBonusTotal += bonusFasesPerfeitas;
+        AudioSystem.coinsStars();
+        mostrarPontosAnimados(bonusFasesPerfeitas, true);
+      }
+
+      document.getElementById('tela-jogo').style.display = 'none';
+      document.getElementById('tela-resultado').style.display = 'block';
+      animarPontuacao(pontos);
+
+      const precisao = Math.round((acertos / TOTAL_PERGUNTAS) * 100);
+      document.getElementById('resumo-acertos').textContent = acertos;
+      document.getElementById('resumo-erros').textContent = erros;
+      document.getElementById('resumo-precisao').textContent = `${precisao}%`;
+
+      if (cartas.length >= TOTAL_PERGUNTAS && bonusFasesPerfeitas > 0) {
+        const bonusPerfect = document.createElement('div');
+        bonusPerfect.className = 'feedback correto';
+        bonusPerfect.style.display = 'block';
+        bonusPerfect.style.marginTop = '12px';
+        bonusPerfect.innerHTML = `🌟 <strong>BÔNUS DE FASES PERFEITAS!</strong><br>Fases sem erro: ${fasesPerfeitas}/${TOTAL_FASES}<br>+${bonusFasesPerfeitas.toLocaleString('pt-BR')} pontos`;
+        document.getElementById('tela-resultado').appendChild(bonusPerfect);
+      }
+
+      const recordeAnterior = parseInt(localStorage.getItem('recordePessoal') || 0);
+      if (pontos > recordeAnterior) localStorage.setItem('recordePessoal', pontos);
+
+      const usedKeys = cartas.map(c => cardKey(c));
+      appendToLocalHistory(usedKeys);
+
+      await registrarCartasUsadasGlobal({
+        cartas: usedKeys,
+        respostas: cartas.map(c => c.resposta),
+        categoria: categoria,
+        jogador: nomeJogador
+      });
+
+      try {
+        await fetch(`${API_BASE}/adicionar`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          body: JSON.stringify({ nome: nomeJogador, pontos: pontos })
+        });
+
+        _rankingCache = { at: 0, ranking: null };
+
+        await carregarRanking();
+      } catch (erro) {
+        console.error('❌ Erro:', erro);
+      }
+    }
+
+    function animarPontuacao(pontosFinal) {
+      const elemento = document.getElementById('pontuacao-final');
+      const duracao = 1600;
+      const incremento = pontosFinal / (duracao / 50);
+      let pontoAtual = 0;
+      const intervalo = setInterval(() => {
+        pontoAtual += incremento;
+        if (pontoAtual >= pontosFinal) {
+          pontoAtual = pontosFinal;
+          clearInterval(intervalo);
+        }
+        elemento.textContent = Math.floor(pontoAtual).toLocaleString('pt-BR');
+      }, 50);
+    }
+
+    async function carregarRanking() {
+      try {
+        const response = await fetch(`${API_BASE}/ranking`, { cache: 'no-store' });
+        const data = await response.json();
+        if (data.ranking && data.ranking.length > 0) {
+          const top5 = data.ranking.slice(0, 5);
+          const podioHTML = top5.map((jogador, index) => {
+            const medalhas = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+            return `
+              <div class="podio-item">
+                <span class="podio-posicao">${medalhas[index]}</span>
+                <span class="podio-nome">${(jogador?.nome ?? '').toString()}</span>
+                <span class="podio-pontos">${Number(parseRankingPoints(jogador?.pontos) || 0).toLocaleString('pt-BR')}</span>
+              </div>
+            `;
+          }).join('');
+          document.getElementById('podio-lista').innerHTML = podioHTML;
+          document.getElementById('podio-container').style.display = 'block';
+        }
+      } catch (erro) {
+        console.error('❌ Erro ao carregar ranking:', erro);
+      }
+    }
+
+    function atualizarTimer() {
+      const timerEl = document.getElementById('timer');
+      if (timerEl) {
+        timerEl.textContent = `${tempoRestante}s`;
+        timerEl.style.color = (tempoRestante <= 10) ? 'var(--jw-vermelho-erro)' : 'var(--jw-laranja)';
+        timerEl.classList.toggle('timer-urgente', tempoRestante <= 10);
+      }
+    }
+  </script>
+</body>
+</html>

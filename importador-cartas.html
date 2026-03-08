@@ -1,0 +1,261 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Importador de Cartas (Pingão)</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; margin: 24px; max-width: 1000px; }
+    fieldset { border: 1px solid #ddd; padding: 16px; border-radius: 10px; margin-bottom: 16px; }
+    label { display: block; margin: 10px 0 6px; font-weight: 600; }
+    input[type="text"], select, textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+    textarea { min-height: 130px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+    button { padding: 10px 14px; border-radius: 10px; border: 1px solid #ccc; background: #fafafa; cursor: pointer; }
+    button.primary { background: #0b5fff; border-color: #0b5fff; color: white; }
+    button.danger { background: #b00020; border-color: #b00020; color: white; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .muted { color: #666; font-size: 14px; }
+    .ok { color: #0a7a2f; }
+    .err { color: #b00020; }
+    code.inline { background: #f4f4f4; padding: 2px 6px; border-radius: 6px; }
+    pre { background: #0b1020; color: #e6e6e6; padding: 12px; border-radius: 10px; overflow:auto; }
+  </style>
+</head>
+<body>
+  <h1>Importador de Cartas (Pingão)</h1>
+  <p class="muted">
+    Esta página gera um JSON de exemplo e publica cartas em <code class="inline">/cartas/&lt;categoria&gt;/popular</code>.
+    Não precisa PowerShell.
+  </p>
+
+  <fieldset>
+    <legend><strong>1) Configurações</strong></legend>
+
+    <div class="row">
+      <div>
+        <label for="apiBase">API Base</label>
+        <input id="apiBase" type="text" />
+        <div class="muted">Ex.: https://...workers.dev</div>
+      </div>
+
+      <div>
+        <label for="categoria">Categoria</label>
+        <select id="categoria">
+          <option value="personagens">personagens</option>
+          <option value="profecias">profecias</option>
+          <option value="pregacao">pregacao</option>
+          <option value="desenho">desenho</option>
+          <option value="mimica">mimica</option>
+        </select>
+        <div class="muted">Vai publicar em <code class="inline">/cartas/{categoria}/popular</code></div>
+      </div>
+    </div>
+
+    <label for="auth">Authorization (opcional)</label>
+    <input id="auth" type="text" placeholder="Ex.: Bearer SEU_TOKEN (se existir)" />
+  </fieldset>
+
+  <fieldset>
+    <legend><strong>2) Gerar arquivo de exemplo</strong></legend>
+    <p class="muted">Gera um JSON no formato aceito pelo importador. Você edita e depois importa.</p>
+    <button id="btnGerar">Baixar exemplo (JSON)</button>
+    <button id="btnGerar300">Baixar exemplo com 3 cartas</button>
+  </fieldset>
+
+  <fieldset>
+    <legend><strong>3) Selecionar arquivo para importar</strong></legend>
+    <input id="file" type="file" accept=".json,application/json" />
+    <p class="muted">
+      Aceita formatos: <code class="inline">{ "cartas": [...] }</code>, array direto <code class="inline">[...]</code>,
+      ou <code class="inline">{ "personagens": [{ "value": [...] }] }</code>.
+    </p>
+
+    <div class="row">
+      <div>
+        <button class="primary" id="btnValidar">Validar &amp; Pré-visualizar</button>
+      </div>
+      <div>
+        <button class="primary" id="btnPublicar">Publicar (substitui as cartas da categoria)</button>
+      </div>
+    </div>
+
+    <p id="status" class="muted"></p>
+    <pre id="preview" style="display:none;"></pre>
+  </fieldset>
+
+  <fieldset>
+    <legend><strong>4) Logs</strong></legend>
+    <pre id="log"></pre>
+    <button class="danger" id="btnLimparLog">Limpar log</button>
+  </fieldset>
+
+<script src="config.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const el = document.getElementById('apiBase');
+    if (el && !el.value && window.APP_CONFIG) el.value = window.APP_CONFIG.API_BASE;
+  });
+
+  const $ = (id) => document.getElementById(id);
+  const logEl = $("log");
+  const statusEl = $("status");
+  const previewEl = $("preview");
+
+  function log(msg) {
+    const line = `[${new Date().toLocaleTimeString()}] ${msg}`;
+    logEl.textContent += (logEl.textContent ? "\\n" : "") + line;
+  }
+  function setStatus(msg, kind="") {
+    statusEl.className = kind ? kind : "muted";
+    statusEl.textContent = msg;
+  }
+
+  function clampDifficulty(v) {
+    const n = Number.isFinite(v) ? v : parseInt(v, 10);
+    const x = Number.isFinite(n) ? n : 5;
+    const r = Math.round(x);
+    return Math.max(0, Math.min(10, r));
+  }
+
+  function normalizeCarta(c) {
+    const resposta = (c?.resposta ?? c?.palavra ?? "").toString().trim();
+    const dica1 = (c?.dica1 ?? "").toString().trim();
+    const dica2 = (c?.dica2 ?? "").toString().trim();
+    const dica3 = (c?.dica3 ?? "").toString().trim();
+
+    const genero = (c?.genero ?? null);
+    const masculino = (c?.masculino === true || c?.masculino === 1) ? 1 : 0;
+    const feminino  = (c?.feminino === true  || c?.feminino === 1) ? 1 : 0;
+    const dificuldade = clampDifficulty(c?.dificuldade ?? 5);
+
+    return { resposta, dica1, dica2, dica3, genero, masculino, feminino, dificuldade };
+  }
+
+  function loadCartasFromJson(obj) {
+    if (obj && typeof obj === "object" && !Array.isArray(obj)) {
+      if (Array.isArray(obj.cartas)) return obj.cartas;
+      if (obj.personagens) {
+        const p = obj.personagens;
+        if (Array.isArray(p) && p[0] && p[0].value && Array.isArray(p[0].value)) return p[0].value;
+        if (Array.isArray(p)) return p;
+      }
+    }
+    if (Array.isArray(obj)) return obj;
+    throw new Error("Formato JSON não reconhecido.");
+  }
+
+  function buildExample(n=1) {
+    const cartas = [];
+    for (let i=0;i<n;i++) {
+      cartas.push({
+        resposta: "",
+        dica1: "",
+        dica2: "",
+        dica3: "",
+        genero: null,
+        masculino: 0,
+        feminino: 0,
+        dificuldade: 5
+      });
+    }
+    return { cartas };
+  }
+
+  function downloadJson(filename, data) {
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  async function readSelectedFile() {
+    const file = $("file").files?.[0];
+    if (!file) throw new Error("Selecione um arquivo .json primeiro.");
+    const text = await file.text();
+    return JSON.parse(text);
+  }
+
+  function validateCartas(rawCartas) {
+    const norm = [];
+    const errors = [];
+    for (let i = 0; i < rawCartas.length; i++) {
+      const n = normalizeCarta(rawCartas[i]);
+      const ok = n.resposta && n.dica1 && n.dica2 && n.dica3;
+      if (ok) norm.push(n);
+      else errors.push({index:i, ...n});
+    }
+    return {norm, errors};
+  }
+
+  $("btnGerar").addEventListener("click", () => {
+    const cat = $("categoria").value;
+    downloadJson(`exemplo-${cat}.json`, buildExample(1));
+    log(`Baixado exemplo-${cat}.json`);
+  });
+
+  $("btnGerar300").addEventListener("click", () => {
+    const cat = $("categoria").value;
+    downloadJson(`exemplo-${cat}-3-cartas.json`, buildExample(3));
+    log(`Baixado exemplo-${cat}-3-cartas.json`);
+  });
+
+  $("btnLimparLog").addEventListener("click", () => { logEl.textContent = ""; });
+
+  $("btnValidar").addEventListener("click", async () => {
+    try {
+      setStatus("Lendo arquivo...", "muted");
+      const obj = await readSelectedFile();
+      const raw = loadCartasFromJson(obj);
+      const {norm, errors} = validateCartas(raw);
+
+      setStatus(`OK: ${norm.length} cartas válidas. Ignoradas: ${errors.length}`, errors.length ? "err" : "ok");
+      log(`Validação: válidas=${norm.length} inválidas=${errors.length}`);
+
+      previewEl.style.display = "block";
+      previewEl.textContent = JSON.stringify({cartas: norm.slice(0, 5)}, null, 2) +
+        (norm.length > 5 ? `\\n\\n... (mostrando 5 de ${norm.length})` : "");
+    } catch (e) {
+      setStatus(`Erro: ${e.message}`, "err");
+      log(`Erro validação: ${e.stack || e.message}`);
+    }
+  });
+
+  $("btnPublicar").addEventListener("click", async () => {
+    try {
+      const apiBase = $("apiBase").value.trim().replace(/\/+$/, "");
+      const categoria = $("categoria").value.trim();
+      const auth = $("auth").value.trim();
+
+      setStatus("Lendo arquivo...", "muted");
+      const obj = await readSelectedFile();
+      const raw = loadCartasFromJson(obj);
+      const {norm, errors} = validateCartas(raw);
+
+      if (!norm.length) throw new Error("Nenhuma carta válida para publicar.");
+
+      const url = `${apiBase}/cartas/${encodeURIComponent(categoria)}/popular`;
+      log(`POST ${url} (cartas=${norm.length})`);
+      setStatus(`Publicando... válidas=${norm.length} inválidas=${errors.length}`, "muted");
+
+      const headers = { "Content-Type": "application/json; charset=utf-8" };
+      if (auth) headers["Authorization"] = auth;
+
+      const res = await fetch(url, { method: "POST", headers, body: JSON.stringify({ cartas: norm }) });
+      const text = await res.text();
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}. Resposta: ${text}`);
+
+      setStatus(`Publicado com sucesso. HTTP ${res.status}.`, "ok");
+      log(`Publicado OK: ${text}`);
+      if (errors.length) log(`Obs: ${errors.length} inválidas foram ignoradas.`);
+    } catch (e) {
+      setStatus(`Erro: ${e.message}`, "err");
+      log(`Erro publicar: ${e.stack || e.message}`);
+    }
+  });
+</script>
+</body>
+</html>
