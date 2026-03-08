@@ -1842,6 +1842,26 @@ export class PontosGlobaisDO {
       )
     `);
 
+    // Compatibilidade com bancos antigos (sem colunas key/timestamp)
+    const colsHcg = this.sql.exec("PRAGMA table_info(historico_cartas_globais)").toArray().map(c => c.name);
+
+    if (!colsHcg.includes('key')) {
+      this.sql.exec("ALTER TABLE historico_cartas_globais ADD COLUMN key TEXT");
+    }
+    if (!colsHcg.includes('timestamp')) {
+      this.sql.exec("ALTER TABLE historico_cartas_globais ADD COLUMN timestamp INTEGER DEFAULT 0");
+    }
+
+    // Se existir coluna antiga 'resposta', preenche key quando vazio
+    const colsHcg2 = this.sql.exec("PRAGMA table_info(historico_cartas_globais)").toArray().map(c => c.name);
+    if (colsHcg2.includes('resposta')) {
+      this.sql.exec("UPDATE historico_cartas_globais SET key = resposta WHERE (key IS NULL OR key = '') AND resposta IS NOT NULL");
+    }
+
+    // Garante timestamp preenchido
+    this.sql.exec("UPDATE historico_cartas_globais SET timestamp = 0 WHERE timestamp IS NULL");
+
+
     // índices
     this.sql.exec('CREATE INDEX IF NOT EXISTS idx_hcg_ts ON historico_cartas_globais(timestamp)');
     this.sql.exec('CREATE INDEX IF NOT EXISTS idx_hcg_key ON historico_cartas_globais(key)');
