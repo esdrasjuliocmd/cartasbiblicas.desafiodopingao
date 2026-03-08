@@ -1,4 +1,4 @@
-﻿﻿// ============================================
+﻿﻿﻿// ============================================
 // QUEM SOU EU? - Backend Cloudflare Workers
 // Sistema Completo: Solo + Multiplayer + Competitivo
 // COM MEMÓRIA GLOBAL DE CARTAS
@@ -1831,13 +1831,7 @@ export class PontosGlobaisDO {
 
     // índices
     this.sql.exec('CREATE INDEX IF NOT EXISTS idx_hcg_ts ON historico_cartas_globais(timestamp)');
-    this.sql.exec('CREATE INDEX IF NOT EXISTS idx_hcg_key ON historico_cartas_globais(key)');    // Compatibilidade com bancos antigos (jogadores sem ultima_partida)
-    const colsJogadores = this.sql.exec("PRAGMA table_info(jogadores)").toArray().map(c => c.name);
-    if (!colsJogadores.includes('ultima_partida')) {
-      this.sql.exec("ALTER TABLE jogadores ADD COLUMN ultima_partida INTEGER DEFAULT 0");
-    }
-    this.sql.exec("UPDATE jogadores SET ultima_partida = 0 WHERE ultima_partida IS NULL");
-
+    this.sql.exec('CREATE INDEX IF NOT EXISTS idx_hcg_key ON historico_cartas_globais(key)');
 
     // loja
     this.sql.exec(`
@@ -1893,50 +1887,26 @@ export class PontosGlobaisDO {
     const pt = Number(pontosTotal) || 0;
     const pn = Number(pontosNormal) || 0;
     const pb = Number(pontosBonusTotal) || 0;
+
     const now = Date.now();
 
-    const faseExistente = this.sql.exec(
-      `SELECT id, pontosTotal, pontosNormal, pontosBonusTotal
-       FROM historico_fases
-       WHERE nome = ? AND faseNumero = ?
-       ORDER BY data DESC, id DESC
-       LIMIT 1`,
-      canon, fase
-    ).toArray()[0] || null;
+    this.sql.exec(
+      'INSERT INTO historico_fases (nome, faseNumero, pontosTotal, pontosNormal, pontosBonusTotal, categoria, data) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      canon, fase, pt, pn, pb, categoria || null, now
+    );
 
-    let deltaPontos = pt;
-
-    if (faseExistente) {
-      const pontosAntigos = Number(faseExistente.pontosTotal) || 0;
-      deltaPontos = pt - pontosAntigos;
-
-      this.sql.exec(
-        `UPDATE historico_fases
-         SET pontosTotal = ?, pontosNormal = ?, pontosBonusTotal = ?, categoria = ?, data = ?
-         WHERE id = ?`,
-        pt, pn, pb, categoria || null, now, faseExistente.id
-      );
+    const existente = this.sql.exec('SELECT pontos FROM jogadores WHERE nome = ? LIMIT 1', canon).toArray();
+    if (existente.length === 0) {
+      this.sql.exec('INSERT INTO jogadores (nome, pontos, nivel, ultima_partida) VALUES (?, ?, ?, ?)', canon, pt, 1, now);
+      await this.atualizarNivel(canon, pt);
     } else {
-      this.sql.exec(
-        'INSERT INTO historico_fases (nome, faseNumero, pontosTotal, pontosNormal, pontosBonusTotal, categoria, data) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        canon, fase, pt, pn, pb, categoria || null, now
-      );
-    }
-
-    const existente = this.sql.exec('SELECT pontos FROM jogadores WHERE nome = ? LIMIT 1', canon).toArray()[0] || null;
-    const pontosBase = existente ? (Number(existente.pontos) || 0) : 0;
-    const novoTotal = Math.max(0, pontosBase + deltaPontos);
-
-    if (!existente) {
-      this.sql.exec('INSERT INTO jogadores (nome, pontos, nivel, ultima_partida) VALUES (?, ?, ?, ?)', canon, Math.max(0, pt), 1, now);
-      await this.atualizarNivel(canon, Math.max(0, pt));
-    } else {
+      const novoTotal = (existente[0].pontos || 0) + pt;
       this.sql.exec('UPDATE jogadores SET pontos = ?, ultima_partida = ? WHERE nome = ?', novoTotal, now, canon);
       await this.atualizarNivel(canon, novoTotal);
     }
 
     const pontosAtual = await this.obterPontos(canon);
-    return { nome: canon, pontos: pontosAtual, faseAtualizada: Boolean(faseExistente), deltaPontos };
+    return { nome: canon, pontos: pontosAtual };
   }
 
   async obterCartasRecentesGlobais() {
@@ -2002,22 +1972,12 @@ export class PontosGlobaisDO {
         j.nome,
         j.pontos,
         j.nivel,
-        COALESCE(
-          (
-            SELECT hf.data
-            FROM historico_fases hf
-            WHERE hf.nome = j.nome
-            ORDER BY hf.data DESC, hf.id DESC
-            LIMIT 1
-          ),
-          j.ultima_partida,
-          0
-        ) AS ultimaPartidaEm,
+        j.ultima_partida AS ultimaPartidaEm,
         (
           SELECT hf.pontosTotal
           FROM historico_fases hf
           WHERE hf.nome = j.nome
-          ORDER BY hf.data DESC, hf.id DESC
+          ORDER BY hf.data DESC
           LIMIT 1
         ) AS ultimaPontuacao,
         (
@@ -2029,12 +1989,12 @@ export class PontosGlobaisDO {
           SELECT hf3.faseNumero
           FROM historico_fases hf3
           WHERE hf3.nome = j.nome
-          ORDER BY hf3.data DESC, hf3.id DESC
+          ORDER BY hf3.data DESC
           LIMIT 1
         ) AS ultimaFaseNumero
       FROM jogadores j
-      ORDER BY j.pontos DESC, ultimaPartidaEm DESC, j.nome ASC
-      LIMIT 500
+      ORDER BY j.pontos DESC, j.ultima_partida DESC
+      LIMIT 200
     `).toArray();
   }
 
@@ -2120,8 +2080,6 @@ function paginaInicial() {
 
 // Compatibilidade retroativa
 export class PontosBiblicoDO extends PontosGlobaisDO {}
-
-
 
 
 

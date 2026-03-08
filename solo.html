@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>🎮 Desafio do Pingão - Cartas Bíblicas</title>
-  <meta name="solo-build" content="2026-03-05-solo-ui-start-v2-catbuttons-greenfix-dedup+counts-v1+ranking-banner-totalpos-v1+mobile-cat-compact-v1">
+  <meta name="solo-build" content="2026-03-08-solo-fase-idempotente-admin-fix-v1">
   <style>
     :root {
       --jw-azul-principal: #2E5B93;
@@ -1346,7 +1346,7 @@
     }
 
     const API_BASE = "https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev";
-    const SOLO_BUILD_VERSION = "2026-03-05-solo-ui-start-v2-catbuttons-greenfix-dedup+counts-v1+ranking-banner-totalpos-v1+mobile-cat-compact-v1";
+    const SOLO_BUILD_VERSION = "2026-03-08-solo-fase-idempotente-admin-fix-v1";
     const TOTAL_FASES = 10;
     const CARTAS_POR_FASE = 10;
     const TOTAL_PERGUNTAS = TOTAL_FASES * CARTAS_POR_FASE;
@@ -1870,8 +1870,8 @@
     async function salvarPontosFase(indiceFase) {
       if (!nomeJogador || nomeJogador.trim() === '') return false;
 
-      const pontosNormalFase = pontosNormaisPorFase[indiceFase] || 0;
-      const pontosBonusFase = pontosBonusPorFase[indiceFase] || 0;
+      const pontosNormalFase = Number(pontosNormaisPorFase[indiceFase] || 0);
+      const pontosBonusFase = Number(pontosBonusPorFase[indiceFase] || 0);
       const totalFase = pontosNormalFase + pontosBonusFase;
       if (totalFase < 0) return false;
 
@@ -1889,8 +1889,15 @@
             timestamp: Date.now()
           })
         });
-        if (response.ok) { _rankingCache = { at: 0, ranking: null }; }
-        return response.ok;
+
+        if (!response.ok) {
+          const texto = await response.text().catch(() => '');
+          console.error(`Falha ao registrar fase ${indiceFase + 1}:`, response.status, texto);
+          return false;
+        }
+
+        _rankingCache = { at: 0, ranking: null };
+        return true;
       } catch (erro) {
         console.error(`Erro ao registrar fase ${indiceFase + 1}:`, erro);
         return false;
@@ -2220,6 +2227,8 @@
       if (cartas.length >= TOTAL_PERGUNTAS && bonusFasesPerfeitas > 0) {
         pontos += bonusFasesPerfeitas;
         pontosBonusTotal += bonusFasesPerfeitas;
+        const indiceUltimaFase = Math.max(0, TOTAL_FASES - 1);
+        pontosBonusPorFase[indiceUltimaFase] = Number(pontosBonusPorFase[indiceUltimaFase] || 0) + bonusFasesPerfeitas;
         AudioSystem.coinsStars();
         mostrarPontosAnimados(bonusFasesPerfeitas, true);
       }
@@ -2256,17 +2265,16 @@
       });
 
       try {
-        await fetch(`${API_BASE}/adicionar`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json; charset=utf-8' },
-          body: JSON.stringify({ nome: nomeJogador, pontos: pontos })
-        });
+        await ultimaSalvamentoPromise.catch(() => false);
+
+        if (cartas.length >= TOTAL_PERGUNTAS) {
+          await salvarPontosFase(TOTAL_FASES - 1);
+        }
 
         _rankingCache = { at: 0, ranking: null };
-
         await carregarRanking();
       } catch (erro) {
-        console.error('Erro:', erro);
+        console.error('Erro ao finalizar jogo:', erro);
       }
     }
 
