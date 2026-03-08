@@ -2093,3 +2093,4 @@ function paginaInicial() {
 
 // Compatibilidade retroativa
 export class PontosBiblicoDO extends PontosGlobaisDO {}
+
