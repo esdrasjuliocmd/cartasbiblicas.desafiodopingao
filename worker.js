@@ -1,4 +1,4 @@
-﻿﻿// ============================================
+﻿﻿﻿// ============================================
 // QUEM SOU EU? - Backend Cloudflare Workers
 // Sistema Completo: Solo + Multiplayer + Competitivo
 // COM MEMÓRIA GLOBAL DE CARTAS
@@ -16,18 +16,6 @@ export default {
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
     };
-
-    function comCors(response) {
-      const headers = new Headers(response.headers || {});
-      for (const [chave, valor] of Object.entries(corsHeaders)) {
-        headers.set(chave, valor);
-      }
-      return new Response(response.body, {
-        status: response.status,
-        statusText: response.statusText,
-        headers
-      });
-    }
 
     if (request.method === 'OPTIONS') {
       return new Response(null, { headers: corsHeaders });
@@ -87,7 +75,6 @@ export default {
       // limitar
       return dedup.slice(-100);
     }
-
 
     // ============================================
     // ROTA: OBTER CARTAS USADAS RECENTEMENTE (GLOBAL)
@@ -340,59 +327,15 @@ export default {
     }
 
     if (path === '/admin/salas') {
-      try {
-        return new Response(JSON.stringify({
-          salas: []
-        }), {
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
-        });
-      } catch (erro) {
-        return new Response(JSON.stringify({
-          salas: [],
-          erro: erro.message
-        }), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
-        });
-      }
-    } catch (erro) {
-        return new Response(JSON.stringify({
-          salas: [],
-          erro: erro.message || 'Falha ao carregar salas'
-        }), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
-        });
-      }
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(new Request('http://internal/admin/salas'));
     }
 
     if (path === '/admin/jogadores-completos') {
-      try {
-        const jogadores = await this.obterJogadoresCompletos();
-        return new Response(JSON.stringify({
-          jogadores: jogadores
-        }), {
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
-        });
-      } catch (erro) {
-        console.error('Erro ao obter jogadores completos:', erro);
-        return new Response(JSON.stringify({
-          jogadores: [],
-          erro: erro.message
-        }), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
-        });
-      }
-    } catch (erro) {
-        return new Response(JSON.stringify({
-          jogadores: [],
-          erro: erro.message || 'Falha ao carregar jogadores'
-        }), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
-        });
-      }
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+      return stub.fetch(new Request('http://internal/admin/jogadores-completos'));
     }
 
     // ============================================
@@ -1721,15 +1664,6 @@ export class PontosGlobaisDO {
           headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
         });
       }
-    } catch (erro) {
-        return new Response(JSON.stringify({
-          salas: [],
-          erro: erro.message || 'Falha ao carregar salas'
-        }), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
-        });
-      }
     }
 
     // NOVO: Admin - Listar jogadores solo com última partida
@@ -1746,15 +1680,6 @@ export class PontosGlobaisDO {
         return new Response(JSON.stringify({
           jogadores: [],
           erro: erro.message
-        }), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
-        });
-      }
-    } catch (erro) {
-        return new Response(JSON.stringify({
-          jogadores: [],
-          erro: erro.message || 'Falha ao carregar jogadores'
         }), {
           status: 200,
           headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
@@ -1884,9 +1809,7 @@ export class PontosGlobaisDO {
         key TEXT NOT NULL,
         timestamp INTEGER NOT NULL
       )
-    `);
-
-    // Compatibilidade com bancos antigos (sem colunas key/timestamp)
+    `);    // Compatibilidade com bancos antigos (sem colunas key/timestamp)
     const colsHcg = this.sql.exec("PRAGMA table_info(historico_cartas_globais)").toArray().map(c => c.name);
 
     if (!colsHcg.includes('key')) {
@@ -2157,5 +2080,6 @@ function paginaInicial() {
 
 // Compatibilidade retroativa
 export class PontosBiblicoDO extends PontosGlobaisDO {}
+
 
 
