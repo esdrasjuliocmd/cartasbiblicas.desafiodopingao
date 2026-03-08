@@ -1,0 +1,25 @@
+﻿name = "quem-sou-eu-backend-v4"
+main = "worker.js"
+compatibility_date = "2026-03-08"
+
+[durable_objects]
+bindings = [
+  { name = "SALA_DO", class_name = "SalaDO" },
+  { name = "SALA_COMPETITIVA_DO", class_name = "SalaCompetitivaDO" },
+  { name = "BancoDadosPersonagensDO", class_name = "BancoDadosPersonagensDO" },
+  { name = "BancoDadosProfeciasDO", class_name = "BancoDadosProfeciasDO" },
+  { name = "BancoDadosMimicaDO", class_name = "BancoDadosMimicaDO" },
+  { name = "BancoDadosPregacaoDO", class_name = "BancoDadosPregacaoDO" },
+  { name = "BancoDadosDesenhoDO", class_name = "BancoDadosDesenhoDO" },
+  { name = "BancoDadosVerdadeiroFalsoDO", class_name = "BancoDadosVerdadeiroFalsoDO" },
+  { name = "PontosGlobaisDO", class_name = "PontosGlobaisDO" }
+]
+
+# Mantém histórico de migração já existente em produção
+[[migrations]]
+tag = "v3"
+
+# Nova migração apenas da classe nova
+[[migrations]]
+tag = "v4"
+new_sqlite_classes = ["BancoDadosDesenhoDO"]
