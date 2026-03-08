@@ -224,6 +224,8 @@ export default {
           doNamespace = env.BancoDadosMimicaDO; bancoName = 'banco-mimica'; break;
         case 'pregacao':
           doNamespace = env.BancoDadosPregacaoDO; bancoName = 'banco-pregacao'; break;
+          case 'desenho':
+          doNamespace = env.BancoDadosDesenhoDO; bancoName = 'banco-desenho'; break;
 
         // NOVO
         case 'verdadeirofalso':
@@ -232,7 +234,7 @@ export default {
         default:
           return new Response(JSON.stringify({ sucesso: false, erro: 'Categoria inválida', categoria }), {
             status: 400,
-            headers: { 'content-type': 'application/json; charset=utf-8' }
+            headers: { 'content-type': 'application/json; charset=utf-8', ...corsHeaders }
           });
       }
 
@@ -256,6 +258,8 @@ export default {
           doNamespace = env.BancoDadosMimicaDO; bancoName = 'banco-mimica'; break;
         case 'pregacao':
           doNamespace = env.BancoDadosPregacaoDO; bancoName = 'banco-pregacao'; break;
+          case 'desenho':
+          doNamespace = env.BancoDadosDesenhoDO; bancoName = 'banco-desenho'; break;
 
         // NOVO
         case 'verdadeirofalso':
@@ -264,7 +268,7 @@ export default {
         default:
           return new Response(JSON.stringify({ sucesso: false, erro: 'Categoria inválida', categoria }), {
             status: 400,
-            headers: { 'content-type': 'application/json; charset=utf-8' }
+            headers: { 'content-type': 'application/json; charset=utf-8', ...corsHeaders }
           });
       }
 
@@ -1422,6 +1426,7 @@ export class BancoDadosPersonagensDO extends BancoDadosDO {}
 export class BancoDadosProfeciasDO extends BancoDadosDO {}
 export class BancoDadosMimicaDO extends BancoDadosDO {}
 export class BancoDadosPregacaoDO extends BancoDadosDO {}
+export class BancoDadosDesenhoDO extends BancoDadosDO {}
 export class BancoDadosVerdadeiroFalsoDO extends BancoDadosDO {}
 
 // ============================================
