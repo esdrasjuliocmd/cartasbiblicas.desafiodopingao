@@ -341,11 +341,21 @@ export default {
 
     if (path === '/admin/salas') {
       try {
-        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
-        const stub = env.PontosGlobaisDO.get(id);
-        const response = await stub.fetch(new Request('http://internal/admin/salas'));
-        return comCors(response);
+        return new Response(JSON.stringify({
+          salas: []
+        }), {
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
       } catch (erro) {
+        return new Response(JSON.stringify({
+          salas: [],
+          erro: erro.message
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+    } catch (erro) {
         return new Response(JSON.stringify({
           salas: [],
           erro: erro.message || 'Falha ao carregar salas'
@@ -358,11 +368,23 @@ export default {
 
     if (path === '/admin/jogadores-completos') {
       try {
-        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
-        const stub = env.PontosGlobaisDO.get(id);
-        const response = await stub.fetch(new Request('http://internal/admin/jogadores-completos'));
-        return comCors(response);
+        const jogadores = await this.obterJogadoresCompletos();
+        return new Response(JSON.stringify({
+          jogadores: jogadores
+        }), {
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
       } catch (erro) {
+        console.error('Erro ao obter jogadores completos:', erro);
+        return new Response(JSON.stringify({
+          jogadores: [],
+          erro: erro.message
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+    } catch (erro) {
         return new Response(JSON.stringify({
           jogadores: [],
           erro: erro.message || 'Falha ao carregar jogadores'
@@ -1685,11 +1707,21 @@ export class PontosGlobaisDO {
     // NOVO: Admin - Listar salas
     if (path === '/admin/salas') {
       try {
-        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
-        const stub = env.PontosGlobaisDO.get(id);
-        const response = await stub.fetch(new Request('http://internal/admin/salas'));
-        return comCors(response);
+        return new Response(JSON.stringify({
+          salas: []
+        }), {
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
       } catch (erro) {
+        return new Response(JSON.stringify({
+          salas: [],
+          erro: erro.message
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+    } catch (erro) {
         return new Response(JSON.stringify({
           salas: [],
           erro: erro.message || 'Falha ao carregar salas'
@@ -1703,11 +1735,23 @@ export class PontosGlobaisDO {
     // NOVO: Admin - Listar jogadores solo com última partida
     if (path === '/admin/jogadores-completos') {
       try {
-        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
-        const stub = env.PontosGlobaisDO.get(id);
-        const response = await stub.fetch(new Request('http://internal/admin/jogadores-completos'));
-        return comCors(response);
+        const jogadores = await this.obterJogadoresCompletos();
+        return new Response(JSON.stringify({
+          jogadores: jogadores
+        }), {
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
       } catch (erro) {
+        console.error('Erro ao obter jogadores completos:', erro);
+        return new Response(JSON.stringify({
+          jogadores: [],
+          erro: erro.message
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+    } catch (erro) {
         return new Response(JSON.stringify({
           jogadores: [],
           erro: erro.message || 'Falha ao carregar jogadores'
@@ -2113,4 +2157,5 @@ function paginaInicial() {
 
 // Compatibilidade retroativa
 export class PontosBiblicoDO extends PontosGlobaisDO {}
+
 
