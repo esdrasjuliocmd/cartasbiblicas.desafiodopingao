@@ -1,12 +1,10 @@
 ﻿name = "quem-sou-eu-backend-v4"
 main = "worker.js"
 compatibility_date = "2024-11-01"
-
 workers_dev = true
 
-# =========================
-# Durable Objects
-# =========================
+[vars]
+PONTOS_GLOBAIS_DO_NAME = "pontos-globais-v2"
 
 [[durable_objects.bindings]]
 name = "SALA_DO"
@@ -44,10 +42,6 @@ class_name = "BancoDadosPregacaoDO"
 name = "BancoDadosVerdadeiroFalsoDO"
 class_name = "BancoDadosVerdadeiroFalsoDO"
 
-# =========================
-# D1 DATABASES
-# =========================
-
 [[d1_databases]]
 binding = "pingao_personagens"
 database_name = "pingao-personagens"
@@ -63,10 +57,3 @@ database_name = "pingao-mimica"
 [[d1_databases]]
 binding = "pingao_pregacao"
 database_name = "pingao-pregacao"
-
-# =========================
-# ENV VARS
-# =========================
-
-[vars]
-PONTOS_GLOBAIS_DO_NAME = "pontos-globais-v2"
