@@ -1,25 +1,78 @@
 ﻿name = "quem-sou-eu-backend-v4"
 main = "worker.js"
-compatibility_date = "2026-03-08"
+compatibility_date = "2024-11-01"
+workers_dev = true
 
-[durable_objects]
-bindings = [
-  { name = "SALA_DO", class_name = "SalaDO" },
-  { name = "SALA_COMPETITIVA_DO", class_name = "SalaCompetitivaDO" },
-  { name = "BancoDadosPersonagensDO", class_name = "BancoDadosPersonagensDO" },
-  { name = "BancoDadosProfeciasDO", class_name = "BancoDadosProfeciasDO" },
-  { name = "BancoDadosMimicaDO", class_name = "BancoDadosMimicaDO" },
-  { name = "BancoDadosPregacaoDO", class_name = "BancoDadosPregacaoDO" },
-  { name = "BancoDadosDesenhoDO", class_name = "BancoDadosDesenhoDO" },
-  { name = "BancoDadosVerdadeiroFalsoDO", class_name = "BancoDadosVerdadeiroFalsoDO" },
-  { name = "PontosGlobaisDO", class_name = "PontosGlobaisDO" }
-]
+[vars]
+PONTOS_GLOBAIS_DO_NAME = "pontos-globais-v2"
 
-# Mantém histórico de migração já existente em produção
+[[durable_objects.bindings]]
+name = "SALA_DO"
+class_name = "SalaDO"
+
+[[durable_objects.bindings]]
+name = "SALA_COMPETITIVA_DO"
+class_name = "SalaCompetitivaDO"
+
+[[durable_objects.bindings]]
+name = "BancoDadosDO"
+class_name = "BancoDadosDO"
+
+[[durable_objects.bindings]]
+name = "PontosGlobaisDO"
+class_name = "PontosGlobaisDO"
+
+[[durable_objects.bindings]]
+name = "BancoDadosPersonagensDO"
+class_name = "BancoDadosPersonagensDO"
+
+[[durable_objects.bindings]]
+name = "BancoDadosProfeciasDO"
+class_name = "BancoDadosProfeciasDO"
+
+[[durable_objects.bindings]]
+name = "BancoDadosMimicaDO"
+class_name = "BancoDadosMimicaDO"
+
+[[durable_objects.bindings]]
+name = "BancoDadosPregacaoDO"
+class_name = "BancoDadosPregacaoDO"
+
+[[durable_objects.bindings]]
+name = "BancoDadosVerdadeiroFalsoDO"
+class_name = "BancoDadosVerdadeiroFalsoDO"
+
+[[durable_objects.bindings]]
+name = "BancoDadosDesenhoDO"
+class_name = "BancoDadosDesenhoDO"
+
+# Restaura o histórico de tags já conhecidas pelo Worker publicado.
+# Sem criar migration nova agora.
+
+[[migrations]]
+tag = "v1"
+
+[[migrations]]
+tag = "v2"
+
 [[migrations]]
 tag = "v3"
 
-# Nova migração apenas da classe nova
 [[migrations]]
 tag = "v4"
-new_sqlite_classes = ["BancoDadosDesenhoDO"]
+
+[[d1_databases]]
+binding = "pingao_personagens"
+database_name = "pingao-personagens"
+
+[[d1_databases]]
+binding = "pingao_profecias"
+database_name = "pingao-profecias"
+
+[[d1_databases]]
+binding = "pingao_mimica"
+database_name = "pingao-mimica"
+
+[[d1_databases]]
+binding = "pingao_pregacao"
+database_name = "pingao-pregacao"

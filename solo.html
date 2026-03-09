@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>🎮 Desafio do Pingão - Cartas Bíblicas</title>
-  <meta name="solo-build" content="2026-03-08-solo-fase-idempotente-admin-fix-v1">
+  <meta name="solo-build" content="2026-03-08-solo-partida-detalhe-admin-v4">
   <style>
     :root {
       --jw-azul-principal: #2E5B93;
@@ -1468,6 +1468,8 @@
     let tempoRestante = TEMPO_POR_PERGUNTA;
     let categoria = 'personagens';
     let nomeJogador = '';
+    let partidaId = '';
+    let fasesDetalheRegistradas = new Set();
     let cartaAtualObj = null;
     let inicioResposta = null;
     let sequenciaRapida = 0;
@@ -1570,6 +1572,9 @@
       nomeJogador = limparEspacosNome(nomeJogador);
 
       localStorage.setItem('nomeJogador', nomeJogador);
+
+      partidaId = `${Date.now()}-${Math.floor(Math.random() * 1000000)}`;
+      fasesDetalheRegistradas = new Set();
 
       perguntaAtual = 0;
       pontos = 0;
@@ -1865,6 +1870,78 @@
       return `Próxima fase: ${TITULOS_FASE[proxima]} · dificuldade média ${media.toFixed(1)}/10`;
     }
 
+
+    async function registrarHistoricoCartasJogadas(usarTodasAsCartas = false) {
+      try {
+        const limite = usarTodasAsCartas ? cartas.length : Math.max(0, Math.min(perguntaAtual, cartas.length));
+        const cartasJogadas = (cartas || []).slice(0, limite);
+        if (!cartasJogadas.length) return false;
+
+        const usedKeys = cartasJogadas.map(c => cardKey(c)).filter(Boolean);
+        appendToLocalHistory(usedKeys);
+
+        await registrarCartasUsadasGlobal({
+          cartas: usedKeys,
+          respostas: cartasJogadas.map(c => c.resposta),
+          categoria: categoria,
+          jogador: nomeJogador
+        });
+
+        return true;
+      } catch (erro) {
+        console.error('Erro ao registrar histórico de cartas jogadas:', erro);
+        return false;
+      }
+    }
+
+    async function registrarCartasDetalheFase(indiceFase, parcial = false) {
+      try {
+        if (!nomeJogador || !partidaId) return false;
+
+        const inicio = indiceFase * CARTAS_POR_FASE;
+        const fimNatural = inicio + CARTAS_POR_FASE;
+        const fim = parcial ? Math.min(perguntaAtual, fimNatural) : fimNatural;
+        const bloco = (cartas || []).slice(inicio, fim);
+
+        if (!bloco.length) return false;
+
+        const chaveRegistro = `${indiceFase + 1}:${parcial ? 'parcial' : 'completa'}`;
+        if (!parcial && fasesDetalheRegistradas.has(chaveRegistro)) return true;
+
+        const payload = {
+          partidaId: partidaId,
+          nome: nomeJogador.trim(),
+          categoria: categoria || 'personagens',
+          faseNumero: indiceFase + 1,
+          parcial: !!parcial,
+          cartas: bloco.map((carta, idx) => ({
+            ordemCarta: idx + 1,
+            cardKey: cardKey(carta),
+            cartaId: carta?.id ?? null,
+            resposta: carta?.resposta ?? ''
+          }))
+        };
+
+        const response = await fetch(`${API_BASE}/registrar-cartas-partida`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          const texto = await response.text().catch(() => '');
+          console.warn(`Falha ao registrar detalhe da fase ${indiceFase + 1}:`, response.status, texto);
+          return false;
+        }
+
+        if (!parcial) fasesDetalheRegistradas.add(chaveRegistro);
+        return true;
+      } catch (erro) {
+        console.error(`Erro ao registrar detalhe da fase ${indiceFase + 1}:`, erro);
+        return false;
+      }
+    }
+
     let ultimaSalvamentoPromise = Promise.resolve();
 
     async function salvarPontosFase(indiceFase) {
@@ -1881,6 +1958,7 @@
           headers: { 'Content-Type': 'application/json; charset=utf-8' },
           body: JSON.stringify({
             nome: nomeJogador.trim(),
+            partidaId: partidaId,
             faseNumero: indiceFase + 1,
             pontosNormal: pontosNormalFase,
             pontosBonusTotal: pontosBonusFase,
@@ -1936,6 +2014,8 @@
       `;
 
       AudioSystem.coinsStars();
+      registrarHistoricoCartasJogadas(false).catch(() => {});
+      registrarCartasDetalheFase(indiceFaseConcluida, false).catch(() => false);
       ultimaSalvamentoPromise = salvarPontosFase(indiceFaseConcluida).catch(() => false);
     }
 
@@ -2207,12 +2287,24 @@
       }, 1800);
     }
 
-    function encerrarPartida() {
+    async function encerrarPartida() {
       const confirmar = confirm('Encerrar agora e voltar ao menu inicial?');
       if (!confirmar) return;
 
       if (timerInterval) clearInterval(timerInterval);
       if (dicaTimerInterval) clearInterval(dicaTimerInterval);
+
+      try {
+        await ultimaSalvamentoPromise.catch(() => false);
+        await registrarHistoricoCartasJogadas(false);
+        const indiceFaseAtual = Math.floor(perguntaAtual / CARTAS_POR_FASE);
+        const existeParcial = (perguntaAtual % CARTAS_POR_FASE) > 0;
+        if (existeParcial) {
+          await registrarCartasDetalheFase(indiceFaseAtual, true);
+        }
+      } catch (erro) {
+        console.error('Erro ao encerrar partida:', erro);
+      }
 
       document.getElementById('tela-jogo').style.display = 'none';
       document.getElementById('tela-resultado').style.display = 'none';

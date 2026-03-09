@@ -1,0 +1,26 @@
+# Manual do Desenvolvedor --- Desafio do Pingão
+
+## Estrutura do projeto
+
+Frontend - index.html (menu e ranking) - solo.html (lógica do jogo) -
+admin.html (painel administrativo)
+
+Backend - worker.js
+
+Configuração - wrangler.toml
+
+## Deploy
+
+Deploy do backend:
+
+npx wrangler deploy
+
+Deploy do frontend:
+
+npx wrangler pages deploy . --project-name cartasbiblicas
+
+## Fluxo de desenvolvimento
+
+1.  Alterar arquivos locais
+2.  Testar no navegador
+3.  Publicar com wrangler

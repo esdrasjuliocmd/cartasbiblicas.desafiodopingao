@@ -14,7 +14,7 @@ export default {
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Token',
     };
 
     if (request.method === 'OPTIONS') {
@@ -113,6 +113,26 @@ export default {
         return stub.fetch(request);
       } catch (erro) {
         console.error('Erro ao registrar cartas:', erro);
+        return new Response(JSON.stringify({
+          success: false,
+          erro: erro.message
+        }), {
+          status: 500,
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            ...corsHeaders
+          }
+        });
+      }
+    }
+
+    if (path === '/registrar-cartas-partida' && request.method === 'POST') {
+      try {
+        const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+        const stub = env.PontosGlobaisDO.get(id);
+        return stub.fetch(request);
+      } catch (erro) {
+        console.error('Erro ao registrar cartas da partida:', erro);
         return new Response(JSON.stringify({
           success: false,
           erro: erro.message
@@ -336,6 +356,21 @@ export default {
       const id = env.PontosGlobaisDO.idFromName('pontos-globais');
       const stub = env.PontosGlobaisDO.get(id);
       return stub.fetch(new Request('http://internal/admin/jogadores-completos'));
+    }
+
+    if (path === '/admin/cartas-jogador') {
+      const token = request.headers.get('X-Admin-Token') || '';
+      if (!env.ADMIN_TOKEN || token !== env.ADMIN_TOKEN) {
+        return new Response(JSON.stringify({ sucesso: false, erro: 'Não autorizado' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+      const id = env.PontosGlobaisDO.idFromName('pontos-globais');
+      const stub = env.PontosGlobaisDO.get(id);
+      const target = new URL('http://internal/admin/cartas-jogador');
+      target.search = new URL(request.url).search;
+      return stub.fetch(new Request(target.toString(), { method: 'GET', headers: request.headers }));
     }
 
     // ============================================
@@ -1221,7 +1256,7 @@ export class BancoDadosDO {
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Token',
     };
 
     if (request.method === 'OPTIONS') {
@@ -1509,6 +1544,7 @@ export class PontosGlobaisDO {
         const body = await request.json();
         const resultado = await this.adicionarPontosFase(
           body.nome,
+          body.partidaId,
           body.faseNumero,
           body.pontosTotal,
           body.pontosNormal,
@@ -1625,6 +1661,25 @@ export class PontosGlobaisDO {
       }
     }
 
+    if (path === '/registrar-cartas-partida' && request.method === 'POST') {
+      try {
+        const body = await request.json();
+        const resultado = await this.registrarCartasPartida(body || {});
+        return new Response(JSON.stringify({ success: true, ...resultado }), {
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      } catch (erro) {
+        console.error('Erro ao registrar cartas da partida:', erro);
+        return new Response(JSON.stringify({
+          success: false,
+          erro: erro.message
+        }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        });
+      }
+    }
+
     // NOVO: Endpoint para limpar histórico de cartas
     if (path === '/limpar-historico-cartas' && request.method === 'POST') {
       try {
@@ -1679,6 +1734,28 @@ export class PontosGlobaisDO {
         console.error('Erro ao obter jogadores completos:', erro);
         return new Response(JSON.stringify({
           jogadores: [],
+          erro: erro.message
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      }
+    }
+
+    if (path === '/admin/cartas-jogador') {
+      try {
+        const nome = String(url.searchParams.get('nome') || '').trim();
+        const limite = Number(url.searchParams.get('limite') || 20);
+        const resultado = await this.obterCartasJogador(nome, limite);
+        return new Response(JSON.stringify(resultado), {
+          headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders }
+        });
+      } catch (erro) {
+        console.error('Erro ao obter cartas do jogador:', erro);
+        return new Response(JSON.stringify({
+          jogador: null,
+          partidas: [],
+          repeticoes: {},
           erro: erro.message
         }), {
           status: 200,
@@ -1809,6 +1886,22 @@ export class PontosGlobaisDO {
         key TEXT NOT NULL,
         timestamp INTEGER NOT NULL
       )
+    `);
+
+    this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS historico_cartas_partida (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        partidaId TEXT NOT NULL,
+        nome TEXT NOT NULL,
+        categoria TEXT,
+        faseNumero INTEGER DEFAULT 0,
+        ordemCarta INTEGER DEFAULT 0,
+        cardKey TEXT NOT NULL,
+        cartaId TEXT,
+        resposta TEXT,
+        parcial INTEGER DEFAULT 0,
+        data INTEGER DEFAULT 0
+      )
     `);    // Compatibilidade com bancos antigos (sem colunas key/timestamp)
     const colsHcg = this.sql.exec("PRAGMA table_info(historico_cartas_globais)").toArray().map(c => c.name);
 
@@ -1837,6 +1930,62 @@ export class PontosGlobaisDO {
       this.sql.exec("ALTER TABLE jogadores ADD COLUMN ultima_partida INTEGER DEFAULT 0");
     }
     this.sql.exec("UPDATE jogadores SET ultima_partida = 0 WHERE ultima_partida IS NULL");
+
+    // Compatibilidade com bancos antigos (historico_fases)
+    const colsHistorico = this.sql.exec("PRAGMA table_info(historico_fases)").toArray().map(c => c.name);
+    if (!colsHistorico.includes('pontosTotal')) {
+      this.sql.exec("ALTER TABLE historico_fases ADD COLUMN pontosTotal INTEGER DEFAULT 0");
+    }
+    if (!colsHistorico.includes('pontosNormal')) {
+      this.sql.exec("ALTER TABLE historico_fases ADD COLUMN pontosNormal INTEGER DEFAULT 0");
+    }
+    if (!colsHistorico.includes('pontosBonusTotal')) {
+      this.sql.exec("ALTER TABLE historico_fases ADD COLUMN pontosBonusTotal INTEGER DEFAULT 0");
+    }
+    if (!colsHistorico.includes('categoria')) {
+      this.sql.exec("ALTER TABLE historico_fases ADD COLUMN categoria TEXT");
+    }
+    if (!colsHistorico.includes('data')) {
+      this.sql.exec("ALTER TABLE historico_fases ADD COLUMN data INTEGER DEFAULT 0");
+    }
+    if (!colsHistorico.includes('partidaId')) {
+      this.sql.exec("ALTER TABLE historico_fases ADD COLUMN partidaId TEXT");
+    }
+    this.sql.exec("UPDATE historico_fases SET pontosTotal = 0 WHERE pontosTotal IS NULL");
+    this.sql.exec("UPDATE historico_fases SET pontosNormal = 0 WHERE pontosNormal IS NULL");
+    this.sql.exec("UPDATE historico_fases SET pontosBonusTotal = 0 WHERE pontosBonusTotal IS NULL");
+    this.sql.exec("UPDATE historico_fases SET data = 0 WHERE data IS NULL");
+
+    const colsHistoricoCartasPartida = this.sql.exec("PRAGMA table_info(historico_cartas_partida)").toArray().map(c => c.name);
+    if (!colsHistoricoCartasPartida.includes('categoria')) {
+      this.sql.exec("ALTER TABLE historico_cartas_partida ADD COLUMN categoria TEXT");
+    }
+    if (!colsHistoricoCartasPartida.includes('faseNumero')) {
+      this.sql.exec("ALTER TABLE historico_cartas_partida ADD COLUMN faseNumero INTEGER DEFAULT 0");
+    }
+    if (!colsHistoricoCartasPartida.includes('ordemCarta')) {
+      this.sql.exec("ALTER TABLE historico_cartas_partida ADD COLUMN ordemCarta INTEGER DEFAULT 0");
+    }
+    if (!colsHistoricoCartasPartida.includes('cardKey')) {
+      this.sql.exec("ALTER TABLE historico_cartas_partida ADD COLUMN cardKey TEXT");
+    }
+    if (!colsHistoricoCartasPartida.includes('cartaId')) {
+      this.sql.exec("ALTER TABLE historico_cartas_partida ADD COLUMN cartaId TEXT");
+    }
+    if (!colsHistoricoCartasPartida.includes('resposta')) {
+      this.sql.exec("ALTER TABLE historico_cartas_partida ADD COLUMN resposta TEXT");
+    }
+    if (!colsHistoricoCartasPartida.includes('parcial')) {
+      this.sql.exec("ALTER TABLE historico_cartas_partida ADD COLUMN parcial INTEGER DEFAULT 0");
+    }
+    if (!colsHistoricoCartasPartida.includes('data')) {
+      this.sql.exec("ALTER TABLE historico_cartas_partida ADD COLUMN data INTEGER DEFAULT 0");
+    }
+
+    this.sql.exec('CREATE INDEX IF NOT EXISTS idx_hcp_nome_data ON historico_cartas_partida(nome, data DESC)');
+    this.sql.exec('CREATE INDEX IF NOT EXISTS idx_hcp_partida ON historico_cartas_partida(partidaId)');
+    this.sql.exec('CREATE INDEX IF NOT EXISTS idx_hcp_nome_partida_fase ON historico_cartas_partida(nome, partidaId, faseNumero)');
+
 
 
     // loja
@@ -1883,7 +2032,7 @@ export class PontosGlobaisDO {
     return { nome: canon, pontos: pontosAtual };
   }
 
-  async adicionarPontosFase(nome, faseNumero, pontosTotal, pontosNormal, pontosBonusTotal, categoria) {
+  async adicionarPontosFase(nome, partidaId, faseNumero, pontosTotal, pontosNormal, pontosBonusTotal, categoria) {
     const canon = this.obterNomeCanonical(nome);
     if (!canon) throw new Error('Nome inválido');
 
@@ -1894,14 +2043,15 @@ export class PontosGlobaisDO {
     const pn = Number(pontosNormal) || 0;
     const pb = Number(pontosBonusTotal) || 0;
     const now = Date.now();
+    const partidaKey = String(partidaId || '').trim();
 
     const faseExistente = this.sql.exec(
       `SELECT id, pontosTotal, pontosNormal, pontosBonusTotal
        FROM historico_fases
-       WHERE nome = ? AND faseNumero = ?
+       WHERE nome = ? AND faseNumero = ? AND COALESCE(partidaId, '') = ?
        ORDER BY data DESC, id DESC
        LIMIT 1`,
-      canon, fase
+      canon, fase, partidaKey
     ).toArray()[0] || null;
 
     let deltaPontos = pt;
@@ -1912,14 +2062,14 @@ export class PontosGlobaisDO {
 
       this.sql.exec(
         `UPDATE historico_fases
-         SET pontosTotal = ?, pontosNormal = ?, pontosBonusTotal = ?, categoria = ?, data = ?
+         SET pontosTotal = ?, pontosNormal = ?, pontosBonusTotal = ?, categoria = ?, data = ?, partidaId = ?
          WHERE id = ?`,
-        pt, pn, pb, categoria || null, now, faseExistente.id
+        pt, pn, pb, categoria || null, now, partidaKey, faseExistente.id
       );
     } else {
       this.sql.exec(
-        'INSERT INTO historico_fases (nome, faseNumero, pontosTotal, pontosNormal, pontosBonusTotal, categoria, data) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        canon, fase, pt, pn, pb, categoria || null, now
+        'INSERT INTO historico_fases (nome, partidaId, faseNumero, pontosTotal, pontosNormal, pontosBonusTotal, categoria, data) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        canon, partidaKey, fase, pt, pn, pb, categoria || null, now
       );
     }
 
@@ -1984,6 +2134,130 @@ export class PontosGlobaisDO {
     return { removidas: true };
   }
 
+
+  normalizarCardKey(valor) {
+    const s = String(valor || '').trim();
+    if (!s) return '';
+
+    if (s.startsWith('h:') || s.startsWith('id:')) return s;
+
+    const base = String(valor || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .trim();
+
+    let hash = 0;
+    for (let i = 0; i < base.length; i++) {
+      hash = ((hash << 5) - hash) + base.charCodeAt(i);
+      hash |= 0;
+    }
+    return 'h:' + Math.abs(hash);
+  }
+
+  async registrarCartasPartida(payload) {
+    const canon = this.obterNomeCanonical(payload?.nome);
+    if (!canon) throw new Error('Nome inválido');
+
+    const partidaId = String(payload?.partidaId || '').trim();
+    if (!partidaId) throw new Error('partidaId inválido');
+
+    const faseNumero = Number(payload?.faseNumero);
+    if (!Number.isFinite(faseNumero) || faseNumero < 1) throw new Error('faseNumero inválido');
+
+    const categoria = String(payload?.categoria || '').trim() || null;
+    const parcial = payload?.parcial ? 1 : 0;
+    const cartas = Array.isArray(payload?.cartas) ? payload.cartas : [];
+    if (!cartas.length) return { registradas: 0, partidaId, faseNumero };
+
+    this.sql.exec(
+      'DELETE FROM historico_cartas_partida WHERE nome = ? AND partidaId = ? AND faseNumero = ?',
+      canon, partidaId, faseNumero
+    );
+
+    const agora = Date.now();
+    let registradas = 0;
+    for (const carta of cartas) {
+      const ordemCarta = Number(carta?.ordemCarta) || (registradas + 1);
+      const cardKey = this.normalizarCardKey(carta?.cardKey || carta?.resposta || '');
+      const cartaId = carta?.cartaId == null ? null : String(carta.cartaId);
+      const resposta = String(carta?.resposta || '').trim();
+      if (!cardKey) continue;
+
+      this.sql.exec(
+        'INSERT INTO historico_cartas_partida (partidaId, nome, categoria, faseNumero, ordemCarta, cardKey, cartaId, resposta, parcial, data) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        partidaId, canon, categoria, faseNumero, ordemCarta, cardKey, cartaId, resposta, parcial, agora
+      );
+      registradas++;
+    }
+
+    return { registradas, partidaId, faseNumero, parcial: Boolean(parcial) };
+  }
+
+  async obterCartasJogador(nome, limitePartidas = 20) {
+    const canon = this.obterNomeCanonical(nome);
+    if (!canon) return { jogador: null, partidas: [], repeticoes: {} };
+
+    const limite = Math.max(1, Math.min(100, Number(limitePartidas) || 20));
+
+    const partidasRows = this.sql.exec(
+      `SELECT
+         partidaId,
+         MAX(data) AS data,
+         MAX(categoria) AS categoria,
+         MAX(faseNumero) AS faseFinal,
+         COUNT(*) AS totalCartas,
+         MAX(parcial) AS parcial
+       FROM historico_cartas_partida
+       WHERE nome = ?
+       GROUP BY partidaId
+       ORDER BY data DESC, partidaId DESC
+       LIMIT ?`,
+      canon, limite
+    ).toArray();
+
+    const partidas = partidasRows.map(row => {
+      const cartas = this.sql.exec(
+        `SELECT faseNumero, ordemCarta, cardKey, cartaId, resposta, parcial, data
+         FROM historico_cartas_partida
+         WHERE nome = ? AND partidaId = ?
+         ORDER BY faseNumero ASC, ordemCarta ASC, id ASC`,
+        canon, row.partidaId
+      ).toArray();
+
+      return {
+        partidaId: row.partidaId,
+        data: row.data || 0,
+        categoria: row.categoria || '',
+        faseFinal: row.faseFinal || 0,
+        totalCartas: row.totalCartas || 0,
+        parcial: Boolean(row.parcial),
+        cartas
+      };
+    });
+
+    const repeticoes = {};
+    for (let i = 0; i < partidas.length; i++) {
+      const atual = partidas[i];
+      const atualSet = new Set((atual.cartas || []).map(c => c.cardKey).filter(Boolean));
+      repeticoes[atual.partidaId] = [];
+      for (let j = i + 1; j < partidas.length; j++) {
+        const other = partidas[j];
+        const otherSet = new Set((other.cartas || []).map(c => c.cardKey).filter(Boolean));
+        const repetidas = [...atualSet].filter(k => otherSet.has(k));
+        if (repetidas.length) {
+          repeticoes[atual.partidaId].push({
+            contraPartidaId: other.partidaId,
+            quantidade: repetidas.length,
+            cardKeys: repetidas
+          });
+        }
+      }
+    }
+
+    return { jogador: canon, partidas, repeticoes };
+  }
+
   async atualizarNivel(nome, pontos) {
     const p = Number(pontos) || 0;
     // regra simples: nível a cada 100 pontos
@@ -2021,7 +2295,10 @@ export class PontosGlobaisDO {
           LIMIT 1
         ) AS ultimaPontuacao,
         (
-          SELECT COUNT(*)
+          SELECT COUNT(DISTINCT CASE
+            WHEN COALESCE(hf2.partidaId, '') <> '' THEN hf2.partidaId
+            ELSE 'legacy-' || hf2.id
+          END)
           FROM historico_fases hf2
           WHERE hf2.nome = j.nome
         ) AS totalPartidas,
@@ -2046,7 +2323,7 @@ export class PontosGlobaisDO {
       || { nome: canon, pontos: 0, nivel: 1, ultima_partida: 0 };
 
     const historico = this.sql.exec(
-      'SELECT faseNumero, pontosTotal, pontosNormal, pontosBonusTotal, categoria, data FROM historico_fases WHERE nome = ? ORDER BY data DESC LIMIT 50',
+      'SELECT partidaId, faseNumero, pontosTotal, pontosNormal, pontosBonusTotal, categoria, data FROM historico_fases WHERE nome = ? ORDER BY data DESC LIMIT 50',
       canon
     ).toArray();
 
@@ -2120,6 +2397,9 @@ function paginaInicial() {
 
 // Compatibilidade retroativa
 export class PontosBiblicoDO extends PontosGlobaisDO {}
+
+
+
 
 
 

@@ -422,6 +422,45 @@
       background: #eaf1ff;
     }
 
+
+    .rotacao-partida {
+      border: 2px solid #dbe7ff;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 16px;
+      background: #fbfdff;
+    }
+    .rotacao-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+    .rotacao-pill {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      margin: 3px;
+      font-size: 12px;
+      font-family: Consolas, monospace;
+      border: 1px solid #cdddfd;
+      background: #eef4ff;
+      color: #1E3A5F;
+    }
+    .rotacao-pill.repeated {
+      background: #fff0f0;
+      border-color: #f1b5b5;
+      color: #9b1c1c;
+    }
+    .rotacao-ok {
+      color: #156f3d;
+      font-weight: 800;
+    }
+    .rotacao-warn {
+      color: #8a5a00;
+      font-weight: 800;
+    }
+
 </style>
 </head>
 <body>
@@ -433,11 +472,12 @@
 
     <div class="content">
       <div class="tabs">
-        <button class="tab ativo" onclick="mudarTab('geral')">&#128202; Visão Geral</button>
-        <button class="tab" onclick="mudarTab('jogadores')">👥 Jogadores</button>
-        <button class="tab" onclick="mudarTab('importar')">&#128229; Importar JSON</button>
-        <button class="tab" onclick="mudarTab('exportar')">&#128228; Exportar CSV</button>
-        <button class="tab" onclick="mudarTab('validador')">&#128269; Validador</button>
+        <button class="tab ativo" onclick="mudarTab(event, 'geral')">&#128202; Visão Geral</button>
+        <button class="tab" onclick="mudarTab(event, 'jogadores')">👥 Jogadores</button>
+        <button class="tab" onclick="mudarTab(event, 'importar')">&#128229; Importar JSON</button>
+        <button class="tab" onclick="mudarTab(event, 'exportar')">&#128228; Exportar CSV</button>
+        <button class="tab" onclick="mudarTab(event, 'validador')">&#128269; Validador</button>
+        <button class="tab" onclick="mudarTab(event, 'rotacao')">🔎 Rotação de Cartas</button>
         <a href="admin-cartas.html" class="tab">&#127924; Gerenciar Cartas</a>
         <a href="index.html" class="tab">&#127968; Voltar</a>
       </div>
@@ -570,15 +610,37 @@
         </div>
         <div id="conteudo-validador"></div>
       </div>
+
+      <div id="tab-rotacao" class="tab-content">
+        <div class="secao">
+          <div class="secao-titulo">🔎 Rotação de Cartas por Jogador</div>
+          <div class="aviso">
+            Consulte as cartas jogadas por um jogador em cada partida para diagnosticar repetição.
+            Este painel usa o endpoint <code>GET /admin/cartas-jogador</code> com <code>X-Admin-Token</code>.
+          </div>
+
+          <div class="toolbar">
+            <input id="rotacao-token" class="input" type="text" placeholder="ADMIN_TOKEN" />
+            <input id="rotacao-nome" class="input" type="text" placeholder="Nome do jogador" />
+            <input id="rotacao-limite" class="input" type="number" min="1" max="100" value="20" style="max-width:120px;" />
+            <button class="btn-atualizar" style="margin-bottom:0;" onclick="buscarRotacaoCartas()">Buscar</button>
+            <button class="btn-secundario" onclick="copiarJSONRotacao()">Copiar JSON</button>
+          </div>
+
+          <div id="rotacao-status" class="hint">Preencha o token e o nome do jogador para consultar.</div>
+          <div id="rotacao-resumo" class="grid-mini" style="margin-top:14px;"></div>
+          <div id="rotacao-container" style="margin-top:18px;"></div>
+        </div>
+      </div>
     </div>
   </div>
 <script>
     const API_BASE = "https://quem-sou-eu-backend-v4.esdrasjulio.workers.dev";
     let dadosJSON = null;
 
-    function mudarTab(tab) {
+    function mudarTab(evt, tab) {
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('ativo'));
-      event.target.classList.add('ativo');
+      if (evt && evt.currentTarget) evt.currentTarget.classList.add('ativo');
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('ativo'));
       document.getElementById(`tab-${tab}`).classList.add('ativo');
       if (tab === 'geral' && !document.getElementById('conteudo-geral').innerHTML) carregarDadosGeral();
@@ -682,6 +744,7 @@
       const container = document.getElementById('jogadores-container');
       const erro = document.getElementById('jogadores-erro');
       container.innerHTML = '';
+      erro.style.display = 'none';
 
       try {
         const res = await fetch(`${API_BASE}/admin/jogadores-completos`);
@@ -689,36 +752,15 @@
         const data = await res.json();
         const jogadores = Array.isArray(data?.jogadores) ? data.jogadores : [];
 
-        if (jogadores.length === 0) {
-          container.innerHTML = `<div class="muted">Nenhum jogador encontrado.</div>`;
-          return;
-        }
-
-        let html = `<table class="table"><thead><tr>
-          <th>Jogador</th><th>Pontos</th><th>Nível</th><th>Última partida</th><th>Últ. pontuação</th><th>Partidas</th><th>Ações</th>
-        </tr></thead><tbody>`;
-
-        for (const j of jogadores) {
-          html += `<tr>
-            <td><span class="badge ok">${j.nome}</span></td>
-            <td>${(j.pontos ?? 0).toLocaleString('pt-BR')}</td>
-            <td>${j.nivel ?? '-'}</td>
-            <td>${fmtData(j.ultimaPartidaEm)}</td>
-            <td>${j.ultimaPontuacao != null ? j.ultimaPontuacao : '-'}</td>
-            <td>${j.totalPartidas || 0}</td>
-            <td>
-              <button class="btn-acao" onclick="editarJogador(${JSON.stringify(j.nome)}, ${Number(j.pontos ?? 0)})">Editar</button>
-              <button class="btn-acao danger" onclick="excluirJogador(${JSON.stringify(j.nome)})">Excluir</button>
-            </td>
-          </tr>`;
-        }
-
-        html += `</tbody></table>`;
-        container.innerHTML = html;
+        JOGADORES_CACHE = jogadores;
+        JOGADORES_NORMALIZADOS = jogadores.map(normalizarJogador);
+        renderizarJogadores();
       } catch (e) {
         erro.textContent = `Erro ao carregar jogadores: ${e.message}`;
         erro.style.display = 'block';
         container.innerHTML = '';
+        JOGADORES_CACHE = [];
+        JOGADORES_NORMALIZADOS = [];
       }
     }
 
@@ -858,8 +900,8 @@
           <td>${ultimaPontuacaoTxt}</td>
           <td>${partidasTxt}</td>
           <td>
-            <button class="btn-acao" onclick="editarJogador(${JSON.stringify(j.nome)}, ${Number(j.pontos ?? 0)})">Editar</button>
-            <button class="btn-acao danger" onclick="excluirJogador(${JSON.stringify(j.nome)})">Excluir</button>
+            <button class="btn-acao" data-acao="editar" data-nome="${encodeURIComponent(j.nome)}" data-pontos="${Number(j.pontos ?? 0)}">Editar</button>
+            <button class="btn-acao danger" data-acao="excluir" data-nome="${encodeURIComponent(j.nome)}">Excluir</button>
           </td>
         </tr>`;
       }
@@ -1169,6 +1211,183 @@
         alert('Erro ao excluir: ' + e.message);
       }
     }
+
+    document.addEventListener('click', async (e) => {
+      const botao = e.target.closest('button[data-acao]');
+      if (!botao) return;
+
+      const acao = botao.dataset.acao;
+      const nome = decodeURIComponent(botao.dataset.nome || '');
+      const pontos = Number(botao.dataset.pontos || 0);
+
+      if (acao === 'editar') {
+        await editarJogador(nome, pontos);
+      } else if (acao === 'excluir') {
+        await excluirJogador(nome);
+      }
+    });
+
+
+    let ROTACAO_JSON_CACHE = null;
+
+    function fmtRotacaoData(ts) {
+      if (!ts) return '-';
+      try { return new Date(ts).toLocaleString('pt-BR'); } catch { return String(ts); }
+    }
+
+    function setRotacaoStatus(msg) {
+      const el = document.getElementById('rotacao-status');
+      if (el) el.innerHTML = msg;
+    }
+
+    function renderRotacaoResumo(resultado) {
+      const el = document.getElementById('rotacao-resumo');
+      if (!el) return;
+      const partidas = Array.isArray(resultado?.partidas) ? resultado.partidas : [];
+      const totalPartidas = partidas.length;
+      const totalCartas = partidas.reduce((s, p) => s + Number(p?.totalCartas || 0), 0);
+      const parciais = partidas.filter(p => p?.parcial).length;
+      const repeticoes = Object.values(resultado?.repeticoes || {}).reduce((acc, arr) => acc + (Array.isArray(arr) ? arr.length : 0), 0);
+
+      el.innerHTML = `
+        <div class="mini-card">
+          <div class="mini-label">Jogador</div>
+          <div class="mini-valor">${escaparHtml(resultado?.jogador || '-')}</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-label">Partidas carregadas</div>
+          <div class="mini-valor">${totalPartidas}</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-label">Total de cartas</div>
+          <div class="mini-valor">${totalCartas}</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-label">Partidas parciais</div>
+          <div class="mini-valor">${parciais}</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-label">Comparações com repetição</div>
+          <div class="mini-valor">${repeticoes}</div>
+        </div>
+      `;
+    }
+
+    function renderRotacao(resultado) {
+      ROTACAO_JSON_CACHE = resultado;
+      renderRotacaoResumo(resultado);
+
+      const root = document.getElementById('rotacao-container');
+      const partidas = Array.isArray(resultado?.partidas) ? resultado.partidas : [];
+      const repeticoes = resultado?.repeticoes || {};
+
+      if (!partidas.length) {
+        root.innerHTML = '<div class="muted">Nenhuma partida detalhada encontrada para esse jogador.</div>';
+        return;
+      }
+
+      root.innerHTML = partidas.map((p, idx) => {
+        const reps = repeticoes[p.partidaId] || [];
+        const repeatedSet = new Set();
+        reps.forEach(r => (r.cardKeys || []).forEach(k => repeatedSet.add(k)));
+
+        const cartasHtml = (p.cartas || []).map(c => {
+          const key = c.cardKey || '';
+          const repeated = repeatedSet.has(key);
+          const exibir = c.cartaId ? `id:${c.cartaId}` : key;
+          return `<span class="rotacao-pill ${repeated ? 'repeated' : ''}">F${c.faseNumero}-${c.ordemCarta} · ${escaparHtml(exibir)}</span>`;
+        }).join('');
+
+        const repeticoesHtml = reps.length
+          ? reps.map(r => `<div class="rotacao-warn">Repete ${Number(r.quantidade || 0)} cartas com a partida ${escaparHtml(r.contraPartidaId || '')}</div>`).join('')
+          : '<div class="rotacao-ok">Sem repetição detectada entre as partidas carregadas.</div>';
+
+        return `
+          <div class="rotacao-partida">
+            <h3>Partida ${idx + 1} — ${escaparHtml(p.partidaId || '')}</h3>
+            <div class="rotacao-meta">
+              <div><b>Data:</b> ${fmtRotacaoData(p.data)}</div>
+              <div><b>Categoria:</b> ${escaparHtml(p.categoria || '-')}</div>
+              <div><b>Fase final:</b> ${Number(p.faseFinal || 0)}</div>
+              <div><b>Total de cartas:</b> ${Number(p.totalCartas || 0)}</div>
+              <div><b>Status:</b> ${p.parcial ? 'Parcial' : 'Completa'}</div>
+            </div>
+            ${repeticoesHtml}
+            <details open style="margin-top:8px;">
+              <summary><b>IDs/Keys das cartas jogadas</b></summary>
+              <div style="margin-top:8px;">${cartasHtml || '<span class="muted">Sem cartas</span>'}</div>
+            </details>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function buscarRotacaoCartas() {
+      const tokenInput = document.getElementById('rotacao-token');
+      const nomeInput = document.getElementById('rotacao-nome');
+      const limiteInput = document.getElementById('rotacao-limite');
+
+      const token = (tokenInput?.value || '').trim() || getAdminToken();
+      const nome = (nomeInput?.value || '').trim();
+      const limite = (limiteInput?.value || '20').trim();
+
+      if (tokenInput && token) tokenInput.value = token;
+
+      if (!token) {
+        alert('Informe o token admin.');
+        return;
+      }
+      if (!nome) {
+        alert('Informe o nome do jogador.');
+        return;
+      }
+
+      setRotacaoStatus('Consultando...');
+      const container = document.getElementById('rotacao-container');
+      if (container) container.innerHTML = '';
+
+      try {
+        const url = `${API_BASE}/admin/cartas-jogador?nome=${encodeURIComponent(nome)}&limite=${encodeURIComponent(limite)}`;
+        const res = await fetch(url, {
+          headers: { 'X-Admin-Token': token }
+        });
+
+        const text = await res.text();
+        let data = {};
+        try { data = JSON.parse(text); } catch {
+          throw new Error(text || `HTTP ${res.status}`);
+        }
+
+        if (!res.ok) {
+          throw new Error(data?.erro || `HTTP ${res.status}`);
+        }
+
+        setRotacaoStatus(`Consulta concluída para <b>${escaparHtml(data?.jogador || nome)}</b>.`);
+        renderRotacao(data);
+      } catch (e) {
+        setRotacaoStatus(`<span style="color:#B3261E;font-weight:800;">Erro: ${escaparHtml(e.message)}</span>`);
+        const resumo = document.getElementById('rotacao-resumo');
+        if (resumo) resumo.innerHTML = '';
+        const container = document.getElementById('rotacao-container');
+        if (container) container.innerHTML = '';
+      }
+    }
+
+    async function copiarJSONRotacao() {
+      if (!ROTACAO_JSON_CACHE) {
+        alert('Nada para copiar ainda.');
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(JSON.stringify(ROTACAO_JSON_CACHE, null, 2));
+        alert('JSON copiado.');
+      } catch (e) {
+        console.log(ROTACAO_JSON_CACHE);
+        alert('Não foi possível copiar automaticamente. JSON enviado ao console.');
+      }
+    }
+
+
 window.addEventListener('load', () => carregarDadosGeral());
   </script>
 </body>
