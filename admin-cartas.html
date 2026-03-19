@@ -752,6 +752,34 @@
     }
 
     // ============================================
+    // SALVAR CATEGORIA COMPLETA NO BACKEND
+    // ============================================
+    async function salvarCategoriaCompleta(categoria, cartas) {
+      const response = await fetch(`${API_BASE}/cartas/${categoria}/popular`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({ cartas })
+      });
+
+      const texto = await response.text();
+      let data = {};
+      try {
+        data = texto ? JSON.parse(texto) : {};
+      } catch {
+        data = { error: texto || 'Resposta inválida do servidor' };
+      }
+
+      if (!response.ok || data.sucesso === false) {
+        throw new Error(data.error || data.erro || 'Erro ao salvar categoria');
+      }
+
+      return data;
+    }
+
+    // ============================================
     // ADICIONAR CARTA
     // ============================================
     document.getElementById('form-adicionar').addEventListener('submit', async (e) => {
@@ -771,27 +799,14 @@
       }
 
       try {
-        const response = await fetch(`${API_BASE}/admin/cartas/${categoria}`, {
-          method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json; charset=utf-8',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(novaCarta)
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          mostrarAlerta('✅ Carta adicionada com sucesso!', 'success');
-          document.getElementById('form-adicionar').reset();
-          await carregarEstatisticas();
-        } else {
-          mostrarAlerta(`❌ ${data.error || 'Erro ao adicionar carta'}`, 'error');
-        }
+        const cartasAtualizadas = [...(cartasCache[categoria] || []), novaCarta];
+        await salvarCategoriaCompleta(categoria, cartasAtualizadas);
+        mostrarAlerta('✅ Carta adicionada com sucesso!', 'success');
+        document.getElementById('form-adicionar').reset();
+        await carregarEstatisticas();
       } catch (erro) {
         console.error('Erro:', erro);
-        mostrarAlerta('❌ Erro de conexão!', 'error');
+        mostrarAlerta(`❌ ${erro.message || 'Erro ao adicionar carta'}`, 'error');
       }
     });
 
@@ -878,22 +893,15 @@
       }
 
       try {
-        const response = await fetch(`${API_BASE}/admin/cartas/${categoria}/${index}`, {
-          method: 'DELETE'
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          mostrarAlerta('✅ Carta excluída com sucesso!', 'success');
-          await carregarEstatisticas();
-          listarCartas();
-        } else {
-          mostrarAlerta(`❌ ${data.error || 'Erro ao excluir carta'}`, 'error');
-        }
+        const cartasAtuais = [...(cartasCache[categoria] || [])];
+        cartasAtuais.splice(index, 1);
+        await salvarCategoriaCompleta(categoria, cartasAtuais);
+        mostrarAlerta('✅ Carta excluída com sucesso!', 'success');
+        await carregarEstatisticas();
+        listarCartas();
       } catch (erro) {
         console.error('Erro:', erro);
-        mostrarAlerta('❌ Erro de conexão!', 'error');
+        mostrarAlerta(`❌ ${erro.message || 'Erro ao excluir carta'}`, 'error');
       }
     }
 
@@ -966,27 +974,15 @@
       }
 
       try {
-        const response = await fetch(`${API_BASE}/admin/cartas/${categoria}/${index}`, {
-          method: 'PUT',
-          headers: { 
-            'Content-Type': 'application/json; charset=utf-8',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(cartaAtualizada)
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          mostrarAlerta('✅ Carta atualizada com sucesso!', 'success');
-          await carregarEstatisticas();
-          cancelarEdicao();
-        } else {
-          mostrarAlerta(`❌ ${data.error || 'Erro ao atualizar carta'}`, 'error');
-        }
+        const cartasAtualizadas = [...(cartasCache[categoria] || [])];
+        cartasAtualizadas[index] = cartaAtualizada;
+        await salvarCategoriaCompleta(categoria, cartasAtualizadas);
+        mostrarAlerta('✅ Carta atualizada com sucesso!', 'success');
+        await carregarEstatisticas();
+        cancelarEdicao();
       } catch (erro) {
         console.error('Erro:', erro);
-        mostrarAlerta('❌ Erro de conexão!', 'error');
+        mostrarAlerta(`❌ ${erro.message || 'Erro ao atualizar carta'}`, 'error');
       }
     });
 
@@ -1004,24 +1000,17 @@
       const index = parseInt(document.getElementById('editar-index').value);
 
       try {
-        const response = await fetch(`${API_BASE}/admin/cartas/${categoria}/${index}`, {
-          method: 'DELETE'
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          mostrarAlerta('✅ Carta excluída com sucesso!', 'success');
-          await carregarEstatisticas();
-          cancelarEdicao();
-          document.getElementById('editar-categoria-filtro').value = '';
-          document.getElementById('editar-carta-select').innerHTML = '<option value="">-- Selecione uma categoria primeiro --</option>';
-        } else {
-          mostrarAlerta(`❌ ${data.error || 'Erro ao excluir carta'}`, 'error');
-        }
+        const cartasAtuais = [...(cartasCache[categoria] || [])];
+        cartasAtuais.splice(index, 1);
+        await salvarCategoriaCompleta(categoria, cartasAtuais);
+        mostrarAlerta('✅ Carta excluída com sucesso!', 'success');
+        await carregarEstatisticas();
+        cancelarEdicao();
+        document.getElementById('editar-categoria-filtro').value = '';
+        document.getElementById('editar-carta-select').innerHTML = '<option value="">-- Selecione uma categoria primeiro --</option>';
       } catch (erro) {
         console.error('Erro:', erro);
-        mostrarAlerta('❌ Erro de conexão!', 'error');
+        mostrarAlerta(`❌ ${erro.message || 'Erro ao excluir carta'}`, 'error');
       }
     }
 
