@@ -3,759 +3,613 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎴 Admin - Gerenciar Cartas</title>
+  <title>🎴 Admin PRO - Gerenciar Cartas</title>
   <style>
     :root {
-      --jw-azul-principal: #4A6DA7;
-      --jw-azul-escuro: #1E3A5F;
-      --jw-branco: #FFFFFF;
-      --jw-cinza-claro: #F5F5F5;
-      --jw-verde-sucesso: #5CB85C;
-      --jw-vermelho-erro: #D9534F;
-      --jw-laranja: #F47920;
+      --bg-1: #08111f;
+      --bg-2: #0f2340;
+      --card: rgba(255,255,255,.96);
+      --text: #11233d;
+      --muted: #5f6f84;
+      --primary: #2558c8;
+      --primary-2: #153a8a;
+      --success: #198754;
+      --danger: #d64545;
+      --warning: #e59a19;
+      --soft: #eef3fb;
+      --line: #d9e3f3;
+      --shadow: 0 16px 42px rgba(0,0,0,.25);
+      --radius: 18px;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, var(--jw-azul-escuro) 0%, var(--jw-azul-principal) 100%);
       min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(66,135,245,.28), transparent 22%),
+        radial-gradient(circle at top left, rgba(255,255,255,.10), transparent 18%),
+        linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
       padding: 20px;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
+    .container { max-width: 1400px; margin: 0 auto; }
+    .panel {
+      background: var(--card);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(4px);
     }
 
-    .card {
-      background: var(--jw-branco);
-      border-radius: 15px;
-      padding: 25px;
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      flex-wrap: wrap;
       margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
     h1 {
-      color: var(--jw-azul-escuro);
-      margin-bottom: 10px;
-      text-align: center;
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
     }
 
     .subtitle {
-      text-align: center;
-      color: #666;
-      margin-bottom: 25px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+      max-width: 760px;
+    }
+
+    .hero-actions, .toolbar, .form-actions, .card-actions, .inline-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      margin-bottom: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin: 18px 0 24px;
     }
 
-    .stat-box {
-      background: linear-gradient(135deg, var(--jw-azul-principal), var(--jw-azul-escuro));
-      color: var(--jw-branco);
-      padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    .stat {
+      border-radius: 18px;
+      color: #fff;
+      padding: 18px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.16);
+      background: linear-gradient(135deg, #2254ba, #122f72);
     }
+    .stat small { opacity: .9; display: block; margin-bottom: 8px; }
+    .stat strong { font-size: 2rem; display: block; }
 
-    .stat-value {
-      font-size: 2.5rem;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    .stat-label {
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-
-    .verificar-btn-container {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+    .stat.secondary { background: linear-gradient(135deg, #6f42c1, #3d2170); }
+    .stat.success { background: linear-gradient(135deg, #1f9d5d, #0d5b35); }
+    .stat.warning { background: linear-gradient(135deg, #db8f15, #8f5904); }
+    .stat.dark { background: linear-gradient(135deg, #24364f, #121d2c); }
 
     .tabs {
       display: flex;
       gap: 10px;
-      margin-bottom: 25px;
       flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .tab, .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: .98rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease, background .15s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
     .tab {
-      padding: 12px 24px;
-      background: var(--jw-cinza-claro);
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 1rem;
-      transition: all 0.3s;
-      color: var(--jw-azul-escuro);
+      background: var(--soft);
+      color: var(--text);
     }
-
-    .tab:hover {
-      background: #E0E0E0;
-      transform: translateY(-2px);
-    }
-
     .tab.active {
-      background: var(--jw-azul-principal);
-      color: var(--jw-branco);
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(37,88,200,.28);
     }
 
-    .form-group {
-      margin-bottom: 20px;
+    .btn:hover, .tab:hover { transform: translateY(-1px); }
+    .btn.primary { background: linear-gradient(135deg, var(--primary), var(--primary-2)); color: #fff; }
+    .btn.success { background: linear-gradient(135deg, #20a765, #127b48); color: #fff; }
+    .btn.danger { background: linear-gradient(135deg, #e45454, #b72828); color: #fff; }
+    .btn.secondary { background: var(--soft); color: var(--text); }
+    .btn.warning { background: linear-gradient(135deg, #eba21e, #b67108); color: #fff; }
+    .btn.small { padding: 9px 12px; font-size: .9rem; }
+
+    .aba.hidden { display: none; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
     }
 
-    label {
+    .box {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+
+    .box h2, .box h3 {
+      margin: 0 0 14px;
+      color: var(--text);
+    }
+
+    .muted { color: var(--muted); }
+    .tiny { font-size: .88rem; }
+
+    .field { margin-bottom: 16px; }
+    .field label {
       display: block;
-      font-weight: bold;
       margin-bottom: 8px;
-      color: var(--jw-azul-escuro);
-      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text);
     }
 
-    input, textarea, select {
+    input, select, textarea {
       width: 100%;
-      padding: 14px;
-      border: 2px solid var(--jw-cinza-claro);
-      border-radius: 10px;
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      padding: 13px 14px;
       font-size: 1rem;
       font-family: inherit;
-      transition: border-color 0.3s;
+      background: #fff;
+      color: var(--text);
+      transition: border-color .15s ease, box-shadow .15s ease;
     }
 
-    input:focus, textarea:focus, select:focus {
+    input:focus, select:focus, textarea:focus {
       outline: none;
-      border-color: var(--jw-azul-principal);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(37,88,200,.12);
     }
 
-    textarea {
-      min-height: 100px;
-      resize: vertical;
+    textarea { min-height: 92px; resize: vertical; }
+
+    .toolbar {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-bottom: 14px;
     }
 
-    .btn {
-      padding: 14px 28px;
-      border: none;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: all 0.3s;
-      margin-right: 10px;
-      margin-bottom: 10px;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-
-    .btn-primary {
-      background: var(--jw-azul-principal);
-      color: var(--jw-branco);
-    }
-
-    .btn-success {
-      background: var(--jw-verde-sucesso);
-      color: var(--jw-branco);
-    }
-
-    .btn-danger {
-      background: var(--jw-vermelho-erro);
-      color: var(--jw-branco);
-    }
-
-    .btn-secondary {
-      background: var(--jw-cinza-claro);
-      color: var(--jw-azul-escuro);
-    }
-
-    .cartas-lista {
+    .toolbar-grid {
       display: grid;
-      gap: 15px;
-      max-height: 600px;
-      overflow-y: auto;
-      padding: 10px;
-    }
-
-    .carta-item {
-      background: var(--jw-cinza-claro);
-      padding: 20px;
-      border-radius: 12px;
-      border-left: 5px solid var(--jw-azul-principal);
-      transition: all 0.3s;
-    }
-
-    .carta-item:hover {
-      transform: translateX(5px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .carta-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-      flex-wrap: wrap;
+      grid-template-columns: 1.1fr repeat(3, minmax(170px, .5fr));
       gap: 10px;
-    }
-
-    .carta-resposta {
-      font-size: 1.3rem;
-      font-weight: bold;
-      color: var(--jw-azul-escuro);
-    }
-
-    .carta-categoria {
-      background: var(--jw-azul-principal);
-      color: var(--jw-branco);
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: bold;
-    }
-
-    .carta-dicas {
-      margin: 15px 0;
-      padding-left: 15px;
-    }
-
-    .carta-dica {
-      margin-bottom: 10px;
-      color: #555;
-      line-height: 1.6;
-    }
-
-    .carta-dica strong {
-      color: var(--jw-azul-escuro);
-    }
-
-    .carta-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 15px;
-      flex-wrap: wrap;
-    }
-
-    .btn-small {
-      padding: 8px 16px;
-      font-size: 0.9rem;
     }
 
     .alert {
+      display: none;
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      white-space: pre-line;
+    }
+    .alert.show { display: block; }
+    .alert.success { background: #e6f6ec; color: #16663d; border: 2px solid #84d5a8; }
+    .alert.error { background: #fdeaea; color: #8a2020; border: 2px solid #f3acac; }
+
+    .list {
+      display: grid;
+      gap: 14px;
+      max-height: 72vh;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .card-item {
+      background: linear-gradient(180deg, #ffffff, #f7faff);
+      border: 1px solid var(--line);
+      border-left: 6px solid var(--primary);
+      border-radius: 16px;
       padding: 16px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      font-weight: bold;
-      display: none;
-      animation: slideDown 0.3s;
+      box-shadow: 0 8px 20px rgba(16,34,63,.06);
     }
 
-    .alert.show {
-      display: block;
-    }
-
-    .alert-success {
-      background: #d4edda;
-      color: #155724;
-      border: 2px solid var(--jw-verde-sucesso);
-    }
-
-    .alert-error {
-      background: #f8d7da;
-      color: #721c24;
-      border: 2px solid var(--jw-vermelho-erro);
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .busca-container {
+    .card-top {
       display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 10px;
       flex-wrap: wrap;
     }
 
-    .busca-container input {
-      flex: 1;
-      min-width: 250px;
+    .answer {
+      font-size: 1.18rem;
+      font-weight: 800;
+      line-height: 1.25;
     }
 
-    .loading {
+    .pill {
+      background: var(--soft);
+      color: var(--primary-2);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: .86rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .meta .pill.dark {
+      background: #eaf0fa;
+      color: #374d75;
+    }
+
+    .hint {
+      margin: 8px 0;
+      line-height: 1.55;
+      color: #33425c;
+    }
+
+    .empty, .loading {
+      border: 2px dashed var(--line);
+      border-radius: 16px;
+      padding: 28px;
       text-align: center;
-      padding: 40px;
-      color: #666;
+      color: var(--muted);
+      background: #fbfdff;
     }
 
-    .loading-spinner {
-      font-size: 3rem;
-      animation: girar 1s linear infinite;
+    .badge-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
     }
 
-    @keyframes girar {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+    .backup-box {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
     }
 
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .status-line {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: .92rem;
     }
 
-    @media (max-width: 768px) {
-      .container {
-        padding: 10px;
-      }
-
-      .card {
-        padding: 15px;
-      }
-
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .tabs {
-        flex-direction: column;
-      }
-
-      .tab {
-        width: 100%;
-        text-align: center;
-      }
-
-      .carta-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .btn {
-        width: 100%;
-        margin-right: 0;
-      }
+    @media (max-width: 980px) {
+      .grid-2, .toolbar-grid { grid-template-columns: 1fr; }
+      .hero-actions, .toolbar, .form-actions, .card-actions, .inline-actions, .tabs { flex-direction: column; }
+      .btn, .tab { width: 100%; }
+      body { padding: 12px; }
+      .panel { padding: 16px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="card">
-      <h1>🎴 Gerenciar Cartas</h1>
-      <p class="subtitle">Adicione, edite ou exclua cartas do jogo</p>
+    <div class="panel">
+      <div class="hero">
+        <div>
+          <h1>🎴 Admin PRO de Cartas</h1>
+          <p class="subtitle">Painel melhorado para criar, buscar, editar, duplicar, excluir, exportar e manter backup local das cartas do jogo sem quebrar o backend atual.</p>
+        </div>
+        <div class="hero-actions">
+          <button class="btn secondary" id="btn-integridade">🔍 Verificar integridade</button>
+          <button class="btn warning" id="btn-exportar">📥 Exportar CSV</button>
+          <a class="btn secondary" href="admin.html">🏠 Voltar</a>
+        </div>
+      </div>
 
       <div id="alert" class="alert"></div>
 
-      <div class="stats" id="stats">
-        <div class="stat-box">
-          <div class="stat-value" id="total-personagens">0</div>
-          <div class="stat-label">👤 Personagens</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-value" id="total-profecias">0</div>
-          <div class="stat-label">📜 Profecias</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-value" id="total-pregacao">0</div>
-          <div class="stat-label">🎤 Pregação</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-value" id="total-geral">0</div>
-          <div class="stat-label">📊 Total</div>
-        </div>
-      </div>
-
-      <div class="verificar-btn-container">
-        <button class="btn btn-danger" onclick="verificarDados()">
-          🔍 Verificar Integridade dos Dados
-        </button>
+      <div class="stats">
+        <div class="stat"><small>👤 Personagens</small><strong id="stat-personagens">0</strong></div>
+        <div class="stat secondary"><small>📜 Profecias</small><strong id="stat-profecias">0</strong></div>
+        <div class="stat success"><small>🎤 Pregação</small><strong id="stat-pregacao">0</strong></div>
+        <div class="stat warning"><small>📊 Total geral</small><strong id="stat-total">0</strong></div>
+        <div class="stat dark"><small>🎯 Resultado filtrado</small><strong id="stat-filtrado">0</strong></div>
       </div>
 
       <div class="tabs">
-        <button class="tab active" onclick="mudarAba('adicionar')">➕ Adicionar</button>
-        <button class="tab" onclick="mudarAba('listar')">📋 Listar</button>
-        <button class="tab" onclick="mudarAba('editar')">✏️ Editar</button>
-        <button class="tab" onclick="exportarCartasCSV()">📥 Exportar CSV</button>
-        <a href="admin.html" class="tab" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">🏠 Voltar</a>
+        <button class="tab active" data-tab="adicionar">➕ Adicionar</button>
+        <button class="tab" data-tab="listar">📋 Listar / Buscar</button>
+        <button class="tab" data-tab="editar">✏️ Editar</button>
       </div>
 
-      <!-- ABA ADICIONAR -->
-      <div id="aba-adicionar" class="aba-content">
-        <h2 style="color: var(--jw-azul-escuro); margin-bottom: 20px;">➕ Adicionar Nova Carta</h2>
-        <form id="form-adicionar">
-          <div class="form-group">
-            <label>📚 Categoria:</label>
-            <select id="nova-categoria" required>
-              <option value="personagens">👤 Personagens Bíblicos</option>
+      <section id="aba-adicionar" class="aba">
+        <div class="grid-2">
+          <div class="box">
+            <h2>➕ Nova carta</h2>
+            <form id="form-adicionar">
+              <div class="field">
+                <label for="nova-categoria">📚 Categoria</label>
+                <select id="nova-categoria" required>
+                  <option value="personagens">👤 Personagens Bíblicos</option>
+                  <option value="profecias">📜 Profecias</option>
+                  <option value="pregacao">🎤 Pregação</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="nova-resposta">✅ Resposta correta</label>
+                <input id="nova-resposta" type="text" placeholder="Ex: Moisés" required>
+              </div>
+              <div class="field">
+                <label for="nova-dica1">💡 Dica 1</label>
+                <textarea id="nova-dica1" placeholder="Primeira dica: mais difícil" required></textarea>
+              </div>
+              <div class="field">
+                <label for="nova-dica2">💡 Dica 2</label>
+                <textarea id="nova-dica2" placeholder="Segunda dica: intermediária" required></textarea>
+              </div>
+              <div class="field">
+                <label for="nova-dica3">💡 Dica 3</label>
+                <textarea id="nova-dica3" placeholder="Terceira dica: mais fácil" required></textarea>
+              </div>
+              <div class="form-actions">
+                <button class="btn success" type="submit">✅ Adicionar carta</button>
+                <button class="btn secondary" type="reset">🔄 Limpar</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="box">
+            <h2>⚡ Ferramentas rápidas</h2>
+            <p class="muted">Essas ações deixam o admin mais seguro e mais rápido para você trabalhar.</p>
+            <div class="backup-box">
+              <button class="btn secondary" type="button" id="btn-backup-manual">💾 Salvar backup local agora</button>
+              <button class="btn secondary" type="button" id="btn-restaurar-backup">♻️ Restaurar último backup local</button>
+              <button class="btn secondary" type="button" id="btn-limpar-backup">🧹 Limpar backup local</button>
+              <div class="status-line" id="status-backup">Nenhum backup local detectado.</div>
+            </div>
+            <div class="backup-box">
+              <h3>🧠 Dicas de uso PRO</h3>
+              <div class="muted tiny">• Buscar por resposta ou por qualquer dica.</div>
+              <div class="muted tiny">• Duplicar uma carta pronta para criar variantes rápidas.</div>
+              <div class="muted tiny">• Ordenar por resposta A→Z ou Z→A.</div>
+              <div class="muted tiny">• O sistema faz backup local antes de salvar no backend.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="aba-listar" class="aba hidden">
+        <div class="toolbar">
+          <div class="toolbar-grid">
+            <input id="busca" type="text" placeholder="🔍 Buscar por resposta, dica ou trecho..."><select id="filtro-categoria">
+              <option value="todas">📊 Todas as categorias</option>
+              <option value="personagens">👤 Personagens</option>
               <option value="profecias">📜 Profecias</option>
               <option value="pregacao">🎤 Pregação</option>
             </select>
+            <select id="ordenacao">
+              <option value="az">🔤 Resposta A → Z</option>
+              <option value="za">🔤 Resposta Z → A</option>
+              <option value="categoria">📚 Agrupar por categoria</option>
+            </select>
+            <button class="btn secondary" id="btn-recarregar-lista" type="button">🔄 Recarregar</button>
           </div>
-
-          <div class="form-group">
-            <label>✅ Resposta Correta:</label>
-            <input type="text" id="nova-resposta" placeholder="Ex: Moisés" required>
-          </div>
-
-          <div class="form-group">
-            <label>💡 Dica 1 (Mais Difícil):</label>
-            <textarea id="nova-dica1" placeholder="Primeira dica - deve ser mais vaga e difícil" required></textarea>
-          </div>
-
-          <div class="form-group">
-            <label>💡 Dica 2 (Intermediária):</label>
-            <textarea id="nova-dica2" placeholder="Segunda dica - um pouco mais específica" required></textarea>
-          </div>
-
-          <div class="form-group">
-            <label>💡 Dica 3 (Mais Fácil):</label>
-            <textarea id="nova-dica3" placeholder="Terceira dica - deve ser bem específica e fácil" required></textarea>
-          </div>
-
-          <button type="submit" class="btn btn-success">✅ Adicionar Carta</button>
-          <button type="reset" class="btn btn-secondary">🔄 Limpar Formulário</button>
-        </form>
-      </div>
-
-      <!-- ABA LISTAR -->
-      <div id="aba-listar" class="aba-content hidden">
-        <h2 style="color: var(--jw-azul-escuro); margin-bottom: 20px;">📋 Listar Cartas</h2>
-        
-        <div class="busca-container">
-          <select id="filtro-categoria" onchange="listarCartas()">
-            <option value="todas">📊 Todas as Categorias</option>
-            <option value="personagens">👤 Personagens</option>
-            <option value="profecias">📜 Profecias</option>
-            <option value="pregacao">🎤 Pregação</option>
-          </select>
-
-          <input type="text" id="busca" placeholder="🔍 Buscar por resposta ou dica..." onkeyup="listarCartas()">
         </div>
+        <div id="lista-cartas" class="list"></div>
+      </section>
 
-        <div id="cartas-lista" class="cartas-lista"></div>
-      </div>
+      <section id="aba-editar" class="aba hidden">
+        <div class="grid-2">
+          <div class="box">
+            <h2>🎯 Seleção rápida</h2>
+            <div class="field">
+              <label for="editar-categoria-filtro">📚 Categoria</label>
+              <select id="editar-categoria-filtro">
+                <option value="">-- Selecione uma categoria --</option>
+                <option value="personagens">👤 Personagens Bíblicos</option>
+                <option value="profecias">📜 Profecias</option>
+                <option value="pregacao">🎤 Pregação</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="editar-busca">🔍 Buscar nesta categoria</label>
+              <input id="editar-busca" type="text" placeholder="Digite parte da resposta ou das dicas...">
+            </div>
+            <div class="field">
+              <label for="editar-carta-select">🎴 Carta</label>
+              <select id="editar-carta-select">
+                <option value="">-- Selecione uma categoria primeiro --</option>
+              </select>
+            </div>
+            <div class="status-line" id="status-edicao">Selecione uma categoria para começar.</div>
+          </div>
 
-      <!-- ABA EDITAR -->
-      <div id="aba-editar" class="aba-content hidden">
-        <h2 style="color: var(--jw-azul-escuro); margin-bottom: 20px;">✏️ Editar Carta</h2>
-        
-        <div class="form-group">
-          <label>📚 Selecionar Categoria:</label>
-          <select id="editar-categoria-filtro" onchange="carregarCartasParaEditar()">
-            <option value="">-- Selecione uma categoria --</option>
-            <option value="personagens">👤 Personagens Bíblicos</option>
-            <option value="profecias">📜 Profecias</option>
-            <option value="pregacao">🎤 Pregação</option>
-          </select>
+          <div class="box">
+            <h2>✏️ Editor PRO</h2>
+            <form id="form-editar" class="hidden">
+              <input type="hidden" id="editar-index">
+              <input type="hidden" id="editar-categoria">
+              <div class="field">
+                <label for="editar-resposta">✅ Resposta correta</label>
+                <input id="editar-resposta" type="text" required>
+              </div>
+              <div class="field">
+                <label for="editar-dica1">💡 Dica 1</label>
+                <textarea id="editar-dica1" required></textarea>
+              </div>
+              <div class="field">
+                <label for="editar-dica2">💡 Dica 2</label>
+                <textarea id="editar-dica2" required></textarea>
+              </div>
+              <div class="field">
+                <label for="editar-dica3">💡 Dica 3</label>
+                <textarea id="editar-dica3" required></textarea>
+              </div>
+              <div class="form-actions">
+                <button class="btn success" type="submit">💾 Salvar alterações</button>
+                <button class="btn primary" type="button" id="btn-duplicar-editor">📄 Duplicar esta carta</button>
+                <button class="btn danger" type="button" id="btn-excluir-editor">🗑️ Excluir</button>
+                <button class="btn secondary" type="button" id="btn-cancelar-editor">❌ Cancelar</button>
+              </div>
+            </form>
+            <div id="editor-vazio" class="empty">Nenhuma carta selecionada.</div>
+          </div>
         </div>
-
-        <div class="form-group">
-          <label>🎴 Selecionar Carta:</label>
-          <select id="editar-carta-select" onchange="carregarCartaParaEditar()">
-            <option value="">-- Selecione uma categoria primeiro --</option>
-          </select>
-        </div>
-
-        <form id="form-editar" class="hidden">
-          <input type="hidden" id="editar-index">
-          <input type="hidden" id="editar-categoria">
-
-          <div class="form-group">
-            <label>✅ Resposta Correta:</label>
-            <input type="text" id="editar-resposta" required>
-          </div>
-
-          <div class="form-group">
-            <label>💡 Dica 1 (Mais Difícil):</label>
-            <textarea id="editar-dica1" required></textarea>
-          </div>
-
-          <div class="form-group">
-            <label>💡 Dica 2 (Intermediária):</label>
-            <textarea id="editar-dica2" required></textarea>
-          </div>
-
-          <div class="form-group">
-            <label>💡 Dica 3 (Mais Fácil):</label>
-            <textarea id="editar-dica3" required></textarea>
-          </div>
-
-          <button type="submit" class="btn btn-success">💾 Salvar Alterações</button>
-          <button type="button" class="btn btn-danger" onclick="excluirCarta()">🗑️ Excluir Esta Carta</button>
-          <button type="button" class="btn btn-secondary" onclick="cancelarEdicao()">❌ Cancelar</button>
-        </form>
-      </div>
+      </section>
     </div>
   </div>
 
   <script src="config.js"></script>
   <script>
     const API_BASE = window.APP_CONFIG.API_BASE;
-    let cartasCache = {};
+    const CATEGORIAS = ['personagens', 'profecias', 'pregacao'];
+    const CATEGORIA_NOME = {
+      personagens: '👤 Personagens',
+      profecias: '📜 Profecias',
+      pregacao: '🎤 Pregação'
+    };
+    const BACKUP_KEY = 'admin_cartas_pro_backup_v1';
 
-    // ============================================
-    // CARREGAR ESTATÍSTICAS
-    // ============================================
-    async function carregarEstatisticas() {
+    let cartasCache = {
+      personagens: [],
+      profecias: [],
+      pregacao: []
+    };
+
+    const el = {};
+
+    function initRefs() {
+      [
+        'alert','nova-categoria','nova-resposta','nova-dica1','nova-dica2','nova-dica3','form-adicionar',
+        'lista-cartas','busca','filtro-categoria','ordenacao','editar-categoria-filtro','editar-busca','editar-carta-select',
+        'editar-index','editar-categoria','editar-resposta','editar-dica1','editar-dica2','editar-dica3','form-editar',
+        'editor-vazio','status-backup','status-edicao','stat-personagens','stat-profecias','stat-pregacao','stat-total','stat-filtrado'
+      ].forEach(id => el[id.replace(/-([a-z])/g, (_,c)=>c.toUpperCase())] = document.getElementById(id));
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function normalizeText(value) {
+      return String(value || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim();
+    }
+
+    function getAllCards() {
+      return CATEGORIAS.flatMap(categoria => (cartasCache[categoria] || []).map((carta, index) => ({ categoria, index, carta })));
+    }
+
+    function updateBackupStatus() {
+      const raw = localStorage.getItem(BACKUP_KEY);
+      if (!raw) {
+        el.statusBackup.textContent = 'Nenhum backup local detectado.';
+        return;
+      }
       try {
-        const categorias = ['personagens', 'profecias', 'pregacao'];
-        let total = 0;
-
-        for (const cat of categorias) {
-          try {
-            const response = await fetch(`${API_BASE}/cartas/${cat}`, {
-              headers: {
-                'Accept': 'application/json',
-                'Accept-Charset': 'utf-8'
-              }
-            });
-            
-            if (!response.ok) {
-              throw new Error(`HTTP ${response.status}`);
-            }
-
-            const textoResposta = await response.text();
-            
-            let data;
-            try {
-              data = JSON.parse(textoResposta);
-            } catch (parseError) {
-              console.error(`❌ Erro ao fazer parse de ${cat}:`, parseError);
-              console.log('📄 Resposta recebida:', textoResposta.substring(0, 500));
-              data = { cartas: [] };
-            }
-
-            const count = data.cartas ? data.cartas.length : 0;
-            cartasCache[cat] = data.cartas || [];
-            
-            document.getElementById(`total-${cat}`).textContent = count;
-            total += count;
-
-          } catch (erroCategoria) {
-            console.error(`❌ Erro ao carregar ${cat}:`, erroCategoria);
-            document.getElementById(`total-${cat}`).textContent = '⚠️';
-            cartasCache[cat] = [];
-          }
-        }
-
-        document.getElementById('total-geral').textContent = total;
-      } catch (erro) {
-        console.error('❌ Erro geral:', erro);
-        mostrarAlerta('❌ Erro ao carregar estatísticas', 'error');
+        const parsed = JSON.parse(raw);
+        const data = parsed.criadoEm ? new Date(parsed.criadoEm).toLocaleString('pt-BR') : 'data desconhecida';
+        const total = CATEGORIAS.reduce((acc, cat) => acc + ((parsed.cartas?.[cat] || []).length), 0);
+        el.statusBackup.textContent = `Último backup local: ${data} • ${total} cartas.`;
+      } catch {
+        el.statusBackup.textContent = 'Backup local encontrado, mas está corrompido.';
       }
     }
 
-    // ============================================
-    // VERIFICAR INTEGRIDADE DOS DADOS
-    // ============================================
-    async function verificarDados() {
-      if (!confirm('⚠️ Verificar integridade dos dados?\n\nAbra o Console (F12) para ver os detalhes.')) {
-        return;
-      }
-
-      mostrarAlerta('🔍 Verificando... Abra o Console (F12)', 'success');
-
-      const categorias = ['personagens', 'profecias', 'pregacao'];
-      const problemas = [];
-
-      for (const cat of categorias) {
-        try {
-          console.log(`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-          console.log(`📋 CATEGORIA: ${cat.toUpperCase()}`);
-          console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-
-          const response = await fetch(`${API_BASE}/cartas/${cat}`);
-          const textoResposta = await response.text();
-
-          console.log('📊 Status HTTP:', response.status);
-          console.log('📝 Content-Type:', response.headers.get('Content-Type'));
-          console.log('📏 Tamanho:', textoResposta.length, 'caracteres');
-          console.log('🔤 Primeiros 300 caracteres:');
-          console.log(textoResposta.substring(0, 300));
-
-          try {
-            const data = JSON.parse(textoResposta);
-            console.log('✅ JSON Válido!');
-            console.log('📚 Quantidade de cartas:', data.cartas ? data.cartas.length : 0);
-            
-            if (data.cartas && data.cartas.length > 0) {
-              console.log('🎴 Primeira carta:', data.cartas[0]);
-            }
-          } catch (e) {
-            console.error('❌ ERRO ao fazer parse do JSON:');
-            console.error(e);
-            problemas.push(cat);
-          }
-
-        } catch (erro) {
-          console.error(`❌ ERRO ao conectar com ${cat}:`, erro);
-          problemas.push(cat);
-        }
-      }
-
-      console.log(`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-      console.log(`📊 RESULTADO FINAL`);
-      console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-
-      if (problemas.length > 0) {
-        console.error('❌ Categorias com problema:', problemas.join(', '));
-        mostrarAlerta(`❌ Problemas em: ${problemas.join(', ')}\n\nDetalhes no Console (F12)`, 'error');
-      } else {
-        console.log('✅ Todas as categorias estão OK!');
-        mostrarAlerta('✅ Todos os dados estão íntegros!', 'success');
-      }
+    function saveBackupLocal() {
+      const payload = {
+        criadoEm: new Date().toISOString(),
+        cartas: structuredClone(cartasCache)
+      };
+      localStorage.setItem(BACKUP_KEY, JSON.stringify(payload));
+      updateBackupStatus();
     }
 
-    // ============================================
-    // EXPORTAR CARTAS PARA CSV
-    // ============================================
-    async function exportarCartasCSV() {
-      if (!confirm('📥 Exportar todas as cartas para arquivo CSV?\n\nO arquivo será baixado automaticamente.')) {
+    async function restoreBackupLocal() {
+      const raw = localStorage.getItem(BACKUP_KEY);
+      if (!raw) {
+        mostrarAlerta('❌ Nenhum backup local encontrado.', 'error');
         return;
       }
 
-      mostrarAlerta('⏳ Gerando arquivo CSV...', 'success');
+      if (!confirm('♻️ Restaurar o último backup local e enviar tudo para o backend agora?')) return;
 
       try {
-        const todasCartas = [];
-        let totalCartas = 0;
-
-        const categorias = [
-          { id: 'personagens', nome: 'Personagens Bíblicos' },
-          { id: 'profecias', nome: 'Profecias' },
-          { id: 'pregacao', nome: 'Pregação' }
-        ];
-
-        for (const categoria of categorias) {
-          const cartas = cartasCache[categoria.id] || [];
-          
-          cartas.forEach(carta => {
-            todasCartas.push({
-              categoria: categoria.nome,
-              resposta: carta.resposta,
-              dica1: carta.dica1,
-              dica2: carta.dica2,
-              dica3: carta.dica3
-            });
-            totalCartas++;
-          });
+        const parsed = JSON.parse(raw);
+        const backupCartas = parsed.cartas || {};
+        for (const categoria of CATEGORIAS) {
+          await salvarCategoriaCompleta(categoria, backupCartas[categoria] || [], false);
         }
-
-        if (todasCartas.length === 0) {
-          mostrarAlerta('❌ Nenhuma carta encontrada para exportar!', 'error');
-          return;
-        }
-
-        // Gerar CSV com BOM UTF-8
-        let csv = '\uFEFF'; // BOM para Excel reconhecer UTF-8
-        csv += 'Categoria,Resposta,Dica 1,Dica 2,Dica 3\n';
-
-        todasCartas.forEach(carta => {
-          const linha = [
-            escaparCSV(carta.categoria),
-            escaparCSV(carta.resposta),
-            escaparCSV(carta.dica1),
-            escaparCSV(carta.dica2),
-            escaparCSV(carta.dica3)
-          ].join(',');
-          
-          csv += linha + '\n';
-        });
-
-        // Download
-        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        const url = URL.createObjectURL(blob);
-        
-        const dataHora = new Date().toISOString().slice(0,19).replace(/:/g,'-');
-        const nomeArquivo = `cartas-biblicas-${dataHora}.csv`;
-        
-        link.setAttribute('href', url);
-        link.setAttribute('download', nomeArquivo);
-        link.style.visibility = 'hidden';
-        
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        mostrarAlerta(`✅ ${totalCartas} cartas exportadas com sucesso!\n\nArquivo: ${nomeArquivo}`, 'success');
-
+        mostrarAlerta('✅ Backup local restaurado com sucesso no backend!', 'success');
+        await carregarEstatisticas();
+        renderLista();
+        refreshEditSelect();
       } catch (error) {
-        console.error('Erro ao exportar:', error);
-        mostrarAlerta(`❌ Erro ao exportar: ${error.message}`, 'error');
+        console.error(error);
+        mostrarAlerta(`❌ Falha ao restaurar backup: ${error.message}`, 'error');
       }
     }
 
-    function escaparCSV(texto) {
-      if (!texto) return '';
-      
-      texto = String(texto);
-      
-      // Se contém vírgula, aspas ou quebra de linha, envolver em aspas
-      if (texto.includes(',') || texto.includes('"') || texto.includes('\n')) {
-        // Duplicar aspas internas
-        texto = texto.replace(/"/g, '""');
-        // Envolver em aspas
-        return `"${texto}"`;
-      }
-      
-      return texto;
+    function clearBackupLocal() {
+      if (!confirm('🧹 Limpar o backup local salvo neste navegador?')) return;
+      localStorage.removeItem(BACKUP_KEY);
+      updateBackupStatus();
+      mostrarAlerta('✅ Backup local removido deste navegador.', 'success');
     }
 
-    // ============================================
-    // MUDAR ABA
-    // ============================================
-    function mudarAba(aba) {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      event.target.classList.add('active');
-
-      document.querySelectorAll('.aba-content').forEach(c => c.classList.add('hidden'));
-      document.getElementById(`aba-${aba}`).classList.remove('hidden');
-
-      if (aba === 'listar') {
-        listarCartas();
-      }
-    }
-
-    // ============================================
-    // MOSTRAR ALERTA
-    // ============================================
-    function mostrarAlerta(mensagem, tipo) {
-      const alert = document.getElementById('alert');
-      alert.textContent = mensagem;
-      alert.className = `alert alert-${tipo} show`;
-
-      setTimeout(() => {
-        alert.classList.remove('show');
-      }, 5000);
-
+    function mostrarAlerta(message, type = 'success') {
+      el.alert.textContent = message;
+      el.alert.className = `alert ${type} show`;
+      clearTimeout(mostrarAlerta._timer);
+      mostrarAlerta._timer = setTimeout(() => el.alert.classList.remove('show'), 5000);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // ============================================
-    // SALVAR CATEGORIA COMPLETA NO BACKEND
-    // ============================================
-    async function salvarCategoriaCompleta(categoria, cartas) {
-      const response = await fetch(`${API_BASE}/cartas/${categoria}/popular`, {
+    async function fetchJsonSafely(url, options = {}) {
+      const response = await fetch(url, options);
+      const text = await response.text();
+      let data = {};
+      try {
+        data = text ? JSON.parse(text) : {};
+      } catch {
+        data = { raw: text };
+      }
+      if (!response.ok) {
+        throw new Error(data.error || data.erro || data.raw || `HTTP ${response.status}`);
+      }
+      return data;
+    }
+
+    async function salvarCategoriaCompleta(categoria, cartas, fazerBackupAntes = true) {
+      if (fazerBackupAntes) saveBackupLocal();
+      const data = await fetchJsonSafely(`${API_BASE}/cartas/${categoria}/popular`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -763,270 +617,389 @@
         },
         body: JSON.stringify({ cartas })
       });
-
-      const texto = await response.text();
-      let data = {};
-      try {
-        data = texto ? JSON.parse(texto) : {};
-      } catch {
-        data = { error: texto || 'Resposta inválida do servidor' };
-      }
-
-      if (!response.ok || data.sucesso === false) {
-        throw new Error(data.error || data.erro || 'Erro ao salvar categoria');
-      }
-
+      if (data.sucesso === false) throw new Error(data.error || data.erro || 'Erro ao salvar categoria');
       return data;
     }
 
-    // ============================================
-    // ADICIONAR CARTA
-    // ============================================
-    document.getElementById('form-adicionar').addEventListener('submit', async (e) => {
-      e.preventDefault();
+    function preencherStats() {
+      const totalPersonagens = cartasCache.personagens.length;
+      const totalProfecias = cartasCache.profecias.length;
+      const totalPregacao = cartasCache.pregacao.length;
+      const total = totalPersonagens + totalProfecias + totalPregacao;
+      el.statPersonagens.textContent = totalPersonagens;
+      el.statProfecias.textContent = totalProfecias;
+      el.statPregacao.textContent = totalPregacao;
+      el.statTotal.textContent = total;
+    }
 
-      const categoria = document.getElementById('nova-categoria').value;
-      const novaCarta = {
-        resposta: document.getElementById('nova-resposta').value.trim(),
-        dica1: document.getElementById('nova-dica1').value.trim(),
-        dica2: document.getElementById('nova-dica2').value.trim(),
-        dica3: document.getElementById('nova-dica3').value.trim()
-      };
+    async function carregarEstatisticas() {
+      for (const categoria of CATEGORIAS) {
+        try {
+          const data = await fetchJsonSafely(`${API_BASE}/cartas/${categoria}`, { headers: { 'Accept': 'application/json' } });
+          cartasCache[categoria] = Array.isArray(data.cartas) ? data.cartas : [];
+        } catch (error) {
+          console.error(`Erro ao carregar ${categoria}:`, error);
+          cartasCache[categoria] = [];
+        }
+      }
+      preencherStats();
+      updateBackupStatus();
+    }
 
-      if (!novaCarta.resposta || !novaCarta.dica1 || !novaCarta.dica2 || !novaCarta.dica3) {
-        mostrarAlerta('⚠️ Preencha todos os campos!', 'error');
+    function getFilteredCards() {
+      const query = normalizeText(el.busca.value);
+      const categoria = el.filtroCategoria.value;
+      const ordenacao = el.ordenacao.value;
+      let items = getAllCards().filter(item => categoria === 'todas' || item.categoria === categoria);
+
+      if (query) {
+        items = items.filter(({ carta }) => {
+          const haystack = normalizeText(`${carta.resposta} ${carta.dica1} ${carta.dica2} ${carta.dica3}`);
+          return haystack.includes(query);
+        });
+      }
+
+      if (ordenacao === 'az') {
+        items.sort((a,b) => a.carta.resposta.localeCompare(b.carta.resposta, 'pt-BR'));
+      } else if (ordenacao === 'za') {
+        items.sort((a,b) => b.carta.resposta.localeCompare(a.carta.resposta, 'pt-BR'));
+      } else if (ordenacao === 'categoria') {
+        items.sort((a,b) => (a.categoria + a.carta.resposta).localeCompare(b.categoria + b.carta.resposta, 'pt-BR'));
+      }
+
+      el.statFiltrado.textContent = items.length;
+      return items;
+    }
+
+    function renderLista() {
+      const items = getFilteredCards();
+      if (!items.length) {
+        el.listaCartas.innerHTML = '<div class="empty">📭 Nenhuma carta encontrada com esse filtro.</div>';
         return;
       }
 
-      try {
-        const cartasAtualizadas = [...(cartasCache[categoria] || []), novaCarta];
-        await salvarCategoriaCompleta(categoria, cartasAtualizadas);
-        mostrarAlerta('✅ Carta adicionada com sucesso!', 'success');
-        document.getElementById('form-adicionar').reset();
-        await carregarEstatisticas();
-      } catch (erro) {
-        console.error('Erro:', erro);
-        mostrarAlerta(`❌ ${erro.message || 'Erro ao adicionar carta'}`, 'error');
-      }
-    });
-
-    // ============================================
-    // LISTAR CARTAS
-    // ============================================
-    async function listarCartas() {
-      const filtro = document.getElementById('filtro-categoria').value;
-      const busca = document.getElementById('busca').value.toLowerCase();
-      const lista = document.getElementById('cartas-lista');
-
-      lista.innerHTML = '<div class="loading"><div class="loading-spinner">⏳</div><p>Carregando cartas...</p></div>';
-
-      try {
-        const categorias = filtro === 'todas' ? ['personagens', 'profecias', 'pregacao'] : [filtro];
-        let html = '';
-        let count = 0;
-
-        for (const cat of categorias) {
-          const cartas = cartasCache[cat] || [];
-          
-          const cartasFiltradas = cartas.filter(carta => {
-            if (!busca) return true;
-            return carta.resposta.toLowerCase().includes(busca) ||
-                   carta.dica1.toLowerCase().includes(busca) ||
-                   carta.dica2.toLowerCase().includes(busca) ||
-                   carta.dica3.toLowerCase().includes(busca);
-          });
-
-          cartasFiltradas.forEach((carta, index) => {
-            const iconeCat = cat === 'personagens' ? '👤' : cat === 'profecias' ? '📜' : '🎤';
-            const nomeCat = cat === 'personagens' ? 'Personagens' : cat === 'profecias' ? 'Profecias' : 'Pregação';
-            
-            html += `
-              <div class="carta-item">
-                <div class="carta-header">
-                  <div class="carta-resposta">${carta.resposta}</div>
-                  <div class="carta-categoria">${iconeCat} ${nomeCat}</div>
-                </div>
-                <div class="carta-dicas">
-                  <div class="carta-dica"><strong>💡 Dica 1:</strong> ${carta.dica1}</div>
-                  <div class="carta-dica"><strong>💡 Dica 2:</strong> ${carta.dica2}</div>
-                  <div class="carta-dica"><strong>💡 Dica 3:</strong> ${carta.dica3}</div>
-                </div>
-                <div class="carta-actions">
-                  <button class="btn btn-primary btn-small" onclick="editarCartaRapido('${cat}', ${cartas.indexOf(carta)})">✏️ Editar</button>
-                  <button class="btn btn-danger btn-small" onclick="excluirCartaRapido('${cat}', ${cartas.indexOf(carta)}, '${carta.resposta.replace(/'/g, "\\'")}')">🗑️ Excluir</button>
+      el.listaCartas.innerHTML = items.map(({ categoria, index, carta }) => {
+        const resposta = escapeHtml(carta.resposta);
+        return `
+          <article class="card-item">
+            <div class="card-top">
+              <div>
+                <div class="answer">${resposta}</div>
+                <div class="meta">
+                  <span class="pill">${escapeHtml(CATEGORIA_NOME[categoria])}</span>
+                  <span class="pill dark">#${index + 1}</span>
                 </div>
               </div>
-            `;
-            count++;
-          });
-        }
-
-        lista.innerHTML = html || '<p style="text-align: center; padding: 40px; color: #666;">📭 Nenhuma carta encontrada.</p>';
-      } catch (erro) {
-        console.error('Erro:', erro);
-        lista.innerHTML = '<p style="text-align: center; padding: 40px; color: red;">❌ Erro ao carregar cartas!</p>';
-      }
+              <div class="card-actions">
+                <button class="btn primary small" type="button" data-action="edit" data-categoria="${categoria}" data-index="${index}">✏️ Editar</button>
+                <button class="btn secondary small" type="button" data-action="duplicate" data-categoria="${categoria}" data-index="${index}">📄 Duplicar</button>
+                <button class="btn danger small" type="button" data-action="delete" data-categoria="${categoria}" data-index="${index}">🗑️ Excluir</button>
+              </div>
+            </div>
+            <div class="hint"><strong>💡 Dica 1:</strong> ${escapeHtml(carta.dica1)}</div>
+            <div class="hint"><strong>💡 Dica 2:</strong> ${escapeHtml(carta.dica2)}</div>
+            <div class="hint"><strong>💡 Dica 3:</strong> ${escapeHtml(carta.dica3)}</div>
+          </article>
+        `;
+      }).join('');
     }
 
-    // ============================================
-    // EDITAR CARTA RÁPIDO
-    // ============================================
-    function editarCartaRapido(categoria, index) {
-      const tabEditar = document.querySelector('.tab:nth-child(3)');
-      tabEditar.click();
-      
-      document.getElementById('editar-categoria-filtro').value = categoria;
-      carregarCartasParaEditar();
-      
-      setTimeout(() => {
-        document.getElementById('editar-carta-select').value = index;
-        carregarCartaParaEditar();
-      }, 100);
-    }
+    function refreshEditSelect() {
+      const categoria = el.editarCategoriaFiltro.value;
+      const query = normalizeText(el.editarBusca.value);
 
-    // ============================================
-    // EXCLUIR CARTA RÁPIDO
-    // ============================================
-    async function excluirCartaRapido(categoria, index, nome) {
-      if (!confirm(`⚠️ Tem certeza que deseja excluir a carta "${nome}"?\n\nEsta ação não pode ser desfeita!`)) {
-        return;
-      }
-
-      try {
-        const cartasAtuais = [...(cartasCache[categoria] || [])];
-        cartasAtuais.splice(index, 1);
-        await salvarCategoriaCompleta(categoria, cartasAtuais);
-        mostrarAlerta('✅ Carta excluída com sucesso!', 'success');
-        await carregarEstatisticas();
-        listarCartas();
-      } catch (erro) {
-        console.error('Erro:', erro);
-        mostrarAlerta(`❌ ${erro.message || 'Erro ao excluir carta'}`, 'error');
-      }
-    }
-
-    // ============================================
-    // CARREGAR CARTAS PARA EDITAR
-    // ============================================
-    async function carregarCartasParaEditar() {
-      const categoria = document.getElementById('editar-categoria-filtro').value;
-      const select = document.getElementById('editar-carta-select');
-      
       if (!categoria) {
-        select.innerHTML = '<option value="">-- Selecione uma categoria primeiro --</option>';
-        document.getElementById('form-editar').classList.add('hidden');
+        el.editarCartaSelect.innerHTML = '<option value="">-- Selecione uma categoria primeiro --</option>';
+        el.statusEdicao.textContent = 'Selecione uma categoria para começar.';
+        hideEditor();
         return;
       }
 
       const cartas = cartasCache[categoria] || [];
-      
-      select.innerHTML = '<option value="">-- Selecione uma carta --</option>';
-      cartas.forEach((carta, index) => {
-        select.innerHTML += `<option value="${index}">${carta.resposta}</option>`;
+      const filtradas = cartas.map((carta, index) => ({ carta, index })).filter(({ carta }) => {
+        if (!query) return true;
+        return normalizeText(`${carta.resposta} ${carta.dica1} ${carta.dica2} ${carta.dica3}`).includes(query);
       });
-    }
 
-    // ============================================
-    // CARREGAR CARTA PARA EDITAR
-    // ============================================
-    function carregarCartaParaEditar() {
-      const categoria = document.getElementById('editar-categoria-filtro').value;
-      const index = document.getElementById('editar-carta-select').value;
-
-      if (!index && index !== '0') {
-        document.getElementById('form-editar').classList.add('hidden');
+      if (!filtradas.length) {
+        el.editarCartaSelect.innerHTML = '<option value="">-- Nenhuma carta encontrada --</option>';
+        el.statusEdicao.textContent = `0 carta encontrada em ${CATEGORIA_NOME[categoria]}.`;
+        hideEditor();
         return;
       }
 
-      const carta = cartasCache[categoria][index];
-      
-      document.getElementById('editar-index').value = index;
-      document.getElementById('editar-categoria').value = categoria;
-      document.getElementById('editar-resposta').value = carta.resposta;
-      document.getElementById('editar-dica1').value = carta.dica1;
-      document.getElementById('editar-dica2').value = carta.dica2;
-      document.getElementById('editar-dica3').value = carta.dica3;
-
-      document.getElementById('form-editar').classList.remove('hidden');
-      
-      document.getElementById('form-editar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      el.editarCartaSelect.innerHTML = '<option value="">-- Selecione uma carta --</option>' + filtradas.map(({ carta, index }) => `
+        <option value="${index}">${escapeHtml(carta.resposta)}</option>
+      `).join('');
+      el.statusEdicao.textContent = `${filtradas.length} carta(s) encontrada(s) em ${CATEGORIA_NOME[categoria]}.`;
     }
 
-    // ============================================
-    // SALVAR EDIÇÃO
-    // ============================================
-    document.getElementById('form-editar').addEventListener('submit', async (e) => {
-      e.preventDefault();
+    function showEditor(categoria, index) {
+      const carta = cartasCache[categoria]?.[index];
+      if (!carta) {
+        hideEditor();
+        return;
+      }
+      el.editarIndex.value = String(index);
+      el.editarCategoria.value = categoria;
+      el.editarResposta.value = carta.resposta || '';
+      el.editarDica1.value = carta.dica1 || '';
+      el.editarDica2.value = carta.dica2 || '';
+      el.editarDica3.value = carta.dica3 || '';
+      el.formEditar.classList.remove('hidden');
+      el.editorVazio.classList.add('hidden');
+      el.statusEdicao.textContent = `Editando ${carta.resposta} em ${CATEGORIA_NOME[categoria]}.`;
+    }
 
-      const categoria = document.getElementById('editar-categoria').value;
-      const index = parseInt(document.getElementById('editar-index').value);
+    function hideEditor() {
+      el.formEditar.classList.add('hidden');
+      el.editorVazio.classList.remove('hidden');
+      el.editarIndex.value = '';
+      el.editarCategoria.value = '';
+      el.statusEdicao.textContent ||= 'Selecione uma categoria para começar.';
+    }
 
-      const cartaAtualizada = {
-        resposta: document.getElementById('editar-resposta').value.trim(),
-        dica1: document.getElementById('editar-dica1').value.trim(),
-        dica2: document.getElementById('editar-dica2').value.trim(),
-        dica3: document.getElementById('editar-dica3').value.trim()
+    function getCardPayload(prefix) {
+      const resposta = document.getElementById(`${prefix}-resposta`).value.trim();
+      const dica1 = document.getElementById(`${prefix}-dica1`).value.trim();
+      const dica2 = document.getElementById(`${prefix}-dica2`).value.trim();
+      const dica3 = document.getElementById(`${prefix}-dica3`).value.trim();
+      if (!resposta || !dica1 || !dica2 || !dica3) {
+        throw new Error('Preencha resposta e as 3 dicas.');
+      }
+      return { resposta, dica1, dica2, dica3 };
+    }
+
+    async function addCard(categoria, carta) {
+      const atualizadas = [...(cartasCache[categoria] || []), carta];
+      await salvarCategoriaCompleta(categoria, atualizadas);
+      await carregarEstatisticas();
+      renderLista();
+      refreshEditSelect();
+    }
+
+    async function updateCard(categoria, index, carta) {
+      const atualizadas = [...(cartasCache[categoria] || [])];
+      atualizadas[index] = carta;
+      await salvarCategoriaCompleta(categoria, atualizadas);
+      await carregarEstatisticas();
+      renderLista();
+      refreshEditSelect();
+      el.editarCartaSelect.value = String(index);
+      showEditor(categoria, index);
+    }
+
+    async function deleteCard(categoria, index) {
+      const atualizadas = [...(cartasCache[categoria] || [])];
+      const [removida] = atualizadas.splice(index, 1);
+      await salvarCategoriaCompleta(categoria, atualizadas);
+      await carregarEstatisticas();
+      renderLista();
+      refreshEditSelect();
+      hideEditor();
+      return removida;
+    }
+
+    async function duplicateCard(categoria, index) {
+      const original = cartasCache[categoria]?.[index];
+      if (!original) throw new Error('Carta não encontrada para duplicar.');
+      const clone = {
+        resposta: `${original.resposta} (Cópia)`,
+        dica1: original.dica1,
+        dica2: original.dica2,
+        dica3: original.dica3
       };
+      await addCard(categoria, clone);
+      mostrarAlerta('✅ Carta duplicada com sucesso!', 'success');
+    }
 
-      if (!cartaAtualizada.resposta || !cartaAtualizada.dica1 || !cartaAtualizada.dica2 || !cartaAtualizada.dica3) {
-        mostrarAlerta('⚠️ Preencha todos os campos!', 'error');
-        return;
+    async function verificarDados() {
+      mostrarAlerta('🔍 Verificando integridade... veja o console se quiser mais detalhes.', 'success');
+      const problemas = [];
+      for (const categoria of CATEGORIAS) {
+        try {
+          const response = await fetch(`${API_BASE}/cartas/${categoria}`);
+          const text = await response.text();
+          console.group(`Verificação: ${categoria}`);
+          console.log('Status:', response.status);
+          console.log('Content-Type:', response.headers.get('content-type'));
+          console.log('Prévia:', text.slice(0, 300));
+          try {
+            const data = JSON.parse(text);
+            console.log('Total:', Array.isArray(data.cartas) ? data.cartas.length : 0);
+          } catch (e) {
+            console.error('JSON inválido:', e);
+            problemas.push(categoria);
+          }
+          console.groupEnd();
+        } catch (e) {
+          console.error(e);
+          problemas.push(categoria);
+        }
       }
-
-      try {
-        const cartasAtualizadas = [...(cartasCache[categoria] || [])];
-        cartasAtualizadas[index] = cartaAtualizada;
-        await salvarCategoriaCompleta(categoria, cartasAtualizadas);
-        mostrarAlerta('✅ Carta atualizada com sucesso!', 'success');
-        await carregarEstatisticas();
-        cancelarEdicao();
-      } catch (erro) {
-        console.error('Erro:', erro);
-        mostrarAlerta(`❌ ${erro.message || 'Erro ao atualizar carta'}`, 'error');
-      }
-    });
-
-    // ============================================
-    // EXCLUIR CARTA
-    // ============================================
-    async function excluirCarta() {
-      const resposta = document.getElementById('editar-resposta').value;
-      
-      if (!confirm(`⚠️ Tem certeza que deseja excluir a carta "${resposta}"?\n\nEsta ação não pode ser desfeita!`)) {
-        return;
-      }
-
-      const categoria = document.getElementById('editar-categoria').value;
-      const index = parseInt(document.getElementById('editar-index').value);
-
-      try {
-        const cartasAtuais = [...(cartasCache[categoria] || [])];
-        cartasAtuais.splice(index, 1);
-        await salvarCategoriaCompleta(categoria, cartasAtuais);
-        mostrarAlerta('✅ Carta excluída com sucesso!', 'success');
-        await carregarEstatisticas();
-        cancelarEdicao();
-        document.getElementById('editar-categoria-filtro').value = '';
-        document.getElementById('editar-carta-select').innerHTML = '<option value="">-- Selecione uma categoria primeiro --</option>';
-      } catch (erro) {
-        console.error('Erro:', erro);
-        mostrarAlerta(`❌ ${erro.message || 'Erro ao excluir carta'}`, 'error');
+      if (problemas.length) {
+        mostrarAlerta(`❌ Problemas encontrados em: ${problemas.join(', ')}`, 'error');
+      } else {
+        mostrarAlerta('✅ Todos os dados parecem íntegros.', 'success');
       }
     }
 
-    // ============================================
-    // CANCELAR EDIÇÃO
-    // ============================================
-    function cancelarEdicao() {
-      document.getElementById('form-editar').classList.add('hidden');
-      document.getElementById('editar-carta-select').value = '';
+    function exportarCartasCSV() {
+      const rows = [['Categoria', 'Resposta', 'Dica 1', 'Dica 2', 'Dica 3']];
+      getAllCards().forEach(({ categoria, carta }) => rows.push([
+        CATEGORIA_NOME[categoria].replace(/^.+?\s/, ''),
+        carta.resposta || '',
+        carta.dica1 || '',
+        carta.dica2 || '',
+        carta.dica3 || ''
+      ]));
+      if (rows.length === 1) {
+        mostrarAlerta('❌ Nenhuma carta para exportar.', 'error');
+        return;
+      }
+      const csv = '\uFEFF' + rows.map(cols => cols.map(value => {
+        const t = String(value).replace(/"/g, '""');
+        return /[",\n]/.test(t) ? `"${t}"` : t;
+      }).join(',')).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `cartas-admin-pro-${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      mostrarAlerta('✅ CSV exportado com sucesso!', 'success');
     }
 
-    // ============================================
-    // INICIALIZAR
-    // ============================================
-    window.addEventListener('DOMContentLoaded', () => {
-      carregarEstatisticas();
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.toggle('active', tab.dataset.tab === tabName));
+      document.querySelectorAll('.aba').forEach(aba => aba.classList.toggle('hidden', aba.id !== `aba-${tabName}`));
+      if (tabName === 'listar') renderLista();
+      if (tabName === 'editar') refreshEditSelect();
+    }
+
+    function bindEvents() {
+      document.querySelectorAll('.tab[data-tab]').forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.tab)));
+      document.getElementById('btn-integridade').addEventListener('click', verificarDados);
+      document.getElementById('btn-exportar').addEventListener('click', exportarCartasCSV);
+      document.getElementById('btn-recarregar-lista').addEventListener('click', async () => {
+        await carregarEstatisticas();
+        renderLista();
+        refreshEditSelect();
+        mostrarAlerta('✅ Dados recarregados do backend.', 'success');
+      });
+
+      document.getElementById('btn-backup-manual').addEventListener('click', () => {
+        saveBackupLocal();
+        mostrarAlerta('✅ Backup local salvo neste navegador.', 'success');
+      });
+      document.getElementById('btn-restaurar-backup').addEventListener('click', restoreBackupLocal);
+      document.getElementById('btn-limpar-backup').addEventListener('click', clearBackupLocal);
+
+      ['busca','filtro-categoria','ordenacao'].forEach(id => document.getElementById(id).addEventListener(id === 'busca' ? 'input' : 'change', renderLista));
+      el.listaCartas.addEventListener('click', async (event) => {
+        const btn = event.target.closest('button[data-action]');
+        if (!btn) return;
+        const categoria = btn.dataset.categoria;
+        const index = Number(btn.dataset.index);
+        const carta = cartasCache[categoria]?.[index];
+        if (!carta) return;
+
+        try {
+          if (btn.dataset.action === 'edit') {
+            switchTab('editar');
+            el.editarCategoriaFiltro.value = categoria;
+            refreshEditSelect();
+            el.editarCartaSelect.value = String(index);
+            showEditor(categoria, index);
+          } else if (btn.dataset.action === 'duplicate') {
+            await duplicateCard(categoria, index);
+          } else if (btn.dataset.action === 'delete') {
+            if (!confirm(`⚠️ Excluir a carta "${carta.resposta}"?`)) return;
+            await deleteCard(categoria, index);
+            mostrarAlerta('✅ Carta excluída com sucesso!', 'success');
+          }
+        } catch (error) {
+          console.error(error);
+          mostrarAlerta(`❌ ${error.message}`, 'error');
+        }
+      });
+
+      el.formAdicionar.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        try {
+          const categoria = el.novaCategoria.value;
+          const carta = getCardPayload('nova');
+          await addCard(categoria, carta);
+          el.formAdicionar.reset();
+          mostrarAlerta('✅ Carta adicionada com sucesso!', 'success');
+        } catch (error) {
+          console.error(error);
+          mostrarAlerta(`❌ ${error.message}`, 'error');
+        }
+      });
+
+      el.editarCategoriaFiltro.addEventListener('change', refreshEditSelect);
+      el.editarBusca.addEventListener('input', refreshEditSelect);
+      el.editarCartaSelect.addEventListener('change', () => {
+        const categoria = el.editarCategoriaFiltro.value;
+        const index = el.editarCartaSelect.value;
+        if (index === '') {
+          hideEditor();
+          return;
+        }
+        showEditor(categoria, Number(index));
+      });
+
+      el.formEditar.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        try {
+          const categoria = el.editarCategoria.value;
+          const index = Number(el.editarIndex.value);
+          const carta = getCardPayload('editar');
+          await updateCard(categoria, index, carta);
+          mostrarAlerta('✅ Carta atualizada com sucesso!', 'success');
+        } catch (error) {
+          console.error(error);
+          mostrarAlerta(`❌ ${error.message}`, 'error');
+        }
+      });
+
+      document.getElementById('btn-duplicar-editor').addEventListener('click', async () => {
+        try {
+          const categoria = el.editarCategoria.value;
+          const index = Number(el.editarIndex.value);
+          await duplicateCard(categoria, index);
+        } catch (error) {
+          console.error(error);
+          mostrarAlerta(`❌ ${error.message}`, 'error');
+        }
+      });
+
+      document.getElementById('btn-excluir-editor').addEventListener('click', async () => {
+        try {
+          const categoria = el.editarCategoria.value;
+          const index = Number(el.editarIndex.value);
+          const carta = cartasCache[categoria]?.[index];
+          if (!carta) return;
+          if (!confirm(`⚠️ Excluir a carta "${carta.resposta}"?`)) return;
+          await deleteCard(categoria, index);
+          mostrarAlerta('✅ Carta excluída com sucesso!', 'success');
+        } catch (error) {
+          console.error(error);
+          mostrarAlerta(`❌ ${error.message}`, 'error');
+        }
+      });
+
+      document.getElementById('btn-cancelar-editor').addEventListener('click', hideEditor);
+    }
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      initRefs();
+      bindEvents();
+      await carregarEstatisticas();
+      renderLista();
+      refreshEditSelect();
     });
   </script>
 </body>
